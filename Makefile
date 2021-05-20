@@ -25,7 +25,7 @@ ERROR_DIR	=	./Error
 
 MAIN_FILE	=	Indie
 
-INDIE_FILES	=	RaylibEncapsulation/RaylibEncapsulation	\
+INDIE_FILES	=	RaylibEncapsulation/RaylibEncapsulation
 
 ERROR_FILES	=	Error
 
@@ -38,22 +38,22 @@ INDIE_OBJ	=	$(SRC:.cpp=.o)
 ## FLAGS DEF ########################
 
 
-CFLAGS		=	-W -Wextra -Wall #Werror
+CXXFLAGS	=	-W -Wextra -Wall #Werror
 
 CPPFLAGS	=	-I./Error -I./src
 
-LDFLAGS		=
+LDFLAGS		=	-lraylib -O2 -lGL -lm -lpthread -ldl -lrt -lX11
 
 ## COMPILATION DEF ########################
 
 %.o:    %.cpp
-	@$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -c -o $@ $<
+	@$(CC) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -c -o $@ $<
 	@printf "[\033[0;32mcompiled\033[0m] % 29s\n" $< | tr ' ' '.'
 
 all: $(BIN_INDIE)
 
 $(BIN_INDIE): $(INDIE_OBJ)
-	@$(CC) -o $(BIN_INDIE) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(INDIE_OBJ)
+	@$(CC) -o $(BIN_INDIE) $(INDIE_OBJ) $(LDFLAGS)
 	@printf "[\033[0;36mbuilt\033[0m] % 32s\n" $(BIN_INDIE) | tr ' ' '.'
 
 clean:
@@ -64,7 +64,7 @@ fclean: clean
 	@$(RM) $(BIN_INDIE)
 	@printf "[\033[0;31mdeleted\033[0m] % 30s\n" $(BIN_INDIE) | tr ' ' '.'
 
-debug:  CPPFLAGS += -g3
+debug:  CXXFLAGS += -g3
 debug:	re
 
 re:	fclean all

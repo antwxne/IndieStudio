@@ -5,8 +5,9 @@
 ** Indie
 */
 
-int main(int ac, char **av) {
-    (void)ac;
-    (void)av;
+#include "raylib.h"
+
+int main(void)
+{
     return 0;
 }
