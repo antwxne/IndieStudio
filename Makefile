@@ -18,7 +18,6 @@ TEST_BIN	=	unit_tests
 
 ## OBJ DEF ########################
 
-
 SRC_DIR		=	./src
 
 ERROR_DIR	=	./Error
@@ -37,7 +36,6 @@ INDIE_OBJ	=	$(SRC:.cpp=.o)
 
 ## FLAGS DEF ########################
 
-
 CXXFLAGS	=	-W -Wextra -Wall #Werror
 
 CPPFLAGS	=	-I./Error -I./src
@@ -53,6 +51,7 @@ LDFLAGS		=	-lraylib -O2 -lGL -lm -lpthread -ldl -lrt -lX11
 all: $(BIN_INDIE)
 
 $(BIN_INDIE): $(INDIE_OBJ)
+	@echo Compiled with $(CXXFLAGS) and $(LDFLAGS)
 	@$(CC) -o $(BIN_INDIE) $(INDIE_OBJ) $(LDFLAGS)
 	@printf "[\033[0;36mbuilt\033[0m] % 32s\n" $(BIN_INDIE) | tr ' ' '.'
 
