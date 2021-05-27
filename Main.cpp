@@ -5,12 +5,12 @@
 ** Indie
 */
 
-#include "RaylibEncapsulation/RaylibEncapsulation.hpp"
+#include "Raylib/Raylib.hpp"
 
 int main(void)
 {
     /////////////////////TEST GRAPHIQUE////////////
-    auto Lib = std::make_unique<RaylibEncapsulation>();
+    auto Lib = std::make_unique<Raylib>();
     const std::size_t Fps = 60;
     const int screenWidth = 1920;
     const int screenHeight = 1080;

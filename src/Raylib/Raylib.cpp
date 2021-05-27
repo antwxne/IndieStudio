@@ -2,19 +2,19 @@
 ** EPITECH PROJECT, 2021
 ** B-YEP-400-PAR-4-1-indiestudio-clement1.ruat
 ** File description:
-** RaylibEncapsulation
+** Raylib
 */
 
-#include "RaylibEncapsulation.hpp"
+#include "Raylib.hpp"
 
-RaylibEncapsulation::RaylibEncapsulation() : _is3D(false)
+Raylib::Raylib() : _is3D(false)
 {
     _camera = {{0.0f, 10.0f, 10.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 45.0f, 0};
 }
 
-RaylibEncapsulation::~RaylibEncapsulation() {}
+Raylib::~Raylib() {}
 
-void RaylibEncapsulation::SetCamera(Vector3 pos, Vector3 target, Vector3 up, float fovy, int projection)
+void Raylib::SetCamera(Vector3 pos, Vector3 target, Vector3 up, float fovy, int projection)
 {
     _camera.position = pos;
     _camera.target = target;
@@ -23,21 +23,21 @@ void RaylibEncapsulation::SetCamera(Vector3 pos, Vector3 target, Vector3 up, flo
     _camera.projection = projection;
 };
 
-Camera RaylibEncapsulation::GetCamera(void)
+Camera Raylib::GetCamera(void)
 {
     return _camera;
 };
 
-void RaylibEncapsulation::Set3d(bool is3d)
+void Raylib::Set3d(bool is3d)
 {
     _is3D = is3d;
 };
-bool RaylibEncapsulation::Get3d(void)
+bool Raylib::Get3d(void)
 {
     return _is3D;
 };
 
-void RaylibEncapsulation::CreateWindow(int screenWidth, int screenHeight, std::string title, std::size_t fps)
+void Raylib::CreateWindow(int screenWidth, int screenHeight, std::string title, std::size_t fps)
 {
     _screenSize.first = screenWidth;
     _screenSize.second = screenHeight;
@@ -45,12 +45,12 @@ void RaylibEncapsulation::CreateWindow(int screenWidth, int screenHeight, std::s
     SetTargetFPS(fps);
 }
 
-void RaylibEncapsulation::DestroyWindow()
+void Raylib::DestroyWindow()
 {
     CloseWindow();
 }
 
-void RaylibEncapsulation::DrawingLoopBegun()
+void Raylib::DrawingLoopBegun()
 {
     BeginDrawing();
     ClearBackground(RAYWHITE);
@@ -58,19 +58,19 @@ void RaylibEncapsulation::DrawingLoopBegun()
         BeginMode3D(_camera);
 }
 
-void RaylibEncapsulation::DrawingLoopEnd()
+void Raylib::DrawingLoopEnd()
 {
     EndDrawing();
     if (_is3D)
         EndMode3D();
 }
 
-void RaylibEncapsulation::PrintText(std::string text, std::pair<int, int> position, int fontSize, Color color)
+void Raylib::PrintText(std::string text, std::pair<int, int> position, int fontSize, Color color)
 {
     DrawText(text.c_str(), position.first, position.second, fontSize, color);
 }
 
-void RaylibEncapsulation::PrintCircle(std::string type, std::pair<int, int> position, float radius, std::pair<Color, Color> color)
+void Raylib::PrintCircle(std::string type, std::pair<int, int> position, float radius, std::pair<Color, Color> color)
 {
     if (type.compare("Basic") == 0)
         DrawCircle(position.first, position.second, radius, color.first);
@@ -82,7 +82,7 @@ void RaylibEncapsulation::PrintCircle(std::string type, std::pair<int, int> posi
         std::cout << "[-] Unknow Circle Type, valid are Basic, Gradient, Lines" << '\n';
 }
 
-void RaylibEncapsulation::PrintRectangle(std::string type, std::pair<int, int> position, std::pair<int, int> size, std::pair<Color, Color> color)
+void Raylib::PrintRectangle(std::string type, std::pair<int, int> position, std::pair<int, int> size, std::pair<Color, Color> color)
 {
     if (type.compare("Basic") == 0)
         DrawRectangle(position.first, position.second, size.first, size.second, color.first);
@@ -94,7 +94,7 @@ void RaylibEncapsulation::PrintRectangle(std::string type, std::pair<int, int> p
         std::cout << "[-] Unknow Rectangle Type, valid are Basic, Gradient, Lines" << '\n';
 }
 
-void RaylibEncapsulation::PrintCube(std::string type, Vector3 position, Vector3 size, Color color)
+void Raylib::PrintCube(std::string type, Vector3 position, Vector3 size, Color color)
 {
     if (type.compare("Basic") == 0)
         DrawCube(position, size.x, size.y, size.z, color);
@@ -104,7 +104,7 @@ void RaylibEncapsulation::PrintCube(std::string type, Vector3 position, Vector3 
         std::cout << "[-] Unknow Cube Type, valid are Basic, Wires" << '\n';
 }
 
-void RaylibEncapsulation::PrintSphere(std::string type, Vector3 position, float size, std::pair<int, int> Vertex, Color color)
+void Raylib::PrintSphere(std::string type, Vector3 position, float size, std::pair<int, int> Vertex, Color color)
 {
     if (type.compare("Basic") == 0)
         DrawSphere(position, size, color);
@@ -114,11 +114,11 @@ void RaylibEncapsulation::PrintSphere(std::string type, Vector3 position, float 
         std::cout << "[-] Unknow Shpere Type, valid are Basic, Wires" << '\n';
 }
 
-void RaylibEncapsulation::PrintGrid(int slices, float space)
+void Raylib::PrintGrid(int slices, float space)
 {
     DrawGrid(slices, space);
 }
-void RaylibEncapsulation::PrintFps(std::pair<int, int> pos)
+void Raylib::PrintFps(std::pair<int, int> pos)
 {
     DrawFPS(pos.first, pos.second);
 }
