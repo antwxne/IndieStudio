@@ -21,7 +21,7 @@ set(RAYLIB_SRCS
     ${RAYLIB_PATH}/Raylib.cpp)
 
 set(INDIE_SRCS
-    ${RAYLIB_SRCS})
+    ${RAYLIB_SRCS} src/Object/IObject.hpp src/Object/AObject.hpp src/Object/AObject.cpp src/Object/Collisionable/CollisionableObject.cpp src/Object/Collisionable/CollisionableObject.hpp)
 
 # Compilation
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules/)
