@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.17)
 project(IndieStudio)
 
 # Variables
-set(BINARY_NAME indie)
+set(BINARY_NAME bomberman)
 set(CMAKE_CXX_STANDARD 17)
 
 # Include directories
@@ -25,11 +25,11 @@ set(INDIE_SRCS
 
 # Compilation
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules/)
-# set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/)
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/)
 
 find_package(raylib REQUIRED)
 
 add_executable(${BINARY_NAME} Main.cpp ${INDIE_SRCS})
 
 target_compile_features(${BINARY_NAME} PRIVATE cxx_std_17)
-target_link_libraries(indie raylib)
+target_link_libraries(bomberman raylib)

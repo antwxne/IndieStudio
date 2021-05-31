@@ -14,7 +14,7 @@ SHELL	=	/bin/sh
 RM		=	rm -rf
 
 ## Output
-BIN			=	indie
+BIN			=	bomberman
 BUILD_DIR	=	build
 
 ## Rules ##
