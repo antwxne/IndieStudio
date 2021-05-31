@@ -23,7 +23,7 @@ void RaylibEncapsulation::SetCamera(Vector3 pos, Vector3 target, Vector3 up, flo
     _camera.projection = projection;
 };
 
-Camera RaylibEncapsulation::GetCamera(void)
+Camera RaylibEncapsulation::GetCamera() const
 {
     return _camera;
 };
@@ -31,13 +31,14 @@ Camera RaylibEncapsulation::GetCamera(void)
 void RaylibEncapsulation::Set3d(bool is3d)
 {
     _is3D = is3d;
-};
-bool RaylibEncapsulation::Get3d(void)
+}
+
+bool RaylibEncapsulation::Get3d() const
 {
     return _is3D;
-};
+}
 
-void RaylibEncapsulation::CreateWindow(int screenWidth, int screenHeight, std::string title, std::size_t fps)
+void RaylibEncapsulation::CreateWindow(int screenWidth, int screenHeight, std::string const title, std::size_t const fps)
 {
     _screenSize.first = screenWidth;
     _screenSize.second = screenHeight;
@@ -45,12 +46,12 @@ void RaylibEncapsulation::CreateWindow(int screenWidth, int screenHeight, std::s
     SetTargetFPS(fps);
 }
 
-void RaylibEncapsulation::DestroyWindow()
+void RaylibEncapsulation::DestroyWindow() const
 {
     CloseWindow();
 }
 
-void RaylibEncapsulation::DrawingLoopBegun()
+void RaylibEncapsulation::DrawingLoopBegun() const
 {
     BeginDrawing();
     ClearBackground(RAYWHITE);
@@ -58,19 +59,19 @@ void RaylibEncapsulation::DrawingLoopBegun()
         BeginMode3D(_camera);
 }
 
-void RaylibEncapsulation::DrawingLoopEnd()
+void RaylibEncapsulation::DrawingLoopEnd() const
 {
     EndDrawing();
     if (_is3D)
         EndMode3D();
 }
 
-void RaylibEncapsulation::PrintText(std::string text, std::pair<int, int> position, int fontSize, Color color)
+void RaylibEncapsulation::PrintText(std::string const text, std::pair<int, int> const position, int const fontSize, Color const color) const
 {
     DrawText(text.c_str(), position.first, position.second, fontSize, color);
 }
 
-void RaylibEncapsulation::PrintCircle(std::string type, std::pair<int, int> position, float radius, std::pair<Color, Color> color)
+void RaylibEncapsulation::PrintCircle(std::string const type, std::pair<int, int> const position, float const radius, std::pair<Color, Color> const color) const
 {
     if (type.compare("Basic") == 0)
         DrawCircle(position.first, position.second, radius, color.first);
@@ -82,7 +83,7 @@ void RaylibEncapsulation::PrintCircle(std::string type, std::pair<int, int> posi
         std::cout << "[-] Unknow Circle Type, valid are Basic, Gradient, Lines" << '\n';
 }
 
-void RaylibEncapsulation::PrintRectangle(std::string type, std::pair<int, int> position, std::pair<int, int> size, std::pair<Color, Color> color)
+void RaylibEncapsulation::PrintRectangle(std::string const type, std::pair<int, int> const position, std::pair<int, int> const size, std::pair<Color, Color> const color) const
 {
     if (type.compare("Basic") == 0)
         DrawRectangle(position.first, position.second, size.first, size.second, color.first);
@@ -94,7 +95,7 @@ void RaylibEncapsulation::PrintRectangle(std::string type, std::pair<int, int> p
         std::cout << "[-] Unknow Rectangle Type, valid are Basic, Gradient, Lines" << '\n';
 }
 
-void RaylibEncapsulation::PrintCube(std::string type, Vector3 position, Vector3 size, Color color)
+void RaylibEncapsulation::PrintCube(std::string const type, Vector3 const position, Vector3 const size, Color const color) const
 {
     if (type.compare("Basic") == 0)
         DrawCube(position, size.x, size.y, size.z, color);
@@ -104,7 +105,7 @@ void RaylibEncapsulation::PrintCube(std::string type, Vector3 position, Vector3 
         std::cout << "[-] Unknow Cube Type, valid are Basic, Wires" << '\n';
 }
 
-void RaylibEncapsulation::PrintSphere(std::string type, Vector3 position, float size, std::pair<int, int> Vertex, Color color)
+void RaylibEncapsulation::PrintSphere(std::string const type, Vector3 const position, float const size, std::pair<int, int> const Vertex, Color const color) const
 {
     if (type.compare("Basic") == 0)
         DrawSphere(position, size, color);
@@ -114,11 +115,31 @@ void RaylibEncapsulation::PrintSphere(std::string type, Vector3 position, float 
         std::cout << "[-] Unknow Shpere Type, valid are Basic, Wires" << '\n';
 }
 
-void RaylibEncapsulation::PrintGrid(int slices, float space)
+void RaylibEncapsulation::PrintGrid(int const slices, float const space) const
 {
     DrawGrid(slices, space);
 }
-void RaylibEncapsulation::PrintFps(std::pair<int, int> pos)
+
+void RaylibEncapsulation::PrintFps(std::pair<int, int> const pos) const
 {
     DrawFPS(pos.first, pos.second);
+}
+
+bool RaylibEncapsulation::IsControllerDetected(int const idx) const
+{
+    return IsGamepadAvailable(idx);
+}
+
+std::string RaylibEncapsulation::GetControllerName(int const idx) const
+{
+    return GetGamepadName(idx);
+}
+
+bool RaylibEncapsulation::IsControllerValid(int const idx, std::string const ControllerName) const
+{
+    if (ControllerName.compare("xbox"))
+        return (IsGamepadName(idx, XBOX360_NAME_ID) || IsGamepadName(idx, XBOX360_LEGACY_NAME_ID));
+    if (ControllerName.compare("ps3"))
+        return IsGamepadName(idx, PS3_NAME_ID);
+    return false;
 }

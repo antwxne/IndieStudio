@@ -15,17 +15,15 @@ int main(void)
     const int screenWidth = 1920;
     const int screenHeight = 1080;
 
-    const Vector3 playerSize = { 1.0f, 2.0f, 1.0f };
-    const Vector3 enemyBoxPos = { -4.0f, 1.0f, 0.0f };
-    const Vector3 enemyBoxSize = { 2.0f, 2.0f, 2.0f };
+    const Vector3 playerSize = {1.0f, 2.0f, 1.0f};
+    const Vector3 enemyBoxPos = {-4.0f, 1.0f, 0.0f};
+    const Vector3 enemyBoxSize = {2.0f, 2.0f, 2.0f};
 
-    Vector3 enemySpherePos = { 4.0f, 0.0f, 0.0f };
+    Vector3 enemySpherePos = {4.0f, 0.0f, 0.0f};
     float enemySphereSize = 1.5f;
 
-
-    Vector3 playerPosition = { 0.0f, 1.0f, 2.0f };
+    Vector3 playerPosition = {0.0f, 1.0f, 2.0f};
     Color playerColor = GREEN;
-
 
     Lib->CreateWindow(screenWidth, screenHeight, "LETS GO", Fps);
     Lib->Set3d(true);
@@ -47,6 +45,14 @@ int main(void)
         DrawCubeV(playerPosition, playerSize, playerColor);
         Lib->PrintGrid(10, 1);
         Lib->PrintFps({10, 10});
+        // if (Lib->IsControllerDetected(0))
+        // {
+            // std::cout << "Controller is Detected" << '\n';
+            // std::cout << Lib->GetControllerName(0) << '\n';
+            // if (Lib->IsControllerValid(0, "xbox"))
+                // std::cout << "CECI EST UNE MANETTE DE XBOX" << '\n';
+        // }
+
         Lib->DrawingLoopEnd();
     }
     Lib->DestroyWindow();
