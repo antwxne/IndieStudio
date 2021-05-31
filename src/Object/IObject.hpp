@@ -10,6 +10,14 @@
 
 #include <vector>
 
+template <typename T>
+std::pair<T, T> &operator+=(std::pair<T, T>&current, const std::pair<T, T> &other)
+{
+    current.first += other.first;
+    current.second += other.second;
+    return current;
+}
+
 class IObject {
 public:
     virtual int getBitMap() const noexcept = 0;

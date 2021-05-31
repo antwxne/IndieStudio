@@ -9,6 +9,6 @@
 
 AObject::AObject(const std::pair<int, int> &pos,
     const std::pair<int, int> &size
-): _pos(pos), _size(size), _bitmap(1 << OBJECT)
+): _pos(pos), _size(size), _bitmap(1 << OBJECT), _rotation(0)
 {
 }
