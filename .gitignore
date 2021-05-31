@@ -1,3 +1,13 @@
 .vscode
 .idea
 /cmake-build-debug/
+/CMakeFiles/
+/CMakeCache.txt
+*.o
+*.so
+*.cmake
+*.cbp
+/test.cpp
+/Testing/Temporary/
+/_deps/
+Makefile

@@ -5,10 +5,10 @@
 ** Created by antoine,
 */
 
+#include "Object/Collisionable/CollisionableObject.hpp"
+
 #ifndef INDIESTUDIO_MOVABLEOBJECT_HPP
 #define INDIESTUDIO_MOVABLEOBJECT_HPP
-
-#include "Object/Collisionable/CollisionableObject.hpp"
 
 class MovableObject: CollisionableObject {
 public:

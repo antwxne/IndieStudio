@@ -5,10 +5,14 @@
 ** Created by antoine,
 */
 
+#include "Object/Collisionable/CollisionableObject.hpp"
+
 #ifndef INDIESTUDIO_WALL_HPP
 #define INDIESTUDIO_WALL_HPP
 
-class Wall {
+class Wall: public CollisionableObject {
+public:
+    Wall(const std::pair<int, int> &pos, const std::pair<int, int> &size);
 };
 
 #endif //INDIESTUDIO_WALL_HPP

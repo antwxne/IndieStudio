@@ -5,10 +5,10 @@
 ** Created by antoine,
 */
 
+#include <vector>
+
 #ifndef INDIESTUDIO_IOBJECT_HPP
 #define INDIESTUDIO_IOBJECT_HPP
-
-#include <vector>
 
 template <typename T>
 std::pair<T, T> &operator+=(std::pair<T, T>&current, const std::pair<T, T> &other)

@@ -5,19 +5,24 @@
 ** Created by antoine,
 */
 
+#include "Object/IObject.hpp"
+
 #ifndef INDIESTUDIO_AOBJECT_HPP
 #define INDIESTUDIO_AOBJECT_HPP
 
-#include "Object/IObject.hpp"
 
 class AObject: public IObject {
 public:
     AObject(const std::pair<int, int> &pos, const std::pair<int, int> &size);
     ~AObject() = default;
 
-    template<typename T>
-    static bool isTypeOf(const IObject &obj) noexcept{
+    [[nodiscard]] int getBitMap() const noexcept final;
+    [[nodiscard]] const std::pair<int, int> & getPosition() const noexcept final;
+    [[nodiscard]] const std::pair<int, int> & getSize() const noexcept final;
 
+    template<typename T>
+    static bool isTypeOf(const IObject &obj) {
+        return (obj.getBitMap() << TYPES_OBJECT.at(typeid(T))) & 1;
     }
 
 protected:
