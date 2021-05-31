@@ -10,8 +10,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 # Include directories
 include_directories(src)
-include_directories(src/Raylib)
-include_directories(src/Object)
 
 # Paths
 set(RAYLIB_PATH src/Raylib)
