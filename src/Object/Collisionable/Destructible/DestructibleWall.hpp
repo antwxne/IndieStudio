@@ -6,12 +6,12 @@
 */
 
 #include "Object/Collisionable/Wall.hpp"
-#include "Object/DestroyableObject.hpp"
+#include "Object/Collisionable/Destructible/DestructibleObject.hpp"
 
 #ifndef INDIESTUDIO_DESTRUCTIBLEWALL_HPP
 #define INDIESTUDIO_DESTRUCTIBLEWALL_HPP
 
-class DestructibleWall: public Wall, public DestroyableObject {
+class DestructibleWall: public DestructibleObject {
 public:
     DestructibleWall(const std::pair<int, int> &pos, const std::pair<int, int> &size);
     ~DestructibleWall() = default;

@@ -20,7 +20,7 @@ std::pair<T, T> &operator+=(std::pair<T, T>&current, const std::pair<T, T> &othe
 
 class IObject {
 public:
-    virtual int getBitMap() const noexcept = 0;
+    [[nodiscard]] virtual int getBitMap() const noexcept = 0;
     [[nodiscard]] virtual const std::pair<int, int> &getPosition() const noexcept = 0;
     [[nodiscard]] virtual const std::pair<int, int> &getSize() const noexcept = 0;
     //virtual const sprite &getSprite() const noexcept = 0;

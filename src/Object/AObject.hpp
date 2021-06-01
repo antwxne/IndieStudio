@@ -20,14 +20,14 @@ public:
     [[nodiscard]] const std::pair<int, int> & getPosition() const noexcept final;
     [[nodiscard]] const std::pair<int, int> & getSize() const noexcept final;
 
-    template<typename T>
-    static bool isTypeOf(const IObject &obj) {
-        return (obj.getBitMap() << TYPES_OBJECT.at(typeid(T))) & 1;
-    }
+//    template<typename T>
+//    static bool isTypeOf(const IObject &obj) {
+//        return (obj.getBitMap() << TYPES_OBJECT.at(typeid(T))) & 1;
+//    }
 
 protected:
-    std::pair<int, int> _pos;
-    std::pair<int, int> _size;
+    static std::pair<int, int> _pos;
+    static std::pair<int, int> _size;
     int _bitmap;
     float _rotation;
     //sprite

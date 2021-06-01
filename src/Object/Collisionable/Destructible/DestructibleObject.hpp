@@ -5,13 +5,16 @@
 ** Created by antoine,
 */
 
+#include "Object/Collisionable/CollisionableObject.hpp"
+
 #ifndef INDIESTUDIO_DESTROYABLEOBJECT_HPP
 #define INDIESTUDIO_DESTROYABLEOBJECT_HPP
 
-class DestroyableObject {
+class DestructibleObject: public CollisionableObject {
 public:
-    DestroyableObject();
-    ~DestroyableObject() = default;
+    DestructibleObject(const std::pair<int, int> &pos,
+        const std::pair<int, int> &size);
+    ~DestructibleObject() = default;
 
     [[nodiscard]] float getLife() const;
     void setLife(float life);
