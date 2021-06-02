@@ -5,14 +5,14 @@
 ** Created by antoine,
 */
 
-#include "Object/Collisionable/Movable/MovableObject.hpp"
-
 #ifndef INDIESTUDIO_TYPEOBJECT_HPP
 #define INDIESTUDIO_TYPEOBJECT_HPP
 
 #include <typeinfo>
 #include <functional>
 #include <unordered_map>
+
+#include "Object/Collisionable/Destructible/Movable/MovableObject.hpp"
 
 using TypeInfo = std::reference_wrapper<const std::type_info>;
 

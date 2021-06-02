@@ -6,6 +6,7 @@
 */
 
 #include "Object/IObject.hpp"
+#include "TypeObject.hpp"
 
 #ifndef INDIESTUDIO_AOBJECT_HPP
 #define INDIESTUDIO_AOBJECT_HPP

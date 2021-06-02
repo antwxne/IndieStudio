@@ -9,7 +9,7 @@
 
 MovableObject::MovableObject(const std::pair<int, int> &pos,
     const std::pair<int, int> &size
-) : CollisionableObject(pos, size), _speed(0)
+) : DestructibleObject(pos, size), _speed(0)
 {
 }
 

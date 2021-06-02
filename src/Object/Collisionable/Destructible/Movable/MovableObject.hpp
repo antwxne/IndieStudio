@@ -10,7 +10,7 @@
 #ifndef INDIESTUDIO_MOVABLEOBJECT_HPP
 #define INDIESTUDIO_MOVABLEOBJECT_HPP
 
-class MovableObject: CollisionableObject {
+class MovableObject: public DestructibleObject {
 public:
     MovableObject(const std::pair<int, int> &pos, const std::pair<int, int> &size);
 
