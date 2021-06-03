@@ -6,11 +6,10 @@
 */
 
 #include "Object/IObject.hpp"
-#include "TypeObject.hpp"
+//#include "TypeObject.hpp"
 
 #ifndef INDIESTUDIO_AOBJECT_HPP
 #define INDIESTUDIO_AOBJECT_HPP
-
 
 class AObject: public IObject {
 public:
@@ -27,8 +26,8 @@ public:
 //    }
 
 protected:
-    static std::pair<int, int> _pos;
-    static std::pair<int, int> _size;
+    std::pair<int, int> _pos;
+    std::pair<int, int> _size;
     int _bitmap;
     float _rotation;
     //sprite
