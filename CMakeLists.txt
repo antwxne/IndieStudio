@@ -28,7 +28,6 @@ set(OBJECTS_SRCS
         src/Object/Collisionable/Destructible/Movable/MovableObject.hpp
         src/Object/Collisionable/Destructible/DestructibleObject.cpp
         src/Object/Collisionable/Destructible/DestructibleObject.hpp
-        src/Object/TypeObject.hpp
         src/Object/Collisionable/Wall.cpp
         src/Object/Collisionable/Wall.hpp
         src/Object/Collisionable/Destructible/DestructibleWall.cpp

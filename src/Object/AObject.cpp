@@ -5,17 +5,18 @@
 ** Created by antoine,
 */
 
+#include <cstring>
+
 #include "Object/AObject.hpp"
 
 AObject::AObject(const std::pair<int, int> &pos,
     const std::pair<int, int> &size
-): _pos(pos), _size(size), _bitmap((0 << OBJECT) | 1), _rotation(0)
+): _pos(pos), _size(size), _rotation(0)
 {
+    std::memset(&_type_field, 0, sizeof(type_field_t));
+    _type_field.is_object = true;
 }
-int AObject::getBitMap() const noexcept
-{
-    return _bitmap;
-}
+
 const std::pair<int, int> &AObject::getPosition() const noexcept
 {
     return _pos;
@@ -23,4 +24,8 @@ const std::pair<int, int> &AObject::getPosition() const noexcept
 const std::pair<int, int> &AObject::getSize() const noexcept
 {
     return _size;
+}
+const type_field_t &AObject::getTypeField() const noexcept
+{
+    return _type_field;
 }

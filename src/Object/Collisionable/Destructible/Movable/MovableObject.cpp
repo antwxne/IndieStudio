@@ -11,6 +11,7 @@ MovableObject::MovableObject(const std::pair<int, int> &pos,
     const std::pair<int, int> &size
 ) : DestructibleObject(pos, size), _speed(0)
 {
+    _type_field.is_movable = true;
 }
 
 void MovableObject::move(const std::pair<int, int> &direction) noexcept

@@ -11,7 +11,7 @@ CollisionableObject::CollisionableObject(const std::pair<int, int> &pos,
     const std::pair<int, int> &size
 ) : AObject(pos, size)
 {
-    _bitmap |= 1 << COLLISIONABLE;
+    _type_field.is_collisionable = true;
 }
 
 bool CollisionableObject::hit(const CollisionableObject &) const noexcept

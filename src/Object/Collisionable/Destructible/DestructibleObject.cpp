@@ -11,7 +11,7 @@ DestructibleObject::DestructibleObject(const std::pair<int, int> &pos,
     const std::pair<int, int> &size
     ):CollisionableObject(pos, size), _life(0)
 {
-
+    _type_field.is_destructible = true;
 }
 float DestructibleObject::getLife() const
 {
