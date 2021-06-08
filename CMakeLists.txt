@@ -10,34 +10,41 @@ set(CMAKE_CXX_STANDARD 17)
 
 # Include directories
 include_directories(src)
+
 # Paths
 set(RAYLIB_PATH src/Raylib)
+set(OBJECT_PATH src/Object)
+set(COLLIS_PATH ${OBJECT_PATH}/Collisionable)
+set(DESTRUCT_PATH ${COLLIS_PATH}/Destructible)
+set(MOVABLE_PATH ${DESTRUCT_PATH}/Movable)
+set(SCENE_PATH src/Scene)
 
 # Source files
 set(RAYLIB_SRCS
         ${RAYLIB_PATH}/Raylib.cpp)
 set(OBJECTS_SRCS
-        src/Object/IObject.hpp
-        src/Object/AObject.hpp
-        src/Object/AObject.cpp
-        src/Object/Collisionable/CollisionableObject.cpp
-        src/Object/Collisionable/CollisionableObject.hpp
-        src/Scene/AScene.cpp src/Scene/AScene.hpp
-        src/Scene/IScene.hpp
-        src/Object/Collisionable/Destructible/Movable/MovableObject.cpp
-        src/Object/Collisionable/Destructible/Movable/MovableObject.hpp
-        src/Object/Collisionable/Destructible/DestructibleObject.cpp
-        src/Object/Collisionable/Destructible/DestructibleObject.hpp
-        src/Object/Collisionable/Wall.cpp
-        src/Object/Collisionable/Wall.hpp
-        src/Object/Collisionable/Destructible/DestructibleWall.cpp
-        src/Object/Collisionable/Destructible/DestructibleWall.hpp
-        src/Object/Collisionable/Destructible/Movable/Tank.cpp
-        src/Object/Collisionable/Destructible/Movable/Tank.hpp
-        src/Object/Collisionable/Destructible/Movable/Cannon.cpp
-        src/Object/Collisionable/Destructible/Movable/Cannon.hpp
-        src/Object/Collisionable/Destructible/Movable/Bullet.cpp
-        src/Object/Collisionable/Destructible/Movable/Bullet.hpp
+        ${OBJECT_PATH}/IObject.hpp
+        ${OBJECT_PATH}/AObject.hpp
+        ${OBJECT_PATH}/AObject.cpp
+        ${SCENE_PATH}/AScene.cpp
+        ${SCENE_PATH}/AScene.hpp
+        ${SCENE_PATH}/IScene.hpp
+        ${COLLIS_PATH}/CollisionableObject.cpp
+        ${COLLIS_PATH}/CollisionableObject.hpp
+        ${COLLIS_PATH}/Wall.cpp
+        ${COLLIS_PATH}/Wall.hpp
+        ${DESTRUCT_PATH}/DestructibleObject.cpp
+        ${DESTRUCT_PATH}/DestructibleObject.hpp
+        ${DESTRUCT_PATH}/DestructibleWall.cpp
+        ${DESTRUCT_PATH}/DestructibleWall.hpp
+        ${MOVABLE_PATH}/MovableObject.cpp
+        ${MOVABLE_PATH}/MovableObject.hpp
+        ${MOVABLE_PATH}/Tank.cpp
+        ${MOVABLE_PATH}/Tank.hpp
+        ${MOVABLE_PATH}/Cannon.cpp
+        ${MOVABLE_PATH}/Cannon.hpp
+        ${MOVABLE_PATH}/Bullet.cpp
+        ${MOVABLE_PATH}/Bullet.hpp
         )
 
 set(INDIE_SRCS
