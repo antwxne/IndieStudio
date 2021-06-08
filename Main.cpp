@@ -33,7 +33,7 @@ int main(void)
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
-        Lib->DrawingLoopBegun();
+        Lib->DrawingLoopBegin();
 
         Lib->PrintText("ET C'EST PARTIS", {190, 200}, 20, LIGHTGRAY);
 
@@ -49,7 +49,7 @@ int main(void)
         Lib->PrintFps({10, 10});
         Lib->DrawingLoopEnd();
     }
-    Lib->DestroyWindow();
+    // Lib->DestroyWindow();
     ///////////////////////////////////////////
     return 0;
 }

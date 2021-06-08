@@ -6,13 +6,18 @@
 */
 
 #include "Raylib.hpp"
+#include "RaylibError.hpp"
 
 Raylib::Raylib() : _is3D(false)
 {
     _camera = {{0.0f, 10.0f, 10.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 45.0f, 0};
 }
 
-Raylib::~Raylib() {}
+Raylib::~Raylib()
+{
+    if (IsWindowReady())
+        CloseWindow();
+}
 
 void Raylib::SetCamera(Vector3 pos, Vector3 target, Vector3 up, float fovy, int projection)
 {
@@ -45,12 +50,26 @@ void Raylib::CreateWindow(int screenWidth, int screenHeight, std::string title, 
     SetTargetFPS(fps);
 }
 
-void Raylib::DestroyWindow()
+void Raylib::MainGameLoopStart()
 {
-    CloseWindow();
+    bool pause = false;
+
+    if (!IsWindowReady())
+        throw RaylibError("unable to start game: window doesn't exist.");
+    while (!WindowShouldClose()) {
+        if (IsKeyPressed(KEY_SPACE))
+            pause = !pause;
+        if (!pause)
+            continue;
+        DrawingLoopBegin();
+    }
 }
 
-void Raylib::DrawingLoopBegun()
+void Raylib::MainGameLoopEnd()
+{
+}
+
+void Raylib::DrawingLoopBegin()
 {
     BeginDrawing();
     ClearBackground(RAYWHITE);

@@ -29,10 +29,15 @@ public:
     ~Raylib();
 
     void CreateWindow(int screenWidth, int screenHeight, std::string title, std::size_t Fps);
-    void DestroyWindow();
 
-    void DrawingLoopBegun();
+    void MainGameLoopStart();
+    void MainGameLoopEnd();
+
+    void DrawingLoopBegin();
     void DrawingLoopEnd();
+
+    // Will print all registered entities
+    void PrintEntities();
 
     void PrintText(std::string text, std::pair<int, int> position, int fontSize, Color color);
     void PrintCircle(type type, std::pair<int, int> position, float radius, std::pair<Color, Color> color);
