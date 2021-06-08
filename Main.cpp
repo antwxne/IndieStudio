@@ -31,7 +31,7 @@ int main(void)
     Lib->Set3d(true);
 
     // Main game loop
-    while (!WindowShouldClose()) // Detect window close button or ESC key
+    while (Lib->gameLoop()) // Detect window close button or ESC key
     {
         Lib->DrawingLoopBegin();
 

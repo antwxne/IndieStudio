@@ -50,23 +50,9 @@ void Raylib::CreateWindow(int screenWidth, int screenHeight, std::string title, 
     SetTargetFPS(fps);
 }
 
-void Raylib::MainGameLoopStart()
+bool Raylib::gameLoop()
 {
-    bool pause = false;
-
-    if (!IsWindowReady())
-        throw RaylibError("unable to start game: window doesn't exist.");
-    while (!WindowShouldClose()) {
-        if (IsKeyPressed(KEY_SPACE))
-            pause = !pause;
-        if (!pause)
-            continue;
-        DrawingLoopBegin();
-    }
-}
-
-void Raylib::MainGameLoopEnd()
-{
+    return WindowShouldClose();
 }
 
 void Raylib::DrawingLoopBegin()

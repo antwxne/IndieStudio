@@ -30,8 +30,7 @@ public:
 
     void CreateWindow(int screenWidth, int screenHeight, std::string title, std::size_t Fps);
 
-    void MainGameLoopStart();
-    void MainGameLoopEnd();
+    bool gameLoop();
 
     void DrawingLoopBegin();
     void DrawingLoopEnd();
