@@ -58,6 +58,8 @@ set(SCENE_SRCS
         ${SCENE_PATH}/AScene.cpp
         ${SCENE_PATH}/AScene.hpp
         ${SCENE_PATH}/IScene.hpp
+        ${SCENE_PATH}/SceneMenu.cpp
+        ${SCENE_PATH}/SceneMenu.hpp
 )
 
 set(INDIE_SRCS
