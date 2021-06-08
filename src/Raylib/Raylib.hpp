@@ -18,6 +18,13 @@
 class Raylib
 {
 public:
+    enum type {
+            BASIC,
+            GRADIENT,
+            LINES,
+            WIRES
+    };
+
     Raylib();
     ~Raylib();
 
@@ -28,11 +35,11 @@ public:
     void DrawingLoopEnd();
 
     void PrintText(std::string text, std::pair<int, int> position, int fontSize, Color color);
-    void PrintCircle(std::string type, std::pair<int, int> position, float radius, std::pair<Color, Color> color);
-    void PrintRectangle(std::string type, std::pair<int, int> position, std::pair<int, int> size, std::pair<Color, Color> color);
+    void PrintCircle(type type, std::pair<int, int> position, float radius, std::pair<Color, Color> color);
+    void PrintRectangle(type type, std::pair<int, int> position, std::pair<int, int> size, std::pair<Color, Color> color);
     void PrintGrid(int slices, float space);
-    void PrintCube(std::string type, Vector3 position, Vector3 size, Color color);
-    void PrintSphere(std::string type, Vector3 position, float size, std::pair<int, int> Vertex ,Color color);
+    void PrintCube(type type, Vector3 position, Vector3 size, Color color);
+    void PrintSphere(type type, Vector3 position, float size, std::pair<int, int> Vertex ,Color color);
     void PrintFps(std::pair<int, int> pos);
 
     void SetCamera(Vector3 pos, Vector3 target, Vector3 up, float fovy, int projection);

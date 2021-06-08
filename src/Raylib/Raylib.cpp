@@ -70,45 +70,45 @@ void Raylib::PrintText(std::string text, std::pair<int, int> position, int fontS
     DrawText(text.c_str(), position.first, position.second, fontSize, color);
 }
 
-void Raylib::PrintCircle(std::string type, std::pair<int, int> position, float radius, std::pair<Color, Color> color)
+void Raylib::PrintCircle(type type, std::pair<int, int> position, float radius, std::pair<Color, Color> color)
 {
-    if (type.compare("Basic") == 0)
+    if (type == BASIC)
         DrawCircle(position.first, position.second, radius, color.first);
-    else if (type.compare("Gradient") == 0)
+    else if (type == GRADIENT)
         DrawCircleGradient(position.first, position.second, radius, color.first, color.second);
-    else if (type.compare("Lines") == 0)
+    else if (type = LINES)
         DrawCircleLines(position.first, position.second, radius, color.first);
     else
         std::cout << "[-] Unknow Circle Type, valid are Basic, Gradient, Lines" << '\n';
 }
 
-void Raylib::PrintRectangle(std::string type, std::pair<int, int> position, std::pair<int, int> size, std::pair<Color, Color> color)
+void Raylib::PrintRectangle(type type, std::pair<int, int> position, std::pair<int, int> size, std::pair<Color, Color> color)
 {
-    if (type.compare("Basic") == 0)
+    if (type == BASIC)
         DrawRectangle(position.first, position.second, size.first, size.second, color.first);
-    else if (type.compare("Gradient") == 0)
+    else if (type == GRADIENT)
         DrawRectangleGradientH(position.first, position.second, size.first, size.second, color.first, color.second);
-    else if (type.compare("Lines") == 0)
+    else if (type == LINES)
         DrawRectangleLines(position.first, position.second, size.first, size.second, color.first);
     else
         std::cout << "[-] Unknow Rectangle Type, valid are Basic, Gradient, Lines" << '\n';
 }
 
-void Raylib::PrintCube(std::string type, Vector3 position, Vector3 size, Color color)
+void Raylib::PrintCube(type type, Vector3 position, Vector3 size, Color color)
 {
-    if (type.compare("Basic") == 0)
+    if (type == BASIC)
         DrawCube(position, size.x, size.y, size.z, color);
-    else if (type.compare("Wires") == 0)
+    else if (type == WIRES)
         DrawCubeWires(position, size.x, size.y, size.z, color);
     else
         std::cout << "[-] Unknow Cube Type, valid are Basic, Wires" << '\n';
 }
 
-void Raylib::PrintSphere(std::string type, Vector3 position, float size, std::pair<int, int> Vertex, Color color)
+void Raylib::PrintSphere(type type, Vector3 position, float size, std::pair<int, int> Vertex, Color color)
 {
-    if (type.compare("Basic") == 0)
+    if (type == BASIC)
         DrawSphere(position, size, color);
-    else if (type.compare("Wires") == 0)
+    else if (type == WIRES)
         DrawSphereWires(position, size, Vertex.first, Vertex.second, color);
     else
         std::cout << "[-] Unknow Shpere Type, valid are Basic, Wires" << '\n';

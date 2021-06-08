@@ -37,11 +37,11 @@ int main(void)
 
         Lib->PrintText("ET C'EST PARTIS", {190, 200}, 20, LIGHTGRAY);
 
-        Lib->PrintCube("Basic", enemyBoxPos, enemyBoxSize, GRAY);
-        Lib->PrintCube("Wires", enemyBoxPos, enemyBoxSize, DARKGRAY);
+        Lib->PrintCube(Raylib::BASIC, enemyBoxPos, enemyBoxSize, GRAY);
+        Lib->PrintCube(Raylib::WIRES, enemyBoxPos, enemyBoxSize, DARKGRAY);
 
-        Lib->PrintSphere("Basic", enemySpherePos, enemySphereSize, {0,0}, GRAY);
-        Lib->PrintSphere("Wires", enemySpherePos, enemySphereSize, {16, 16}, DARKGRAY);
+        Lib->PrintSphere(Raylib::BASIC, enemySpherePos, enemySphereSize, {0,0}, GRAY);
+        Lib->PrintSphere(Raylib::WIRES, enemySpherePos, enemySphereSize, {16, 16}, DARKGRAY);
 
         // Draw player
         DrawCubeV(playerPosition, playerSize, playerColor);
