@@ -54,7 +54,7 @@ bool Raylib::gameLoop()
     return !WindowShouldClose();
 }
 
-void Raylib::drawingLoopBegun() const
+void Raylib::drawingLoopBegin() const
 {
     BeginDrawing();
     if (_is3D)
