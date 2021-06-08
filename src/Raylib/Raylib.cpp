@@ -56,15 +56,11 @@ bool Raylib::gameLoop()
 
 void Raylib::drawingLoopBegun() const
 {
-    BeginMode3D(_camera);
+    BeginDrawing();
+    if (_is3D)
+        BeginMode3D(_camera);
 }
 
-void Raylib::drawingLoopEnd() const
-{
-    EndMode3D();
-    EndDrawing();
-    //if (_is3D)
-}
 
 bool Raylib::isKeyPressed(int button) const noexcept
 {

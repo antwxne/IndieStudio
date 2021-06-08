@@ -6,13 +6,13 @@
 */
 
 #include "Raylib/Raylib.hpp"
-//#include "Scene/SceneMenu.hpp"
+#include "Scene/SceneMenu.hpp"
 
 int main(void)
 {
-//    menu::SceneMenu menu;
+    menu::SceneMenu menu;
     /////////////////////TEST GRAPHIQUE////////////
-    auto Lib = std::make_unique<Raylib>();
+    Raylib Lib;
     const std::size_t Fps = 60;
     const int screenWidth = 1920;
     const int screenHeight = 1080;
@@ -27,37 +27,36 @@ int main(void)
     Vector3 playerPosition = {0.0f, 1.0f, 2.0f};
     Color playerColor = GREEN;
 
-    Lib->createWindow(screenWidth, screenHeight, "LETS GO", Fps);
-//    menu.InitAssets();
-//    menu.StartLoop();
-    Lib->set3d(true);
+    Lib.createWindow(screenWidth, screenHeight, "LETS GO", Fps);
+    menu.StartLoop(Lib);
+    Lib.set3d(true);
 
     // Main game loop
-    while (Lib->gameLoop()) // Detect window close button or ESC key
+    while (Lib.gameLoop()) // Detect window close button or ESC key
     {
-        Lib->drawingLoopBegun();
+        Lib.drawingLoopBegun();
 
-        Lib->printText("ET C'EST PARTIS", {190, 200}, 20, LIGHTGRAY);
+        Lib.printText("ET C'EST PARTIS", {190, 200}, 20, LIGHTGRAY);
 
-        Lib->printCube(Raylib::BASIC, enemyBoxPos, enemyBoxSize, GRAY);
-        Lib->printCube(Raylib::WIRES, enemyBoxPos, enemyBoxSize, DARKGRAY);
+        Lib.printCube(Raylib::BASIC, enemyBoxPos, enemyBoxSize, GRAY);
+        Lib.printCube(Raylib::WIRES, enemyBoxPos, enemyBoxSize, DARKGRAY);
 
-        Lib->printSphere(Raylib::BASIC, enemySpherePos, enemySphereSize, {0,0}, GRAY);
-        Lib->printSphere(Raylib::WIRES, enemySpherePos, enemySphereSize, {16, 16}, DARKGRAY);
+        Lib.printSphere(Raylib::BASIC, enemySpherePos, enemySphereSize, {0,0}, GRAY);
+        Lib.printSphere(Raylib::WIRES, enemySpherePos, enemySphereSize, {16, 16}, DARKGRAY);
 
         // Draw player
         DrawCubeV(playerPosition, playerSize, playerColor);
-        Lib->printGrid(10, 1);
-        Lib->printFps({10, 10});
-        // if (Lib->IsControllerDetected(0))
+        Lib.printGrid(10, 1);
+        Lib.printFps({10, 10});
+        // if (Lib.IsControllerDetected(0))
         // {
             // std::cout << "Controller is Detected" << '\n';
-            // std::cout << Lib->GetControllerName(0) << '\n';
-            // if (Lib->IsControllerValid(0, "xbox"))
+            // std::cout << Lib.GetControllerName(0) << '\n';
+            // if (Lib.IsControllerValid(0, "xbox"))
                 // std::cout << "CECI EST UNE MANETTE DE XBOX" << '\n';
         // }
 
-        Lib->drawingLoopEnd();
+        Lib.drawingLoopEnd();
     }
     //Lib->destroyWindow();
     ///////////////////////////////////////////
