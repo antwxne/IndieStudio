@@ -1,2 +1,14 @@
 .vscode
 .idea
+/cmake-build-debug/
+/CMakeFiles/
+/CMakeCache.txt
+/build
+*.o
+*.so
+*.cmake
+*.cbp
+/test.cpp
+/Testing/Temporary/
+/_deps/
+bomberman

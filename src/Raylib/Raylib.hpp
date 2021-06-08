@@ -27,32 +27,39 @@
 class Raylib
 {
 public:
+    enum type {
+            BASIC,
+            GRADIENT,
+            LINES,
+            WIRES
+    };
+
     Raylib();
     ~Raylib();
 
-    void CreateWindow(int screenWidth, int screenHeight, std::string const title, std::size_t const Fps);
-    void DestroyWindow() const;
+    void createWindow(int screenWidth, int screenHeight, std::string const &title, std::size_t const Fps);
+    void destroyWindow() const;
 
-    void DrawingLoopBegun() const;
-    void DrawingLoopEnd() const;
+    void drawingLoopBegun() const;
+    void drawingLoopEnd() const;
 
-    void PrintText(std::string const text, std::pair<int, int> const position, int const fontSize, Color const color) const;
-    void PrintCircle(std::string const type, std::pair<int, int> const position, float const radius, std::pair<Color, Color> const color) const;
-    void PrintRectangle(std::string const type, std::pair<int, int> const position, std::pair<int, int> const size, std::pair<Color, Color> const color) const;
-    void PrintGrid(int const slices, float const space) const;
-    void PrintCube(std::string const type, Vector3 const position, Vector3 const size, Color const color) const;
-    void PrintSphere(std::string const type, Vector3 const position, float const size, std::pair<int, int> const Vertex ,Color const color) const;
-    void PrintFps(std::pair<int, int> const pos) const;
+    void printText(std::string const &text, std::pair<int, int> const position, int const fontSize, Color const color) const;
+    void printCircle(type const type, std::pair<int, int> const position, float const radius, std::pair<Color, Color> const color) const;
+    void printRectangle(type const type, std::pair<int, int> const position, std::pair<int, int> const size, std::pair<Color, Color> const color) const;
+    void printGrid(int const slices, float const space) const;
+    void printCube(type const type, Vector3 const position, Vector3 const size, Color const color) const;
+    void printSphere(type const type, Vector3 const position, float const size, std::pair<int, int> const Vertex ,Color const color) const;
+    void printFps(std::pair<int, int> const pos) const;
 
-    void SetCamera(Vector3 pos, Vector3 target, Vector3 up, float fovy, int projection);
-    Camera GetCamera() const;
+    void setCamera(Vector3 pos, Vector3 target, Vector3 up, float fovy, int projection);
+    Camera getCamera() const;
 
-    void Set3d(bool is3d);
-    bool Get3d() const;
+    void set3d(bool is3d);
+    bool get3d() const;
 
-    bool IsControllerDetected(int const idx) const;
-    bool IsControllerValid(int const idx, std::string const ControllerName) const;
-    std::string GetControllerName(int const idx) const;
+    bool isControllerDetected(int const idx) const;
+    bool isControllerValid(int const idx, std::string const &ControllerName) const;
+    std::string getControllerName(int const idx) const;
 
 protected:
 private:

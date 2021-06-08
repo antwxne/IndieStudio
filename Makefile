@@ -22,7 +22,7 @@ BUILD_DIR	=	build
 all:
 	./build.sh
 
-#
+# Clean build
 .PHONY: clean
 clean:
 	@$(RM) $(BUILD_DIR)
@@ -31,9 +31,12 @@ clean:
 .PHONY: fclean
 fclean: clean
 	@$(RM) $(BIN)
-	# @$(RM) doc/html/
-	# @$(RM) doc/latex/
 
+.PHONY: re
+re: fclean all clean
+
+# @$(RM) doc/html/
+# @$(RM) doc/latex/
 # Generate documentation
 # .PHONY: doc
 # doc:
@@ -49,7 +52,4 @@ fclean: clean
 # .PHONY: doc-firefox
 # doc-firefox:
 # 	doxygen doxygen.conf
-	# firefox ./doc/html/index.html
-
-.PHONY: re
-re: fclean all clean
+# firefox ./doc/html/index.html

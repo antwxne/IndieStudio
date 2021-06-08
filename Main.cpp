@@ -25,26 +25,26 @@ int main(void)
     Vector3 playerPosition = {0.0f, 1.0f, 2.0f};
     Color playerColor = GREEN;
 
-    Lib->CreateWindow(screenWidth, screenHeight, "LETS GO", Fps);
-    Lib->Set3d(true);
+    Lib->createWindow(screenWidth, screenHeight, "LETS GO", Fps);
+    Lib->set3d(true);
 
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
-        Lib->DrawingLoopBegun();
+        Lib->drawingLoopBegun();
 
-        Lib->PrintText("ET C'EST PARTIS", {190, 200}, 20, LIGHTGRAY);
+        Lib->printText("ET C'EST PARTIS", {190, 200}, 20, LIGHTGRAY);
 
-        Lib->PrintCube("Basic", enemyBoxPos, enemyBoxSize, GRAY);
-        Lib->PrintCube("Wires", enemyBoxPos, enemyBoxSize, DARKGRAY);
+        Lib->printCube(Raylib::BASIC, enemyBoxPos, enemyBoxSize, GRAY);
+        Lib->printCube(Raylib::WIRES, enemyBoxPos, enemyBoxSize, DARKGRAY);
 
-        Lib->PrintSphere("Basic", enemySpherePos, enemySphereSize, {0,0}, GRAY);
-        Lib->PrintSphere("Wires", enemySpherePos, enemySphereSize, {16, 16}, DARKGRAY);
+        Lib->printSphere(Raylib::BASIC, enemySpherePos, enemySphereSize, {0,0}, GRAY);
+        Lib->printSphere(Raylib::WIRES, enemySpherePos, enemySphereSize, {16, 16}, DARKGRAY);
 
         // Draw player
         DrawCubeV(playerPosition, playerSize, playerColor);
-        Lib->PrintGrid(10, 1);
-        Lib->PrintFps({10, 10});
+        Lib->printGrid(10, 1);
+        Lib->printFps({10, 10});
         // if (Lib->IsControllerDetected(0))
         // {
             // std::cout << "Controller is Detected" << '\n';
@@ -53,9 +53,9 @@ int main(void)
                 // std::cout << "CECI EST UNE MANETTE DE XBOX" << '\n';
         // }
 
-        Lib->DrawingLoopEnd();
+        Lib->drawingLoopEnd();
     }
-    Lib->DestroyWindow();
+    Lib->destroyWindow();
     ///////////////////////////////////////////
     return 0;
 }
