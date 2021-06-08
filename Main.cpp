@@ -6,11 +6,11 @@
 */
 
 #include "Raylib/Raylib.hpp"
-#include "Scene/SceneMenu.hpp"
+//#include "Scene/SceneMenu.hpp"
 
 int main(void)
 {
-    menu::SceneMenu menu;
+//    menu::SceneMenu menu;
     /////////////////////TEST GRAPHIQUE////////////
     auto Lib = std::make_unique<Raylib>();
     const std::size_t Fps = 60;
@@ -27,10 +27,9 @@ int main(void)
     Vector3 playerPosition = {0.0f, 1.0f, 2.0f};
     Color playerColor = GREEN;
 
-
     Lib->createWindow(screenWidth, screenHeight, "LETS GO", Fps);
-    menu.InitAssets();
-    menu.StartLoop();
+//    menu.InitAssets();
+//    menu.StartLoop();
     Lib->set3d(true);
 
     // Main game loop

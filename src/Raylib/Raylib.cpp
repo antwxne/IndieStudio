@@ -61,9 +61,9 @@ void Raylib::drawingLoopBegun() const
 
 void Raylib::drawingLoopEnd() const
 {
+    EndMode3D();
     EndDrawing();
-    if (_is3D)
-        EndMode3D();
+    //if (_is3D)
 }
 
 bool Raylib::isKeyPressed(int button) const noexcept
