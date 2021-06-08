@@ -29,7 +29,7 @@ namespace menu {
     {
     }
 
-    void SceneMenu::StartLoop(Raylib &lib)
+    void SceneMenu::run(Raylib &lib)
     {
         lib.set3d(false);
         while (!lib.isKeyPressed(KEY_ENTER)) {
@@ -37,7 +37,7 @@ namespace menu {
                 _select = (_select + 1) % (QUIT + 1);
             if (lib.isKeyPressed(KEY_UP))
                 _select = !_select ? QUIT : _select - 1;
-            lib.drawingLoopBegun();
+            lib.drawingLoopBegin();
             ClearBackground(RAYWHITE);
             for (auto &i : _menuPos)
                 lib.printRectangle(Raylib::BASIC, i.at(0), i.at(1), {ORANGE, ORANGE});

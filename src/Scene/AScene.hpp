@@ -17,7 +17,7 @@
 class AScene {
 public:
     AScene() = default;
-    virtual ~AScene();
+    virtual ~AScene() = default;
     virtual void run(Raylib &lib) = 0;
 
     //Could prepare some funcs with all the classic raylib use?

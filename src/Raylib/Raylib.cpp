@@ -57,6 +57,7 @@ bool Raylib::gameLoop()
 void Raylib::drawingLoopBegin() const
 {
     BeginDrawing();
+    ClearBackground(RAYWHITE);
     if (_is3D)
         BeginMode3D(_camera);
 }

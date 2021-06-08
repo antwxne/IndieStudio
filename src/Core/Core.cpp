@@ -9,7 +9,7 @@
 #include "Raylib.hpp"
 #include "SceneTest.hpp"
 
-Core::Core(int screenWidth = 1920, int screenHeight = 1080, std::string const &title = "default", std::size_t const fps = 60)
+Core::Core(int screenWidth, int screenHeight, std::string const &title, std::size_t const fps)
     : _screenWidth(screenWidth), _screenHeight(screenHeight), _title(title), _fps(fps)
 {
 }

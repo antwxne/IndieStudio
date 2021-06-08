@@ -28,7 +28,7 @@ int main(void)
     Color playerColor = GREEN;
 
     Lib.createWindow(screenWidth, screenHeight, "LETS GO", Fps);
-    menu.StartLoop(Lib);
+    menu.run(Lib);
     Lib.set3d(true);
 
     // Main game loop
