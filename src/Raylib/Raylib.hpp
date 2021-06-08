@@ -63,9 +63,6 @@ public:
     // Will print all registered entities
     void PrintEntities();
 
-    void DrawingLoopBegin();
-    void DrawingLoopEnd();
-
     void set3d(bool is3d);
     bool get3d() const;
 
