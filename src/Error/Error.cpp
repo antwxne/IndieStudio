@@ -1,16 +1,17 @@
 /*
 ** EPITECH PROJECT, 2021
-** B-YEP-400-PAR-4-1-indiestudio-clement1.ruat
+** OOP
 ** File description:
 ** Error
 */
 
 #include "Error.hpp"
 
-Error::Error()
+Error::Error(const std::string &desc) noexcept : _desc("Error: " + desc)
 {
 }
 
-Error::~Error()
+const char *Error::what() const noexcept
 {
+    return _desc.c_str();
 }

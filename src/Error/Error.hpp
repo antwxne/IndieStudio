@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2021
-** B-YEP-400-PAR-4-1-indiestudio-clement1.ruat
+** Indie_Studio
 ** File description:
 ** Error
 */
@@ -8,13 +8,17 @@
 #ifndef ERROR_HPP_
 #define ERROR_HPP_
 
-class Error {
-    public:
-        Error();
-        ~Error();
+#include <exception>
+#include <string>
 
+class Error : public std::exception {
+    public:
+        Error(const std::string &desc) noexcept;
+        ~Error() = default;
+
+        const char *what() const noexcept override;
     protected:
-    private:
+        std::string _desc;
 };
 
 #endif /* !ERROR_HPP_ */

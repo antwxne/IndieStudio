@@ -38,7 +38,8 @@ public:
     ~Raylib();
 
     void createWindow(int screenWidth, int screenHeight, std::string const &title, std::size_t const Fps);
-    void destroyWindow() const;
+
+    bool gameLoop();
 
     void drawingLoopBegun() const;
     void drawingLoopEnd() const;
@@ -54,12 +55,18 @@ public:
     void setCamera(Vector3 pos, Vector3 target, Vector3 up, float fovy, int projection);
     Camera getCamera() const;
 
-    void set3d(bool is3d);
-    bool get3d() const;
-
     bool isControllerDetected(int const idx) const;
     bool isControllerValid(int const idx, std::string const &ControllerName) const;
     std::string getControllerName(int const idx) const;
+
+    // Will print all registered entities
+    void PrintEntities();
+
+    void DrawingLoopBegin();
+    void DrawingLoopEnd();
+
+    void set3d(bool is3d);
+    bool get3d() const;
 
 protected:
 private:

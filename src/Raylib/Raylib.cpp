@@ -6,13 +6,18 @@
 */
 
 #include "Raylib.hpp"
+#include "RaylibError.hpp"
 
 Raylib::Raylib() : _is3D(false)
 {
     _camera = {{0.0f, 10.0f, 10.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 45.0f, 0};
 }
 
-Raylib::~Raylib() {}
+Raylib::~Raylib()
+{
+    if (IsWindowReady())
+        CloseWindow();
+}
 
 void Raylib::setCamera(Vector3 pos, Vector3 target, Vector3 up, float fovy, int projection)
 {
@@ -44,9 +49,9 @@ void Raylib::createWindow(int screenWidth, int screenHeight, std::string const &
     InitWindow(screenWidth, screenHeight, title.c_str());
 }
 
-void Raylib::destroyWindow() const
+bool Raylib::gameLoop()
 {
-    CloseWindow();;
+    return !WindowShouldClose();
 }
 
 void Raylib::drawingLoopBegun() const
