@@ -34,7 +34,7 @@ int main(void)
     // Main game loop
     while (Lib.gameLoop()) // Detect window close button or ESC key
     {
-        Lib.drawingLoopBegun();
+        Lib.drawingLoopBegin();
 
         Lib.printText("ET C'EST PARTIS", {190, 200}, 20, LIGHTGRAY);
 

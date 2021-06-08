@@ -33,7 +33,7 @@ namespace menu {
     {
         lib.set3d(false);
         while (!lib.isKeyPressed(KEY_ENTER)) {
-            lib.drawingLoopBegun();
+            lib.drawingLoopBegin();
             // for (auto &i : _menuPos)
             //     lib.printRectangle(Raylib::BASIC, i.at(0), i.at(1), {ORANGE, ORANGE});
             lib.drawingLoopEnd();
