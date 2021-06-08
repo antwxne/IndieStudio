@@ -6,9 +6,11 @@
 */
 
 #include "Raylib/Raylib.hpp"
+#include "Scene/SceneMenu.hpp"
 
 int main(void)
 {
+    menu::SceneMenu menu;
     /////////////////////TEST GRAPHIQUE////////////
     auto Lib = std::make_unique<Raylib>();
     const std::size_t Fps = 60;
@@ -28,6 +30,8 @@ int main(void)
 
 
     Lib->CreateWindow(screenWidth, screenHeight, "LETS GO", Fps);
+    menu.InitAssets();
+    menu.StartLoop();
     Lib->Set3d(true);
 
     // Main game loop
