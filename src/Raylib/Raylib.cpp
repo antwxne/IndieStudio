@@ -70,6 +70,11 @@ void Raylib::DrawingLoopEnd()
         EndMode3D();
 }
 
+bool Raylib::isKeyPressed(int button) const noexcept
+{
+    return (IsKeyPressed(button));
+}
+
 void Raylib::PrintText(std::string text, std::pair<int, int> position, int fontSize, Color color)
 {
     DrawText(text.c_str(), position.first, position.second, fontSize, color);

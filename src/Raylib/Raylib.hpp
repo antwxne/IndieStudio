@@ -35,6 +35,7 @@ public:
     void DrawingLoopBegin();
     void DrawingLoopEnd();
 
+    bool isKeyPressed(int button) const noexcept;
     // Will print all registered entities
     void PrintEntities();
 
