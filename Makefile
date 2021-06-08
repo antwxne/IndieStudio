@@ -1,71 +1,55 @@
 ##
-## EPITECH PROJECT, 2021
-## B-YEP-400-PAR-4-1-indiestudio-clement1.ruat
+## EPITECH PROJECT, 2020
+## Arcade
 ## File description:
-## Makefile
+## Arcade Makefile
 ##
 
-## USEFUL DEF ########################
+###							    ###
+# This file is just a cli manager #
+###								###
 
-CC		=	g++
-RM		=	-rm -rf
-EXT		=	.cpp
+## Var definition ##
+SHELL	=	/bin/sh
+RM		=	rm -rf
 
-## BIN DEF ########################
+## Output
+BIN			=	bomberman
+BUILD_DIR	=	build
 
-BIN_INDIE	=	indie
-TEST_BIN	=	unit_tests
+## Rules ##
+.PHONY: all
+all:
+	./build.sh
 
-## OBJ DEF ########################
-
-SRC_DIR		=	./src
-
-ERROR_DIR	=	./Error
-
-MAIN_FILE	=	Indie
-
-INDIE_FILES	=	RaylibEncapsulation/RaylibEncapsulation
-
-ERROR_FILES	=	Error
-
-SRC			=	$(addsuffix $(EXT), $(MAIN_FILE))	\
-				$(addsuffix $(EXT), $(addprefix $(SRC_DIR)/, $(INDIE_FILES)))	\
-				$(addsuffix $(EXT), $(addprefix $(ERROR_DIR)/, $(ERROR_FILES)))
-
-INDIE_OBJ	=	$(SRC:.cpp=.o)
-
-## FLAGS DEF ########################
-
-CXXFLAGS	=	-W -Wextra -Wall #Werror
-
-CPPFLAGS	=	-I./Error -I./src
-
-LDFLAGS		=	-lraylib -O2 -lGL -lm -lpthread -ldl -lrt -lX11
-
-## COMPILATION DEF ########################
-
-%.o:    %.cpp
-	@$(CC) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -c -o $@ $<
-	@printf "[\033[0;32mcompiled\033[0m] % 29s\n" $< | tr ' ' '.'
-
-all: $(BIN_INDIE)
-
-$(BIN_INDIE): $(INDIE_OBJ)
-	@echo Compiled with $(CXXFLAGS) and $(LDFLAGS)
-	@$(CC) -o $(BIN_INDIE) $(INDIE_OBJ) $(LDFLAGS)
-	@printf "[\033[0;36mbuilt\033[0m] % 32s\n" $(BIN_INDIE) | tr ' ' '.'
-
+#
+.PHONY: clean
 clean:
-	@$(RM) *~ $(INDIE_OBJ)
-	@printf "[\033[0;31mdeleted\033[0m] % 30s\n" $(INDIE_OBJ) | tr ' ' '.'
+	@$(RM) $(BUILD_DIR)
 
+# Clean build and binaries
+.PHONY: fclean
 fclean: clean
-	@$(RM) $(BIN_INDIE)
-	@printf "[\033[0;31mdeleted\033[0m] % 30s\n" $(BIN_INDIE) | tr ' ' '.'
+	@$(RM) $(BIN)
+	# @$(RM) doc/html/
+	# @$(RM) doc/latex/
 
-debug:  CXXFLAGS += -g3
-debug:	re
+# Generate documentation
+# .PHONY: doc
+# doc:
+# 	doxygen doxygen.conf
 
-re:	fclean all
+# Launch doxygen in google-chrome browser
+# .PHONY: doc-chrome
+# doc-chrome:
+# 	doxygen doxygen.conf
+# 	google-chrome ./doc/html/index.html
 
-.PHONY: all clean fclean debug re
+# Launch doxygen in firefox browser
+# .PHONY: doc-firefox
+# doc-firefox:
+# 	doxygen doxygen.conf
+	# firefox ./doc/html/index.html
+
+.PHONY: re
+re: fclean all clean
