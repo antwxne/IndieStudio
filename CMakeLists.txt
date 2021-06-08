@@ -37,9 +37,6 @@ set(ERROR_SRCS
 )
 set(OBJECTS_SRCS
         ${OBJECT_PATH}/AObject.cpp
-        ${SCENE_PATH}/AScene.cpp
-        ${SCENE_PATH}/AScene.hpp
-        ${SCENE_PATH}/IScene.hpp
         ${COLLIS_PATH}/CollisionableObject.cpp
         ${COLLIS_PATH}/CollisionableObject.hpp
         ${COLLIS_PATH}/Wall.cpp
@@ -57,11 +54,17 @@ set(OBJECTS_SRCS
         ${MOVABLE_PATH}/Bullet.cpp
         ${MOVABLE_PATH}/Bullet.hpp
 )
+set(SCENE_SRCS
+        ${SCENE_PATH}/AScene.cpp
+        ${SCENE_PATH}/AScene.hpp
+        ${SCENE_PATH}/IScene.hpp
+)
 
 set(INDIE_SRCS
         ${RAYLIB_SRCS}
         ${ERROR_SRCS}
         ${OBJECTS_SRCS}
+        ${SCENE_SRCS}
 )
 
 # Compilation

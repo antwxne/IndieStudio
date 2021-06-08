@@ -52,7 +52,7 @@ void Raylib::CreateWindow(int screenWidth, int screenHeight, std::string title, 
 
 bool Raylib::gameLoop()
 {
-    return WindowShouldClose();
+    return !WindowShouldClose();
 }
 
 void Raylib::DrawingLoopBegin()
