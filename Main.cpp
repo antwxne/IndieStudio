@@ -34,7 +34,7 @@ int main(void)
     // Main game loop
     while (Lib.gameLoop()) // Detect window close button or ESC key
     {
-        Lib.drawingLoopBegin();
+        BeginDrawing();
 
         Lib.printText("ET C'EST PARTIS", {190, 200}, 20, LIGHTGRAY);
 
@@ -56,7 +56,7 @@ int main(void)
                 // std::cout << "CECI EST UNE MANETTE DE XBOX" << '\n';
         // }
 
-        Lib.drawingLoopEnd();
+        EndDrawing();
     }
     //Lib->destroyWindow();
     ///////////////////////////////////////////

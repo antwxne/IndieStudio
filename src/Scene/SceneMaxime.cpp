@@ -20,7 +20,9 @@ SceneMaxime::~SceneMaxime()
 void SceneMaxime::run(Raylib &lib)
 {
     while (lib.gameLoop()) {
-        lib.drawingLoopBegin();
-        lib.drawingLoopEnd();
+        //we will only use Raylib::printObjects(std::vector<unique_ptr<IObject>> objects) later
+        BeginDrawing();
+        //3D mode, 3D display and 2D display here.
+        EndDrawing();
     }
 }

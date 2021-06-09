@@ -20,7 +20,8 @@ SceneRobin::~SceneRobin()
 void SceneRobin::run(Raylib &lib)
 {
     while (lib.gameLoop()) {
-        lib.drawingLoopBegin();
-        lib.drawingLoopEnd();
+        BeginDrawing();
+        //2D display here
+        EndDrawing();
     }
 }

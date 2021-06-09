@@ -26,6 +26,6 @@ void Core::start()
     SceneMaxime sceneMaxime;
 
     lib.createWindow(_screenWidth, _screenHeight, _title, _fps);
-    // sceneRobin.run(lib);
+    sceneRobin.run(lib);
     // sceneMaxime.run(lib);
 }
