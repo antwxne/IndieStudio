@@ -8,7 +8,7 @@
 #include "Raylib.hpp"
 #include "RaylibError.hpp"
 
-Raylib::Raylib() : _is3D(false)
+Raylib::Raylib()
 {
     _camera = {{0.0f, 10.0f, 10.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 45.0f, 0};
 }
@@ -33,20 +33,12 @@ Camera Raylib::getCamera() const
     return _camera;
 };
 
-void Raylib::set3d(bool is3d)
-{
-    _is3D = is3d;
-}
-
-bool Raylib::get3d() const {
-    return _is3D;
-}
-
 void Raylib::createWindow(int screenWidth, int screenHeight, std::string const &title, std::size_t const fps)
 {
     _screenSize.first = screenWidth;
     _screenSize.second = screenHeight;
     InitWindow(screenWidth, screenHeight, title.c_str());
+    SetTargetFPS(fps);
 }
 
 bool Raylib::gameLoop()
@@ -54,23 +46,19 @@ bool Raylib::gameLoop()
     return !WindowShouldClose();
 }
 
-void Raylib::drawingLoopBegun() const
-{
-    BeginDrawing();
-    if (_is3D)
-        BeginMode3D(_camera);
-}
-
-void Raylib::drawingLoopEnd() const
-{
-    EndDrawing();
-    if (_is3D)
-        EndMode3D();
-}
-
 bool Raylib::isKeyPressed(int button) const noexcept
 {
     return (IsKeyPressed(button));
+}
+
+void Raylib::printObjects(Raylib::vectorObject objects)
+{
+    BeginDrawing();
+    BeginMode3D(_camera);
+    //3D display here
+    EndMode3D();
+    //2D display here
+    EndDrawing();
 }
 
 void Raylib::printText(std::string const &text, std::pair<int, int> const position, int const fontSize, Color const color) const

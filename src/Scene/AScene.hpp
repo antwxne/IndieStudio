@@ -6,11 +6,23 @@
 */
 
 #pragma once
-#include "Object/IObject.hpp"
+
 #include <vector>
+#include <memory>
+#include <string>
+
+#include "Raylib.hpp"
+#include "IObject.hpp"
 
 class AScene {
-    public:
-    protected:
-    std::vector<IObject> AllObject;
+public:
+    AScene() = default;
+    virtual ~AScene() = default;
+    virtual void run(Raylib &lib) = 0;
+
+    //Could prepare some funcs with all the classic raylib use?
+    //  void mainSceneLoop();
+    //  virtual void inLoop() = 0;
+protected:
+    std::vector<std::unique_ptr<IObject>> _objects;
 };
