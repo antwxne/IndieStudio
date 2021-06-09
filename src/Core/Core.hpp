@@ -10,6 +10,8 @@
 
 #include <utility>
 #include <string>
+#include <memory>
+#include "Scene/AScene.hpp"
 
 class Core {
     public:
@@ -24,8 +26,10 @@ class Core {
 
     protected:
     private:
+        std::vector<std::unique_ptr<AScene>> _vecScenes;
         int _screenWidth;
         int _screenHeight;
+        int _scenePos;
         std::string _title;
         std::size_t _fps;
 };

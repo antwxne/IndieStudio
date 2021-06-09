@@ -12,6 +12,13 @@
 
 namespace menu {
 
+    const std::vector<std::string> SceneMenu::_menuText {
+        "Start game",
+        "Load game",
+        "Settings",
+        "Quit"
+    };
+
     const std::vector<std::array<std::pair<float, float>, 2>> SceneMenu::_menuPos {
         {{{860.0f, 600.0f}, {200.0f, 50.0f}}},
         {{{860.0f, 700.0f}, {200.0f, 50.0f}}},
@@ -20,7 +27,7 @@ namespace menu {
     };
 
     const std::vector<std::string> SceneMenu::_assetsPath {
-        {"Assets/olivier_bg.png"}
+        "Assets/olivier_bg.png"
     };
 
     SceneMenu::SceneMenu() : _select(menu_e::START)
@@ -35,8 +42,6 @@ namespace menu {
     {
         bool enter = 0;
 
-        // raylib funcs replaced old functions
-        //we will only use Raylib::printObjects(std::vector<unique_ptr<IObject>> objects) later
         while (!lib.isKeyReleased(KEY_ENTER) && lib.gameLoop()) {
             if (lib.isKeyPressed(KEY_ENTER))
                 enter = !enter;
@@ -50,8 +55,12 @@ namespace menu {
             lib.printRectangle(Raylib::GRADIENT, _menuPos.at(_select).at(0), _menuPos.at(_select).at(1), {RED, RED});
             if (enter)
                 lib.printRectangle(Raylib::GRADIENT, _menuPos.at(_select).at(0), _menuPos.at(_select).at(1), {PINK, PINK});
+            for (std::size_t i = 0; i <= QUIT; ++i)
+                lib.printText(_menuText[i], _menuPos[i].at(0), 20, BLACK);
             EndDrawing();
         }
+        if (_select == QUIT)
+            return (Core::Scenes::QUIT);
         return (Core::Scenes::QUIT);
     }
 }
