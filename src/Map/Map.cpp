@@ -45,17 +45,21 @@ void Map::createDestructibleMap(std::pair<int, int> pos_left,
 }
 
 void Map::createContourMap(int xMax, int yMax) noexcept
-{/*
-    for(int x = 0, y = 0; x != xMax; ++x) {
-
-    }*//*
+{
+    for (int x = 0, y = 0; x != xMax; ++x) {
+        _objectNoDestructibleList.push_back(
+            Wall(std::make_pair(x, y), std::make_pair(0, 0)));
+    }
     for (int x = 0, y = yMax; x != xMax; ++x) {
-
-    }*//*
+        _objectNoDestructibleList.push_back(
+            Wall(std::make_pair(x, y), std::make_pair(0, 0)));
+    }
     for (int x = 0, y = 0; y != yMax; ++y) {
-
-    }*//*
+        _objectNoDestructibleList.push_back(
+            Wall(std::make_pair(x, y), std::make_pair(0, 0)));
+    }
     for (int x = xMax, y = 0; y != yMax; y++) {
-
-    }*/
+        _objectNoDestructibleList.push_back(
+            Wall(std::make_pair(x, y), std::make_pair(0, 0)));
+    }
 }
