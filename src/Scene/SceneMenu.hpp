@@ -25,7 +25,7 @@ namespace menu {
         public:
             SceneMenu();
             ~SceneMenu();
-            void run(Raylib &lib) final;
+            int run(Raylib &lib) final;
             void InitAssets();
 
         protected:

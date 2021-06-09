@@ -13,6 +13,10 @@
 
 class Core {
     public:
+    enum Scenes {
+        QUIT = -1,
+        MENU
+    };
         Core(int screenWidth = 1920, int screenHeight = 1080, std::string const &title = "default", std::size_t const fps = 60);
         ~Core();
 

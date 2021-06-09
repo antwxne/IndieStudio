@@ -15,7 +15,7 @@ class SceneMaxime : AScene {
         SceneMaxime();
         ~SceneMaxime();
 
-        void run(Raylib &lib) override;
+        int run(Raylib &lib) override;
     protected:
     private:
 };

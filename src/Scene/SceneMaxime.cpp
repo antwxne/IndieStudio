@@ -6,6 +6,7 @@
 */
 
 #include "SceneMaxime.hpp"
+#include "Core.hpp"
 
 SceneMaxime::SceneMaxime()
 {
@@ -17,7 +18,7 @@ SceneMaxime::~SceneMaxime()
     _objects.clear();
 }
 
-void SceneMaxime::run(Raylib &lib)
+int SceneMaxime::run(Raylib &lib)
 {
     const Vector3 playerSize = {1.0f, 2.0f, 1.0f};
     const Vector3 enemyBoxPos = {-4.0f, 1.0f, 0.0f};
@@ -28,8 +29,6 @@ void SceneMaxime::run(Raylib &lib)
 
     Vector3 playerPosition = {0.0f, 1.0f, 2.0f};
     Color playerColor = GREEN;
-
-
 
     while (lib.gameLoop()) {
         BeginDrawing();
@@ -50,4 +49,5 @@ void SceneMaxime::run(Raylib &lib)
         //2D display here
         EndDrawing();
     }
+    return (Core::Scenes::QUIT);
 }

@@ -8,9 +8,9 @@
 #include "Raylib.hpp"
 #include "RaylibError.hpp"
 
-Raylib::Raylib()
+Raylib::Raylib() :
+    _camera({{0.0f, 10.0f, 10.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 45.0f, 0})
 {
-    _camera = {{0.0f, 10.0f, 10.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 45.0f, 0};
 }
 
 Raylib::~Raylib()

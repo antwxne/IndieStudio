@@ -5,6 +5,7 @@
 ** SceneMenu
 */
 
+#include "Core/Core.hpp"
 #include "Raylib/Raylib.hpp"
 #include "Scene/SceneMenu.hpp"
 
@@ -29,7 +30,7 @@ namespace menu {
     {
     }
 
-    void SceneMenu::run(Raylib &lib)
+    int SceneMenu::run(Raylib &lib)
     {
         // raylib funcs replaced old functions
         //we will only use Raylib::printObjects(std::vector<unique_ptr<IObject>> objects) later
@@ -45,6 +46,7 @@ namespace menu {
             lib.printRectangle(Raylib::GRADIENT, _menuPos.at(_select).at(0), _menuPos.at(_select).at(1), {RED, RED});
             EndDrawing();
         }
+        return (Core::Scenes::QUIT);
     }
 }
 
