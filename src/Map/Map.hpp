@@ -4,6 +4,7 @@
 
 #pragma once
 #include "Object/Collisionable/Destructible/DestructibleWall.hpp"
+#include "Object/Collisionable/Wall.hpp"
 #include <utility>
 #include <vector>
 #include <map>
@@ -13,9 +14,10 @@ class Map {
 public:
     Map();
     ~Map() = default;
-    void createMap(std::pair<int, int> pos_left, std::pair<int, int> pos_down_right);
-
+    void createDestructibleMap(std::pair<int, int> pos_left, std::pair<int, int> pos_down_right);
+    void createContourMap(int xMax, int yMax) noexcept;
     protected:
-    std::vector<DestructibleWall> _objectList;
+    std::vector<DestructibleWall> _objectDestructibleList;
     std::vector<std::pair<int, int>> _pos;
+    std::vector<Wall> _objectNoDestructibleList;
 };
