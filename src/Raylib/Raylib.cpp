@@ -74,6 +74,11 @@ bool Raylib::isKeyPressed(int button) const noexcept
     return (IsKeyPressed(button));
 }
 
+bool Raylib::isKeyReleased(int button) const noexcept
+{
+    return (IsKeyReleased(button));
+}
+
 void Raylib::printText(std::string const &text, std::pair<int, int> const position, int const fontSize, Color const color) const
 {
     DrawText(text.c_str(), position.first, position.second, fontSize, color);

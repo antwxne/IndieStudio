@@ -65,6 +65,7 @@ public:
     std::string getControllerName(int const idx) const;
 
     bool isKeyPressed(int button) const noexcept;
+    bool isKeyReleased(int button) const noexcept;
 
     void set3d(bool is3d);
     bool get3d() const;
