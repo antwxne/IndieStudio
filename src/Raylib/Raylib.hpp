@@ -68,12 +68,15 @@ public:
 
     bool isKeyPressed(int button) const noexcept;
     bool isKeyReleased(int button) const noexcept;
+    void triggerInputFunctions();
 
 protected:
 private:
     std::pair<int, int> _screenSize;
     Camera _camera;
-    std::unordered_map<KeyboardKey,std::function<void()>> _keys = {
+    // template<typename ...T>
+    // std::unordered_map<int,std::function<void(T...)>> _keys;
+    std::unordered_map<int,std::function<void()>> _keys = {
         {KEY_ENTER, [](){}},
         {KEY_SPACE, [](){}},
         {KEY_ESCAPE, [](){}},

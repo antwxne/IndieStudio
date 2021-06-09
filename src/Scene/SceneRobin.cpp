@@ -26,14 +26,10 @@ int SceneRobin::run(Raylib &lib)
     int i = 0;
 
     while (lib.gameLoop()) {
+        lib.triggerInputFunctions();
         BeginDrawing();
         //2D display here
         EndDrawing();
-        while ((tmp = GetKeyPressed()) != 0) {
-            std::cout << "Lap Number " << i << std::endl;
-            std::cout << "KEY_PRESSED: " << tmp << std::endl;
-        }
-        i++;
     }
     return (Core::Scenes::QUIT);
 }

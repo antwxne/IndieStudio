@@ -143,3 +143,15 @@ bool Raylib::isControllerValid(int const idx, std::string const &ControllerName)
         return IsGamepadName(idx, PS3_NAME_ID);
     return false;
 }
+
+void Raylib::triggerInputFunctions()
+{
+    int input = KEY_NULL;
+    std::unordered_map<int,std::function<void()>>::iterator itKey;
+
+    while ((input = GetKeyPressed()) != KEY_NULL) {
+        itKey = _keys.find(input);
+        if (itKey != _keys.end())
+            itKey->second();
+    }
+}
