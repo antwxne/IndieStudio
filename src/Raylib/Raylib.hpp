@@ -25,11 +25,13 @@
 #include <vector>
 #include "raylib.h"
 
+#include "IObject.hpp"
+
 class Raylib
 {
 public:
-    // using uIObject = std::unique<IObject>;
-    // using vectorObject = std::vector<uIObject>;
+    using uIObject = std::unique_ptr<IObject>;
+    using vectorObject = std::vector<uIObject>;
     enum type {
             BASIC,
             GRADIENT,
@@ -44,10 +46,7 @@ public:
 
     bool gameLoop();
 
-    void drawingLoopBegin() const;
-    void drawingLoopEnd() const;
-
-    // void printObjects(std::vector<std::unique_ptr<IObject>> objects);
+    void printObjects(vectorObject objects);
     // all print funcs under will be private (ex: type Vector3 only defined in raylib.h)
     void printText(std::string const &text, std::pair<int, int> const position, int const fontSize, Color const color) const;
     void printCircle(type const type, std::pair<int, int> const position, float const radius, std::pair<Color, Color> const color) const;
@@ -67,14 +66,10 @@ public:
     bool isKeyPressed(int button) const noexcept;
     bool isKeyReleased(int button) const noexcept;
 
-    void set3d(bool is3d);
-    bool get3d() const;
-
 protected:
 private:
     std::pair<int, int> _screenSize;
     Camera _camera;
-    bool _is3D;
 };
 
 #endif /* !RAYLIBENCAPSULATION_HPP_ */

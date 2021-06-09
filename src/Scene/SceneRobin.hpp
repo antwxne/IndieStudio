@@ -2,23 +2,23 @@
 ** EPITECH PROJECT, 2021
 ** Indie_Studio
 ** File description:
-** SceneTest
+** SceneRobin
 */
 
-#ifndef SCENETEST_HPP_
-#define SCENETEST_HPP_
+#ifndef SCENEROBIN_HPP_
+#define SCENEROBIN_HPP_
 
 #include "Raylib.hpp"
 #include "AScene.hpp"
 
-class SceneTest : AScene {
+class SceneRobin : AScene {
     public:
-        SceneTest();
-        ~SceneTest();
+        SceneRobin();
+        ~SceneRobin();
 
         void run(Raylib &lib) override;
     protected:
     private:
 };
 
-#endif /* !SCENETEST_HPP_ */
+#endif /* !SCENEROBIN_HPP_ */

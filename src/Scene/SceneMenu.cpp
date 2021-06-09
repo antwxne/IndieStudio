@@ -34,7 +34,8 @@ namespace menu {
     {
         bool enter = 0;
 
-        lib.set3d(false);
+        // raylib funcs replaced old functions
+        //we will only use Raylib::printObjects(std::vector<unique_ptr<IObject>> objects) later
         while (!lib.isKeyReleased(KEY_ENTER) && lib.gameLoop()) {
             if (lib.isKeyPressed(KEY_ENTER))
                 enter = !enter;
@@ -42,13 +43,13 @@ namespace menu {
                 _select = (_select + 1) % (QUIT + 1);
             if (lib.isKeyPressed(KEY_UP))
                 _select = !_select ? QUIT : _select - 1;
-            lib.drawingLoopBegin();
+            BeginDrawing();
             for (auto &i : _menuPos)
                 lib.printRectangle(Raylib::BASIC, i.at(0), i.at(1), {ORANGE, ORANGE});
             lib.printRectangle(Raylib::GRADIENT, _menuPos.at(_select).at(0), _menuPos.at(_select).at(1), {RED, RED});
             if (enter)
                 lib.printRectangle(Raylib::GRADIENT, _menuPos.at(_select).at(0), _menuPos.at(_select).at(1), {PINK, PINK});
-            lib.drawingLoopEnd();
+            EndDrawing();
         }
     }
 }

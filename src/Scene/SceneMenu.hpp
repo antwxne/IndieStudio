@@ -27,6 +27,7 @@ namespace menu {
             ~SceneMenu();
             void run(Raylib &lib) final;
             void InitAssets();
+            bool clockGame();
 
         protected:
         private:
