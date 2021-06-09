@@ -67,6 +67,7 @@ public:
     std::string getControllerName(int const idx) const;
 
     bool isKeyPressed(int button) const noexcept;
+    bool isKeyReleased(int button) const noexcept;
 
 protected:
 private:

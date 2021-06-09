@@ -6,6 +6,7 @@
 */
 
 #include "Core/Core.hpp"
+#include <chrono>
 #include "Raylib/Raylib.hpp"
 #include "Scene/SceneMenu.hpp"
 
@@ -32,18 +33,23 @@ namespace menu {
 
     int SceneMenu::run(Raylib &lib)
     {
+        bool enter = 0;
+
         // raylib funcs replaced old functions
         //we will only use Raylib::printObjects(std::vector<unique_ptr<IObject>> objects) later
-        while (!lib.isKeyPressed(KEY_ENTER)) {
+        while (!lib.isKeyReleased(KEY_ENTER) && lib.gameLoop()) {
+            if (lib.isKeyPressed(KEY_ENTER))
+                enter = !enter;
             if (lib.isKeyPressed(KEY_DOWN))
                 _select = (_select + 1) % (QUIT + 1);
             if (lib.isKeyPressed(KEY_UP))
                 _select = !_select ? QUIT : _select - 1;
             BeginDrawing();
-            ClearBackground(RAYWHITE);
             for (auto &i : _menuPos)
                 lib.printRectangle(Raylib::BASIC, i.at(0), i.at(1), {ORANGE, ORANGE});
             lib.printRectangle(Raylib::GRADIENT, _menuPos.at(_select).at(0), _menuPos.at(_select).at(1), {RED, RED});
+            if (enter)
+                lib.printRectangle(Raylib::GRADIENT, _menuPos.at(_select).at(0), _menuPos.at(_select).at(1), {PINK, PINK});
             EndDrawing();
         }
         return (Core::Scenes::QUIT);
