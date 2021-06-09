@@ -7,7 +7,8 @@
 
 #include "Core.hpp"
 #include "Raylib.hpp"
-#include "SceneTest.hpp"
+#include "SceneMaxime.hpp"
+#include "SceneRobin.hpp"
 
 Core::Core(int screenWidth, int screenHeight, std::string const &title, std::size_t const fps)
     : _screenWidth(screenWidth), _screenHeight(screenHeight), _title(title), _fps(fps)
@@ -21,8 +22,10 @@ Core::~Core()
 void Core::start()
 {
     Raylib lib;
-    SceneTest sceneTest;
+    SceneRobin sceneRobin;
+    SceneMaxime sceneMaxime;
 
     lib.createWindow(_screenWidth, _screenHeight, _title, _fps);
-    sceneTest.run(lib);
+    // sceneRobin.run(lib);
+    // sceneMaxime.run(lib);
 }

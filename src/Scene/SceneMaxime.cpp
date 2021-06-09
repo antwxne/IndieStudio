@@ -2,22 +2,22 @@
 ** EPITECH PROJECT, 2021
 ** Indie_Studio
 ** File description:
-** SceneTest
+** SceneMaxime
 */
 
-#include "SceneTest.hpp"
+#include "SceneMaxime.hpp"
 
-SceneTest::SceneTest()
+SceneMaxime::SceneMaxime()
 {
     //init _objects
 }
 
-SceneTest::~SceneTest()
+SceneMaxime::~SceneMaxime()
 {
     _objects.clear();
 }
 
-void SceneTest::run(Raylib &lib)
+void SceneMaxime::run(Raylib &lib)
 {
     while (lib.gameLoop()) {
         lib.drawingLoopBegin();

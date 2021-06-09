@@ -53,7 +53,8 @@ set(OBJECTS_SRCS
 )
 set(SCENE_SRCS
         ${SCENE_PATH}/SceneMenu.cpp
-        ${SCENE_PATH}/SceneTest.cpp
+        ${SCENE_PATH}/SceneMaxime.cpp
+        ${SCENE_PATH}/SceneRobin.cpp
 )
 
 set(INDIE_SRCS
