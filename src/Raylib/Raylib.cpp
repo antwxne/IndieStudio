@@ -8,7 +8,7 @@
 #include "Raylib.hpp"
 #include "RaylibError.hpp"
 
-Raylib::Raylib() : _is3D(false)
+Raylib::Raylib()
 {
     _camera = {{0.0f, 10.0f, 10.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 45.0f, 0};
 }
@@ -33,15 +33,6 @@ Camera Raylib::getCamera() const
     return _camera;
 };
 
-void Raylib::set3d(bool is3d)
-{
-    _is3D = is3d;
-}
-
-bool Raylib::get3d() const {
-    return _is3D;
-}
-
 void Raylib::createWindow(int screenWidth, int screenHeight, std::string const &title, std::size_t const fps)
 {
     _screenSize.first = screenWidth;
@@ -57,10 +48,13 @@ bool Raylib::gameLoop()
 void Raylib::drawingLoopBegun() const
 {
     BeginDrawing();
-    if (_is3D)
-        BeginMode3D(_camera);
+    BeginMode3D(_camera);
 }
 
+void Raylib::drawingLoopEnd() const
+{
+    EndDrawing();
+}
 
 bool Raylib::isKeyPressed(int button) const noexcept
 {

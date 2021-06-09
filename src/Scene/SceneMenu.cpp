@@ -31,7 +31,6 @@ namespace menu {
 
     void SceneMenu::StartLoop(Raylib &lib)
     {
-        lib.set3d(false);
         while (!lib.isKeyPressed(KEY_ENTER)) {
             lib.drawingLoopBegun();
             // for (auto &i : _menuPos)

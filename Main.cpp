@@ -29,11 +29,11 @@ int main(void)
 
     Lib.createWindow(screenWidth, screenHeight, "LETS GO", Fps);
     menu.StartLoop(Lib);
-    Lib.set3d(true);
 
     // Main game loop
     while (Lib.gameLoop()) // Detect window close button or ESC key
     {
+        BeginDrawing();
         Lib.drawingLoopBegun();
 
         Lib.printText("ET C'EST PARTIS", {190, 200}, 20, LIGHTGRAY);
@@ -57,6 +57,7 @@ int main(void)
         // }
 
         Lib.drawingLoopEnd();
+        EndDrawing();
     }
     //Lib->destroyWindow();
     ///////////////////////////////////////////

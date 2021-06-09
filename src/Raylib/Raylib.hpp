@@ -63,14 +63,10 @@ public:
     // Will print all registered entities
     void PrintEntities();
 
-    void set3d(bool is3d);
-    bool get3d() const;
-
 protected:
 private:
     std::pair<int, int> _screenSize;
     Camera _camera;
-    bool _is3D;
 };
 
 #endif /* !RAYLIBENCAPSULATION_HPP_ */
