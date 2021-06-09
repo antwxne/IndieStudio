@@ -38,6 +38,7 @@ void Raylib::createWindow(int screenWidth, int screenHeight, std::string const &
     _screenSize.first = screenWidth;
     _screenSize.second = screenHeight;
     InitWindow(screenWidth, screenHeight, title.c_str());
+    SetTargetFPS(fps);
 }
 
 bool Raylib::gameLoop()
@@ -45,20 +46,19 @@ bool Raylib::gameLoop()
     return !WindowShouldClose();
 }
 
-void Raylib::drawingLoopBegun() const
-{
-    BeginDrawing();
-    BeginMode3D(_camera);
-}
-
-void Raylib::drawingLoopEnd() const
-{
-    EndDrawing();
-}
-
 bool Raylib::isKeyPressed(int button) const noexcept
 {
     return (IsKeyPressed(button));
+}
+
+void Raylib::printObjects(Raylib::vectorObject objects)
+{
+    BeginDrawing();
+    BeginMode3D(_camera);
+    //3D display here
+    EndMode3D();
+    //2D display here
+    EndDrawing();
 }
 
 void Raylib::printText(std::string const &text, std::pair<int, int> const position, int const fontSize, Color const color) const
