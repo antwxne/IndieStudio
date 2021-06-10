@@ -34,10 +34,10 @@ int SceneMaxime::run(Raylib &lib)
         BeginDrawing();
         BeginMode3D(lib.getCamera());
         //we will only use Raylib::printObjects(std::vector<unique_ptr<IObject>> objects) later
-        lib.printCube(Raylib::WIRES, enemyBoxPos, enemyBoxSize, DARKGRAY);
+        // lib.printCube(Raylib::WIRES, enemyBoxPos, enemyBoxSize, DARKGRAY);
 
-        lib.printSphere(Raylib::BASIC, enemySpherePos, enemySphereSize, {0,0}, GRAY);
-        lib.printSphere(Raylib::WIRES, enemySpherePos, enemySphereSize, {16, 16}, DARKGRAY);
+        // lib.printSphere(Raylib::BASIC, enemySpherePos, enemySphereSize, {0,0}, GRAY);
+        // lib.printSphere(Raylib::WIRES, enemySpherePos, enemySphereSize, {16, 16}, DARKGRAY);
 
         // Draw player
         DrawCubeV(playerPosition, playerSize, playerColor);

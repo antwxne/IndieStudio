@@ -14,12 +14,13 @@
 #include "Keys.hpp"
 #include "Raylib.hpp"
 #include "IObject.hpp"
+#include "IScene.hpp"
 
-class AScene {
+class AScene : public IScene
+{
 public:
     AScene() = default;
     virtual ~AScene() = default;
-    virtual int run(Raylib &lib) = 0;
 
     //Could prepare some funcs with all the classic raylib use?
     //  void mainSceneLoop();

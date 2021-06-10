@@ -20,6 +20,13 @@ namespace menu {
         QUIT
     };
 
+    enum assetsPath_e {
+        BACKGROUND,
+        MUSIC_BG,
+        TIC,
+        ACCEPT
+    };
+
     class SceneMenu : public AScene
     {
         public:

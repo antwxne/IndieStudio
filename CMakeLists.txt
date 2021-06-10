@@ -10,6 +10,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 # Paths
 set(RAYLIB_PATH src/Raylib)
+set(RAYOBJ_PATH src/Raylib/RayObj)
 set(ERROR_PATH src/Error)
 set(CORE_PATH src/Core)
 set(OBJECT_PATH src/Object)
@@ -33,6 +34,13 @@ include_directories(${MOVABLE_PATH})
 set(RAYLIB_SRCS
         ${RAYLIB_PATH}/Raylib.cpp
 )
+
+set(RAYOBJ_SRCS
+        ${RAYOBJ_PATH}/RayModel.cpp
+        ${RAYOBJ_PATH}/RaySquare.cpp
+        ${RAYOBJ_PATH}/RayText.cpp
+)
+
 set(ERROR_SRCS
         ${ERROR_PATH}/Error.cpp
         ${ERROR_PATH}/RaylibError.cpp
@@ -64,6 +72,7 @@ set(INDIE_SRCS
         ${CORE_SRCS}
         ${OBJECTS_SRCS}
         ${SCENE_SRCS}
+        ${RAYOBJ_SRCS}
 )
 
 # Compilation

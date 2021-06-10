@@ -15,6 +15,8 @@ Raylib::Raylib() :
 
 Raylib::~Raylib()
 {
+    if (IsAudioDeviceReady())
+        CloseAudioDevice();
     if (IsWindowReady())
         CloseWindow();
 }
@@ -38,6 +40,7 @@ void Raylib::createWindow(int screenWidth, int screenHeight, std::string const &
     _screenSize.first = screenWidth;
     _screenSize.second = screenHeight;
     InitWindow(screenWidth, screenHeight, title.c_str());
+    InitAudioDevice();
     SetTargetFPS(fps);
 }
 
@@ -55,9 +58,13 @@ void Raylib::printObjects(Raylib::vectorObject objects)
 {
     BeginDrawing();
     BeginMode3D(_camera);
-    //3D display here
+    for (auto &i : objects)
+        if (i->is3D())
+            i->funcDraw();
     EndMode3D();
-    //2D display here
+    for (auto &i : objects)
+        if (!i->is3D())
+            i->funcDraw();
     EndDrawing();
 }
 
@@ -66,53 +73,26 @@ bool Raylib::isKeyReleased(int button) const noexcept
     return (IsKeyReleased(button));
 }
 
-void Raylib::printText(std::string const &text, std::pair<int, int> const position, int const fontSize, Color const color) const
+void Raylib::printCircle(std::pair<int, int> const position, float const radius, std::pair<Color, Color> const color) const
 {
-    DrawText(text.c_str(), position.first, position.second, fontSize, color);
+        // DrawCircle(position.first, position.second, radius, color.first);
+        // DrawCircleGradient(position.first, position.second, radius, color.first, color.second);
+        // DrawCircleLines(position.first, position.second, radius, color.first);
+        // std::cout << "[-] Unknow Circle Type, valid are Basic, Gradient, Lines" << '\n';
 }
 
-void Raylib::printCircle(type const type, std::pair<int, int> const position, float const radius, std::pair<Color, Color> const color) const
+void Raylib::printCube(Vector3 const position, Vector3 const size, Color const color) const
 {
-    if (type == BASIC)
-        DrawCircle(position.first, position.second, radius, color.first);
-    else if (type == GRADIENT)
-        DrawCircleGradient(position.first, position.second, radius, color.first, color.second);
-    else if (type == LINES)
-        DrawCircleLines(position.first, position.second, radius, color.first);
-    else
-        std::cout << "[-] Unknow Circle Type, valid are Basic, Gradient, Lines" << '\n';
+        // DrawCube(position, size.x, size.y, size.z, color);
+        // DrawCubeWires(position, size.x, size.y, size.z, color);
+        // std::cout << "[-] Unknow Cube Type, valid are Basic, Wires" << '\n';
 }
 
-void Raylib::printRectangle(type const type, std::pair<int, int> const position, std::pair<int, int> const size, std::pair<Color, Color> const color) const
+void Raylib::printSphere(Vector3 const position, float const size, std::pair<int, int> const Vertex, Color const color) const
 {
-    if (type == BASIC)
-        DrawRectangle(position.first, position.second, size.first, size.second, color.first);
-    else if (type == GRADIENT)
-        DrawRectangleGradientH(position.first, position.second, size.first, size.second, color.first, color.second);
-    else if (type == LINES)
-        DrawRectangleLines(position.first, position.second, size.first, size.second, color.first);
-    else
-        std::cout << "[-] Unknow Rectangle Type, valid are Basic, Gradient, Lines" << '\n';
-}
-
-void Raylib::printCube(type const type, Vector3 const position, Vector3 const size, Color const color) const
-{
-    if (type == BASIC)
-        DrawCube(position, size.x, size.y, size.z, color);
-    else if (type == WIRES)
-        DrawCubeWires(position, size.x, size.y, size.z, color);
-    else
-        std::cout << "[-] Unknow Cube Type, valid are Basic, Wires" << '\n';
-}
-
-void Raylib::printSphere(type const type, Vector3 const position, float const size, std::pair<int, int> const Vertex, Color const color) const
-{
-    if (type == BASIC)
-        DrawSphere(position, size, color);
-    else if (type == WIRES)
-        DrawSphereWires(position, size, Vertex.first, Vertex.second, color);
-    else
-        std::cout << "[-] Unknow Shpere Type, valid are Basic, Wires" << '\n';
+        // DrawSphere(position, size, color);
+        // DrawSphereWires(position, size, Vertex.first, Vertex.second, color);
+        // std::cout << "[-] Unknow Shpere Type, valid are Basic, Wires" << '\n';
 }
 
 void Raylib::printGrid(int const slices, float const space) const
