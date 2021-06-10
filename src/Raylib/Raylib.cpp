@@ -5,12 +5,14 @@
 ** Raylib
 */
 
+#include <algorithm>
+
 #include "Raylib.hpp"
 #include "RaylibError.hpp"
 
-Raylib::Raylib()
+Raylib::Raylib() :
+    _camera({{0.0f, 10.0f, 10.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 45.0f, 0})
 {
-    _camera = {{0.0f, 10.0f, 10.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 45.0f, 0};
 }
 
 Raylib::~Raylib()
@@ -59,6 +61,11 @@ void Raylib::printObjects(Raylib::vectorObject objects)
     EndMode3D();
     //2D display here
     EndDrawing();
+}
+
+bool Raylib::isKeyReleased(int button) const noexcept
+{
+    return (IsKeyReleased(button));
 }
 
 void Raylib::printText(std::string const &text, std::pair<int, int> const position, int const fontSize, Color const color) const
@@ -137,4 +144,13 @@ bool Raylib::isControllerValid(int const idx, std::string const &ControllerName)
     if (ControllerName.compare("ps3"))
         return IsGamepadName(idx, PS3_NAME_ID);
     return false;
+}
+
+int Raylib::getKeyPressed() const
+{
+    int input = GetKeyPressed();
+    auto iterator = std::find(_keys.begin(), _keys.end(), input);
+    if (iterator == _keys.end())
+        return (0);
+    return std::distance(_keys.begin(), iterator);
 }

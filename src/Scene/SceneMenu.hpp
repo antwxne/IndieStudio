@@ -25,15 +25,16 @@ namespace menu {
         public:
             SceneMenu();
             ~SceneMenu();
-            void run(Raylib &lib) final;
+            int run(Raylib &lib) final;
             void InitAssets();
+            bool clockGame();
 
         protected:
         private:
-
             std::size_t _select;
             static const std::vector<std::array<std::pair<float, float>, 2>> _menuPos;
             static const std::vector<std::string> _assetsPath;
+            static const std::vector<std::string> _menuText;
     };
 }
 

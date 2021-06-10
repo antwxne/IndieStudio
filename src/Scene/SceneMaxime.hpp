@@ -10,12 +10,12 @@
 
 #include "AScene.hpp"
 
-class SceneMaxime : AScene {
+class SceneMaxime : public AScene {
     public:
         SceneMaxime();
         ~SceneMaxime();
 
-        void run(Raylib &lib) override;
+        int run(Raylib &lib) override;
     protected:
     private:
 };

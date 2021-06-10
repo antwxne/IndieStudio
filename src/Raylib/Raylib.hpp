@@ -23,6 +23,8 @@
 #include <memory>
 #include <iostream>
 #include <vector>
+#include <unordered_map>
+#include <functional>
 #include "raylib.h"
 
 #include "IObject.hpp"
@@ -32,6 +34,18 @@ class Raylib
 public:
     using uIObject = std::unique_ptr<IObject>;
     using vectorObject = std::vector<uIObject>;
+    enum Keys {
+        NULL_KEY,
+        ENTER,
+        SPACE,
+        ESCAPE,
+        TAB,
+        UP,
+        DOWN,
+        RIGHT,
+        LEFT,
+        A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
+    };
     enum type {
             BASIC,
             GRADIENT,
@@ -64,11 +78,51 @@ public:
     std::string getControllerName(int const idx) const;
 
     bool isKeyPressed(int button) const noexcept;
+    bool isKeyReleased(int button) const noexcept;
+    int getKeyPressed() const;
 
 protected:
 private:
     std::pair<int, int> _screenSize;
     Camera _camera;
+    std::vector<int> _keys = {
+        KEY_NULL,
+        KEY_ENTER,
+        KEY_SPACE,
+        KEY_ESCAPE,
+        KEY_TAB,
+        KEY_UP,
+        KEY_DOWN,
+        KEY_RIGHT,
+        KEY_LEFT,
+        KEY_A,
+        KEY_B,
+        KEY_C,
+        KEY_D,
+        KEY_E,
+        KEY_E,
+        KEY_F,
+        KEY_G,
+        KEY_H,
+        KEY_I,
+        KEY_J,
+        KEY_K,
+        KEY_L,
+        KEY_M,
+        KEY_N,
+        KEY_O,
+        KEY_P,
+        KEY_Q,
+        KEY_R,
+        KEY_S,
+        KEY_T,
+        KEY_U,
+        KEY_V,
+        KEY_W,
+        KEY_X,
+        KEY_Y,
+        KEY_Z,
+    };
 };
 
 #endif /* !RAYLIBENCAPSULATION_HPP_ */
