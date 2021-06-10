@@ -65,20 +65,32 @@ void Map::createContourMap(int xMax, int yMax) noexcept
             Wall(std::make_pair(x, y), std::make_pair(0, 0)));
     }
 }
-/*
-void Map::writeIn() noexcept
+
+void Map::writeDestructibleList() noexcept
 {
-    std::ofstream file("fihvhier", std::ios::out);
-    file.write((char *)&this[0], sizeof(this));
+    unsigned long size = _objectDestructibleList.size();
+    DestructibleObject::destructible_t dest;
+    std::ofstream file("fihvhier", std::ios::out | std::ofstream::binary);
+    file.write(reinterpret_cast<const char *>(&size), sizeof(unsigned long));
+    for (const auto &i : _objectDestructibleList) {
+         dest = i.getStructSave();
+        file.write(reinterpret_cast<const char *>(&dest), sizeof(DestructibleObject::destructible_t));
+    }
     file.close();
 }
 
-void Map::readIt() noexcept
+void Map::readDestructibleList() noexcept
 {
-    std::ifstream file;
-    file.open("fihvhier", std::ios::in);
-    file.read((char *)&this[0], sizeof(this));
-    std::cout << this->_objectNoDestructibleList[0].getPosition().first;
-   /* for(auto const &e: this->_objectNoDestructibleList)
-        std::cout << "this new x" << e.getPosition().first << std::endl;*/
-}*/
+    unsigned long size = 0;
+    DestructibleObject::destructible_t dest;
+
+    std::ifstream file("fihvhier", std::ios::in | std::ifstream::binary);
+    file.read(reinterpret_cast<char *>(&size), sizeof(unsigned long));
+    for (int i = 0; i != size; i++) {
+        file.read(reinterpret_cast<char *>(&dest), sizeof(DestructibleObject::destructible_t));
+        std::cout << "struct == " << dest.x << " : " << dest.y << " : life = "<< dest.life << std::endl;
+        auto tmp = DestructibleWall(std::make_pair(dest.x, dest.y), std::make_pair(0, 0));
+        tmp.setLife(dest.life);
+        _objectDestructibleList.push_back(tmp);
+    }
+}
