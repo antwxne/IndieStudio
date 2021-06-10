@@ -27,8 +27,8 @@
 #include <functional>
 #include "raylib.h"
 
-
 #include "IObject.hpp"
+#include "AScene.hpp"
 
 class Raylib
 {
@@ -68,50 +68,49 @@ public:
 
     bool isKeyPressed(int button) const noexcept;
     bool isKeyReleased(int button) const noexcept;
-    void triggerInputFunctions();
+    int getKeyPressed() const;
 
 protected:
 private:
     std::pair<int, int> _screenSize;
     Camera _camera;
-    // template<typename ...T>
-    // std::unordered_map<int,std::function<void(T...)>> _keys;
-    std::unordered_map<int,std::function<void()>> _keys = {
-        {KEY_ENTER, [](){}},
-        {KEY_SPACE, [](){}},
-        {KEY_ESCAPE, [](){}},
-        {KEY_TAB, [](){}},
-        {KEY_UP, [](){}},
-        {KEY_DOWN, [](){}},
-        {KEY_RIGHT, [](){}},
-        {KEY_LEFT, [](){}},
-        {KEY_A, [](){}},
-        {KEY_B, [](){}},
-        {KEY_C, [](){}},
-        {KEY_D, [](){}},
-        {KEY_E, [](){}},
-        {KEY_E, [](){}},
-        {KEY_F, [](){}},
-        {KEY_G, [](){}},
-        {KEY_H, [](){}},
-        {KEY_I, [](){}},
-        {KEY_J, [](){}},
-        {KEY_K, [](){}},
-        {KEY_L, [](){}},
-        {KEY_M, [](){}},
-        {KEY_N, [](){}},
-        {KEY_O, [](){}},
-        {KEY_P, [](){}},
-        {KEY_Q, [](){}},
-        {KEY_R, [](){}},
-        {KEY_S, [](){}},
-        {KEY_T, [](){}},
-        {KEY_U, [](){}},
-        {KEY_V, [](){}},
-        {KEY_W, [](){}},
-        {KEY_X, [](){}},
-        {KEY_Y, [](){}},
-        {KEY_Z, [](){}},
+    std::vector<int> _keys = {
+        KEY_NULL,
+        KEY_ENTER,
+        KEY_SPACE,
+        KEY_ESCAPE,
+        KEY_TAB,
+        KEY_UP,
+        KEY_DOWN,
+        KEY_RIGHT,
+        KEY_LEFT,
+        KEY_A,
+        KEY_B,
+        KEY_C,
+        KEY_D,
+        KEY_E,
+        KEY_E,
+        KEY_F,
+        KEY_G,
+        KEY_H,
+        KEY_I,
+        KEY_J,
+        KEY_K,
+        KEY_L,
+        KEY_M,
+        KEY_N,
+        KEY_O,
+        KEY_P,
+        KEY_Q,
+        KEY_R,
+        KEY_S,
+        KEY_T,
+        KEY_U,
+        KEY_V,
+        KEY_W,
+        KEY_X,
+        KEY_Y,
+        KEY_Z,
     };
 };
 

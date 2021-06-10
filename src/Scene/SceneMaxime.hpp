@@ -10,7 +10,7 @@
 
 #include "AScene.hpp"
 
-class SceneMaxime : AScene {
+class SceneMaxime : public AScene {
     public:
         SceneMaxime();
         ~SceneMaxime();

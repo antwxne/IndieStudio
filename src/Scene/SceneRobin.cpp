@@ -22,11 +22,11 @@ SceneRobin::~SceneRobin()
 
 int SceneRobin::run(Raylib &lib)
 {
-    int tmp = 0;
-    int i = 0;
+    int input = 0;
+    std::unique_ptr<AScene> uScene = std::make_unique<SceneRobin>(this);
 
     while (lib.gameLoop()) {
-        lib.triggerInputFunctions();
+        triggerInputFuncs(lib);
         BeginDrawing();
         //2D display here
         EndDrawing();

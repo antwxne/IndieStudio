@@ -11,7 +11,7 @@
 #include "Raylib.hpp"
 #include "AScene.hpp"
 
-class SceneRobin : AScene {
+class SceneRobin : public AScene {
     public:
         SceneRobin();
         ~SceneRobin();

@@ -144,14 +144,7 @@ bool Raylib::isControllerValid(int const idx, std::string const &ControllerName)
     return false;
 }
 
-void Raylib::triggerInputFunctions()
+int Raylib::getKeyPressed() const
 {
-    int input = KEY_NULL;
-    std::unordered_map<int,std::function<void()>>::iterator itKey;
-
-    while ((input = GetKeyPressed()) != KEY_NULL) {
-        itKey = _keys.find(input);
-        if (itKey != _keys.end())
-            itKey->second();
-    }
+    return GetKeyPressed();
 }
