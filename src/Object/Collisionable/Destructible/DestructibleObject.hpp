@@ -25,7 +25,7 @@ public:
         int y;
         float life;
     };
-    const destructible_t &getStructSave() const noexcept;
+    const destructible_t &getStructSave() noexcept;
 
 protected:
     float _life;

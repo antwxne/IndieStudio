@@ -70,9 +70,9 @@ void Map::writeDestructibleList() noexcept
 {
     unsigned long size = _objectDestructibleList.size();
     DestructibleObject::destructible_t dest;
-    std::ofstream file("fihvhier", std::ios::out | std::ofstream::binary);
+    std::ofstream file("destructibleList.txt", std::ios::out | std::ofstream::binary);
     file.write(reinterpret_cast<const char *>(&size), sizeof(unsigned long));
-    for (const auto &i : _objectDestructibleList) {
+    for (auto &i : _objectDestructibleList) {
          dest = i.getStructSave();
         file.write(reinterpret_cast<const char *>(&dest), sizeof(DestructibleObject::destructible_t));
     }
@@ -83,14 +83,13 @@ void Map::readDestructibleList() noexcept
 {
     unsigned long size = 0;
     DestructibleObject::destructible_t dest;
-
-    std::ifstream file("fihvhier", std::ios::in | std::ifstream::binary);
+    std::ifstream file("destructibleList.txt", std::ios::in | std::ifstream::binary);
     file.read(reinterpret_cast<char *>(&size), sizeof(unsigned long));
     for (int i = 0; i != size; i++) {
         file.read(reinterpret_cast<char *>(&dest), sizeof(DestructibleObject::destructible_t));
-        std::cout << "struct == " << dest.x << " : " << dest.y << " : life = "<< dest.life << std::endl;
         auto tmp = DestructibleWall(std::make_pair(dest.x, dest.y), std::make_pair(0, 0));
         tmp.setLife(dest.life);
         _objectDestructibleList.push_back(tmp);
     }
+    file.close();
 }
