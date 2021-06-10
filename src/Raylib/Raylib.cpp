@@ -5,6 +5,8 @@
 ** Raylib
 */
 
+#include <algorithm>
+
 #include "Raylib.hpp"
 #include "RaylibError.hpp"
 
@@ -146,5 +148,9 @@ bool Raylib::isControllerValid(int const idx, std::string const &ControllerName)
 
 int Raylib::getKeyPressed() const
 {
-    return GetKeyPressed();
+    int input = GetKeyPressed();
+    auto iterator = std::find(_keys.begin(), _keys.end(), input);
+    if (iterator == _keys.end())
+        return (0);
+    return std::distance(_keys.begin(), iterator);
 }

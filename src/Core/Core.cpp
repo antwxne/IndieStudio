@@ -29,9 +29,9 @@ void Core::start()
     SceneMaxime test3d;
 
     lib.createWindow(_screenWidth, _screenHeight, _title, _fps);
-    sceneRobin.run(lib);
-    // while (_scenePos != QUIT) {
-    //     _scenePos = _vecScenes.at(_scenePos)->run(lib);
-    // }
-    // test3d.run(lib);
+    // sceneRobin.run(lib);
+    while (_scenePos != QUIT) {
+        _scenePos = _vecScenes.at(_scenePos)->run(lib);
+    }
+    // // test3d.run(lib);
 }

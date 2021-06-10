@@ -6,13 +6,14 @@
 */
 
 #include <iostream>
+#include <functional>
 
 #include "SceneRobin.hpp"
 #include "Core.hpp"
 
 SceneRobin::SceneRobin()
 {
-    //init _objects
+    setInputFunction(Raylib::ENTER, [](){std::cout << "ENTERRRRRRR" << std::endl;});
 }
 
 SceneRobin::~SceneRobin()
@@ -25,10 +26,7 @@ int SceneRobin::run(Raylib &lib)
     int input = 0;
 
     while (lib.gameLoop()) {
-        triggerInputFuncs(lib);
-        BeginDrawing();
-        //2D display here
-        EndDrawing();
+        triggerInputActions(lib);
     }
     return (Core::Scenes::QUIT);
 }
