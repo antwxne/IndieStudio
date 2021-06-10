@@ -8,10 +8,9 @@
 #include "Raylib/Raylib.hpp"
 #include "Core.hpp"
 
-int main(void)
+int main()
 {
     Core core;
-
     core.start();
     return (0);
 }

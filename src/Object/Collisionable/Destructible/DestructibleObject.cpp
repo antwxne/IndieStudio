@@ -30,3 +30,11 @@ bool DestructibleObject::isDestroyed() const
     return _life > 0;
 }
 
+const DestructibleObject::destructible_t &DestructibleObject::getStructSave() noexcept
+{
+    _save.x = _pos.first;
+    _save.y = _pos.second;
+    _save.life = _life;
+    return _save;
+}
+
