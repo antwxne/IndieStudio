@@ -4,7 +4,9 @@
 
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
 #include <array>
+#include <iostream>
 #include "Map.hpp"
 
 Map::Map()
@@ -63,3 +65,20 @@ void Map::createContourMap(int xMax, int yMax) noexcept
             Wall(std::make_pair(x, y), std::make_pair(0, 0)));
     }
 }
+/*
+void Map::writeIn() noexcept
+{
+    std::ofstream file("fihvhier", std::ios::out);
+    file.write((char *)&this[0], sizeof(this));
+    file.close();
+}
+
+void Map::readIt() noexcept
+{
+    std::ifstream file;
+    file.open("fihvhier", std::ios::in);
+    file.read((char *)&this[0], sizeof(this));
+    std::cout << this->_objectNoDestructibleList[0].getPosition().first;
+   /* for(auto const &e: this->_objectNoDestructibleList)
+        std::cout << "this new x" << e.getPosition().first << std::endl;*/
+}*/
