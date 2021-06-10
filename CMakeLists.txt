@@ -52,6 +52,7 @@ set(OBJECTS_SRCS
         ${MOVABLE_PATH}/Bullet.cpp
 )
 set(SCENE_SRCS
+        ${SCENE_PATH}/AScene.cpp
         ${SCENE_PATH}/SceneMenu.cpp
         ${SCENE_PATH}/SceneMaxime.cpp
         ${SCENE_PATH}/SceneRobin.cpp

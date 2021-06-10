@@ -23,7 +23,6 @@ SceneRobin::~SceneRobin()
 int SceneRobin::run(Raylib &lib)
 {
     int input = 0;
-    std::unique_ptr<AScene> uScene = std::make_unique<SceneRobin>(this);
 
     while (lib.gameLoop()) {
         triggerInputFuncs(lib);

@@ -28,7 +28,6 @@
 #include "raylib.h"
 
 #include "IObject.hpp"
-#include "AScene.hpp"
 
 class Raylib
 {

@@ -22,7 +22,6 @@ enum Keys {
     C,
     D,
     E,
-    E,
     F,
     G,
     H,
