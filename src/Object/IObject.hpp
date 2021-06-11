@@ -42,6 +42,7 @@ typedef struct type_field_s {
     bool is_tank: 1;
     bool is_cannon: 1;
     bool is_bullet: 1;
+    bool is_3d: 1;
 } type_field_t;
 
 class IObject {

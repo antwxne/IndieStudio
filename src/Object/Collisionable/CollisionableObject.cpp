@@ -15,7 +15,12 @@ CollisionableObject::CollisionableObject(const std::pair<int, int> &pos,
     _type_field.is_collisionable = true;
 }
 
-bool CollisionableObject::hit(const CollisionableObject &) const noexcept
+bool CollisionableObject::hit(const CollisionableObject &obj) const noexcept
 {
+    if (this->_pos.first + this->_size.first >= obj._pos.first
+    && this->_pos.first <= obj._pos.first + obj._size.first
+    && this->_pos.second + this->_size.second >= obj._pos.second
+    && this->_pos.second <= obj._pos.second + obj._size.second)
+        return true;
     return false;
 }

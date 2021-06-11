@@ -32,7 +32,6 @@ protected:
     float _rotation;
     type_field_t _type_field;
     std::unique_ptr<IRayObj> _drawable;
-    bool _is3D;
     //sprite
 };
 
