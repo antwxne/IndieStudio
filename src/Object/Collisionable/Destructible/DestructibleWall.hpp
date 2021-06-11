@@ -14,6 +14,7 @@
 class DestructibleWall: public DestructibleObject {
 public:
     DestructibleWall(const std::pair<int, int> &pos, const std::pair<int, int> &size);
+    DestructibleWall(const DestructibleWall &e) : DestructibleWall(e._pos, e._size) {}
     ~DestructibleWall() = default;
 };
 

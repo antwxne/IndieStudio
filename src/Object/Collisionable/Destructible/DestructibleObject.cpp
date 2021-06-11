@@ -37,4 +37,3 @@ const DestructibleObject::destructible_t &DestructibleObject::getStructSave() no
     _save.life = _life;
     return _save;
 }
-

@@ -17,7 +17,8 @@ public:
     void createContourMap(int xMax, int yMax) noexcept;
     void writeDestructibleList() noexcept;
     void readDestructibleList() noexcept;
-    protected:
+
+    public:
     std::vector<DestructibleWall> _objectDestructibleList;
     std::vector<std::pair<int, int>> _pos;
     std::vector<Wall> _objectNoDestructibleList;
