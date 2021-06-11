@@ -17,7 +17,7 @@ int main(void)
     Raylib Lib;
 
     Lib.createWindow(1920, 1080, "LETS GO", 60);
-    menu.run(Lib);
+    //menu.run(Lib);
     test3d.run(Lib);
     return 0;
 }
