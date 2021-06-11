@@ -5,11 +5,15 @@
 ** SceneRobin
 */
 
+#include <iostream>
+#include <functional>
+
 #include "SceneRobin.hpp"
+#include "Core.hpp"
 
 SceneRobin::SceneRobin()
 {
-    //init _objects
+    setInputFunction(Raylib::ENTER, [](){std::cout << "ENTERRRRRRR" << std::endl;});
 }
 
 SceneRobin::~SceneRobin()
@@ -17,11 +21,12 @@ SceneRobin::~SceneRobin()
     _objects.clear();
 }
 
-void SceneRobin::run(Raylib &lib)
+int SceneRobin::run(Raylib &lib)
 {
+    int input = 0;
+
     while (lib.gameLoop()) {
-        BeginDrawing();
-        //2D display here
-        EndDrawing();
+        triggerInputActions(lib);
     }
+    return (Core::Scenes::QUIT);
 }

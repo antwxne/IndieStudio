@@ -20,9 +20,16 @@ public:
     void setLife(float life);
     void updateLife(float life);
     bool isDestroyed() const;
+    struct destructible_t {
+        int x;
+        int y;
+        float life;
+    };
+    const destructible_t &getStructSave() noexcept;
 
 protected:
     float _life;
+    destructible_t _save;
 };
 
 #endif //INDIESTUDIO_DESTROYABLEOBJECT_HPP

@@ -20,20 +20,28 @@ namespace menu {
         QUIT
     };
 
+    enum assetsPath_e {
+        BACKGROUND,
+        MUSIC_BG,
+        TIC,
+        ACCEPT
+    };
+
     class SceneMenu : public AScene
     {
         public:
             SceneMenu();
             ~SceneMenu();
-            void run(Raylib &lib) final;
+            int run(Raylib &lib) final;
             void InitAssets();
+            bool clockGame();
 
         protected:
         private:
-
             std::size_t _select;
             static const std::vector<std::array<std::pair<float, float>, 2>> _menuPos;
             static const std::vector<std::string> _assetsPath;
+            static const std::vector<std::string> _menuText;
     };
 }
 

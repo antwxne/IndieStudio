@@ -11,12 +11,12 @@
 #include "Raylib.hpp"
 #include "AScene.hpp"
 
-class SceneRobin : AScene {
+class SceneRobin : public AScene {
     public:
         SceneRobin();
         ~SceneRobin();
 
-        void run(Raylib &lib) override;
+        int run(Raylib &lib) override;
     protected:
     private:
 };

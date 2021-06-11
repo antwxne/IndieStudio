@@ -6,10 +6,11 @@
 */
 
 #include "CollisionableObject.hpp"
+#include "Raylib/RayObj/RayModel.hpp"
 
 CollisionableObject::CollisionableObject(const std::pair<int, int> &pos,
     const std::pair<int, int> &size
-) : AObject(pos, size)
+) : AObject(pos, size, std::make_unique<RayModel>(), true)
 {
     _type_field.is_collisionable = true;
 }

@@ -23,20 +23,29 @@
 #include <memory>
 #include <iostream>
 #include <vector>
+#include <unordered_map>
+#include <functional>
 #include "raylib.h"
 
 #include "IObject.hpp"
+#include "Raylib/RayObj/IRayObj.hpp"
 
 class Raylib
 {
 public:
     using uIObject = std::unique_ptr<IObject>;
     using vectorObject = std::vector<uIObject>;
-    enum type {
-            BASIC,
-            GRADIENT,
-            LINES,
-            WIRES
+    enum Keys {
+        NULL_KEY,
+        ENTER,
+        SPACE,
+        ESCAPE,
+        TAB,
+        UP,
+        DOWN,
+        RIGHT,
+        LEFT,
+        A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
     };
 
     Raylib();
@@ -48,12 +57,10 @@ public:
 
     void printObjects(vectorObject objects);
     // all print funcs under will be private (ex: type Vector3 only defined in raylib.h)
-    void printText(std::string const &text, std::pair<int, int> const position, int const fontSize, Color const color) const;
-    void printCircle(type const type, std::pair<int, int> const position, float const radius, std::pair<Color, Color> const color) const;
-    void printRectangle(type const type, std::pair<int, int> const position, std::pair<int, int> const size, std::pair<Color, Color> const color) const;
+    void printCircle(std::pair<int, int> const position, float const radius, std::pair<Color, Color> const color) const;
     void printGrid(int const slices, float const space) const;
-    void printCube(type const type, Vector3 const position, Vector3 const size, Color const color) const;
-    void printSphere(type const type, Vector3 const position, float const size, std::pair<int, int> const Vertex ,Color const color) const;
+    void printCube(Vector3 const position, Vector3 const size, Color const color) const;
+    void printSphere(Vector3 const position, float const size, std::pair<int, int> const Vertex ,Color const color) const;
     void printFps(std::pair<int, int> const pos) const;
 
     void setCamera(Vector3 pos, Vector3 target, Vector3 up, float fovy, int projection);
@@ -64,11 +71,51 @@ public:
     std::string getControllerName(int const idx) const;
 
     bool isKeyPressed(int button) const noexcept;
+    bool isKeyReleased(int button) const noexcept;
+    int getKeyPressed() const;
 
 protected:
 private:
     std::pair<int, int> _screenSize;
     Camera _camera;
+    std::vector<int> _keys = {
+        KEY_NULL,
+        KEY_ENTER,
+        KEY_SPACE,
+        KEY_ESCAPE,
+        KEY_TAB,
+        KEY_UP,
+        KEY_DOWN,
+        KEY_RIGHT,
+        KEY_LEFT,
+        KEY_A,
+        KEY_B,
+        KEY_C,
+        KEY_D,
+        KEY_E,
+        KEY_E,
+        KEY_F,
+        KEY_G,
+        KEY_H,
+        KEY_I,
+        KEY_J,
+        KEY_K,
+        KEY_L,
+        KEY_M,
+        KEY_N,
+        KEY_O,
+        KEY_P,
+        KEY_Q,
+        KEY_R,
+        KEY_S,
+        KEY_T,
+        KEY_U,
+        KEY_V,
+        KEY_W,
+        KEY_X,
+        KEY_Y,
+        KEY_Z,
+    };
 };
 
 #endif /* !RAYLIBENCAPSULATION_HPP_ */

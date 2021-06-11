@@ -6,6 +6,7 @@
 */
 
 #include "SceneMaxime.hpp"
+#include "Core.hpp"
 
 SceneMaxime::SceneMaxime()
 {
@@ -17,7 +18,7 @@ SceneMaxime::~SceneMaxime()
     _objects.clear();
 }
 
-void SceneMaxime::run(Raylib &lib)
+int SceneMaxime::run(Raylib &lib)
 {
     // const Vector3 playerSize = {1.0f, 2.0f, 1.0f};
     // const Vector3 enemyBoxPos = {-4.0f, 1.0f, 0.0f};
@@ -33,6 +34,8 @@ void SceneMaxime::run(Raylib &lib)
     Model modelBox = LoadModel("asset/box_test/Box.obj");
     Texture2D textureBox = LoadTexture("asset/box_test/box-textures.png");    // Load model texture and set material
     SetMaterialTexture(&modelBox.materials[0], MAP_DIFFUSE, textureBox);  // Set model material map texture
+    Vector3 playerPosition = {0.0f, 1.0f, 2.0f};
+    Color playerColor = GREEN;
 
     while (lib.gameLoop()) {
         BeginDrawing();
@@ -40,13 +43,14 @@ void SceneMaxime::run(Raylib &lib)
         BeginMode3D(lib.getCamera());
         DrawModel(modelBox, BoxPosition, 0.05f, WHITE);
         //we will only use Raylib::printObjects(std::vector<unique_ptr<IObject>> objects) later
-        //lib.printCube(Raylib::WIRES, enemyBoxPos, enemyBoxSize, DARKGRAY);
 
         //lib.printSphere(Raylib::BASIC, enemySpherePos, enemySphereSize, {0,0}, GRAY);
         //lib.printSphere(Raylib::WIRES, enemySpherePos, enemySphereSize, {16, 16}, DARKGRAY);
+        // lib.printCube(Raylib::WIRES, enemyBoxPos, enemyBoxSize, DARKGRAY);
+        // lib.printSphere(Raylib::BASIC, enemySpherePos, enemySphereSize, {0,0}, GRAY);
+        // lib.printSphere(Raylib::WIRES, enemySpherePos, enemySphereSize, {16, 16}, DARKGRAY);
 
         // Draw player
-        //DrawCubeV(playerPosition, playerSize, playerColor);
         lib.printGrid(10, 1);
         lib.printFps({10, 10});
 
@@ -57,4 +61,5 @@ void SceneMaxime::run(Raylib &lib)
     }
     UnloadTexture(textureBox);
     UnloadModel(modelBox);
+    return (Core::Scenes::QUIT);
 }

@@ -6,18 +6,11 @@
 */
 
 #include "Raylib/Raylib.hpp"
-#include "Scene/SceneMenu.hpp"
-#include "Scene/SceneMaxime.hpp"
+#include "Core.hpp"
 
-int main(void)
+int main()
 {
-    menu::SceneMenu menu;
-    SceneMaxime test3d;
-
-    Raylib Lib;
-
-    Lib.createWindow(1920, 1080, "LETS GO", 60);
-    //menu.run(Lib);
-    test3d.run(Lib);
-    return 0;
+    Core core;
+    core.start();
+    return (0);
 }
