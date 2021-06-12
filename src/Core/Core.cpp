@@ -33,7 +33,6 @@ void Core::start()
     // sceneRobin.run(lib);
     // test3d.run(lib);
     while (_scenePos != QUIT) {
-        _vecScenes.at(_scenePos)->InitAssets();
         _scenePos = _vecScenes.at(_scenePos)->run(lib);
     }
     // // test3d.run(lib);
