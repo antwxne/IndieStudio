@@ -62,12 +62,12 @@ void Raylib::printObjects(Raylib::vectorObject &objects)
     ClearBackground(RAYWHITE);
     BeginMode3D(_camera);
     for (auto &i : objects)
-        if (i->is3D()) {
+        if (i->getTypeField().is_3D) {
             i->funcDraw();
         }
     EndMode3D();
     for (auto &i : objects)
-        if (!i->is3D())
+        if (!i->getTypeField().is_3D)
             i->funcDraw();
     EndDrawing();
 }

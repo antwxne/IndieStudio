@@ -15,10 +15,14 @@ class RayModel : public IRayObj
     public:
         RayModel();
         ~RayModel();
+        void setTexture(std::string const &path);
+        void setModel(std::string const &path);
+        void setTextureToModel(void);
         void draw(IObject &obj) final;
 
     private:
         Model _model;
+        Texture2D _texture;
 };
 
 #endif /* !RAYMODEL_HPP_ */

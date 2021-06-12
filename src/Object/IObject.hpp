@@ -26,6 +26,7 @@ struct RGB
     unsigned char a;
 };
 
+
 template <typename T>
 std::pair<T, T> &operator+=(std::pair<T, T>&current, const std::pair<T, T> &other)
 {
@@ -51,7 +52,11 @@ public:
     [[nodiscard]] virtual const std::pair<int, int> &getPosition() const noexcept = 0;
     [[nodiscard]] virtual const std::pair<int, int> &getSize() const noexcept = 0;
     [[nodiscard]] virtual const std::pair<RGB, RGB> &getColors() const noexcept = 0;
-    [[nodiscard]] virtual const bool is3D() const noexcept = 0;
+
+    virtual void setSize(std::pair<int, int> size) noexcept = 0;
+    virtual void setScale(float scale) noexcept = 0;
+
+    [[nodiscard]] virtual const float &getScale() const noexcept = 0;
     virtual void setPosition(std::pair<int, int> position) noexcept = 0;
     virtual const void funcDraw() noexcept = 0;
     //virtual const sprite &getSprite() const noexcept = 0;
