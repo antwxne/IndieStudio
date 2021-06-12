@@ -13,6 +13,7 @@
 class IScene {
     public:
         virtual ~IScene() {};
+        virtual void InitAssets() = 0;
         virtual int run(Raylib &lib) = 0;
 
     protected:

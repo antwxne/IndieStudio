@@ -33,12 +33,13 @@ namespace menu {
             SceneMenu();
             ~SceneMenu();
             int run(Raylib &lib) final;
-            void InitAssets();
+            void InitAssets() final;
             bool clockGame();
 
         protected:
         private:
             std::size_t _select;
+            bool _enter;
             static const std::vector<std::array<std::pair<float, float>, 2>> _menuPos;
             static const std::vector<std::string> _assetsPath;
             static const std::vector<std::string> _menuText;

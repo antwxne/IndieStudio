@@ -56,13 +56,15 @@ bool Raylib::isKeyPressed(int button) const noexcept
     return (IsKeyPressed(button));
 }
 
-void Raylib::printObjects(Raylib::vectorObject objects)
+void Raylib::printObjects(Raylib::vectorObject &objects)
 {
     BeginDrawing();
+    ClearBackground(RAYWHITE);
     BeginMode3D(_camera);
     for (auto &i : objects)
-        if (i->is3D())
+        if (i->is3D()) {
             i->funcDraw();
+        }
     EndMode3D();
     for (auto &i : objects)
         if (!i->is3D())
@@ -73,28 +75,6 @@ void Raylib::printObjects(Raylib::vectorObject objects)
 bool Raylib::isKeyReleased(int button) const noexcept
 {
     return (IsKeyReleased(button));
-}
-
-void Raylib::printCircle(std::pair<int, int> const position, float const radius, std::pair<Color, Color> const color) const
-{
-        // DrawCircle(position.first, position.second, radius, color.first);
-        // DrawCircleGradient(position.first, position.second, radius, color.first, color.second);
-        // DrawCircleLines(position.first, position.second, radius, color.first);
-        // std::cout << "[-] Unknow Circle Type, valid are Basic, Gradient, Lines" << '\n';
-}
-
-void Raylib::printCube(Vector3 const position, Vector3 const size, Color const color) const
-{
-        // DrawCube(position, size.x, size.y, size.z, color);
-        // DrawCubeWires(position, size.x, size.y, size.z, color);
-        // std::cout << "[-] Unknow Cube Type, valid are Basic, Wires" << '\n';
-}
-
-void Raylib::printSphere(Vector3 const position, float const size, std::pair<int, int> const Vertex, Color const color) const
-{
-        // DrawSphere(position, size, color);
-        // DrawSphereWires(position, size, Vertex.first, Vertex.second, color);
-        // std::cout << "[-] Unknow Shpere Type, valid are Basic, Wires" << '\n';
 }
 
 void Raylib::printGrid(int const slices, float const space) const

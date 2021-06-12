@@ -17,6 +17,7 @@ class SceneRobin : public AScene {
         ~SceneRobin();
 
         int run(Raylib &lib) override;
+        void InitAssets() final {};
     protected:
     private:
 };

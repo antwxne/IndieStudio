@@ -19,7 +19,7 @@ enum objType_e {
 
 struct RGB
 {
-    RGB(int red = 0, int green = 0, int blue = 0, int alpha = 0) : r(red), g(green), b(blue), a(alpha) {};
+    RGB(int red = 255, int green = 255, int blue = 255, int alpha = 255) : r(red), g(green), b(blue), a(alpha) {};
     unsigned char r;
     unsigned char g;
     unsigned char b;
@@ -35,6 +35,7 @@ std::pair<T, T> &operator+=(std::pair<T, T>&current, const std::pair<T, T> &othe
 }
 
 typedef struct type_field_s {
+    bool is_3D: 1;
     bool is_object: 1;
     bool is_collisionable: 1;
     bool is_destructible: 1;
@@ -49,9 +50,9 @@ public:
     [[nodiscard]] virtual const type_field_t &getTypeField() const noexcept = 0;
     [[nodiscard]] virtual const std::pair<int, int> &getPosition() const noexcept = 0;
     [[nodiscard]] virtual const std::pair<int, int> &getSize() const noexcept = 0;
-    [[nodiscard]] virtual const std::pair<struct RGB, struct RGB> &getColors() const noexcept = 0;
-    [[nodiscard]] virtual const objType_e &getType() const noexcept = 0;
+    [[nodiscard]] virtual const std::pair<RGB, RGB> &getColors() const noexcept = 0;
     [[nodiscard]] virtual const bool is3D() const noexcept = 0;
+    virtual void setPosition(std::pair<int, int> position) noexcept = 0;
     virtual const void funcDraw() noexcept = 0;
     //virtual const sprite &getSprite() const noexcept = 0;
 };

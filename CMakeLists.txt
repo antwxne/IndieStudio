@@ -43,6 +43,7 @@ set(RAYOBJ_SRCS
         ${RAYOBJ_PATH}/RayModel.cpp
         ${RAYOBJ_PATH}/RaySquare.cpp
         ${RAYOBJ_PATH}/RayText.cpp
+        ${RAYOBJ_PATH}/RayTexture2D.cpp
 )
 set(MAP_SRCS
         ${MAP_PATH}/Map.cpp)

@@ -17,7 +17,6 @@ class RayModel : public IRayObj
         ~RayModel();
         void draw(IObject &obj) final;
 
-    protected:
     private:
         Model _model;
 };

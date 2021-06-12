@@ -8,7 +8,11 @@
 #include "Core/Core.hpp"
 #include <chrono>
 #include "Raylib/Raylib.hpp"
+#include "Object/AObject.hpp"
 #include "Scene/SceneMenu.hpp"
+#include "Raylib/RayObj/RayTexture2D.hpp"
+#include "Raylib/RayObj/RaySquare.hpp"
+#include "Raylib/RayObj/RayText.hpp"
 
 namespace menu {
 
@@ -33,49 +37,41 @@ namespace menu {
         "truc_tank/Sample_0005.wav"
     };
 
-    SceneMenu::SceneMenu() : _select(menu_e::START)
+    SceneMenu::SceneMenu() : _select(menu_e::START), _enter(false)
     {
+        setInputFunction(Raylib::ENTER, [&](){_enter = !_enter;});
+        setInputFunction(Raylib::DOWN, [&](){_select = (_select + 1) % (QUIT + 1);});
+        setInputFunction(Raylib::UP, [&](){_select = !_select ? QUIT : _select - 1;});
     }
 
     SceneMenu::~SceneMenu()
     {
     }
 
+    void SceneMenu::InitAssets()
+    {
+        _objects.emplace_back(std::make_unique<AObject>(std::make_pair(0, 0), std::make_pair(0, 0), std::make_unique<RayTexture2D>(_assetsPath.at(0))));
+        _objects.emplace_back(std::make_unique<AObject>(_menuPos[_select].at(0), std::make_pair(_menuPos[_select].at(1).first + 5, _menuPos[_select].at(1).second + 5), std::make_pair(RGB(255, 127, 0, 255), RGB(255, 127, 0, 255)), std::make_unique<RaySquare>(objType_e::BASIC)));
+        for (auto &it : _menuPos)
+            _objects.emplace_back(std::make_unique<AObject>(it.at(0), it.at(1), std::make_pair(RGB(255, 0, 0, 255), RGB(255, 0, 0, 255)), std::make_unique<RaySquare>(objType_e::BASIC)));
+        for (std::size_t i = 0; i <= QUIT; ++i)
+            _objects.emplace_back(std::make_unique<AObject>(_menuPos[i].at(0), std::make_pair(30, 30), std::make_pair(RGB(0, 0, 0, 255), RGB(0, 0, 0, 255)), std::make_unique<RayText>(_menuText[i])));
+    }
+
     int SceneMenu::run(Raylib &lib)
     {
-        bool enter = 0;
-        Texture2D bg = LoadTexture(_assetsPath.at(assetsPath_e::BACKGROUND).c_str());
-        Music music = LoadMusicStream(_assetsPath.at(assetsPath_e::MUSIC_BG).c_str());
-        Sound sound = LoadSound(_assetsPath.at(assetsPath_e::TIC).c_str());
-        Sound sound2 = LoadSound(_assetsPath.at(assetsPath_e::ACCEPT).c_str());
+        // Music music = LoadMusicStream(_assetsPath.at(assetsPath_e::MUSIC_BG).c_str());
+        // Sound sound = LoadSound(_assetsPath.at(assetsPath_e::TIC).c_str());
+        // Sound sound2 = LoadSound(_assetsPath.at(assetsPath_e::ACCEPT).c_str());
 
-        music.looping = true;
-        PlayMusicStream(music);
-        while (!lib.isKeyReleased(KEY_ENTER) && lib.gameLoop()) {
-            UpdateMusicStream(music);
-            if (lib.isKeyPressed(KEY_ENTER)) {
-                enter = !enter;
-                PlaySound(sound2);
-            }
-            if (lib.isKeyPressed(KEY_DOWN)) {
-                _select = (_select + 1) % (QUIT + 1);
-                PlaySound(sound);
-            }
-            if (lib.isKeyPressed(KEY_UP)) {
-                _select = !_select ? QUIT : _select - 1;
-                PlaySound(sound);
-            }
-            BeginDrawing();
-            ClearBackground(RAYWHITE);
-            DrawTexture(bg, 0, 0, WHITE);
-            // for (auto &i : _menuPos)
-            //     lib.printRectangle(Raylib::BASIC, i.at(0), i.at(1), {ORANGE, ORANGE});
-            // lib.printRectangle(Raylib::GRADIENT, _menuPos.at(_select).at(0), _menuPos.at(_select).at(1), {RED, RED});
-            // if (enter)
-            //     lib.printRectangle(Raylib::GRADIENT, _menuPos.at(_select).at(0), _menuPos.at(_select).at(1), {PINK, PINK});
-            // for (std::size_t i = 0; i <= QUIT; ++i)
-            //     lib.printText(_menuText[i], _menuPos[i].at(0), 30, BLACK);
-            EndDrawing();
+        // music.looping = true;
+        // PlayMusicStream(music);
+        while (!_enter && lib.gameLoop()) {
+            // UpdateMusicStream(music);
+                // PlaySound(sound2);
+            _objects.at(1)->setPosition(_menuPos[_select].at(0));
+            triggerInputActions(lib);
+            lib.printObjects(_objects);
         }
         if (_select == QUIT)
             return (Core::Scenes::QUIT);

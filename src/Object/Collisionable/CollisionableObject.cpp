@@ -10,7 +10,7 @@
 
 CollisionableObject::CollisionableObject(const std::pair<int, int> &pos,
     const std::pair<int, int> &size
-) : AObject(pos, size, std::move(std::make_unique<RayModel>()), true)
+) : AObject(pos, size, std::move(std::make_unique<RayModel>()))
 {
     _type_field.is_collisionable = true;
 }

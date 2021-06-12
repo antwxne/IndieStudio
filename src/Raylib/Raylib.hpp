@@ -55,13 +55,10 @@ public:
 
     bool gameLoop();
 
-    void printObjects(vectorObject objects);
+    void printObjects(vectorObject &objects);
     // all print funcs under will be private (ex: type Vector3 only defined in raylib.h)
-    void printCircle(std::pair<int, int> const position, float const radius, std::pair<Color, Color> const color) const;
-    void printGrid(int const slices, float const space) const;
-    void printCube(Vector3 const position, Vector3 const size, Color const color) const;
-    void printSphere(Vector3 const position, float const size, std::pair<int, int> const Vertex ,Color const color) const;
     void printFps(std::pair<int, int> const pos) const;
+    void printGrid(int const slices, float const space) const;
 
     void setCamera(Vector3 pos, Vector3 target, Vector3 up, float fovy, int projection);
     Camera getCamera() const;
