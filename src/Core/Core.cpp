@@ -30,6 +30,7 @@ void Core::start()
 
     lib.createWindow(_screenWidth, _screenHeight, _title, _fps);
     // sceneRobin.run(lib);
+    test3d.run(lib);
     while (_scenePos != QUIT) {
         _scenePos = _vecScenes.at(_scenePos)->run(lib);
     }

@@ -20,9 +20,6 @@ SceneMaxime::~SceneMaxime()
 
 int SceneMaxime::run(Raylib &lib)
 {
-    // const Vector3 playerSize = {1.0f, 2.0f, 1.0f};
-    // const Vector3 enemyBoxPos = {-4.0f, 1.0f, 0.0f};
-    // const Vector3 enemyBoxSize = {2.0f, 2.0f, 2.0f};
     const Vector3 BoxPosition = {0.0f, 0.0f, 0.0f};
 
     Vector3 enemySpherePos = {4.0f, 0.0f, 0.0f};
@@ -33,7 +30,7 @@ int SceneMaxime::run(Raylib &lib)
 
     Model modelBox = LoadModel("asset/box_test/Box.obj");
     Texture2D textureBox = LoadTexture("asset/box_test/box-textures.png");    // Load model texture and set material
-    SetMaterialTexture(&modelBox.materials[0], MAP_DIFFUSE, textureBox);  // Set model material map texture
+    SetMaterialTexture(&modelBox.materials[0], MAP_DIFFUSE, textureBox);    // Set model material map texture
     Vector3 playerPosition = {0.0f, 1.0f, 2.0f};
     Color playerColor = GREEN;
 
