@@ -23,6 +23,12 @@ AObject::AObject(const std::pair<int, int> &pos, const std::pair<int, int> &size
     _type_field.is_3D = false;
 }
 
+AObject::AObject(std::unique_ptr<IRayObj> &&func) : _drawable(std::move(func))
+{
+    _type_field.is_object = true;
+    _type_field.is_3D = false;
+}
+
 const std::pair<int, int> &AObject::getPosition() const noexcept
 {
     return _pos;

@@ -27,6 +27,31 @@ namespace menu {
         ACCEPT
     };
 
+    static const std::vector<std::string> _menuText {
+        "Start game",
+        "Load game",
+        "Settings",
+        "Quit"
+    };
+
+    static const std::vector<std::array<std::pair<float, float>, 2>> _menuPos {
+        {{std::make_pair(860.0f, 600.0f), std::make_pair(200.0f, 50.0f)}},
+        {{std::make_pair(860.0f, 700.0f), std::make_pair(200.0f, 50.0f)}},
+        {{std::make_pair(860.0f, 800.0f), std::make_pair(200.0f, 50.0f)}},
+        {{std::make_pair(860.0f, 900.0f), std::make_pair(200.0f, 50.0f)}}
+    };
+
+    static const std::vector<std::string> _assetsPath {
+        "Assets/olivier_bg.png",
+    };
+
+    static const std::vector<std::string> _soundsPath {        
+        "truc_tank/Sample_0000.wav",
+        "truc_tank/Sample_0005.wav"
+    };
+
+    static const std::string _musicPath = "Assets/menu_music.mp3";
+
     class SceneMenu : public AScene
     {
         public:
@@ -40,9 +65,6 @@ namespace menu {
         private:
             std::size_t _select;
             bool _enter;
-            static const std::vector<std::array<std::pair<float, float>, 2>> _menuPos;
-            static const std::vector<std::string> _assetsPath;
-            static const std::vector<std::string> _menuText;
     };
 }
 

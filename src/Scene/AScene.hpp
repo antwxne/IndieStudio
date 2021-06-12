@@ -14,6 +14,8 @@
 #include "Raylib.hpp"
 #include "IObject.hpp"
 #include "IScene.hpp"
+#include "Raylib/RayAudio/RayMusic.hpp"
+#include "Raylib/RayAudio/RaySound.hpp"
 
 class AScene : public IScene
 {
@@ -26,6 +28,8 @@ protected:
     void triggerInputActions(Raylib &lib);
     void setInputFunction(Raylib::Keys, std::function<void()> function);
     std::vector<std::unique_ptr<IObject>> _objects;
+    std::unique_ptr<RayMusic> _music;
+    std::vector<RaySound> _sounds;
     std::unordered_map<int,std::function<void()>> _keys = {
         {Raylib::NULL_KEY, [](){}},
         {Raylib::ENTER, [](){}},
