@@ -15,8 +15,8 @@ Map::Map()
     _pos.push_back(std::make_pair(3, 2));
 }
 
-void Map::createDestructibleMap(std::pair<int, int> pos_left,
-    std::pair<int, int> pos_down_right
+void Map::createDestructibleMap(std::pair<int, int> &pos_left,
+    std::pair<int, int> &pos_down_right
 )
 {
     std::srand(std::time(nullptr));
@@ -46,7 +46,7 @@ void Map::createDestructibleMap(std::pair<int, int> pos_left,
     }
 }
 
-void Map::createContourMap(int xMax, int yMax) noexcept
+void Map::createContourMap(int const &xMax, int const &yMax) noexcept
 {
     for (int x = 0, y = 0; x != xMax; ++x) {
         _objectNoDestructibleList.emplace_back(std::make_pair(x, y), std::make_pair(0, 0));
