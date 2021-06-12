@@ -55,6 +55,7 @@ public:
 
     virtual void setSize(std::pair<int, int> size) noexcept = 0;
     virtual void setScale(float scale) noexcept = 0;
+    virtual void set3d(bool is3d) noexcept = 0;
 
     [[nodiscard]] virtual const float &getScale() const noexcept = 0;
     virtual void setPosition(std::pair<int, int> position) noexcept = 0;

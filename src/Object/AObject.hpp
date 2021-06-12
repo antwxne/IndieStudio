@@ -22,6 +22,7 @@ public:
     [[nodiscard]] const std::pair<int, int> &getSize() const noexcept final;
     [[nodiscard]] const std::pair<RGB, RGB> &getColors() const noexcept final;
     [[nodiscard]] const float &getScale() const noexcept final;
+    void set3d(bool is3d) noexcept final;
     void setPosition(std::pair<int, int> position) noexcept final;
     const void funcDraw() noexcept final;
 

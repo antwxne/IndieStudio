@@ -48,6 +48,11 @@ void AObject::setScale(float scale) noexcept
     _scale = scale;
 }
 
+void AObject::set3d(bool is3d) noexcept
+{
+    _type_field.is_3D = is3d;
+}
+
 void AObject::setSize(std::pair<int, int> size) noexcept
 {
     _size = size;

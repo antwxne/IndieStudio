@@ -6,7 +6,7 @@
 */
 
 #include "RayTexture2D.hpp"
-#include <string.h> 
+#include <string.h>
 
 RayTexture2D::RayTexture2D(std::string filepath) : _texture(LoadTexture(filepath.c_str()))
 {
@@ -14,6 +14,7 @@ RayTexture2D::RayTexture2D(std::string filepath) : _texture(LoadTexture(filepath
 
 RayTexture2D::~RayTexture2D()
 {
+    UnloadTexture(_texture);
 }
 
 void RayTexture2D::draw(IObject &obj)

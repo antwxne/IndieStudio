@@ -7,27 +7,15 @@
 
 #include "RayModel.hpp"
 
-RayModel::RayModel()
+RayModel::RayModel(std::string textureFilepath, std::string modelFilepath) : _texture(LoadTexture(textureFilepath.c_str())), _model(LoadModel(modelFilepath.c_str()))
 {
+    SetMaterialTexture(&_model.materials[0], MAP_DIFFUSE, _texture);
 }
 
 RayModel::~RayModel()
 {
-}
-
-void RayModel::setTexture(std::string const &path)
-{
-    _texture = LoadTexture(path.c_str());
-}
-
-void RayModel::setModel(std::string const &path)
-{
-    _model = LoadModel(path.c_str());
-}
-
-void RayModel::setTextureToModel()
-{
-    SetMaterialTexture(&_model.materials[0], MAP_DIFFUSE, _texture);
+    UnloadTexture(_texture);
+    UnloadModel(_model);
 }
 
 void RayModel::draw(IObject &obj)
@@ -37,6 +25,7 @@ void RayModel::draw(IObject &obj)
     float b = (float) pos.second;
     const float scale = obj.getScale();
     const std::pair<struct RGB, struct RGB> color = obj.getColors();
+    std::cout << "[3D] je print un Model" << "\npos => " << a << ":" << b << "\nScale " << scale << '\n';
 
-    DrawModel(_model, {a, b, 0}, scale, {color.first.r, color.first.g, color.first.b, color.first.a});
+    DrawModel(_model, {a, b, 0}, scale/50, WHITE);
 }

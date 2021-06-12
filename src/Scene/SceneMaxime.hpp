@@ -15,10 +15,13 @@ class SceneMaxime : public AScene {
         SceneMaxime();
         ~SceneMaxime();
 
-        int run(Raylib &lib) override;
-        void InitAssets() final {};
+        int run(Raylib &lib) final;
+        void InitAssets() final;
+
     protected:
     private:
+        static const std::vector<std::array<std::pair<float, float>, 2>> _menuPos;
+        static const std::vector<std::string> _assetsPath;
 };
 
 #endif /* !SCENEMAXIME_HPP_ */

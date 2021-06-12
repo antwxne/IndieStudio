@@ -14,6 +14,7 @@
 Core::Core(int screenWidth, int screenHeight, std::string const &title, std::size_t const fps)
     : _screenWidth(screenWidth), _screenHeight(screenHeight), _title(title), _fps(fps), _scenePos(0)
 {
+    _vecScenes.emplace_back(std::make_unique<SceneMaxime>());
     _vecScenes.emplace_back(std::make_unique<menu::SceneMenu>());
 
 }

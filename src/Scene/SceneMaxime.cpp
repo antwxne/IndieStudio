@@ -7,56 +7,41 @@
 
 #include "SceneMaxime.hpp"
 #include "Core.hpp"
+#include "Map/Map.hpp"
+
+#include "Raylib/Raylib.hpp"
+#include "Object/AObject.hpp"
+#include "Object/Collisionable/Wall.hpp"
+
+#include "Raylib/RayObj/RayTexture2D.hpp"
+#include "Raylib/RayObj/RayModel.hpp"
+#include "Raylib/RayObj/RaySquare.hpp"
+#include "Raylib/RayObj/RayText.hpp"
+
+const std::vector<std::string> SceneMaxime::_assetsPath {
+    "asset/box_test/box-textures.png",
+    "asset/box_test/Box.obj",
+};
 
 SceneMaxime::SceneMaxime()
 {
     //init _objects
 }
+
 SceneMaxime::~SceneMaxime()
 {
-
     _objects.clear();
+}
+
+void SceneMaxime::InitAssets() {
+    _objects.emplace_back(std::make_unique<AObject>(std::make_pair(0, 0), std::make_pair(0, 0), 1, std::make_unique<RayModel>(_assetsPath.at(0), _assetsPath.at(1))));
+    _objects[0]->set3d(true);
 }
 
 int SceneMaxime::run(Raylib &lib)
 {
-    const Vector3 BoxPosition = {0.0f, 0.0f, 0.0f};
-
-    // Vector3 enemySpherePos = {4.0f, 0.0f, 0.0f};
-    // float enemySphereSize = 1.5f;
-
-    // Vector3 playerPosition = {0.0f, 1.0f, 2.0f};
-    // Color playerColor = GREEN;
-
-    Model modelBox = LoadModel("asset/box_test/Box.obj");
-    Texture2D textureBox = LoadTexture("asset/box_test/box-textures.png");    // Load model texture and set material
-    SetMaterialTexture(&modelBox.materials[0], MAP_DIFFUSE, textureBox);    // Set model material map texture
-    Vector3 playerPosition = {0.0f, 1.0f, 2.0f};
-    Color playerColor = GREEN;
-
     while (lib.gameLoop()) {
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
-        BeginMode3D(lib.getCamera());
-        DrawModel(modelBox, BoxPosition, 0.05f, WHITE);
-        //we will only use Raylib::printObjects(std::vector<unique_ptr<IObject>> objects) later
-
-        //lib.printSphere(Raylib::BASIC, enemySpherePos, enemySphereSize, {0,0}, GRAY);
-        //lib.printSphere(Raylib::WIRES, enemySpherePos, enemySphereSize, {16, 16}, DARKGRAY);
-        // lib.printCube(Raylib::WIRES, enemyBoxPos, enemyBoxSize, DARKGRAY);
-        // lib.printSphere(Raylib::BASIC, enemySpherePos, enemySphereSize, {0,0}, GRAY);
-        // lib.printSphere(Raylib::WIRES, enemySpherePos, enemySphereSize, {16, 16}, DARKGRAY);
-
-        // Draw player
-        lib.printGrid(10, 1);
-        lib.printFps({10, 10});
-
-        //3D display here
-        EndMode3D();
-        //2D display here
-        EndDrawing();
+        lib.printObjects(_objects);
     }
-    UnloadTexture(textureBox);
-    UnloadModel(modelBox);
     return (Core::Scenes::QUIT);
 }
