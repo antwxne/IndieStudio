@@ -66,6 +66,7 @@ namespace menu {
 
         // music.looping = true;
         // PlayMusicStream(music);
+        InitAssets();
         while (!_enter && lib.gameLoop()) {
             // UpdateMusicStream(music);
                 // PlaySound(sound2);
