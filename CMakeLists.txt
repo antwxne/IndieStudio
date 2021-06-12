@@ -77,8 +77,11 @@ set(OBJECTS_SRCS
         )
 set(SCENE_SRCS
         ${SCENE_PATH}/AScene.cpp
-        ${SCENE_PATH}/SceneMenu.cpp
+        ${SCENE_PATH}/SceneBoard.cpp
         ${SCENE_PATH}/SceneMaxime.cpp
+        ${SCENE_PATH}/SceneMenu.cpp
+        ${SCENE_PATH}/SceneNewGame.cpp
+        ${SCENE_PATH}/SceneOption.cpp
         ${SCENE_PATH}/SceneRobin.cpp
         )
 

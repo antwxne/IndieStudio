@@ -12,10 +12,10 @@
 
 class SceneMaxime : public AScene {
     public:
-        SceneMaxime();
+        SceneMaxime(std::shared_ptr<Setting> settings);
         ~SceneMaxime();
 
-        int run(Raylib &lib) final;
+        Scenes run(Raylib &lib, Scenes prevScene) final;
         void InitAssets() final;
 
     protected:

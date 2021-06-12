@@ -12,9 +12,10 @@
 
 class RaySound {
     public:
-        RaySound(std::string filename);
+        RaySound(std::string filename, float volume);
         ~RaySound();
         void Play();
+        void SetVolume(float &volume);
 
     private:
         Sound _sound;

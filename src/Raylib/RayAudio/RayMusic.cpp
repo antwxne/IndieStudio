@@ -7,9 +7,10 @@
 
 #include "RayMusic.hpp"
 
-RayMusic::RayMusic(std::string filepath, bool loop) : _music(LoadMusicStream(filepath.c_str()))
+RayMusic::RayMusic(std::string filepath, bool loop, float volume) : _music(LoadMusicStream(filepath.c_str()))
 {
     _music.looping = loop;
+    SetVolume(volume);
 }
 
 RayMusic::~RayMusic()
