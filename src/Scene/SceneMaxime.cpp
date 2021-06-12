@@ -22,8 +22,8 @@ int SceneMaxime::run(Raylib &lib)
 {
     const Vector3 BoxPosition = {0.0f, 0.0f, 0.0f};
 
-    Vector3 enemySpherePos = {4.0f, 0.0f, 0.0f};
-    float enemySphereSize = 1.5f;
+    // Vector3 enemySpherePos = {4.0f, 0.0f, 0.0f};
+    // float enemySphereSize = 1.5f;
 
     // Vector3 playerPosition = {0.0f, 1.0f, 2.0f};
     // Color playerColor = GREEN;

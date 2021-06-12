@@ -27,6 +27,7 @@ void RayModel::setModel(std::string const &path)
 
 void RayModel::setTextureToModel()
 {
+    SetMaterialTexture(&_model.materials[0], MAP_DIFFUSE, _texture);
 }
 
 void RayModel::draw(IObject &obj)
