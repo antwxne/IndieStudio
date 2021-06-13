@@ -10,6 +10,11 @@
 
 #include "Object/Collisionable/Destructible/Movable/Tank.hpp"
 
+/**
+ * @class TankAi
+ *
+ * @brief class for AI
+ */
 class TankAI: public Tank {
 public:
     /**

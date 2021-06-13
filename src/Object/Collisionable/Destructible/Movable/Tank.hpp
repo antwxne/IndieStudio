@@ -11,6 +11,11 @@
 #ifndef INDIESTUDIO_TANK_HPP
 #define INDIESTUDIO_TANK_HPP
 
+/**
+ * @class Tank
+ *
+ * @brief base class for tank which is played by the player
+ */
 class Tank: public MovableObject {
 public:
     /**

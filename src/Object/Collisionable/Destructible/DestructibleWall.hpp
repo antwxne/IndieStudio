@@ -11,6 +11,11 @@
 #ifndef INDIESTUDIO_DESTRUCTIBLEWALL_HPP
 #define INDIESTUDIO_DESTRUCTIBLEWALL_HPP
 
+/**
+ * @class Destructible Wall
+ *
+ * @brief Wall collisionable and destructible
+ */
 class DestructibleWall: public DestructibleObject {
 public:
     /**

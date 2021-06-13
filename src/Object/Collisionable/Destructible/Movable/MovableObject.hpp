@@ -10,6 +10,12 @@
 #ifndef INDIESTUDIO_MOVABLEOBJECT_HPP
 #define INDIESTUDIO_MOVABLEOBJECT_HPP
 
+
+/**
+ * @class Movable Object
+ *
+ * @brief base class for object who can move
+ */
 class MovableObject: public DestructibleObject {
 public:
     /**

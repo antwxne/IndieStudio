@@ -10,6 +10,11 @@
 #ifndef INDIESTUDIO_BULLET_HPP
 #define INDIESTUDIO_BULLET_HPP
 
+/**
+ * @class Bullet
+ *
+ * @brief Bullet to kill other player
+ */
 class Bullet: public MovableObject {
 public:
     /**

@@ -12,6 +12,11 @@
 #ifndef INDIESTUDIO_CANNON_HPP
 #define INDIESTUDIO_CANNON_HPP
 
+/**
+ * @class Cannon
+ *
+ * @brief Cannon wich is related to a tank and contains a bullet
+ */
 class Cannon: public MovableObject {
 public:
     /**

@@ -94,6 +94,11 @@ struct typeField {
     bool isWall: 1;
 };
 
+/**
+ * @class IObject
+ *
+ * @brief interface for objects
+ */
 class IObject {
 public:
     /**

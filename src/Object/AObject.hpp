@@ -10,6 +10,11 @@
 #ifndef INDIESTUDIO_AOBJECT_HPP
 #define INDIESTUDIO_AOBJECT_HPP
 
+/**
+ * @class AObject
+ *
+ * @brief Abstract class for objects
+ */
 class AObject: public IObject {
 public:
     /**

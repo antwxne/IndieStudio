@@ -1,0 +1,214 @@
+\hypertarget{class_i_object}{}\doxysection{I\+Object Class Reference}
+\label{class_i_object}\index{IObject@{IObject}}
+
+
+interface for objects  
+
+
+
+
+{\ttfamily \#include $<$I\+Object.\+hpp$>$}
+
+
+
+Inheritance diagram for I\+Object\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=329pt]{class_i_object__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual const \mbox{\hyperlink{structtype_field}{type\+Field}} \& \mbox{\hyperlink{class_i_object_a3829f2f4344eea0f6b0939fc1bf0b2ea}{get\+Type\+Field}} () const noexcept=0
+\begin{DoxyCompactList}\small\item\em Get the Type Field object. \end{DoxyCompactList}\item 
+virtual const \mbox{\hyperlink{structcoords}{coords}} \& \mbox{\hyperlink{class_i_object_ad68b5f341e59cf6e198d95f8f6b76d5f}{get\+Position}} () const noexcept=0
+\begin{DoxyCompactList}\small\item\em Get the Position object. \end{DoxyCompactList}\item 
+virtual const std\+::pair$<$ int, int $>$ \& \mbox{\hyperlink{class_i_object_a9d8036d556ed4dbf8ad84ce1fab24921}{get\+Size}} () const noexcept=0
+\begin{DoxyCompactList}\small\item\em Get the Size object. \end{DoxyCompactList}\item 
+virtual const std\+::pair$<$ \mbox{\hyperlink{struct_r_g_b}{R\+GB}}, \mbox{\hyperlink{struct_r_g_b}{R\+GB}} $>$ \& \mbox{\hyperlink{class_i_object_a831eaefd90c46fd301192738c3cdd415}{get\+Colors}} () const noexcept=0
+\begin{DoxyCompactList}\small\item\em Get the Colors object. \end{DoxyCompactList}\item 
+virtual const float \& \mbox{\hyperlink{class_i_object_a20a6f9cf8ce8fb6fc0276b2b023d65f4}{get\+Scale}} () const noexcept=0
+\begin{DoxyCompactList}\small\item\em Get the Scale object. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_i_object_a2ca8cdc2e3be7a007ececb9d2d4345d8}{set\+Size}} (std\+::pair$<$ int, int $>$ size) noexcept=0
+\begin{DoxyCompactList}\small\item\em Set the Size object. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_i_object_adcb8789d7dd0fca2b8b7bd64115da699}{set\+Scale}} (float scale) noexcept=0
+\begin{DoxyCompactList}\small\item\em Set the Scale object. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_i_object_a0f685990d2674c6b0e952fa8712cbee1}{set3d}} (bool is3d) noexcept=0
+\item 
+virtual void \mbox{\hyperlink{class_i_object_a569f95568cd6a09582c8a786a2277778}{set\+Position}} (\mbox{\hyperlink{structcoords}{coords}} position) noexcept=0
+\begin{DoxyCompactList}\small\item\em Set the Position object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+interface for objects 
+
+Definition at line 102 of file I\+Object.\+hpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_i_object_a831eaefd90c46fd301192738c3cdd415}\label{class_i_object_a831eaefd90c46fd301192738c3cdd415}} 
+\index{IObject@{IObject}!getColors@{getColors}}
+\index{getColors@{getColors}!IObject@{IObject}}
+\doxysubsubsection{\texorpdfstring{getColors()}{getColors()}}
+{\footnotesize\ttfamily virtual const std\+::pair$<$\mbox{\hyperlink{struct_r_g_b}{R\+GB}}, \mbox{\hyperlink{struct_r_g_b}{R\+GB}}$>$\& I\+Object\+::get\+Colors (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Get the Colors object. 
+
+\begin{DoxyReturn}{Returns}
+const std\+::pair$<$\+R\+G\+B, R\+G\+B$>$\& 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_a_object_ae2b2d9fb345b6bf96d72ab16772c5ae1}{A\+Object}}.
+
+\mbox{\Hypertarget{class_i_object_ad68b5f341e59cf6e198d95f8f6b76d5f}\label{class_i_object_ad68b5f341e59cf6e198d95f8f6b76d5f}} 
+\index{IObject@{IObject}!getPosition@{getPosition}}
+\index{getPosition@{getPosition}!IObject@{IObject}}
+\doxysubsubsection{\texorpdfstring{getPosition()}{getPosition()}}
+{\footnotesize\ttfamily virtual const \mbox{\hyperlink{structcoords}{coords}}\& I\+Object\+::get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Get the Position object. 
+
+\begin{DoxyReturn}{Returns}
+const coords\& 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_a_object_a3757971dfa9330bf527d49ee9e612a3b}{A\+Object}}.
+
+\mbox{\Hypertarget{class_i_object_a20a6f9cf8ce8fb6fc0276b2b023d65f4}\label{class_i_object_a20a6f9cf8ce8fb6fc0276b2b023d65f4}} 
+\index{IObject@{IObject}!getScale@{getScale}}
+\index{getScale@{getScale}!IObject@{IObject}}
+\doxysubsubsection{\texorpdfstring{getScale()}{getScale()}}
+{\footnotesize\ttfamily virtual const float\& I\+Object\+::get\+Scale (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Get the Scale object. 
+
+\begin{DoxyReturn}{Returns}
+const float\& 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_a_object_a633d3c9e7ff6d0a9e34a1ad8f5ed97eb}{A\+Object}}.
+
+\mbox{\Hypertarget{class_i_object_a9d8036d556ed4dbf8ad84ce1fab24921}\label{class_i_object_a9d8036d556ed4dbf8ad84ce1fab24921}} 
+\index{IObject@{IObject}!getSize@{getSize}}
+\index{getSize@{getSize}!IObject@{IObject}}
+\doxysubsubsection{\texorpdfstring{getSize()}{getSize()}}
+{\footnotesize\ttfamily virtual const std\+::pair$<$int, int$>$\& I\+Object\+::get\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Get the Size object. 
+
+\begin{DoxyReturn}{Returns}
+const std\+::pair$<$int, int$>$\& 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_a_object_aa841dce4f81125460d621080ebaeac25}{A\+Object}}.
+
+\mbox{\Hypertarget{class_i_object_a3829f2f4344eea0f6b0939fc1bf0b2ea}\label{class_i_object_a3829f2f4344eea0f6b0939fc1bf0b2ea}} 
+\index{IObject@{IObject}!getTypeField@{getTypeField}}
+\index{getTypeField@{getTypeField}!IObject@{IObject}}
+\doxysubsubsection{\texorpdfstring{getTypeField()}{getTypeField()}}
+{\footnotesize\ttfamily virtual const \mbox{\hyperlink{structtype_field}{type\+Field}}\& I\+Object\+::get\+Type\+Field (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Get the Type Field object. 
+
+\begin{DoxyReturn}{Returns}
+const \mbox{\hyperlink{structtype_field}{type\+Field}}\& 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_a_object_a4800b4fab3a95e2e6b0e18bbcac1423c}{A\+Object}}.
+
+\mbox{\Hypertarget{class_i_object_a0f685990d2674c6b0e952fa8712cbee1}\label{class_i_object_a0f685990d2674c6b0e952fa8712cbee1}} 
+\index{IObject@{IObject}!set3d@{set3d}}
+\index{set3d@{set3d}!IObject@{IObject}}
+\doxysubsubsection{\texorpdfstring{set3d()}{set3d()}}
+{\footnotesize\ttfamily virtual void I\+Object\+::set3d (\begin{DoxyParamCaption}\item[{bool}]{is3d }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em is3d} & ? true or false \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_a_object_a0059aba37b5efcb2b91894702c4e9307}{A\+Object}}.
+
+\mbox{\Hypertarget{class_i_object_a569f95568cd6a09582c8a786a2277778}\label{class_i_object_a569f95568cd6a09582c8a786a2277778}} 
+\index{IObject@{IObject}!setPosition@{setPosition}}
+\index{setPosition@{setPosition}!IObject@{IObject}}
+\doxysubsubsection{\texorpdfstring{setPosition()}{setPosition()}}
+{\footnotesize\ttfamily virtual void I\+Object\+::set\+Position (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcoords}{coords}}}]{position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Set the Position object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_a_object_aacf79ea5a3d25305b5286ea806851e69}{A\+Object}}.
+
+\mbox{\Hypertarget{class_i_object_adcb8789d7dd0fca2b8b7bd64115da699}\label{class_i_object_adcb8789d7dd0fca2b8b7bd64115da699}} 
+\index{IObject@{IObject}!setScale@{setScale}}
+\index{setScale@{setScale}!IObject@{IObject}}
+\doxysubsubsection{\texorpdfstring{setScale()}{setScale()}}
+{\footnotesize\ttfamily virtual void I\+Object\+::set\+Scale (\begin{DoxyParamCaption}\item[{float}]{scale }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Set the Scale object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scale} & \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_a_object_a30e6807ad617c6b3407bf4d4bf288f15}{A\+Object}}.
+
+\mbox{\Hypertarget{class_i_object_a2ca8cdc2e3be7a007ececb9d2d4345d8}\label{class_i_object_a2ca8cdc2e3be7a007ececb9d2d4345d8}} 
+\index{IObject@{IObject}!setSize@{setSize}}
+\index{setSize@{setSize}!IObject@{IObject}}
+\doxysubsubsection{\texorpdfstring{setSize()}{setSize()}}
+{\footnotesize\ttfamily virtual void I\+Object\+::set\+Size (\begin{DoxyParamCaption}\item[{std\+::pair$<$ int, int $>$}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Set the Size object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_a_object_a13f50c93c5ada9b68c950f0913387971}{A\+Object}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/antoine/\+E\+P\+I\+T\+E\+C\+H/indie\+Studio/src/\+Object/I\+Object.\+hpp\end{DoxyCompactItemize}

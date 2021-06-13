@@ -10,6 +10,12 @@
 #ifndef INDIESTUDIO_DESTROYABLEOBJECT_HPP
 #define INDIESTUDIO_DESTROYABLEOBJECT_HPP
 
+
+/**
+ * @class Destructible object
+ *
+ * @brief Base class for destructible object
+ */
 class DestructibleObject: public CollisionableObject {
 public:
     /**

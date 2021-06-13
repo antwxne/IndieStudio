@@ -1,0 +1,10 @@
+<map id="IScene" name="IScene">
+<area shape="rect" id="node1" title=" " alt="" coords="393,5,459,32"/>
+<area shape="rect" id="node2" href="$class_a_scene.html" title=" " alt="" coords="391,80,461,107"/>
+<area shape="rect" id="node3" href="$classmenu_1_1_scene_menu.html" title=" " alt="" coords="5,155,148,181"/>
+<area shape="rect" id="node4" href="$class_scene_board.html" title=" " alt="" coords="173,155,271,181"/>
+<area shape="rect" id="node5" href="$class_scene_maxime.html" title=" " alt="" coords="295,155,410,181"/>
+<area shape="rect" id="node6" href="$class_scene_new_game.html" title=" " alt="" coords="435,155,564,181"/>
+<area shape="rect" id="node7" href="$class_scene_option.html" title=" " alt="" coords="589,155,693,181"/>
+<area shape="rect" id="node8" href="$class_scene_robin.html" title=" " alt="" coords="717,155,815,181"/>
+</map>

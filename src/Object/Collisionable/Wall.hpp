@@ -10,6 +10,11 @@
 #ifndef INDIESTUDIO_WALL_HPP
 #define INDIESTUDIO_WALL_HPP
 
+/**
+ * @class Wall
+ *
+ * @brief class for non destructible wall
+ */
 class Wall: public CollisionableObject {
 public:
     /**

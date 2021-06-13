@@ -1,0 +1,13 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$class_i_object.html" title="interface for objects" alt="" coords="5,56,73,83"/>
+<area shape="rect" id="node2" href="$class_a_object.html" title="Abstract class for objects." alt="" coords="121,56,195,83"/>
+<area shape="rect" id="node3" href="$class_collisionable_object.html" title=" " alt="" coords="243,56,391,83"/>
+<area shape="rect" id="node4" href="$class_destructible_object.html" title=" " alt="" coords="439,31,581,57"/>
+<area shape="rect" id="node11" href="$class_wall.html" title="class for non destructible wall" alt="" coords="485,81,535,108"/>
+<area shape="rect" id="node5" href="$class_destructible_wall.html" title=" " alt="" coords="629,5,759,32"/>
+<area shape="rect" id="node6" href="$class_movable_object.html" title=" " alt="" coords="634,56,754,83"/>
+<area shape="rect" id="node7" href="$class_bullet.html" title="Bullet to kill other player." alt="" coords="812,5,872,32"/>
+<area shape="rect" id="node8" href="$class_cannon.html" title="Cannon wich is related to a tank and contains a bullet." alt="" coords="807,56,877,83"/>
+<area shape="rect" id="node9" href="$class_tank.html" title="base class for tank which is played by the player" alt="" coords="816,107,868,133"/>
+<area shape="rect" id="node10" href="$class_tank_a_i.html" title=" " alt="" coords="925,107,991,133"/>
+</map>

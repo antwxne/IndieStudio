@@ -10,6 +10,11 @@
 #ifndef INDIESTUDIO_COLLISIONABLEOBJECT_HPP
 #define INDIESTUDIO_COLLISIONABLEOBJECT_HPP
 
+/**
+ * @class Collisionable Object
+ *
+ * @brief base class for objects with collision
+ */
 class CollisionableObject: public AObject {
 public:
     /**

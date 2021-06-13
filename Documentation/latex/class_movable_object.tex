@@ -1,0 +1,144 @@
+\hypertarget{class_movable_object}{}\doxysection{Movable\+Object Class Reference}
+\label{class_movable_object}\index{MovableObject@{MovableObject}}
+
+
+Inheritance diagram for Movable\+Object\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{class_movable_object__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Movable\+Object\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_movable_object__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_movable_object_a63c6f6907c9e74ecfcd0d0a4d25fb0eb}{Movable\+Object}} (const \mbox{\hyperlink{structcoords}{coords}} \&pos, const std\+::pair$<$ int, int $>$ \&size)
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{class_movable}{Movable}} Object object. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_movable_object_a805352499d164629c4f9490c7aae17a2}{move}} (const \mbox{\hyperlink{structcoords}{coords}} \&direction) noexcept
+\begin{DoxyCompactList}\small\item\em move object \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_movable_object_a70bb73f730068a1b4fd2b39c4339e9e8}{rotate}} (float angle) noexcept
+\begin{DoxyCompactList}\small\item\em rotate object \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_movable_object_a468fb07f3a41cd5663a7d763f54c4d18}{change\+Speed}} (float new\+Speed)
+\begin{DoxyCompactList}\small\item\em change speed for move \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_movable_object_af8d46f7a54dd3ae51f58d8b345f89297}\label{class_movable_object_af8d46f7a54dd3ae51f58d8b345f89297}} 
+float {\bfseries \+\_\+speed}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 19 of file Movable\+Object.\+hpp.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_movable_object_a63c6f6907c9e74ecfcd0d0a4d25fb0eb}\label{class_movable_object_a63c6f6907c9e74ecfcd0d0a4d25fb0eb}} 
+\index{MovableObject@{MovableObject}!MovableObject@{MovableObject}}
+\index{MovableObject@{MovableObject}!MovableObject@{MovableObject}}
+\doxysubsubsection{\texorpdfstring{MovableObject()}{MovableObject()}}
+{\footnotesize\ttfamily Movable\+Object\+::\+Movable\+Object (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structcoords}{coords}} \&}]{pos,  }\item[{const std\+::pair$<$ int, int $>$ \&}]{size }\end{DoxyParamCaption})}
+
+
+
+Construct a new \mbox{\hyperlink{class_movable}{Movable}} Object object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & \\
+\hline
+{\em size} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 10 of file Movable\+Object.\+cpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_movable_object_a468fb07f3a41cd5663a7d763f54c4d18}\label{class_movable_object_a468fb07f3a41cd5663a7d763f54c4d18}} 
+\index{MovableObject@{MovableObject}!changeSpeed@{changeSpeed}}
+\index{changeSpeed@{changeSpeed}!MovableObject@{MovableObject}}
+\doxysubsubsection{\texorpdfstring{changeSpeed()}{changeSpeed()}}
+{\footnotesize\ttfamily void Movable\+Object\+::change\+Speed (\begin{DoxyParamCaption}\item[{float}]{new\+Speed }\end{DoxyParamCaption})}
+
+
+
+change speed for move 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Speed} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 24 of file Movable\+Object.\+cpp.
+
+\mbox{\Hypertarget{class_movable_object_a805352499d164629c4f9490c7aae17a2}\label{class_movable_object_a805352499d164629c4f9490c7aae17a2}} 
+\index{MovableObject@{MovableObject}!move@{move}}
+\index{move@{move}!MovableObject@{MovableObject}}
+\doxysubsubsection{\texorpdfstring{move()}{move()}}
+{\footnotesize\ttfamily void Movable\+Object\+::move (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structcoords}{coords}} \&}]{direction }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+move object 
+
+
+\begin{DoxyParams}{Parameters}
+{\em direction} & \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \mbox{\hyperlink{class_tank_a_i_a2d717791df9a1d9a7bed19d254d557a2}{Tank\+AI}}, and \mbox{\hyperlink{class_bullet_a77747fe965c1611326a464239e6a374e}{Bullet}}.
+
+
+
+Definition at line 16 of file Movable\+Object.\+cpp.
+
+\mbox{\Hypertarget{class_movable_object_a70bb73f730068a1b4fd2b39c4339e9e8}\label{class_movable_object_a70bb73f730068a1b4fd2b39c4339e9e8}} 
+\index{MovableObject@{MovableObject}!rotate@{rotate}}
+\index{rotate@{rotate}!MovableObject@{MovableObject}}
+\doxysubsubsection{\texorpdfstring{rotate()}{rotate()}}
+{\footnotesize\ttfamily void Movable\+Object\+::rotate (\begin{DoxyParamCaption}\item[{float}]{angle }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+rotate object 
+
+
+\begin{DoxyParams}{Parameters}
+{\em angle} & \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \mbox{\hyperlink{class_tank_a_i_a34ad5720fa6fabdeb0f12ad17079f5b6}{Tank\+AI}}.
+
+
+
+Definition at line 20 of file Movable\+Object.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/antoine/\+E\+P\+I\+T\+E\+C\+H/indie\+Studio/src/\+Object/\+Collisionable/\+Destructible/\+Movable/Movable\+Object.\+hpp\item 
+/home/antoine/\+E\+P\+I\+T\+E\+C\+H/indie\+Studio/src/\+Object/\+Collisionable/\+Destructible/\+Movable/Movable\+Object.\+cpp\end{DoxyCompactItemize}
