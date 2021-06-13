@@ -16,11 +16,6 @@ SceneOption::~SceneOption()
 {
 }
 
-void SceneOption::initAssets()
-{
-
-}
-
 Scenes SceneOption::run(Raylib &lib, Scenes const &prevScene)
 {
     while (lib.getKeyPressed() != KEY_ENTER) {

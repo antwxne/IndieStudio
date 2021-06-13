@@ -16,9 +16,7 @@ class SceneMaxime : public AScene {
         ~SceneMaxime();
 
         Scenes run(Raylib &lib, Scenes const &prevScene) final;
-        void initAssets() final;
 
-    protected:
     private:
         static const std::vector<std::array<std::pair<float, float>, 2>> _menuPos;
         static const std::vector<std::string> _assetsPath;

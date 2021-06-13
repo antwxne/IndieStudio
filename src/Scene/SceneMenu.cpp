@@ -24,14 +24,6 @@ namespace menu {
         setInputFunction(Raylib::UP, [&]() {
             _select = !_select ? QUIT : _select - 1;
         });
-    }
-
-    SceneMenu::~SceneMenu()
-    {
-    }
-
-    void SceneMenu::initAssets()
-    {
         // _music = std::make_unique<RayMusic>(_musicPath, true, _settings->_musicVol);
         // for (auto &it : _soundsPath)
         //     _sounds.emplace_back(it, _settings->_soundVol);
@@ -49,9 +41,13 @@ namespace menu {
         //         std::make_unique<RayText>(_menuText[i])));
     }
 
+    SceneMenu::~SceneMenu()
+    {
+        _objects.clear();
+    }
+
     Scenes SceneMenu::run(Raylib &lib, Scenes const &prevScene)
     {
-        initAssets();
         //_music->StartMusic();
         while (!_enter && lib.gameLoop()) {
             //_music->UpdateMusic();

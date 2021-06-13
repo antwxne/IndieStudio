@@ -23,7 +23,6 @@ enum Scenes {
 class IScene {
     public:
         virtual ~IScene() {};
-        virtual void initAssets() = 0;
         virtual Scenes run(Raylib &lib, Scenes const &prevScene) = 0;
 };
 
