@@ -8,13 +8,28 @@
 #ifndef CORE_HPP_
 #define CORE_HPP_
 
-#include <utility>
 #include <string>
-#include <memory>
-#include "Scene/AScene.hpp"
+#include "Scene/IScene.hpp"
 #include "Settings.hpp"
+#include <memory>
+#include <unordered_map>
+#include "SceneMaxime.hpp"
+#include "SceneRobin.hpp"
+#include "SceneMenu.hpp"
+#include "SceneNewGame.hpp"
+#include "SceneOption.hpp"
+#include "SceneBoard.hpp"
 
 namespace core {
+
+    static const std::unordered_map<Scenes, std::function<std::unique_ptr<IScene>(std::shared_ptr<Setting> settings)>> _enumToConstructor {
+        {Scenes::MENU,          [](const std::shared_ptr<Setting> &settings){return std::make_unique<menu::SceneMenu>(settings);}},
+        {Scenes::NEW_GAME,      [](const std::shared_ptr<Setting> &settings){return std::make_unique<SceneNewGame>(settings);}},
+        {Scenes::GAME,          [](const std::shared_ptr<Setting> &settings){return std::make_unique<SceneMaxime>(settings);}},
+        {Scenes::LOAD,          [](const std::shared_ptr<Setting> &settings){return std::make_unique<SceneRobin>(settings);}},
+        {Scenes::OPTION,        [](const std::shared_ptr<Setting> &settings){return std::make_unique<SceneOption>(settings);}},
+        {Scenes::LEADERBOARD,   [](const std::shared_ptr<Setting> &settings){return std::make_unique<SceneBoard>(settings);}}
+    };
 
     class Core {
         public:
@@ -25,13 +40,10 @@ namespace core {
 
         protected:
         private:
-            std::vector<std::unique_ptr<AScene>> _vecScenes;
+            std::unique_ptr<IScene> _scene;
             std::shared_ptr<Setting> _settings;
-            int _screenWidth;
-            int _screenHeight;
             Scenes _scenePos;
             std::string _title;
-            std::size_t _fps;
     };
 
 }

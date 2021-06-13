@@ -21,6 +21,7 @@ Raylib::~Raylib()
         CloseAudioDevice();
     if (IsWindowReady())
         CloseWindow();
+    freeResources();
 }
 
 void Raylib::setCamera(Vector3 &pos, Vector3 &target, Vector3 &up, float &fovy,
@@ -153,4 +154,14 @@ void Raylib::drawTexture(const std::string &path, int posX, int posY, RGB tint)
         it = _textures.find(path);
     }
     DrawTexture(it->second, posX, posY, {tint.r, tint.g, tint.b, tint.a});
+}
+
+void Raylib::freeResources()
+{
+    for (auto &model : _models)
+        UnloadModel(model.second);
+    _models.clear();
+    for (auto &texture : _textures)
+        UnloadTexture(texture.second);
+    _textures.clear();
 }

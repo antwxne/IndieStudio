@@ -14,11 +14,7 @@ SceneBoard::SceneBoard(std::shared_ptr<Setting> settings) : AScene(settings)
 
 SceneBoard::~SceneBoard()
 {
-}
-
-void SceneBoard::InitAssets()
-{
-
+    _objects.clear();
 }
 
 Scenes SceneBoard::run(Raylib &lib, Scenes const &prevScene)

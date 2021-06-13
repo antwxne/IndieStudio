@@ -15,11 +15,6 @@ SceneNewGame::~SceneNewGame()
 {
 }
 
-void SceneNewGame::InitAssets()
-{
-
-}
-
 Scenes SceneNewGame::run(Raylib &lib, Scenes const &prevScene)
 {
     while (lib.getKeyPressed() != KEY_ENTER) {

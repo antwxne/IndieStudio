@@ -69,10 +69,7 @@ namespace menu {
             SceneMenu(std::shared_ptr<Setting> settings);
             ~SceneMenu();
             Scenes run(Raylib &lib, Scenes const &prevScene) final;
-            void InitAssets() final;
-            bool clockGame();
 
-        protected:
         private:
             std::size_t _select;
             bool _enter;

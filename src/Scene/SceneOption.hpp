@@ -16,11 +16,7 @@ class SceneOption : public AScene
     public:
         SceneOption(std::shared_ptr<Setting> settings);
         ~SceneOption();
-        void InitAssets() final;
         Scenes run(Raylib &lib, Scenes const &prevScene) final;
-
-    protected:
-    private:
 };
 
 #endif /* !SCENEOPTION_HPP_ */
