@@ -12,7 +12,7 @@ CollisionableObject::CollisionableObject(const std::pair<int, int> &pos,
 ) : AObject(pos, size, 1)
 {
     _path = path;
-    _type_field.is_collisionable = true;
+    _typeField.isCollisionable = true;
 }
 
 void CollisionableObject::setTexture(const std::string &texture) noexcept

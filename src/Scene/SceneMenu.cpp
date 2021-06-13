@@ -49,7 +49,7 @@ namespace menu {
         //         std::make_unique<RayText>(_menuText[i])));
     }
 
-    Scenes SceneMenu::run(Raylib &lib, Scenes prevScene)
+    Scenes SceneMenu::run(Raylib &lib, Scenes const &prevScene)
     {
         InitAssets();
         //_music->StartMusic();

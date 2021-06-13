@@ -16,7 +16,7 @@ class SceneBoard : public AScene
     public:
         SceneBoard(std::shared_ptr<Setting> settings);
         ~SceneBoard();
-        Scenes run(Raylib &lib, Scenes prevScene) final;
+        Scenes run(Raylib &lib, Scenes const &prevScene) final;
         void InitAssets() final;
 
     protected:
