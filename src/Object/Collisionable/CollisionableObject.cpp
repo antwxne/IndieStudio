@@ -16,7 +16,7 @@ CollisionableObject::CollisionableObject(const std::pair<int, int> &pos,
     _type_field.is_collisionable = true;
 }
 
-bool CollisionableObject::hit(CollisionableObject &obj) noexcept
+bool CollisionableObject::hit(const CollisionableObject &obj) noexcept
 {
     if (this->_pos.first + this->_size.first >= obj._pos.first
     && this->_pos.first <= obj._pos.first + obj._size.first
@@ -28,10 +28,6 @@ bool CollisionableObject::hit(CollisionableObject &obj) noexcept
         }
         if (this->_type_field.is_destructible) {
             auto tmp = dynamic_cast<DestructibleObject *>(this);
-            tmp->updateLife(-1);
-        }
-        if (obj._type_field.is_destructible) {
-            auto tmp = dynamic_cast<DestructibleObject *>(&obj);
             tmp->updateLife(-1);
         }
         return true;

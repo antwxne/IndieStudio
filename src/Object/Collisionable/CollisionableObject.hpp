@@ -15,7 +15,7 @@ public:
     CollisionableObject(const std::pair<int, int> &pos, const std::pair<int, int> &size);
     ~CollisionableObject() = default;
 
-    bool hit(CollisionableObject &) noexcept;
+    bool hit(const CollisionableObject &) noexcept;
 };
 
 #endif //INDIESTUDIO_COLLISIONABLEOBJECT_HPP
