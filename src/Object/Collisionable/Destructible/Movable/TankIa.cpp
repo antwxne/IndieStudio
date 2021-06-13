@@ -24,7 +24,9 @@ void TankIA::target(const std::pair<int, int> &pos) noexcept
 void TankIA::autoMove() noexcept
 {
     double distance = TankIA::distance(_targetPos);
+    std::pair<int, int> dir = _pos - _targetPos;
 
+    rotate(static_cast<double>(atan2(dir.second, dir.first)) * (PI / 180));
     if (distance > _stopDistance) {
         move(_targetPos);
     }
@@ -40,4 +42,12 @@ void TankIA::move(const std::pair<int, int> &direction) noexcept
     dir.first = direction.first > 0 ? 1 : direction.first < 0 ? -1 : 0;
     dir.second = direction.second > 0 ? 1 : direction.second< 0 ? -1 : 0;
     _pos += dir;
+}
+void TankIA::rotate(float angle) noexcept
+{
+    _rotation = angle;
+}
+void TankIA::setBlocked(bool blocked)
+{
+    _blocked = blocked;
 }
