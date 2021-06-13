@@ -13,10 +13,11 @@
 
 class SceneRobin : public AScene {
     public:
-        SceneRobin();
+        SceneRobin(std::shared_ptr<Setting> settings);
         ~SceneRobin();
 
-        int run(Raylib &lib) override;
+        Scenes run(Raylib &lib, Scenes prevScene) override;
+        void InitAssets() final {};
     protected:
     private:
 };

@@ -7,8 +7,23 @@
 
 #include "SceneMaxime.hpp"
 #include "Core.hpp"
+#include "Map/Map.hpp"
 
-SceneMaxime::SceneMaxime()
+#include "Raylib/Raylib.hpp"
+#include "Object/AObject.hpp"
+#include "Object/Collisionable/Wall.hpp"
+
+#include "Raylib/RayObj/RayTexture2D.hpp"
+#include "Raylib/RayObj/RayModel.hpp"
+#include "Raylib/RayObj/RaySquare.hpp"
+#include "Raylib/RayObj/RayText.hpp"
+
+const std::vector<std::string> SceneMaxime::_assetsPath {
+    "asset/box_test/box-textures.png",
+    "asset/box_test/Box.obj",
+};
+
+SceneMaxime::SceneMaxime(std::shared_ptr<Setting> settings) : AScene(settings)
 {
     //init _objects
 }
@@ -18,36 +33,15 @@ SceneMaxime::~SceneMaxime()
     _objects.clear();
 }
 
-int SceneMaxime::run(Raylib &lib)
+void SceneMaxime::InitAssets() {
+    _objects.emplace_back(std::make_unique<AObject>(std::make_pair(0, 0), std::make_pair(0, 0), 1, std::make_unique<RayModel>(_assetsPath.at(0), _assetsPath.at(1))));
+    _objects[0]->set3d(true);
+}
+
+Scenes SceneMaxime::run(Raylib &lib, Scenes prevScene)
 {
-    const Vector3 playerSize = {1.0f, 2.0f, 1.0f};
-    const Vector3 enemyBoxPos = {-4.0f, 1.0f, 0.0f};
-    const Vector3 enemyBoxSize = {2.0f, 2.0f, 2.0f};
-
-    Vector3 enemySpherePos = {4.0f, 0.0f, 0.0f};
-    float enemySphereSize = 1.5f;
-
-    Vector3 playerPosition = {0.0f, 1.0f, 2.0f};
-    Color playerColor = GREEN;
-
     while (lib.gameLoop()) {
-        BeginDrawing();
-        BeginMode3D(lib.getCamera());
-        //we will only use Raylib::printObjects(std::vector<unique_ptr<IObject>> objects) later
-        // lib.printCube(Raylib::WIRES, enemyBoxPos, enemyBoxSize, DARKGRAY);
-
-        // lib.printSphere(Raylib::BASIC, enemySpherePos, enemySphereSize, {0,0}, GRAY);
-        // lib.printSphere(Raylib::WIRES, enemySpherePos, enemySphereSize, {16, 16}, DARKGRAY);
-
-        // Draw player
-        DrawCubeV(playerPosition, playerSize, playerColor);
-        lib.printGrid(10, 1);
-        lib.printFps({10, 10});
-
-        //3D display here
-        EndMode3D();
-        //2D display here
-        EndDrawing();
+        lib.printObjects(_objects);
     }
-    return (Core::Scenes::QUIT);
+    return (Scenes::QUIT);
 }

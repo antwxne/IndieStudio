@@ -51,28 +51,25 @@ public:
     Raylib();
     ~Raylib();
 
-    void createWindow(int screenWidth, int screenHeight, std::string const &title, std::size_t const Fps);
+    void createWindow(int &screenWidth, int &screenHeight, std::string const &title, std::size_t const &Fps) noexcept;
 
-    bool gameLoop();
+    bool gameLoop() const noexcept;
 
-    void printObjects(vectorObject objects);
+    void printObjects(vectorObject &objects) const noexcept;
     // all print funcs under will be private (ex: type Vector3 only defined in raylib.h)
-    void printCircle(std::pair<int, int> const position, float const radius, std::pair<Color, Color> const color) const;
-    void printGrid(int const slices, float const space) const;
-    void printCube(Vector3 const position, Vector3 const size, Color const color) const;
-    void printSphere(Vector3 const position, float const size, std::pair<int, int> const Vertex ,Color const color) const;
-    void printFps(std::pair<int, int> const pos) const;
+    void printFps(std::pair<int, int> const &pos) const noexcept;
+    void printGrid(int const &slices, float const &space) const noexcept;
 
-    void setCamera(Vector3 pos, Vector3 target, Vector3 up, float fovy, int projection);
-    Camera getCamera() const;
+    void setCamera(Vector3 &pos, Vector3 &target, Vector3 &up, float &fovy, int &projection) noexcept;
+    Camera getCamera() const noexcept;
 
-    bool isControllerDetected(int const idx) const;
-    bool isControllerValid(int const idx, std::string const &ControllerName) const;
-    std::string getControllerName(int const idx) const;
+    bool isControllerDetected(int const &idx) const noexcept;
+    bool isControllerValid(int const &idx, std::string const &ControllerName) const noexcept;
+    std::string getControllerName(int const &idx) const noexcept;
 
-    bool isKeyPressed(int button) const noexcept;
-    bool isKeyReleased(int button) const noexcept;
-    int getKeyPressed() const;
+    bool isKeyPressed(int &button) const noexcept;
+    bool isKeyReleased(int &button) const noexcept;
+    int getKeyPressed() const noexcept;
 
 protected:
 private:

@@ -2,24 +2,23 @@
 ** EPITECH PROJECT, 2021
 ** B-YEP-400-PAR-4-1-indiestudio-clement1.ruat
 ** File description:
-** RayModel
+** RayTexture2D
 */
 
-#ifndef RAYMODEL_HPP_
-#define RAYMODEL_HPP_
+#ifndef RAYTEXTURE2D_HPP_
+#define RAYTEXTURE2D_HPP_
 
 #include "Raylib/RayObj/IRayObj.hpp"
 
-class RayModel : public IRayObj
+class RayTexture2D : public IRayObj
 {
     public:
-        RayModel(std::string textureFilepath, std::string modelFilepath);
-        ~RayModel();
+        RayTexture2D(std::string filepath);
+        ~RayTexture2D();
         void draw(IObject &obj) final;
 
     private:
         Texture2D _texture;
-        Model _model;
 };
 
-#endif /* !RAYMODEL_HPP_ */
+#endif /* !RAYTEXTURE2D_HPP_ */

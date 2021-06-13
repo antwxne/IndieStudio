@@ -15,8 +15,8 @@ Map::Map()
     _pos.push_back(std::make_pair(3, 2));
 }
 
-void Map::createDestructibleMap(std::pair<int, int> pos_left,
-    std::pair<int, int> pos_down_right
+void Map::createDestructibleMap(std::pair<int, int> &pos_left,
+    std::pair<int, int> &pos_down_right
 )
 {
     std::srand(std::time(nullptr));
@@ -40,29 +40,28 @@ void Map::createDestructibleMap(std::pair<int, int> pos_left,
                 }
         if (findPos == true) {
             tmp += 1;
-            _objectDestructibleList.push_back(
-                DestructibleWall(tmp_map, std::make_pair(0, 0)));
+            _objectDestructibleList.emplace_back(
+                tmp_map, std::make_pair(0, 0));
         }
     }
 }
 
-void Map::createContourMap(int xMax, int yMax) noexcept
+void Map::createContourMap(int const &xMax, int const &yMax) noexcept
 {
     for (int x = 0, y = 0; x != xMax; ++x) {
-        _objectNoDestructibleList.push_back(
-            Wall(std::make_pair(x, y), std::make_pair(0, 0)));
+        _objectNoDestructibleList.emplace_back(std::make_pair(x, y), std::make_pair(0, 0));
     }
     for (int x = 0, y = yMax; x != xMax; ++x) {
-        _objectNoDestructibleList.push_back(
-            Wall(std::make_pair(x, y), std::make_pair(0, 0)));
+        _objectNoDestructibleList.emplace_back(
+            std::make_pair(x, y), std::make_pair(0, 0));
     }
     for (int x = 0, y = 0; y != yMax; ++y) {
-        _objectNoDestructibleList.push_back(
-            Wall(std::make_pair(x, y), std::make_pair(0, 0)));
+        _objectNoDestructibleList.emplace_back(
+            std::make_pair(x, y), std::make_pair(0, 0));
     }
     for (int x = xMax, y = 0; y != yMax; y++) {
-        _objectNoDestructibleList.push_back(
-            Wall(std::make_pair(x, y), std::make_pair(0, 0)));
+        _objectNoDestructibleList.emplace_back(
+            std::make_pair(x, y), std::make_pair(0, 0));
     }
 }
 
@@ -87,9 +86,7 @@ void Map::readDestructibleList() noexcept
     file.read(reinterpret_cast<char *>(&size), sizeof(unsigned long));
     for (int i = 0; i != size; i++) {
         file.read(reinterpret_cast<char *>(&dest), sizeof(DestructibleObject::destructible_t));
-        auto tmp = DestructibleWall(std::make_pair(dest.x, dest.y), std::make_pair(0, 0));
-        tmp.setLife(dest.life);
-        _objectDestructibleList.push_back(tmp);
+        _objectDestructibleList.emplace_back(std::make_pair(dest.x, dest.y), std::make_pair(0, 0)).setLife(dest.life);
     }
     file.close();
 }

@@ -10,10 +10,23 @@
 
 #include "Raylib/Raylib.hpp"
 
+enum Scenes {
+    QUIT = -1,
+    MENU,
+    NEW_GAME,
+    GAME,
+    LOAD,
+    OPTION,
+    LEADERBOARD
+};
+
+
+
 class IScene {
     public:
         virtual ~IScene() {};
-        virtual int run(Raylib &lib) = 0;
+        virtual void InitAssets() = 0;
+        virtual Scenes run(Raylib &lib, Scenes prevScene) = 0;
 
     protected:
     private:

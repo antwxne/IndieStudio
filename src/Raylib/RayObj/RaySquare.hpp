@@ -13,12 +13,11 @@
 class RaySquare : public IRayObj
 {
     public:
-        RaySquare();
+        RaySquare(objType_e type);
         ~RaySquare() = default;
         void draw(IObject &obj) final;
-
-    protected:
     private:
+        objType_e _type;
 };
 
 #endif /* !RAYSQUARE_HPP_ */
