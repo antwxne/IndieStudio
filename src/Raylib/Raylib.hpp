@@ -73,6 +73,8 @@ public:
     std::string textForSubText(std::string const &text, int &pos, int &frameCounter) const noexcept;
     int getKeyPressed() const noexcept;
 
+    void freeResources();
+
 protected:
 private:
     std::pair<int, int> _screenSize;
