@@ -9,7 +9,7 @@
 
 MovableObject::MovableObject(const std::pair<int, int> &pos,
     const std::pair<int, int> &size
-) : DestructibleObject(pos, size), _speed(0)
+) : DestructibleObject(pos, size,std::pair<std::string, std::string> {"", ""}), _speed(0)
 {
     _type_field.is_movable = true;
 }

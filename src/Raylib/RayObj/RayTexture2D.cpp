@@ -17,10 +17,7 @@ RayTexture2D::~RayTexture2D()
     UnloadTexture(_texture);
 }
 
-void RayTexture2D::draw(IObject &obj)
+void RayTexture2D::draw(const std::pair<int, int> &pos, const std::pair<int, int> &size, const float scale, const std::pair<struct RGB, struct RGB> color)
 {
-    const std::pair<int, int> pos = obj.getPosition();
-    const RGB color = obj.getColors().first;
-
-    DrawTexture(_texture, pos.first, pos.second, {color.r, color.g, color.b, color.a});
+    DrawTexture(_texture, pos.first, pos.second, {color.first.r, color.first.g, color.first.b, color.first.a});
 }

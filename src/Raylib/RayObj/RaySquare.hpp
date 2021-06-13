@@ -15,7 +15,7 @@ class RaySquare : public IRayObj
     public:
         RaySquare(objType_e type);
         ~RaySquare() = default;
-        void draw(IObject &obj) final;
+        void draw(const std::pair<int, int> &pos, const std::pair<int, int> &size, const float scale, const std::pair<struct RGB, struct RGB> color) final;
     private:
         objType_e _type;
 };

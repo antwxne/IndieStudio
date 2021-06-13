@@ -41,7 +41,7 @@ void Map::createDestructibleMap(std::pair<int, int> &pos_left,
         if (findPos == true) {
             tmp += 1;
             _objectDestructibleList.emplace_back(
-                tmp_map, std::make_pair(0, 0));
+                tmp_map, std::make_pair(0, 0), std::make_pair("", ""));
         }
     }
 }
@@ -49,19 +49,20 @@ void Map::createDestructibleMap(std::pair<int, int> &pos_left,
 void Map::createContourMap(int const &xMax, int const &yMax) noexcept
 {
     for (int x = 0, y = 0; x != xMax; ++x) {
-        _objectNoDestructibleList.emplace_back(std::make_pair(x, y), std::make_pair(0, 0));
+        _objectNoDestructibleList.emplace_back(
+            std::make_pair(x, y), std::make_pair(0, 0), std::make_pair("", ""));
     }
     for (int x = 0, y = yMax; x != xMax; ++x) {
         _objectNoDestructibleList.emplace_back(
-            std::make_pair(x, y), std::make_pair(0, 0));
+            std::make_pair(x, y), std::make_pair(0, 0), std::make_pair("", ""));
     }
     for (int x = 0, y = 0; y != yMax; ++y) {
         _objectNoDestructibleList.emplace_back(
-            std::make_pair(x, y), std::make_pair(0, 0));
+            std::make_pair(x, y), std::make_pair(0, 0), std::make_pair("", ""));
     }
     for (int x = xMax, y = 0; y != yMax; y++) {
         _objectNoDestructibleList.emplace_back(
-            std::make_pair(x, y), std::make_pair(0, 0));
+            std::make_pair(x, y), std::make_pair(0, 0), std::make_pair("", ""));
     }
 }
 
@@ -86,7 +87,7 @@ void Map::readDestructibleList() noexcept
     file.read(reinterpret_cast<char *>(&size), sizeof(unsigned long));
     for (int i = 0; i != size; i++) {
         file.read(reinterpret_cast<char *>(&dest), sizeof(DestructibleObject::destructible_t));
-        _objectDestructibleList.emplace_back(std::make_pair(dest.x, dest.y), std::make_pair(0, 0)).setLife(dest.life);
+        _objectDestructibleList.emplace_back(std::make_pair(dest.x, dest.y), std::make_pair(0, 0), std::make_pair("", "")).setLife(dest.life);
     }
     file.close();
 }

@@ -15,7 +15,7 @@ class RayText : public IRayObj
     public:
         RayText(std::string text);
         ~RayText() = default;
-        void draw(IObject &obj) final;
+        void draw(const std::pair<int, int> &pos, const std::pair<int, int> &size, const float scale, const std::pair<struct RGB, struct RGB> color) final;
 
     private:
         std::string _text;

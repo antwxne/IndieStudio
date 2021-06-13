@@ -27,7 +27,7 @@
 #include <functional>
 #include "raylib.h"
 
-#include "IObject.hpp"
+#include "Object/IObject.hpp"
 #include "Raylib/RayObj/IRayObj.hpp"
 
 class Raylib
