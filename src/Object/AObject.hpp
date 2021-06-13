@@ -14,6 +14,7 @@ class AObject: public IObject {
 public:
     AObject(const std::pair<int, int> &pos, const std::pair<int, int> &size, float scale, const std::pair<RGB, RGB> &colors, std::unique_ptr<IRayObj> &&func);
     AObject(const std::pair<int, int> &pos, const std::pair<int, int> &size, float scale, std::unique_ptr<IRayObj> &&func);
+    AObject(std::unique_ptr<IRayObj> &&func);
     ~AObject() = default;
 
     [[nodiscard]] const type_field_t &getTypeField() const noexcept override;

@@ -10,7 +10,8 @@ set(CMAKE_CXX_STANDARD 17)
 
 # Paths
 set(RAYLIB_PATH src/Raylib)
-set(RAYOBJ_PATH src/Raylib/RayObj)
+set(RAYOBJ_PATH ${RAYLIB_PATH}/RayObj)
+set(RAYAUD_PATH ${RAYLIB_PATH}/RayAudio)
 set(ERROR_PATH src/Error)
 set(CORE_PATH src/Core)
 set(OBJECT_PATH src/Object)
@@ -26,6 +27,8 @@ set(SCENE_PATH src/Scene)
 include_directories(src)
 include_directories(${MAP_PAT})
 include_directories(${RAYLIB_PATH})
+include_directories(${RAYOBJ_PATH})
+include_directories(${RAYAUD_PATH})
 include_directories(${ERROR_PATH})
 include_directories(${CORE_PATH})
 include_directories(${OBJECT_PATH})
@@ -45,6 +48,12 @@ set(RAYOBJ_SRCS
         ${RAYOBJ_PATH}/RayText.cpp
         ${RAYOBJ_PATH}/RayTexture2D.cpp
 )
+
+set(RAYAUD_SRCS
+        ${RAYAUD_PATH}/RaySound.cpp
+        ${RAYAUD_PATH}/RayMusic.cpp
+)
+
 set(MAP_SRCS
         ${MAP_PATH}/Map.cpp)
 
@@ -68,8 +77,11 @@ set(OBJECTS_SRCS
         )
 set(SCENE_SRCS
         ${SCENE_PATH}/AScene.cpp
-        ${SCENE_PATH}/SceneMenu.cpp
+        ${SCENE_PATH}/SceneBoard.cpp
         ${SCENE_PATH}/SceneMaxime.cpp
+        ${SCENE_PATH}/SceneMenu.cpp
+        ${SCENE_PATH}/SceneNewGame.cpp
+        ${SCENE_PATH}/SceneOption.cpp
         ${SCENE_PATH}/SceneRobin.cpp
         )
 
@@ -81,7 +93,8 @@ set(INDIE_SRCS
         ${OBJECTS_SRCS}
         ${SCENE_SRCS}
         ${RAYOBJ_SRCS}
-)
+        ${RAYAUD_SRCS}
+        )
 # Compilation
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules/)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/)

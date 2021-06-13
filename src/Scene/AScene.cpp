@@ -7,6 +7,10 @@
 
 #include "AScene.hpp"
 
+AScene::AScene(std::shared_ptr<Setting> settings) : _settings(settings)
+{
+}
+
 void AScene::triggerInputActions(Raylib &lib)
 {
     int input = Raylib::NULL_KEY;
