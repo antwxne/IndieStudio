@@ -5,7 +5,6 @@
 ** Created by antoine,
 */
 
-#include "Object/IObject.hpp"
 #include "Raylib/RayObj/IRayObj.hpp"
 
 #ifndef INDIESTUDIO_AOBJECT_HPP
@@ -24,6 +23,7 @@ public:
     [[nodiscard]] const std::pair<RGB, RGB> &getColors() const noexcept final;
     [[nodiscard]] const float &getScale() const noexcept final;
     void set3d(bool is3d) noexcept final;
+    void setDrawable(std::unique_ptr<IRayObj> &&funct) noexcept;
     void setPosition(std::pair<int, int> position) noexcept final;
     const void funcDraw() noexcept final;
 
@@ -34,9 +34,10 @@ protected:
     std::pair<int, int> _pos;
     std::pair<int, int> _size;
     std::pair<RGB, RGB> _color;
+    std::pair<std::string, std::string> _path;
     float _rotation;
-    type_field_t _type_field;
     std::unique_ptr<IRayObj> _drawable;
+    type_field_t _type_field;
     float _scale;
     //sprite
 };

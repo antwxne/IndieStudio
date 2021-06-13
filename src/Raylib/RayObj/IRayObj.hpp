@@ -9,12 +9,11 @@
 #define IRAYOBJ_HPP_
 
 #include "Raylib/Raylib.hpp"
-#include "Object/IObject.hpp"
 
 class IRayObj {
     public:
         virtual ~IRayObj() = default;
-        virtual void draw(IObject &obj) = 0;
+        virtual void draw(const std::pair<int, int> &pos, const std::pair<int, int> &size, const float scale, const std::pair<struct RGB, struct RGB> color) = 0;
 
     protected:
     private:

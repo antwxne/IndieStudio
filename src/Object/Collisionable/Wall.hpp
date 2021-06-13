@@ -12,8 +12,8 @@
 
 class Wall: public CollisionableObject {
 public:
-    Wall(const std::pair<int, int> &pos, const std::pair<int, int> &size);
-    Wall(const Wall &w) : Wall(w._pos, w._size) {}
+    Wall(const std::pair<int, int> &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path);
+    Wall(const Wall &w) : Wall(w._pos, w._size, w._path) {}
 };
 
 #endif //INDIESTUDIO_WALL_HPP
