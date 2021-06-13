@@ -16,9 +16,10 @@ public:
 
     void constant_move() noexcept;
     void move(const std::pair<int, int> &direction) noexcept override;
-
+    void bounce() noexcept;
 private:
     std::pair<int, int> _direction;
+    std::pair<int, int> _prevPos;
 };
 
 #endif //INDIESTUDIO_BULLET_HPP
