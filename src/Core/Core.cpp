@@ -11,7 +11,7 @@
 namespace core {
 
     Core::Core(int screenWidth, int screenHeight, std::string const &title, std::size_t const fps)
-        : _title(title), _scenePos(Scenes::MENU), _settings(std::make_shared<Setting>(screenWidth, screenHeight, fps))
+        : _title(title), _scenePos(Scenes::GAME), _settings(std::make_shared<Setting>(screenWidth, screenHeight, fps))
     {
     }
 

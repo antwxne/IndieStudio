@@ -69,9 +69,8 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
     BeginMode3D(_camera);
     for (auto &i : objects)
         if (i->getTypeField().is3D && i->getTypeField().isCollisionable) {
-            std::cout << "[RAYLIB DRAW] je print un object 3d\n";
             auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
-            drawModel(derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first);
+            drawModel(derived->getModel(), derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first);
         }
     EndMode3D();
     for (auto &i : objects)
@@ -131,17 +130,25 @@ int Raylib::getKeyPressed() const noexcept
 {
     int input = GetKeyPressed();
     auto iterator = std::find(_keys.begin(), _keys.end(), input);
+
     if (iterator == _keys.end())
         return (0);
     return std::distance(_keys.begin(), iterator);
 }
 
-void Raylib::drawModel(const std::string &path, coords pos, float scale, RGB tint)
+void Raylib::drawModel(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint)
 {
-    auto it = _models.find(path);
+    auto it = _models.find(modelPath);
+    auto at = _textures.find(texturePath);
+
+    if (at == _textures.end()) {
+        _textures.insert({texturePath, LoadTexture(texturePath.c_str())});
+        at = _textures.find(texturePath);
+    }
     if (it == _models.end()) {
-        _models.insert({path, LoadModel(path.c_str())});
-        it = _models.find(path);
+        _models.insert({modelPath, LoadModel(modelPath.c_str())});
+        it = _models.find(modelPath);
+        SetMaterialTexture(&it->second.materials[0], MAP_DIFFUSE, at->second);
     }
     DrawModel(it->second, {pos.first, pos.second, pos.third}, scale, {tint.r, tint.g, tint.b, tint.a});
 }
@@ -149,6 +156,7 @@ void Raylib::drawModel(const std::string &path, coords pos, float scale, RGB tin
 void Raylib::drawTexture(const std::string &path, int posX, int posY, RGB tint)
 {
     auto it = _textures.find(path);
+
     if (it == _textures.end()) {
         _textures.insert({path, LoadTexture(path.c_str())});
         it = _textures.find(path);
