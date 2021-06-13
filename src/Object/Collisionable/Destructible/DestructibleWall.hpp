@@ -31,7 +31,7 @@ public:
      * 
      * @param object to copy
      */
-    DestructibleWall(const DestructibleWall &e) : DestructibleWall(e._pos, e._size, std::pair<std::string, std::string>{0, 0}) {}
+    DestructibleWall(const DestructibleWall &e) : DestructibleWall(e._pos, e._size, std::pair<std::string, std::string>{"", ""}) {}
     /**
      * @brief Destroy the Destructible Wall object
      * 
