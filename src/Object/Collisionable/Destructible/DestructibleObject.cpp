@@ -7,7 +7,7 @@
 
 #include "DestructibleObject.hpp"
 
-DestructibleObject::DestructibleObject(const std::pair<int, int> &pos,
+DestructibleObject::DestructibleObject(const Type3<float> &pos,
     const std::pair<int, int> &size, const std::pair<std::string, std::string> &path)
     : CollisionableObject(pos, size, path), _life(0)
 {

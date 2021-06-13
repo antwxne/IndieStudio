@@ -7,24 +7,24 @@
 
 #include "Object/AObject.hpp"
 
-AObject::AObject(const std::pair<int, int> &pos, const std::pair<int, int> &size, float scale, const std::pair<RGB, RGB> &colors)
+AObject::AObject(const Type3<float> &pos, const std::pair<int, int> &size, float scale, const std::pair<RGB, RGB> &colors)
     : _pos(pos), _size(size), _rotation(0), _scale(scale), _color(colors)
 {
     _typeField.is3D = false;
 }
 
-AObject::AObject(const std::pair<int, int> &pos, const std::pair<int, int> &size, float scale)
+AObject::AObject(const Type3<float> &pos, const std::pair<int, int> &size, float scale)
     : _pos(pos), _size(size), _rotation(0), _scale(scale), _color(std::make_pair(RGB(), RGB()))
 {
     _typeField.is3D = false;
 }
 
-const std::pair<int, int> &AObject::getPosition() const noexcept
+const Type3<float> &AObject::getPosition() const noexcept
 {
     return _pos;
 }
 
-void AObject::setPosition(std::pair<int, int> position) noexcept
+void AObject::setPosition(Type3<float> position) noexcept
 {
     _pos = position;
 }

@@ -12,13 +12,13 @@
 
 class Bullet: public MovableObject {
 public:
-    Bullet(const std::pair<int, int> &pos = {-1000, -1000}, const std::pair<int, int> &size = {-1000, -1000});
+    Bullet(const Type3<float> &pos = {-1000, -1000, 0}, const std::pair<int, int> &size = {-1000, -1000});
 
     void constant_move() noexcept;
-    void move(const std::pair<int, int> &direction) noexcept override;
+    void move(const Type3<float> &direction) noexcept override;
 
 private:
-    std::pair<int, int> _direction;
+    Type3<float> _direction;
 };
 
 #endif //INDIESTUDIO_BULLET_HPP

@@ -60,20 +60,22 @@ bool Raylib::isKeyPressed(int &button) const noexcept
     return (IsKeyPressed(button));
 }
 
+//void Raylib::drawModel(const std::string &path, Type3<float> pos, float scale, RGB tint)
 void Raylib::printObjects(Raylib::vectorObject &objects) const noexcept
 {
-    // BeginDrawing();
-    // ClearBackground(RAYWHITE);
-    // BeginMode3D(_camera);
-    // for (auto const &i : objects)
-    //     if (i->getTypeField().is_3D) {
-    //         i->funcDraw();
-    //     }
-    // EndMode3D();
-    // for (auto const &i : objects)
-    //     if (!i->getTypeField().is_3D)
-    //         i->funcDraw();
-    // EndDrawing();
+    BeginDrawing();
+    ClearBackground(RAYWHITE);
+    BeginMode3D(_camera);
+    for (auto const &i : objects)
+        if (i->getTypeField().is3D) {
+            auto a = dynamic_cast<CollisionableObject *>(&i);
+            drawModel(a->getTexture(), i->getPosition(), i->getScale(), i->getColors().first);
+        }
+    EndMode3D();
+    for (auto const &i : objects)
+        if (!i->getTypeField().is3D)
+            i->funcDraw();
+    EndDrawing();
 }
 
 bool Raylib::isKeyReleased(int &button) const noexcept

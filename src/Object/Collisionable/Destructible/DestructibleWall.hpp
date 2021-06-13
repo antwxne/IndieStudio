@@ -13,8 +13,8 @@
 
 class DestructibleWall: public DestructibleObject {
 public:
-    DestructibleWall(const std::pair<int, int> &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path);
-    DestructibleWall(const DestructibleWall &e) : DestructibleWall(e._pos, e._size, e._path) {}
+    DestructibleWall(const Type3<float> &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path);
+    DestructibleWall(const DestructibleWall &e) : DestructibleWall(e._pos, e._size, std::pair<std::string, std::string>{0, 0}) {}
     ~DestructibleWall() = default;
 };
 

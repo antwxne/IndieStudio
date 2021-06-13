@@ -41,18 +41,20 @@ struct Type3
 };
 
 template <typename T>
-std::pair<T, T> &operator+=(std::pair<T, T>&current, const std::pair<T, T> &other)
+struct Type3<T> &operator+=(struct Type3<T>&current, const struct Type3<T> &other)
 {
     current.first += other.first;
     current.second += other.second;
+    current.third += other.third;
     return current;
 }
 
 template<typename T>
-std::pair<T, T> &operator-(std::pair<T, T> &a, const std::pair<T, T> &b)
+struct Type3<T> &operator-(struct Type3<T> &a, const struct Type3<T> &b)
 {
     a.first -= b.first;
     a.second -= b.second;
+    a.third -= b.third;
     return a;
 }
 
@@ -72,7 +74,7 @@ struct typeField {
 class IObject {
 public:
     [[nodiscard]] virtual const typeField &getTypeField() const noexcept = 0;
-    [[nodiscard]] virtual const std::pair<int, int> &getPosition() const noexcept = 0;
+    [[nodiscard]] virtual const Type3<float> &getPosition() const noexcept = 0;
     [[nodiscard]] virtual const std::pair<int, int> &getSize() const noexcept = 0;
     [[nodiscard]] virtual const std::pair<RGB, RGB> &getColors() const noexcept = 0;
     [[nodiscard]] virtual const float &getScale() const noexcept = 0;
@@ -80,7 +82,7 @@ public:
     virtual void setSize(std::pair<int, int> size) noexcept = 0;
     virtual void setScale(float scale) noexcept = 0;
     virtual void set3d(bool is3d) noexcept = 0;
-    virtual void setPosition(std::pair<int, int> position) noexcept = 0;
+    virtual void setPosition(Type3<float> position) noexcept = 0;
 };
 
 #endif //INDIESTUDIO_IOBJECT_HPP

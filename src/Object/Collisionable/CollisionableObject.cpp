@@ -8,7 +8,7 @@
 #include "Object/Collisionable/Destructible/Movable/TankIa.hpp"
 #include "CollisionableObject.hpp"
 
-CollisionableObject::CollisionableObject(const std::pair<int, int> &pos,
+CollisionableObject::CollisionableObject(const Type3<float> &pos,
     const std::pair<int, int> &size, const std::pair<std::string, std::string> &path
 ) : AObject(pos, size, 1)
 {
@@ -19,23 +19,23 @@ CollisionableObject::CollisionableObject(const std::pair<int, int> &pos,
 void CollisionableObject::setTexture(const std::string &texture) noexcept
 {
     std::cout << "[COLLISIONABLE] Set Texture" << '\n';
-    _texturePath = texture;
+    _path.first = texture;
 }
 
 void CollisionableObject::setModel(const std::string &texture) noexcept
 {
     std::cout << "[COLLISIONABLE] Set Model" << '\n';
-    _modelPath = texture;
+    _path.second = texture;
 }
 
 const std::string &CollisionableObject::getTexture() const noexcept
 {
-    return _texturePath;
+    return _path.first;
 }
 
 const std::string &CollisionableObject::getModel() const noexcept
 {
-    return _modelPath;
+    return _path.second;
 }
 
 bool CollisionableObject::hit(const CollisionableObject &obj) noexcept

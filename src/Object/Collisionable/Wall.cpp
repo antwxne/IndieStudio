@@ -7,7 +7,7 @@
 
 #include "Wall.hpp"
 
-Wall::Wall(const std::pair<int, int> &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path)
+Wall::Wall(const Type3<float> &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path)
     : CollisionableObject(pos, size, path)
 {
     _typeField.isWall = true;

@@ -9,7 +9,7 @@
 
 #include "Bullet.hpp"
 
-Bullet::Bullet(const std::pair<int, int> &pos, const std::pair<int, int> &size)
+Bullet::Bullet(const Type3<float> &pos, const std::pair<int, int> &size)
     : MovableObject(pos, size)
 {
     _typeField.isBullet = true;
@@ -26,7 +26,7 @@ void Bullet::constant_move() noexcept
 //    }
     _pos += _direction;
 }
-void Bullet::move(const std::pair<int, int> &direction) noexcept
+void Bullet::move(const Type3<float> &direction) noexcept
 {
     _direction = direction;
 }

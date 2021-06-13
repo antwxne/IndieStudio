@@ -8,7 +8,7 @@
 #include "DestructibleWall.hpp"
 #include <iostream>
 
-DestructibleWall::DestructibleWall(const std::pair<int, int> &pos,
+DestructibleWall::DestructibleWall(const Type3<float> &pos,
     const std::pair<int, int> &size, const std::pair<std::string, std::string> &path)
     : DestructibleObject(pos, size, path)
 {

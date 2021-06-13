@@ -7,7 +7,7 @@
 
 #include "Tank.hpp"
 
-Tank::Tank(const std::pair<int, int> &pos, const std::pair<int, int> &size,
+Tank::Tank(const Type3<float> &pos, const std::pair<int, int> &size,
     Cannon &cannon
 ) : MovableObject(pos, size), _cannon(cannon)
 {

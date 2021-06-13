@@ -14,7 +14,7 @@
 
 class Cannon: public MovableObject {
 public:
-    Cannon(const std::pair<int, int> &pos, const std::pair<int, int> &size,
+    Cannon(const Type3<float> &pos, const std::pair<int, int> &size,
         Bullet &bullet);
 
     void fire();

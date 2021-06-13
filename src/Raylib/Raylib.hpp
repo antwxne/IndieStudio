@@ -28,6 +28,7 @@
 #include "raylib.h"
 
 #include "Object/IObject.hpp"
+#include "Object/Collisionable/CollisionableObject.hpp"
 
 class Raylib
 {

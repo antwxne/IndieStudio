@@ -12,7 +12,7 @@
 
 class CollisionableObject: public AObject {
 public:
-    CollisionableObject(const std::pair<int, int> &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path);
+    CollisionableObject(const Type3<float> &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path);
     ~CollisionableObject() = default;
 
     bool hit(const CollisionableObject &) noexcept;
@@ -24,8 +24,7 @@ public:
 
     bool hit(const CollisionableObject &) const noexcept;
 private:
-    std::string _texturePath;
-    std::string _modelPath;
+    std::pair<std::string, std::string> _path;
 };
 
 #endif //INDIESTUDIO_COLLISIONABLEOBJECT_HPP
