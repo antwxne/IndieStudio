@@ -11,7 +11,7 @@
 namespace core {
 
     Core::Core(int screenWidth, int screenHeight, std::string const &title, std::size_t const fps)
-        : _screenWidth(screenWidth), _screenHeight(screenHeight), _title(title), _fps(fps), _scenePos(Scenes::MENU), _settings(std::make_shared<Setting>())
+        : _title(title), _scenePos(Scenes::MENU), _settings(std::make_shared<Setting>(screenWidth, screenHeight, fps))
     {
     }
 
@@ -23,7 +23,7 @@ namespace core {
     {
         Raylib lib;
 
-        lib.createWindow(_screenWidth, _screenHeight, _title, _fps);
+        lib.createWindow(_settings->_widthScreen, _settings->_heightScreen, _title, _settings->_fps);
         while (_scenePos != QUIT) {
             _scene = _enumToConstructor.at(_scenePos)(_settings);
             _scenePos = _scene->run(lib, _scenePos);

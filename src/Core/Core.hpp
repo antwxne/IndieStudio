@@ -42,11 +42,8 @@ namespace core {
         private:
             std::unique_ptr<IScene> _scene;
             std::shared_ptr<Setting> _settings;
-            int _screenWidth;
-            int _screenHeight;
             Scenes _scenePos;
             std::string _title;
-            std::size_t _fps;
     };
 
 }
