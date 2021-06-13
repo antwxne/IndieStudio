@@ -19,7 +19,7 @@ SceneBoard::~SceneBoard()
 
 Scenes SceneBoard::run(Raylib &lib, Scenes const &prevScene)
 {
-    while (lib.getKeyPressed() != KEY_ENTER) {
+    while (lib.gameLoop()) {
 
     }
     return (Scenes::MENU);
