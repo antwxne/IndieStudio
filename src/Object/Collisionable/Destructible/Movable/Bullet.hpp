@@ -16,9 +16,11 @@ public:
 
     void constant_move() noexcept;
     void move(const coords &direction) noexcept override;
+    void bounce() noexcept;
 
 private:
     coords _direction;
+    coords _prevPos;
 };
 
 #endif //INDIESTUDIO_BULLET_HPP
