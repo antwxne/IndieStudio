@@ -7,9 +7,13 @@
 
 #include "RayModel.hpp"
 
-RayModel::RayModel(std::string textureFilepath, std::string modelFilepath) : _texture(LoadTexture(textureFilepath.c_str())), _model(LoadModel(modelFilepath.c_str()))
+RayModel::RayModel(const std::string &texture, const std::string &model) : _isSet(false)
 {
-    SetMaterialTexture(&_model.materials[0], MAP_DIFFUSE, _texture);
+    //std::cout << "JE PASSE DANS LE CONSTRUCTEUR" << "\n";
+    if (!texture.empty())
+        _texture = LoadTexture(texture.c_str());
+    if (!model.empty())
+        _model = LoadModel(model.c_str());
 }
 
 RayModel::~RayModel()
@@ -18,14 +22,22 @@ RayModel::~RayModel()
     UnloadModel(_model);
 }
 
-void RayModel::draw(IObject &obj)
+const void RayModel::setModel(std::string const &Filepath) {
+    _model = LoadModel(Filepath.c_str());
+}
+
+const void RayModel::setTexture(std::string const &Filepath) {
+    _texture = LoadTexture(Filepath.c_str());
+}
+
+void RayModel::draw(const std::pair<int, int> &pos, const std::pair<int, int> &size, const float scale, const std::pair<struct RGB, struct RGB> color)
 {
-    const std::pair<int, int> pos = obj.getPosition();
     float a = (float) pos.first;
     float b = (float) pos.second;
-    const float scale = obj.getScale();
-    const std::pair<struct RGB, struct RGB> color = obj.getColors();
-    std::cout << "[3D] je print un Model" << "\npos => " << a << ":" << b << "\nScale " << scale << '\n';
-
-    DrawModel(_model, {a, b, 0}, scale/50, WHITE);
+    //std::cout << "[3D] je print un Model" << "\npos => " << a << ":" << b << "\nScale " << scale << '\n';
+    if (!_isSet) {
+        SetMaterialTexture(&_model.materials[0], MAP_DIFFUSE, _texture);
+        _isSet = true;
+    }
+    DrawModel(_model, {a, b, 0}, scale, WHITE);
 }

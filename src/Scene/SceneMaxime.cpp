@@ -33,13 +33,16 @@ SceneMaxime::~SceneMaxime()
     _objects.clear();
 }
 
-void SceneMaxime::InitAssets() {
-    _objects.emplace_back(std::make_unique<AObject>(std::make_pair(0, 0), std::make_pair(0, 0), 1, std::make_unique<RayModel>(_assetsPath.at(0), _assetsPath.at(1))));
-    _objects[0]->set3d(true);
+void SceneMaxime::InitAssets()
+{
+    _objects.emplace_back(std::make_unique<Wall>(std::make_pair(0, 0), std::make_pair(0, 0), std::make_pair(_assetsPath.at(0), _assetsPath.at(1))));
+    _objects.at(0)->set3d(true);
+    reinterpret_cast<Wall *>(&_objects.at(0))->setScale(1/50);
 }
 
 int SceneMaxime::run(Raylib &lib)
 {
+    InitAssets();
     while (lib.gameLoop()) {
         lib.printObjects(_objects);
     }

@@ -58,6 +58,11 @@ void AObject::setSize(std::pair<int, int> size) noexcept
     _size = size;
 }
 
+void AObject::setDrawable(std::unique_ptr<IRayObj> &&funct) noexcept
+{
+    _drawable = std::move(funct);
+}
+
 const type_field_t &AObject::getTypeField() const noexcept
 {
     return _type_field;
@@ -70,5 +75,5 @@ const std::pair<RGB, RGB> &AObject::getColors() const noexcept
 
 const void AObject::funcDraw() noexcept
 {
-    _drawable->draw(*this);
+    _drawable->draw(getPosition(), getSize(), getScale(), getColors());
 }

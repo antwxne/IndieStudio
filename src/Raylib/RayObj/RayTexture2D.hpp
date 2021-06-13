@@ -15,7 +15,7 @@ class RayTexture2D : public IRayObj
     public:
         RayTexture2D(std::string filepath);
         ~RayTexture2D();
-        void draw(IObject &obj) final;
+        void draw(const std::pair<int, int> &pos, const std::pair<int, int> &size, const float scale, const std::pair<struct RGB, struct RGB> color) final;
 
     private:
         Texture2D _texture;

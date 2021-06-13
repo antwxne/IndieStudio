@@ -7,8 +7,8 @@
 
 #include "Wall.hpp"
 
-Wall::Wall(const std::pair<int, int> &pos, const std::pair<int, int> &size)
-    : CollisionableObject(pos, size)
+Wall::Wall(const std::pair<int, int> &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path)
+    : CollisionableObject(pos, size, path)
 {
     //change sprite
 }

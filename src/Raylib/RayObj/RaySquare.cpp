@@ -11,12 +11,8 @@ RaySquare::RaySquare(objType_e type) : _type(type)
 {
 }
 
-void RaySquare::draw(IObject &obj)
+void RaySquare::draw(const std::pair<int, int> &pos, const std::pair<int, int> &size, const float scale, const std::pair<struct RGB, struct RGB> color)
 {
-    const std::pair<int, int> pos = obj.getPosition();
-    const std::pair<int, int> size = obj.getSize();
-    const std::pair<struct RGB, struct RGB> color = obj.getColors();
-
     if (_type == BASIC)
         DrawRectangle(pos.first, pos.second, size.first, size.second, {color.first.r, color.first.g, color.first.b, color.first.a});
     else if (_type == GRADIENT)

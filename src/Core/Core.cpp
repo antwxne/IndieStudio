@@ -15,8 +15,7 @@ Core::Core(int screenWidth, int screenHeight, std::string const &title, std::siz
     : _screenWidth(screenWidth), _screenHeight(screenHeight), _title(title), _fps(fps), _scenePos(0)
 {
     _vecScenes.emplace_back(std::make_unique<SceneMaxime>());
-    _vecScenes.emplace_back(std::make_unique<menu::SceneMenu>());
-
+    //_vecScenes.emplace_back(std::make_unique<menu::SceneMenu>());
 }
 
 Core::~Core()
@@ -26,15 +25,9 @@ Core::~Core()
 void Core::start()
 {
     Raylib lib;
-    SceneRobin sceneRobin;
-    menu::SceneMenu menu;
-    SceneMaxime test3d;
 
     lib.createWindow(_screenWidth, _screenHeight, _title, _fps);
-    // sceneRobin.run(lib);
-    // test3d.run(lib);
     while (_scenePos != QUIT) {
         _scenePos = _vecScenes.at(_scenePos)->run(lib);
     }
-    // // test3d.run(lib);
 }
