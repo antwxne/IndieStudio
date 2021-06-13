@@ -68,7 +68,7 @@ namespace menu {
         public:
             SceneMenu(std::shared_ptr<Setting> settings);
             ~SceneMenu();
-            Scenes run(Raylib &lib, Scenes prevScene) final;
+            Scenes run(Raylib &lib, Scenes const &prevScene) final;
             void InitAssets() final;
             bool clockGame();
 

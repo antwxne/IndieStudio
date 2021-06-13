@@ -5,6 +5,7 @@
 ** Created by antoine,
 */
 
+#include "Object/Collisionable/Destructible/Movable/TankIa.hpp"
 #include "CollisionableObject.hpp"
 
 CollisionableObject::CollisionableObject(const std::pair<int, int> &pos,
@@ -12,7 +13,7 @@ CollisionableObject::CollisionableObject(const std::pair<int, int> &pos,
 ) : AObject(pos, size, 1)
 {
     _path = path;
-    _type_field.is_collisionable = true;
+    _typeField.isCollisionable = true;
 }
 
 void CollisionableObject::setTexture(const std::string &texture) noexcept
@@ -37,7 +38,21 @@ const std::string &CollisionableObject::getModel() const noexcept
     return _modelPath;
 }
 
-bool CollisionableObject::hit(const CollisionableObject &) const noexcept
+bool CollisionableObject::hit(const CollisionableObject &obj) noexcept
 {
+    if (this->_pos.first + this->_size.first >= obj._pos.first
+    && this->_pos.first <= obj._pos.first + obj._size.first
+    && this->_pos.second + this->_size.second >= obj._pos.second
+    && this->_pos.second <= obj._pos.second + obj._size.second) {
+        if (this->_typeField.isIa && obj._typeField.isWall) {
+            auto tmp = dynamic_cast<TankIA *>(this);
+            tmp->setBlocked(true);
+        }
+        if (this->_typeField.isDestructible) {
+            auto tmp = dynamic_cast<DestructibleObject *>(this);
+            tmp->updateLife(-1);
+        }
+        return true;
+    }
     return false;
 }

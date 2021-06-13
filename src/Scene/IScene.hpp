@@ -20,13 +20,11 @@ enum Scenes {
     LEADERBOARD
 };
 
-
-
 class IScene {
     public:
         virtual ~IScene() {};
         virtual void InitAssets() = 0;
-        virtual Scenes run(Raylib &lib, Scenes prevScene) = 0;
+        virtual Scenes run(Raylib &lib, Scenes const &prevScene) = 0;
 
     protected:
     private:

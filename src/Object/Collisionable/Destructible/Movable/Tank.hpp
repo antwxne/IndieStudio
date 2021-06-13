@@ -12,12 +12,14 @@
 #define INDIESTUDIO_TANK_HPP
 
 class Tank: public MovableObject {
+public:
     Tank(const std::pair<int, int> &pos, const std::pair<int, int> &size,
         Cannon &cannon);
+    ~Tank() = default;
 
-    void fire() {};
+    void fire();
 
-private:
+protected:
     Cannon &_cannon;
 };
 

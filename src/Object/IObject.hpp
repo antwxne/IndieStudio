@@ -48,20 +48,30 @@ std::pair<T, T> &operator+=(std::pair<T, T>&current, const std::pair<T, T> &othe
     return current;
 }
 
-typedef struct type_field_s {
-    bool is_3D: 1;
-    bool is_object: 1;
-    bool is_collisionable: 1;
-    bool is_destructible: 1;
-    bool is_movable: 1;
-    bool is_tank: 1;
-    bool is_cannon: 1;
-    bool is_bullet: 1;
-} type_field_t;
+template<typename T>
+std::pair<T, T> &operator-(std::pair<T, T> &a, const std::pair<T, T> &b)
+{
+    a.first -= b.first;
+    a.second -= b.second;
+    return a;
+}
+
+struct typeField {
+    bool is3D: 1;
+    bool isObject: 1;
+    bool isCollisionable: 1;
+    bool isDestructible: 1;
+    bool isMovable: 1;
+    bool isTank: 1;
+    bool isCannon: 1;
+    bool isBullet: 1;
+    bool isIa: 1;
+    bool isWall: 1;
+};
 
 class IObject {
 public:
-    [[nodiscard]] virtual const type_field_t &getTypeField() const noexcept = 0;
+    [[nodiscard]] virtual const typeField &getTypeField() const noexcept = 0;
     [[nodiscard]] virtual const std::pair<int, int> &getPosition() const noexcept = 0;
     [[nodiscard]] virtual const std::pair<int, int> &getSize() const noexcept = 0;
     [[nodiscard]] virtual const std::pair<RGB, RGB> &getColors() const noexcept = 0;

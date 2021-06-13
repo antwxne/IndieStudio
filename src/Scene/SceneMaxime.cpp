@@ -37,7 +37,7 @@ void SceneMaxime::InitAssets()
     // _objects.at(0)->setScale(0.05f);
 }
 
-Scenes SceneMaxime::run(Raylib &lib, Scenes prevScene)
+Scenes SceneMaxime::run(Raylib &lib, Scenes const &prevScene)
 {
     InitAssets();
     while (!_enter && lib.gameLoop()) {

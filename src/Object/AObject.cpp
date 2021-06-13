@@ -10,15 +10,13 @@
 AObject::AObject(const std::pair<int, int> &pos, const std::pair<int, int> &size, float scale, const std::pair<RGB, RGB> &colors)
     : _pos(pos), _size(size), _rotation(0), _scale(scale), _color(colors)
 {
-    _type_field.is_object = true;
-    _type_field.is_3D = false;
+    _typeField.is3D = false;
 }
 
 AObject::AObject(const std::pair<int, int> &pos, const std::pair<int, int> &size, float scale)
     : _pos(pos), _size(size), _rotation(0), _scale(scale), _color(std::make_pair(RGB(), RGB()))
 {
-    _type_field.is_object = true;
-    _type_field.is_3D = false;
+    _typeField.is3D = false;
 }
 
 const std::pair<int, int> &AObject::getPosition() const noexcept
@@ -48,7 +46,7 @@ void AObject::setScale(float scale) noexcept
 
 void AObject::set3d(bool is3d) noexcept
 {
-    _type_field.is_3D = is3d;
+    _typeField.is3D = is3d;
 }
 
 void AObject::setSize(std::pair<int, int> size) noexcept
@@ -56,9 +54,9 @@ void AObject::setSize(std::pair<int, int> size) noexcept
     _size = size;
 }
 
-const type_field_t &AObject::getTypeField() const noexcept
+const typeField &AObject::getTypeField() const noexcept
 {
-    return _type_field;
+    return _typeField;
 }
 
 const std::pair<RGB, RGB> &AObject::getColors() const noexcept

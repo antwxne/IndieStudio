@@ -15,6 +15,7 @@ public:
     CollisionableObject(const std::pair<int, int> &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path);
     ~CollisionableObject() = default;
 
+    bool hit(const CollisionableObject &) noexcept;
     [[nodiscard]] const std::string &getTexture() const noexcept;
     [[nodiscard]] const std::string &getModel() const noexcept;
 

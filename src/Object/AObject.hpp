@@ -16,7 +16,7 @@ public:
     AObject(const std::pair<int, int> &pos, const std::pair<int, int> &size, float scale);
     ~AObject() = default;
 
-    [[nodiscard]] const type_field_t &getTypeField() const noexcept override;
+    [[nodiscard]] const typeField &getTypeField() const noexcept override;
     [[nodiscard]] const std::pair<int, int> &getPosition() const noexcept final;
     [[nodiscard]] const std::pair<int, int> &getSize() const noexcept final;
     [[nodiscard]] const std::pair<RGB, RGB> &getColors() const noexcept final;
@@ -33,7 +33,7 @@ protected:
     std::pair<RGB, RGB> _color;
     std::pair<std::string, std::string> _path;
     float _rotation;
-    type_field_t _type_field;
+    typeField _typeField;
     float _scale;
 };
 
