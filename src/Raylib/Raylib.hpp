@@ -69,6 +69,7 @@ public:
 
     bool isKeyPressed(int &button) const noexcept;
     bool isKeyReleased(int &button) const noexcept;
+    std::string textForSubText(std::string const &text, int &pos, int &frameCounter) const noexcept;
     int getKeyPressed() const noexcept;
 
 protected:

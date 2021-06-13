@@ -91,7 +91,7 @@ set(INDIE_SRCS
         ${SCENE_SRCS}
         ${RAYOBJ_SRCS}
         ${RAYAUD_SRCS}
-)
+        )
 # Compilation
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules/)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/)
