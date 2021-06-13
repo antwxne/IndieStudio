@@ -35,6 +35,14 @@ std::pair<T, T> &operator+=(std::pair<T, T>&current, const std::pair<T, T> &othe
     return current;
 }
 
+template<typename T>
+std::pair<T, T> &operator-(std::pair<T, T> &a, const std::pair<T, T> &b)
+{
+    a.first -= b.first;
+    a.second -= b.second;
+    return a;
+}
+
 typedef struct type_field_s {
     bool is_3D: 1;
     bool is_object: 1;
@@ -45,6 +53,7 @@ typedef struct type_field_s {
     bool is_cannon: 1;
     bool is_bullet: 1;
     bool is_3d: 1;
+    bool is_ia: 1;
 } type_field_t;
 
 class IObject {

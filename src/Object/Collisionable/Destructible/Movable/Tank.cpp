@@ -15,3 +15,7 @@ Tank::Tank(const std::pair<int, int> &pos, const std::pair<int, int> &size,
     _life = 10;
     //changer le sprite
 }
+void Tank::fire()
+{
+    _cannon.fire();
+}
