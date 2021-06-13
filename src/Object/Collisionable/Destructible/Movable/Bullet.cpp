@@ -9,8 +9,7 @@
 
 #include "Bullet.hpp"
 
-Bullet::Bullet(const Type3<float> &pos, const std::pair<int, int> &size)
-    : MovableObject(pos, size)
+Bullet::Bullet(const coords &pos, const std::pair<int, int> &size) : MovableObject(pos, size)
 {
     _typeField.isBullet = true;
     _life = 3;
@@ -24,9 +23,12 @@ void Bullet::constant_move() noexcept
 //        std::chrono::milliseconds(static_cast<std::chrono::milliseconds>(1000 / _speed)) {
 //
 //    }
+    _pos.first += _direction.first;
+    _pos.second += _direction.second;
+    _pos.third += _direction.third;
     _pos += _direction;
 }
-void Bullet::move(const Type3<float> &direction) noexcept
+void Bullet::move(const coords &direction) noexcept
 {
     _direction = direction;
 }

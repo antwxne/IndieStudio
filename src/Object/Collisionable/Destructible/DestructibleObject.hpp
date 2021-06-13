@@ -12,7 +12,7 @@
 
 class DestructibleObject: public CollisionableObject {
 public:
-    DestructibleObject(const Type3<float> &pos,
+    DestructibleObject(const coords &pos,
         const std::pair<int, int> &size, const std::pair<std::string, std::string> &path);
     ~DestructibleObject() = default;
 

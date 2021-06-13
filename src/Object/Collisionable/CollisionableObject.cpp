@@ -8,12 +8,16 @@
 #include "Object/Collisionable/Destructible/Movable/TankIa.hpp"
 #include "CollisionableObject.hpp"
 
-CollisionableObject::CollisionableObject(const Type3<float> &pos,
+CollisionableObject::CollisionableObject(const coords &pos,
     const std::pair<int, int> &size, const std::pair<std::string, std::string> &path
 ) : AObject(pos, size, 1)
 {
     _path = path;
     _typeField.isCollisionable = true;
+}
+
+CollisionableObject::CollisionableObject(CollisionableObject const &object) : AObject(object._pos, object._size, 1), _path(object._path)
+{
 }
 
 void CollisionableObject::setTexture(const std::string &texture) noexcept

@@ -26,7 +26,7 @@ protected:
     void triggerInputActions(Raylib &lib);
     void setInputFunction(Raylib::Keys, std::function<void()> function);
     std::shared_ptr<Setting> _settings;
-    std::vector<std::unique_ptr<IObject>> _objects;
+    std::vector<std::shared_ptr<IObject>> _objects;
     std::unordered_map<int,std::function<void()>> _keys = {
         {Raylib::NULL_KEY, [](){}},
         {Raylib::ENTER, [](){}},

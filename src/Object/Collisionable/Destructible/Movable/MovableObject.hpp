@@ -12,9 +12,9 @@
 
 class MovableObject: public DestructibleObject {
 public:
-    MovableObject(const Type3<float> &pos, const std::pair<int, int> &size);
+    MovableObject(const coords &pos, const std::pair<int, int> &size);
 
-    virtual void move(const Type3<float> &direction) noexcept;
+    virtual void move(const coords &direction) noexcept;
     virtual void rotate(float angle) noexcept;
     void changeSpeed(float newSpeed);
 

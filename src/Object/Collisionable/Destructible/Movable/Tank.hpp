@@ -13,7 +13,7 @@
 
 class Tank: public MovableObject {
 public:
-    Tank(const Type3<float> &pos, const std::pair<int, int> &size,
+    Tank(const coords &pos, const std::pair<int, int> &size,
         Cannon &cannon);
     ~Tank() = default;
 

@@ -7,14 +7,13 @@
 
 #include "MovableObject.hpp"
 
-MovableObject::MovableObject(const Type3<float> &pos,
-    const std::pair<int, int> &size
-) : DestructibleObject(pos, size,std::pair<std::string, std::string> {"", ""}), _speed(0)
+MovableObject::MovableObject(const coords &pos, const std::pair<int, int> &size)
+     : DestructibleObject(pos, size, std::pair<std::string, std::string> {"", ""}), _speed(0)
 {
     _typeField.isMovable = true;
 }
 
-void MovableObject::move(const Type3<float> &direction) noexcept
+void MovableObject::move(const coords &direction) noexcept
 {
     _pos += direction;
 }

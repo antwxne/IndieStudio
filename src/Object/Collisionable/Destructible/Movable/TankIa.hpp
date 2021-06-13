@@ -12,21 +12,21 @@
 
 class TankIA: public Tank {
 public:
-    TankIA(const Type3<float> &pos, const std::pair<int, int> &size,
+    TankIA(const coords &pos, const std::pair<int, int> &size,
         Cannon &cannon);
     ~TankIA() = default;
 
-    void target(const Type3<float> &pos) noexcept;
+    void target(const coords &pos) noexcept;
     void autoMove() noexcept;
-    void move(const Type3<float> &direction) noexcept override;
+    void move(const coords &direction) noexcept override;
     void rotate(float angle) noexcept override;
     void setBlocked(bool blocked);
 
 private:
-    double distance(const Type3<float> &otherPos) const noexcept;
+    double distance(const coords &otherPos) const noexcept;
 
 protected:
-    Type3<float> _targetPos;
+    coords _targetPos;
     double _stopDistance;
     bool _blocked;
 };

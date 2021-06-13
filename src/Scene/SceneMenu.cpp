@@ -55,7 +55,7 @@ namespace menu {
         //_music->StartMusic();
         while (!_enter && lib.gameLoop()) {
             //_music->UpdateMusic();
-            _objects.at(1)->setPosition(_menuPos[_select].at(0));
+            //_objects.at(1)->setPosition(_menuPos[_select].at(0));
             triggerInputActions(lib);
             lib.printObjects(_objects);
         }

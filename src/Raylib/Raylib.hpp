@@ -33,7 +33,7 @@
 class Raylib
 {
 public:
-    using uIObject = std::unique_ptr<IObject>;
+    using uIObject = std::shared_ptr<IObject>;
     using vectorObject = std::vector<uIObject>;
     enum Keys {
         NULL_KEY,
@@ -55,11 +55,11 @@ public:
 
     bool gameLoop() const noexcept;
 
-    void printObjects(vectorObject &objects) const noexcept;
+    void printObjects(vectorObject &objects) noexcept;
     // all print funcs under will be private (ex: type Vector3 only defined in raylib.h)
     void printFps(std::pair<int, int> const &pos) const noexcept;
     void printGrid(int const &slices, float const &space) const noexcept;
-    void drawModel(const std::string &path, Type3<float> pos, float scale, RGB tint);
+    void drawModel(const std::string &path, coords pos, float scale, RGB tint);
     void drawTexture(const std::string &path, int posX, int posY, RGB tint);
 
     void setCamera(Vector3 &pos, Vector3 &target, Vector3 &up, float &fovy, int &projection) noexcept;

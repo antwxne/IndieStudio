@@ -31,32 +31,55 @@ struct RGB
     unsigned char a;
 };
 
-template<typename T>
-struct Type3
+
+struct coords
 {
-    Type3(T f, T s, T t) : first(f), second(s), third(t) {};
-    T first;
-    T second;
-    T third;
+    coords(float f = 0, float s = 0, float t = 0) : first(f), second(s), third(t) {};
+    coords operator+=(coords const &rhs) {
+        first += rhs.first;
+        second += rhs.second;
+        third += rhs.third;
+        return *this;
+    }
+
+    coords operator-(coords const &rhs) {
+        first - rhs.first;
+        second - rhs.second;
+        third - rhs.third;
+        return *this;
+    }
+
+    float first;
+    float second;
+    float third;
 };
 
-template <typename T>
-struct Type3<T> &operator+=(struct Type3<T>&current, const struct Type3<T> &other)
-{
-    current.first += other.first;
-    current.second += other.second;
-    current.third += other.third;
-    return current;
-}
+// template<typename T>
+// struct Type3
+// {
+//     Type3(T f, T s, T t) : first(f), second(s), third(t) {};
+//     T first;
+//     T second;
+//     T third;
+// };
 
-template<typename T>
-struct Type3<T> &operator-(struct Type3<T> &a, const struct Type3<T> &b)
-{
-    a.first -= b.first;
-    a.second -= b.second;
-    a.third -= b.third;
-    return a;
-}
+// template <typename T>
+// struct Type3<T> &operator+=(struct Type3<T>&current, const struct Type3<T> &other)
+// {
+//     current.first += other.first;
+//     current.second += other.second;
+//     current.third += other.third;
+//     return current;
+// }
+
+// template<typename T>
+// struct Type3<T> &operator-(struct Type3<T> &a, const struct Type3<T> &b)
+// {
+//     a.first -= b.first;
+//     a.second -= b.second;
+//     a.third -= b.third;
+//     return a;
+// }
 
 struct typeField {
     bool is3D: 1;
@@ -74,7 +97,7 @@ struct typeField {
 class IObject {
 public:
     [[nodiscard]] virtual const typeField &getTypeField() const noexcept = 0;
-    [[nodiscard]] virtual const Type3<float> &getPosition() const noexcept = 0;
+    [[nodiscard]] virtual const coords &getPosition() const noexcept = 0;
     [[nodiscard]] virtual const std::pair<int, int> &getSize() const noexcept = 0;
     [[nodiscard]] virtual const std::pair<RGB, RGB> &getColors() const noexcept = 0;
     [[nodiscard]] virtual const float &getScale() const noexcept = 0;
@@ -82,7 +105,7 @@ public:
     virtual void setSize(std::pair<int, int> size) noexcept = 0;
     virtual void setScale(float scale) noexcept = 0;
     virtual void set3d(bool is3d) noexcept = 0;
-    virtual void setPosition(Type3<float> position) noexcept = 0;
+    virtual void setPosition(coords position) noexcept = 0;
 };
 
 #endif //INDIESTUDIO_IOBJECT_HPP

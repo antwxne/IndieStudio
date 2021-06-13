@@ -12,7 +12,8 @@
 
 class CollisionableObject: public AObject {
 public:
-    CollisionableObject(const Type3<float> &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path);
+    CollisionableObject(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path);
+    CollisionableObject(CollisionableObject const &collisionableObject);
     ~CollisionableObject() = default;
 
     bool hit(const CollisionableObject &) noexcept;
@@ -23,7 +24,7 @@ public:
     void setModel(const std::string &texture) noexcept;
 
     bool hit(const CollisionableObject &) const noexcept;
-private:
+protected:
     std::pair<std::string, std::string> _path;
 };
 

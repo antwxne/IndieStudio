@@ -60,21 +60,25 @@ bool Raylib::isKeyPressed(int &button) const noexcept
     return (IsKeyPressed(button));
 }
 
-//void Raylib::drawModel(const std::string &path, Type3<float> pos, float scale, RGB tint)
-void Raylib::printObjects(Raylib::vectorObject &objects) const noexcept
+//void Raylib::drawModel(const std::string &path, coords pos, float scale, RGB tint)
+void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
 {
     BeginDrawing();
     ClearBackground(RAYWHITE);
     BeginMode3D(_camera);
-    for (auto const &i : objects)
-        if (i->getTypeField().is3D) {
-            auto a = dynamic_cast<CollisionableObject *>(&i);
-            drawModel(a->getTexture(), i->getPosition(), i->getScale(), i->getColors().first);
+    for (auto &i : objects)
+        if (i->getTypeField().is3D && i->getTypeField().isCollisionable) {
+            std::cout << "[RAYLIB DRAW] je print un object 3d\n";
+            auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
+            drawModel(derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first);
         }
     EndMode3D();
-    for (auto const &i : objects)
-        if (!i->getTypeField().is3D)
-            i->funcDraw();
+    for (auto &i : objects)
+        if (!i->getTypeField().is3D) {
+            std::cout << "[RAYLIB DRAW] je print un object 2d\n";
+            auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
+            drawTexture(derived->getTexture(), i->getPosition().first, i->getPosition().second, i->getColors().first);
+        }
     EndDrawing();
 }
 
@@ -131,7 +135,7 @@ int Raylib::getKeyPressed() const noexcept
     return std::distance(_keys.begin(), iterator);
 }
 
-void Raylib::drawModel(const std::string &path, Type3<float> pos, float scale, RGB tint)
+void Raylib::drawModel(const std::string &path, coords pos, float scale, RGB tint)
 {
     auto it = _models.find(path);
     if (it == _models.end()) {
