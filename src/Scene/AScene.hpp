@@ -14,19 +14,20 @@
 #include "Raylib.hpp"
 #include "IObject.hpp"
 #include "IScene.hpp"
+#include "Settings.hpp"
 #include "Raylib/RayAudio/RayMusic.hpp"
 #include "Raylib/RayAudio/RaySound.hpp"
 
 class AScene : public IScene
 {
 public:
-    AScene() = default;
+    AScene(std::shared_ptr<Setting> settings);
     virtual ~AScene() = default;
-    virtual int run(Raylib &lib) = 0;
-private:
+
 protected:
     void triggerInputActions(Raylib &lib);
     void setInputFunction(Raylib::Keys, std::function<void()> function);
+    std::shared_ptr<Setting> _settings;
     std::vector<std::unique_ptr<IObject>> _objects;
     std::unique_ptr<RayMusic> _music;
     std::vector<RaySound> _sounds;

@@ -7,8 +7,9 @@
 
 #include "RaySound.hpp"
 
-RaySound::RaySound(std::string filename) : _sound(LoadSound(filename.c_str()))
+RaySound::RaySound(std::string filename, float volume) : _sound(LoadSound(filename.c_str()))
 {
+    SetVolume(volume);
 }
 
 RaySound::~RaySound()
@@ -18,4 +19,9 @@ RaySound::~RaySound()
 void RaySound::Play()
 {
     PlaySoundMulti(_sound);
+}
+
+void RaySound::SetVolume(float &volume)
+{
+    SetSoundVolume(_sound, volume);
 }

@@ -17,6 +17,7 @@ namespace menu {
         START,
         LOAD,
         OPTION,
+        LEADERBOARD,
         QUIT
     };
 
@@ -31,10 +32,12 @@ namespace menu {
         "Start game",
         "Load game",
         "Settings",
+        "Leaderboard",
         "Quit"
     };
 
     static const std::vector<std::array<std::pair<float, float>, 2>> _menuPos {
+        {{std::make_pair(860.0f, 500.0f), std::make_pair(200.0f, 50.0f)}},
         {{std::make_pair(860.0f, 600.0f), std::make_pair(200.0f, 50.0f)}},
         {{std::make_pair(860.0f, 700.0f), std::make_pair(200.0f, 50.0f)}},
         {{std::make_pair(860.0f, 800.0f), std::make_pair(200.0f, 50.0f)}},
@@ -50,14 +53,22 @@ namespace menu {
         "truc_tank/Sample_0005.wav"
     };
 
+    static const std::unordered_map<menu_e, Scenes> _returnScene {
+        {menu_e::START, Scenes::NEW_GAME},
+        {menu_e::LOAD, Scenes::GAME},
+        {menu_e::OPTION, Scenes::OPTION},
+        {menu_e::LEADERBOARD, Scenes::LEADERBOARD},
+        {menu_e::QUIT, Scenes::QUIT}
+    };
+
     static const std::string _musicPath = "Assets/menu_music.mp3";
 
     class SceneMenu : public AScene
     {
         public:
-            SceneMenu();
+            SceneMenu(std::shared_ptr<Setting> settings);
             ~SceneMenu();
-            int run(Raylib &lib) final;
+            Scenes run(Raylib &lib, Scenes prevScene) final;
             void InitAssets() final;
             bool clockGame();
 

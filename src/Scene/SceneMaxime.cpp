@@ -23,7 +23,7 @@ const std::vector<std::string> SceneMaxime::_assetsPath {
     "asset/box_test/Box.obj",
 };
 
-SceneMaxime::SceneMaxime()
+SceneMaxime::SceneMaxime(std::shared_ptr<Setting> settings) : AScene(settings)
 {
     //init _objects
 }
@@ -38,10 +38,10 @@ void SceneMaxime::InitAssets() {
     _objects[0]->set3d(true);
 }
 
-int SceneMaxime::run(Raylib &lib)
+Scenes SceneMaxime::run(Raylib &lib, Scenes prevScene)
 {
     while (lib.gameLoop()) {
         lib.printObjects(_objects);
     }
-    return (Core::Scenes::QUIT);
+    return (Scenes::QUIT);
 }

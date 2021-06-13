@@ -12,7 +12,7 @@
 
 class RayMusic {
     public:
-        RayMusic(std::string filepath, bool loop);
+        RayMusic(std::string filepath, bool loop, float volume);
         ~RayMusic();
         void StartMusic();
         void StopMusic();
