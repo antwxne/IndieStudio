@@ -6,24 +6,25 @@
 */
 
 #include <cmath>
+#include <chrono>
 #include <raymath.h>
 
-#include "TankIa.hpp"
+#include "TankAi.hpp"
 
-TankIA::TankIA(const std::pair<int, int> &pos, const std::pair<int, int> &size,
+TankAI::TankAI(const std::pair<int, int> &pos, const std::pair<int, int> &size,
     Cannon &cannon
 ) : Tank(pos, size, cannon)
 {
     _typeField.isIa = true;
     _stopDistance = size.first * 2;
 }
-void TankIA::target(const std::pair<int, int> &pos) noexcept
+void TankAI::target(const std::pair<int, int> &pos) noexcept
 {
     _targetPos = pos;
 }
-void TankIA::autoMove() noexcept
+void TankAI::autoMove() noexcept
 {
-    double distance = TankIA::distance(_targetPos);
+    double distance = TankAI::distance(_targetPos);
     std::pair<int, int> dir = _pos - _targetPos;
 
     rotate(static_cast<double>(atan2(dir.second, dir.first)) * (PI / 180));
@@ -31,11 +32,11 @@ void TankIA::autoMove() noexcept
         move(_targetPos);
     }
 }
-double TankIA::distance(const std::pair<int, int> &otherPos) const noexcept
+double TankAI::distance(const std::pair<int, int> &otherPos) const noexcept
 {
     return sqrt(pow((_pos.first - otherPos.first),2) + pow((_pos.second - otherPos.second),2));
 }
-void TankIA::move(const std::pair<int, int> &direction) noexcept
+void TankAI::move(const std::pair<int, int> &direction) noexcept
 {
     std::pair dir = {0, 0};
 
@@ -43,12 +44,22 @@ void TankIA::move(const std::pair<int, int> &direction) noexcept
     dir.second = direction.second > 0 ? 1 : direction.second< 0 ? -1 : 0;
     _pos += dir;
 }
-void TankIA::rotate(float angle) noexcept
+void TankAI::rotate(float angle) noexcept
 {
     _rotation = angle;
     _cannon.rotate(angle - _cannon.getRotation());
 }
-void TankIA::setBlocked(bool blocked)
+void TankAI::setBlocked(bool blocked)
 {
     _blocked = blocked;
+}
+void TankAI::fire()
+{
+    static auto start = std::chrono::steady_clock::now();
+    auto end = std::chrono::steady_clock::now();
+
+    if (std::chrono::duration_cast<std::chrono::milliseconds>(end - start) >= std::chrono::milliseconds(5000)) {
+        start = std::chrono::steady_clock::now();
+        _cannon.fire();
+    }
 }

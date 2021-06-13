@@ -5,7 +5,7 @@
 ** Created by antoine,
 */
 
-#include "Object/Collisionable/Destructible/Movable/TankIa.hpp"
+#include "Object/Collisionable/Destructible/Movable/TankAi.hpp"
 #include "CollisionableObject.hpp"
 
 CollisionableObject::CollisionableObject(const std::pair<int, int> &pos,
@@ -45,7 +45,7 @@ bool CollisionableObject::hit(const CollisionableObject &obj) noexcept
     && this->_pos.second + this->_size.second >= obj._pos.second
     && this->_pos.second <= obj._pos.second + obj._size.second) {
         if (this->_typeField.isIa && obj._typeField.isWall) {
-            auto tmp = dynamic_cast<TankIA *>(this);
+            auto tmp = dynamic_cast<TankAI *>(this);
             tmp->setBlocked(true);
         }
         if (this->_typeField.isDestructible) {

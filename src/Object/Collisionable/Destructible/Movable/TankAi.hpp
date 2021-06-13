@@ -5,22 +5,23 @@
 ** Created by antoine,
 */
 
-#ifndef INDIESTUDIO_TANKIA_HPP
-#define INDIESTUDIO_TANKIA_HPP
+#ifndef INDIESTUDIO_TANKAI_HPP
+#define INDIESTUDIO_TANKAI_HPP
 
 #include "Object/Collisionable/Destructible/Movable/Tank.hpp"
 
-class TankIA: public Tank {
+class TankAI: public Tank {
 public:
-    TankIA(const std::pair<int, int> &pos, const std::pair<int, int> &size,
+    TankAI(const std::pair<int, int> &pos, const std::pair<int, int> &size,
         Cannon &cannon);
-    ~TankIA() = default;
+    ~TankAI() = default;
 
     void target(const std::pair<int, int> &pos) noexcept;
     void autoMove() noexcept;
     void move(const std::pair<int, int> &direction) noexcept override;
     void rotate(float angle) noexcept override;
     void setBlocked(bool blocked);
+    void fire() override;
 
 private:
     double distance(const std::pair<int, int> &otherPos) const noexcept;
@@ -31,4 +32,4 @@ protected:
     bool _blocked;
 };
 
-#endif //INDIESTUDIO_TANKIA_HPP
+#endif //INDIESTUDIO_TANKAI_HPP
