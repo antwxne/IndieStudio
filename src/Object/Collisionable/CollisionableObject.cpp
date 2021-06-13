@@ -5,6 +5,7 @@
 ** Created by antoine,
 */
 
+#include "Object/Collisionable/Destructible/Movable/TankIa.hpp"
 #include "CollisionableObject.hpp"
 #include "Raylib/RayObj/RayModel.hpp"
 
@@ -15,12 +16,25 @@ CollisionableObject::CollisionableObject(const std::pair<int, int> &pos,
     _type_field.is_collisionable = true;
 }
 
-bool CollisionableObject::hit(const CollisionableObject &obj) const noexcept
+bool CollisionableObject::hit(CollisionableObject &obj) noexcept
 {
     if (this->_pos.first + this->_size.first >= obj._pos.first
     && this->_pos.first <= obj._pos.first + obj._size.first
     && this->_pos.second + this->_size.second >= obj._pos.second
-    && this->_pos.second <= obj._pos.second + obj._size.second)
+    && this->_pos.second <= obj._pos.second + obj._size.second) {
+        if (this->_type_field.is_ia && obj._type_field.is_wall) {
+            auto tmp = dynamic_cast<TankIA *>(this);
+            tmp->setBlocked(true);
+        }
+        if (this->_type_field.is_destructible) {
+            auto tmp = dynamic_cast<DestructibleObject *>(this);
+            tmp->updateLife(-1);
+        }
+        if (obj._type_field.is_destructible) {
+            auto tmp = dynamic_cast<DestructibleObject *>(&obj);
+            tmp->updateLife(-1);
+        }
         return true;
+    }
     return false;
 }

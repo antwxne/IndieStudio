@@ -54,6 +54,7 @@ typedef struct type_field_s {
     bool is_bullet: 1;
     bool is_3d: 1;
     bool is_ia: 1;
+    bool is_wall: 1;
 } type_field_t;
 
 class IObject {

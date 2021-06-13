@@ -15,7 +15,7 @@ public:
     MovableObject(const std::pair<int, int> &pos, const std::pair<int, int> &size);
 
     virtual void move(const std::pair<int, int> &direction) noexcept;
-    void rotate(float angle) noexcept;
+    virtual void rotate(float angle) noexcept;
     void changeSpeed(float newSpeed);
 
 protected:
