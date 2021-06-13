@@ -63,3 +63,7 @@ const std::pair<RGB, RGB> &AObject::getColors() const noexcept
 {
     return _color;
 }
+float AObject::getRotation() const
+{
+    return _rotation;
+}

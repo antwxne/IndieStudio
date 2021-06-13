@@ -46,6 +46,7 @@ void TankIA::move(const std::pair<int, int> &direction) noexcept
 void TankIA::rotate(float angle) noexcept
 {
     _rotation = angle;
+    _cannon.rotate(angle - _cannon.getRotation());
 }
 void TankIA::setBlocked(bool blocked)
 {
