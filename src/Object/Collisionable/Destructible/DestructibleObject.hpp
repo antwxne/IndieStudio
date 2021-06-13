@@ -13,7 +13,7 @@
 class DestructibleObject: public CollisionableObject {
 public:
     DestructibleObject(const std::pair<int, int> &pos,
-        const std::pair<int, int> &size);
+        const std::pair<int, int> &size, const std::pair<std::string, std::string> &path);
     ~DestructibleObject() = default;
 
     [[nodiscard]] float getLife() const;

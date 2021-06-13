@@ -6,7 +6,7 @@
 */
 
 #include <cmath>
-#include <chrono>
+#include <raymath.h>
 
 #include "TankIa.hpp"
 
@@ -14,7 +14,7 @@ TankIA::TankIA(const std::pair<int, int> &pos, const std::pair<int, int> &size,
     Cannon &cannon
 ) : Tank(pos, size, cannon)
 {
-    _type_field.is_ia = true;
+    _typeField.isIa = true;
     _stopDistance = size.first * 2;
 }
 void TankIA::target(const std::pair<int, int> &pos) noexcept

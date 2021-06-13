@@ -21,7 +21,7 @@ void SceneOption::InitAssets()
 
 }
 
-Scenes SceneOption::run(Raylib &lib, Scenes prevScene)
+Scenes SceneOption::run(Raylib &lib, Scenes const &prevScene)
 {
     while (lib.getKeyPressed() != KEY_ENTER) {
 

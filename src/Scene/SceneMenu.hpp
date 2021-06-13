@@ -48,7 +48,7 @@ namespace menu {
         "Assets/olivier_bg.png",
     };
 
-    static const std::vector<std::string> _soundsPath {        
+    static const std::vector<std::string> _soundsPath {
         "truc_tank/Sample_0000.wav",
         "truc_tank/Sample_0005.wav"
     };
@@ -68,7 +68,7 @@ namespace menu {
         public:
             SceneMenu(std::shared_ptr<Setting> settings);
             ~SceneMenu();
-            Scenes run(Raylib &lib, Scenes prevScene) final;
+            Scenes run(Raylib &lib, Scenes const &prevScene) final;
             void InitAssets() final;
             bool clockGame();
 

@@ -8,10 +8,10 @@
 #include "DestructibleObject.hpp"
 
 DestructibleObject::DestructibleObject(const std::pair<int, int> &pos,
-    const std::pair<int, int> &size
-    ):CollisionableObject(pos, size), _life(0)
+    const std::pair<int, int> &size, const std::pair<std::string, std::string> &path)
+    : CollisionableObject(pos, size, path), _life(0)
 {
-    _type_field.is_destructible = true;
+    _typeField.isDestructible = true;
 }
 float DestructibleObject::getLife() const
 {

@@ -12,7 +12,7 @@
 Bullet::Bullet(const std::pair<int, int> &pos, const std::pair<int, int> &size)
     : MovableObject(pos, size)
 {
-    _type_field.is_bullet = true;
+    _typeField.isBullet = true;
     _life = 3;
     //changer le sprite
 }

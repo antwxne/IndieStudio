@@ -27,8 +27,7 @@
 #include <functional>
 #include "raylib.h"
 
-#include "IObject.hpp"
-#include "Raylib/RayObj/IRayObj.hpp"
+#include "Object/IObject.hpp"
 
 class Raylib
 {
@@ -69,6 +68,7 @@ public:
 
     bool isKeyPressed(int &button) const noexcept;
     bool isKeyReleased(int &button) const noexcept;
+    std::string textForSubText(std::string const &text, int &pos, int &frameCounter) const noexcept;
     int getKeyPressed() const noexcept;
 
 protected:

@@ -20,7 +20,7 @@ namespace core {
         : _screenWidth(screenWidth), _screenHeight(screenHeight), _title(title), _fps(fps), _scenePos(Scenes::MENU), _settings(std::make_shared<Setting>())
     {
         _vecScenes.emplace_back(std::make_unique<menu::SceneMenu>(_settings));
-        _vecScenes.emplace_back(std::make_unique<SceneNewGame>(_settings));
+        //_vecScenes.emplace_back(std::make_unique<SceneNewGame>(_settings));
         _vecScenes.emplace_back(std::make_unique<SceneMaxime>(_settings));
         _vecScenes.emplace_back(std::make_unique<SceneRobin>(_settings));
         _vecScenes.emplace_back(std::make_unique<SceneOption>(_settings));

@@ -10,8 +10,8 @@
 #include "Raylib.hpp"
 #include "RaylibError.hpp"
 
-Raylib::Raylib() :
-    _camera({{0.0f, 10.0f, 10.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 45.0f, 0})
+Raylib::Raylib() : _camera(
+    {{0.0f, 10.0f, 10.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 45.0f, 0})
 {
 }
 
@@ -23,7 +23,9 @@ Raylib::~Raylib()
         CloseWindow();
 }
 
-void Raylib::setCamera(Vector3 &pos, Vector3 &target, Vector3 &up, float &fovy, int &projection) noexcept
+void Raylib::setCamera(Vector3 &pos, Vector3 &target, Vector3 &up, float &fovy,
+    int &projection
+) noexcept
 {
     _camera.position = pos;
     _camera.target = target;
@@ -37,7 +39,9 @@ Camera Raylib::getCamera() const noexcept
     return _camera;
 };
 
-void Raylib::createWindow(int &screenWidth, int &screenHeight, std::string const &title, std::size_t const &fps) noexcept
+void Raylib::createWindow(int &screenWidth, int &screenHeight,
+    std::string const &title, std::size_t const &fps
+) noexcept
 {
     _screenSize.first = screenWidth;
     _screenSize.second = screenHeight;
@@ -58,18 +62,18 @@ bool Raylib::isKeyPressed(int &button) const noexcept
 
 void Raylib::printObjects(Raylib::vectorObject &objects) const noexcept
 {
-    BeginDrawing();
-    ClearBackground(RAYWHITE);
-    BeginMode3D(_camera);
-    for (auto const &i : objects)
-        if (i->getTypeField().is_3D) {
-            i->funcDraw();
-        }
-    EndMode3D();
-    for (auto const &i : objects)
-        if (!i->getTypeField().is_3D)
-            i->funcDraw();
-    EndDrawing();
+    // BeginDrawing();
+    // ClearBackground(RAYWHITE);
+    // BeginMode3D(_camera);
+    // for (auto const &i : objects)
+    //     if (i->getTypeField().is_3D) {
+    //         i->funcDraw();
+    //     }
+    // EndMode3D();
+    // for (auto const &i : objects)
+    //     if (!i->getTypeField().is_3D)
+    //         i->funcDraw();
+    // EndDrawing();
 }
 
 bool Raylib::isKeyReleased(int &button) const noexcept
@@ -97,13 +101,23 @@ std::string Raylib::getControllerName(int const &idx) const noexcept
     return GetGamepadName(idx);
 }
 
-bool Raylib::isControllerValid(int const &idx, std::string const &ControllerName) const noexcept
+bool Raylib::isControllerValid(int const &idx,
+    std::string const &ControllerName
+) const noexcept
 {
     if (ControllerName.compare("xbox"))
-        return (IsGamepadName(idx, XBOX360_NAME_ID) || IsGamepadName(idx, XBOX360_LEGACY_NAME_ID));
+        return (IsGamepadName(idx, XBOX360_NAME_ID) ||
+            IsGamepadName(idx, XBOX360_LEGACY_NAME_ID));
     if (ControllerName.compare("ps3"))
         return IsGamepadName(idx, PS3_NAME_ID);
     return false;
+}
+
+std::string Raylib::textForSubText(const std::string &text, int &pos,
+    int &frameCounter
+) const noexcept
+{
+    return TextSubtext(text.c_str(), pos, frameCounter);
 }
 
 int Raylib::getKeyPressed() const noexcept
