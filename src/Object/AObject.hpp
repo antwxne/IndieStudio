@@ -26,6 +26,7 @@ public:
 
     void setSize(std::pair<int, int> size) noexcept final;
     void setScale(float scale) noexcept final;
+    float getRotation() const;
 
 protected:
     coords _pos;

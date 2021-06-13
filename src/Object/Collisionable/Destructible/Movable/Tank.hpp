@@ -17,7 +17,7 @@ public:
         Cannon &cannon);
     ~Tank() = default;
 
-    void fire();
+    virtual void fire();
 
 protected:
     Cannon &_cannon;

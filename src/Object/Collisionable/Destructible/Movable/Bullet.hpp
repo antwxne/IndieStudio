@@ -19,6 +19,8 @@ public:
 
 private:
     coords _direction;
+    void bounce() noexcept;
+    coords _prevPos;
 };
 
 #endif //INDIESTUDIO_BULLET_HPP
