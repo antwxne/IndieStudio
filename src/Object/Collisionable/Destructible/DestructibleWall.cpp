@@ -13,6 +13,6 @@ DestructibleWall::DestructibleWall(const std::pair<int, int> &pos,
     : DestructibleObject(pos, size, path)
 {
     _life = 3;
-    _typeField.isWall;
+    _typeField.isWall = true;
     // changer le sprite
 }
