@@ -96,15 +96,60 @@ struct typeField {
 
 class IObject {
 public:
+    /**
+     * @brief Get the Type Field object
+     * 
+     * @return const typeField& 
+     */
     [[nodiscard]] virtual const typeField &getTypeField() const noexcept = 0;
+    /**
+     * @brief Get the Position object
+     * 
+     * @return const coords& 
+     */
     [[nodiscard]] virtual const coords &getPosition() const noexcept = 0;
+    /**
+     * @brief Get the Size object
+     * 
+     * @return const std::pair<int, int>& 
+     */
     [[nodiscard]] virtual const std::pair<int, int> &getSize() const noexcept = 0;
+    /**
+     * @brief Get the Colors object
+     * 
+     * @return const std::pair<RGB, RGB>& 
+     */
     [[nodiscard]] virtual const std::pair<RGB, RGB> &getColors() const noexcept = 0;
+    /**
+     * @brief Get the Scale object
+     * 
+     * @return const float& 
+     */
     [[nodiscard]] virtual const float &getScale() const noexcept = 0;
 
+    /**
+     * @brief Set the Size object
+     * 
+     * @param size 
+     */
     virtual void setSize(std::pair<int, int> size) noexcept = 0;
+    /**
+     * @brief Set the Scale object
+     * 
+     * @param scale 
+     */
     virtual void setScale(float scale) noexcept = 0;
+    /**
+     * @brief 
+     * 
+     * @param is3d ? true or false 
+     */
     virtual void set3d(bool is3d) noexcept = 0;
+    /**
+     * @brief Set the Position object
+     * 
+     * @param position 
+     */
     virtual void setPosition(coords position) noexcept = 0;
 };
 

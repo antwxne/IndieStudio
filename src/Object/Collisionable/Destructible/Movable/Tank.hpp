@@ -13,10 +13,25 @@
 
 class Tank: public MovableObject {
 public:
+    /**
+     * @brief Construct a new Tank object
+     * 
+     * @param pos 
+     * @param size 
+     * @param cannon 
+     */
     Tank(const coords &pos, const std::pair<int, int> &size,
         Cannon &cannon);
+    /**
+     * @brief Destroy the Tank object
+     * 
+     */
     ~Tank() = default;
 
+    /**
+     * @brief fire with the cannon
+     * 
+     */
     virtual void fire();
 
 protected:

@@ -12,10 +12,31 @@
 
 class MovableObject: public DestructibleObject {
 public:
+    /**
+     * @brief Construct a new Movable Object object
+     * 
+     * @param pos 
+     * @param size 
+     */
     MovableObject(const coords &pos, const std::pair<int, int> &size);
 
+    /**
+     * @brief move object
+     * 
+     * @param direction 
+     */
     virtual void move(const coords &direction) noexcept;
+    /**
+     * @brief rotate object
+     * 
+     * @param angle 
+     */
     virtual void rotate(float angle) noexcept;
+    /**
+     * @brief change speed for move
+     * 
+     * @param newSpeed 
+     */
     void changeSpeed(float newSpeed);
 
 protected:

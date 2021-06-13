@@ -12,20 +12,88 @@
 
 class AObject: public IObject {
 public:
+    /**
+     * @brief Construct a new AObject object
+     * 
+     * @param pos 
+     * @param size 
+     * @param scale 
+     * @param colors 
+     */
     AObject(const coords &pos, const std::pair<int, int> &size, float scale, const std::pair<RGB, RGB> &colors);
+    /**
+     * @brief Construct a new AObject object
+     * 
+     * @param pos 
+     * @param size 
+     * @param scale 
+     */
     AObject(const coords &pos, const std::pair<int, int> &size, float scale);
+    /**
+     * @brief Destroy the AObject object
+     * 
+     */
     ~AObject() = default;
 
+    /**
+     * @brief Get the Type Field object
+     * 
+     * @return const typeField& 
+     */
     [[nodiscard]] const typeField &getTypeField() const noexcept override;
+    /**
+     * @brief Get the Position object
+     * 
+     * @return const coords& 
+     */
     [[nodiscard]] const coords &getPosition() const noexcept final;
+    /**
+     * @brief Get the Size object
+     * 
+     * @return const std::pair<int, int>& 
+     */
     [[nodiscard]] const std::pair<int, int> &getSize() const noexcept final;
+    /**
+     * @brief Get the Colors object
+     * 
+     * @return const std::pair<RGB, RGB>& 
+     */
     [[nodiscard]] const std::pair<RGB, RGB> &getColors() const noexcept final;
+    /**
+     * @brief Get the Scale object
+     * 
+     * @return const float& 
+     */
     [[nodiscard]] const float &getScale() const noexcept final;
+    /**
+     * @brief 
+     * 
+     * @param is3d 
+     */
     void set3d(bool is3d) noexcept final;
+    /**
+     * @brief Set the Position object
+     * 
+     * @param position 
+     */
     void setPosition(coords position) noexcept final;
-
+    /**
+     * @brief Set the Size object
+     * 
+     * @param size 
+     */
     void setSize(std::pair<int, int> size) noexcept final;
+    /**
+     * @brief Set the Scale object
+     * 
+     * @param scale 
+     */
     void setScale(float scale) noexcept final;
+    /**
+     * @brief Get the Rotation object
+     * 
+     * @return float 
+     */
     float getRotation() const;
 
 protected:
