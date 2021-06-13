@@ -8,8 +8,11 @@
 #include "Core.hpp"
 #include "SceneOption.hpp"
 
-SceneOption::SceneOption(std::shared_ptr<Setting> settings) : AScene(settings)
+SceneOption::SceneOption(std::shared_ptr<Setting> settings) : AScene(settings), _quit(false)
 {
+    setInputFunction(Raylib::ENTER, [&]() {
+        _quit = !_quit;
+    });
 }
 
 SceneOption::~SceneOption()
@@ -18,8 +21,11 @@ SceneOption::~SceneOption()
 
 Scenes SceneOption::run(Raylib &lib, Scenes const &prevScene)
 {
-    while (lib.getKeyPressed() != KEY_ENTER) {
-
+    while (!_quit && lib.gameLoop()) {
+        triggerInputActions(lib);
+        lib.printObjects(_objects);
     }
+    if (lib.gameLoop())
+        return (Scenes::QUIT);
     return (prevScene);
 }

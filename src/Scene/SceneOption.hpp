@@ -17,6 +17,9 @@ class SceneOption : public AScene
         SceneOption(std::shared_ptr<Setting> settings);
         ~SceneOption();
         Scenes run(Raylib &lib, Scenes const &prevScene) final;
+    
+    private:
+        bool _quit;
 };
 
 #endif /* !SCENEOPTION_HPP_ */

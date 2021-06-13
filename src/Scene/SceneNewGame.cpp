@@ -17,8 +17,10 @@ SceneNewGame::~SceneNewGame()
 
 Scenes SceneNewGame::run(Raylib &lib, Scenes const &prevScene)
 {
-    while (lib.getKeyPressed() != KEY_ENTER) {
+    while (lib.gameLoop()) {
 
     }
+    if (lib.gameLoop())
+        return (Scenes::QUIT);
     return (Scenes::GAME);
 }
