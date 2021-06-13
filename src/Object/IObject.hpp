@@ -9,7 +9,11 @@
 #define INDIESTUDIO_IOBJECT_HPP
 
 #include <vector>
-#include "Raylib/RayObj/IRayObj.hpp"
+#include <cstring>
+#include <memory>
+#include <utility>
+#include <string>
+#include <iostream>
 
 enum objType_e {
     BASIC,
@@ -59,9 +63,6 @@ public:
     virtual void setScale(float scale) noexcept = 0;
     virtual void set3d(bool is3d) noexcept = 0;
     virtual void setPosition(std::pair<int, int> position) noexcept = 0;
-
-    virtual const void funcDraw() noexcept = 0;
-    //virtual const sprite &getSprite() const noexcept = 0;
 };
 
 #endif //INDIESTUDIO_IOBJECT_HPP

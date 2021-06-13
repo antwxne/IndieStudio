@@ -48,7 +48,7 @@ namespace menu {
         "Assets/olivier_bg.png",
     };
 
-    static const std::vector<std::string> _soundsPath {        
+    static const std::vector<std::string> _soundsPath {
         "truc_tank/Sample_0000.wav",
         "truc_tank/Sample_0005.wav"
     };

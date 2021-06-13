@@ -22,6 +22,7 @@ class SceneMaxime : public AScene {
     private:
         static const std::vector<std::array<std::pair<float, float>, 2>> _menuPos;
         static const std::vector<std::string> _assetsPath;
+        bool _enter;
 };
 
 #endif /* !SCENEMAXIME_HPP_ */

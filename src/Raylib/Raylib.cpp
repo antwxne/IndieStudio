@@ -62,18 +62,18 @@ bool Raylib::isKeyPressed(int &button) const noexcept
 
 void Raylib::printObjects(Raylib::vectorObject &objects) const noexcept
 {
-    BeginDrawing();
-    ClearBackground(RAYWHITE);
-    BeginMode3D(_camera);
-    for (auto const &i : objects)
-        if (i->getTypeField().is_3D) {
-            i->funcDraw();
-        }
-    EndMode3D();
-    for (auto const &i : objects)
-        if (!i->getTypeField().is_3D)
-            i->funcDraw();
-    EndDrawing();
+    // BeginDrawing();
+    // ClearBackground(RAYWHITE);
+    // BeginMode3D(_camera);
+    // for (auto const &i : objects)
+    //     if (i->getTypeField().is_3D) {
+    //         i->funcDraw();
+    //     }
+    // EndMode3D();
+    // for (auto const &i : objects)
+    //     if (!i->getTypeField().is_3D)
+    //         i->funcDraw();
+    // EndDrawing();
 }
 
 bool Raylib::isKeyReleased(int &button) const noexcept

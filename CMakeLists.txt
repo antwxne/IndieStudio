@@ -42,18 +42,6 @@ set(RAYLIB_SRCS
         ${RAYLIB_PATH}/Raylib.cpp
 )
 
-set(RAYOBJ_SRCS
-        ${RAYOBJ_PATH}/RayModel.cpp
-        ${RAYOBJ_PATH}/RaySquare.cpp
-        ${RAYOBJ_PATH}/RayText.cpp
-        ${RAYOBJ_PATH}/RayTexture2D.cpp
-)
-
-set(RAYAUD_SRCS
-        ${RAYAUD_PATH}/RaySound.cpp
-        ${RAYAUD_PATH}/RayMusic.cpp
-)
-
 set(MAP_SRCS
         ${MAP_PATH}/Map.cpp)
 
@@ -92,8 +80,6 @@ set(INDIE_SRCS
         ${CORE_SRCS}
         ${OBJECTS_SRCS}
         ${SCENE_SRCS}
-        ${RAYOBJ_SRCS}
-        ${RAYAUD_SRCS}
         )
 # Compilation
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules/)

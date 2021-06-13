@@ -28,7 +28,6 @@
 #include "raylib.h"
 
 #include "Object/IObject.hpp"
-#include "Raylib/RayObj/IRayObj.hpp"
 
 class Raylib
 {

@@ -3,6 +3,7 @@
 //
 
 #pragma once
+
 #include "Object/Collisionable/Destructible/DestructibleWall.hpp"
 #include "Object/Collisionable/Wall.hpp"
 #include <utility>
