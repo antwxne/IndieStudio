@@ -56,6 +56,10 @@ bool CollisionableObject::hit(const CollisionableObject &obj) noexcept
             auto tmp = dynamic_cast<DestructibleObject *>(this);
             tmp->updateLife(-1);
         }
+        if (this->_typeField.isBullet) {
+            auto tmp = dynamic_cast<Bullet *>(this);
+            tmp->bounce();
+        }
         return true;
     }
     return false;

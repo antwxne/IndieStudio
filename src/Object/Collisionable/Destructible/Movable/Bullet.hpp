@@ -16,10 +16,10 @@ public:
 
     void constant_move() noexcept;
     void move(const coords &direction) noexcept override;
+    void bounce() noexcept;
 
 private:
     coords _direction;
-    void bounce() noexcept;
     coords _prevPos;
 };
 
