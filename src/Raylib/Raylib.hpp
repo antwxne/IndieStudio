@@ -58,6 +58,8 @@ public:
     // all print funcs under will be private (ex: type Vector3 only defined in raylib.h)
     void printFps(std::pair<int, int> const &pos) const noexcept;
     void printGrid(int const &slices, float const &space) const noexcept;
+    void drawModel(const std::string &path, Type3<float> pos, float scale, RGB tint);
+    void drawTexture(const std::string &path, int posX, int posY, RGB tint);
 
     void setCamera(Vector3 &pos, Vector3 &target, Vector3 &up, float &fovy, int &projection) noexcept;
     Camera getCamera() const noexcept;
@@ -75,6 +77,8 @@ protected:
 private:
     std::pair<int, int> _screenSize;
     Camera _camera;
+    std::unordered_map<std::string, Model> _models;
+    std::unordered_map<std::string, Texture2D> _textures;
     std::vector<int> _keys = {
         KEY_NULL,
         KEY_ENTER,

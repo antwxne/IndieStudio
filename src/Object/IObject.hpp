@@ -31,6 +31,14 @@ struct RGB
     unsigned char a;
 };
 
+template<typename T>
+struct Type3
+{
+    Type3(T f, T s, T t) : first(f), second(s), third(t) {};
+    T first;
+    T second;
+    T third;
+};
 
 template <typename T>
 std::pair<T, T> &operator+=(std::pair<T, T>&current, const std::pair<T, T> &other)

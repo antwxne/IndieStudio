@@ -128,3 +128,23 @@ int Raylib::getKeyPressed() const noexcept
         return (0);
     return std::distance(_keys.begin(), iterator);
 }
+
+void Raylib::drawModel(const std::string &path, Type3<float> pos, float scale, RGB tint)
+{
+    auto it = _models.find(path);
+    if (it == _models.end()) {
+        _models.insert({path, LoadModel(path.c_str())});
+        it = _models.find(path);
+    }
+    DrawModel(it->second, {pos.first, pos.second, pos.third}, scale, {tint.r, tint.g, tint.b, tint.a});
+}
+
+void Raylib::drawTexture(const std::string &path, int posX, int posY, RGB tint)
+{
+    auto it = _textures.find(path);
+    if (it == _textures.end()) {
+        _textures.insert({path, LoadTexture(path.c_str())});
+        it = _textures.find(path);
+    }
+    DrawTexture(it->second, posX, posY, {tint.r, tint.g, tint.b, tint.a});
+}
