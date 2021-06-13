@@ -16,7 +16,7 @@ SceneOption::~SceneOption()
 {
 }
 
-void SceneOption::InitAssets()
+void SceneOption::initAssets()
 {
 
 }

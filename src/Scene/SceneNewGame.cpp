@@ -15,7 +15,7 @@ SceneNewGame::~SceneNewGame()
 {
 }
 
-void SceneNewGame::InitAssets()
+void SceneNewGame::initAssets()
 {
 
 }

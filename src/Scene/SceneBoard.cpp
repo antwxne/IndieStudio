@@ -16,7 +16,7 @@ SceneBoard::~SceneBoard()
 {
 }
 
-void SceneBoard::InitAssets()
+void SceneBoard::initAssets()
 {
 
 }

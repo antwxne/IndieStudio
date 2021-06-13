@@ -30,7 +30,7 @@ namespace menu {
     {
     }
 
-    void SceneMenu::InitAssets()
+    void SceneMenu::initAssets()
     {
         // _music = std::make_unique<RayMusic>(_musicPath, true, _settings->_musicVol);
         // for (auto &it : _soundsPath)
@@ -51,7 +51,7 @@ namespace menu {
 
     Scenes SceneMenu::run(Raylib &lib, Scenes const &prevScene)
     {
-        InitAssets();
+        initAssets();
         //_music->StartMusic();
         while (!_enter && lib.gameLoop()) {
             //_music->UpdateMusic();

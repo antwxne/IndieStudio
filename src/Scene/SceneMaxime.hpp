@@ -16,7 +16,7 @@ class SceneMaxime : public AScene {
         ~SceneMaxime();
 
         Scenes run(Raylib &lib, Scenes const &prevScene) final;
-        void InitAssets() final;
+        void initAssets() final;
 
     protected:
     private:

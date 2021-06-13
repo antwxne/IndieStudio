@@ -23,11 +23,8 @@ enum Scenes {
 class IScene {
     public:
         virtual ~IScene() {};
-        virtual void InitAssets() = 0;
+        virtual void initAssets() = 0;
         virtual Scenes run(Raylib &lib, Scenes const &prevScene) = 0;
-
-    protected:
-    private:
 };
 
 #endif /* !ISCENE_HPP_ */
