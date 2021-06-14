@@ -165,3 +165,8 @@ void Raylib::freeResources()
         UnloadTexture(texture.second);
     _textures.clear();
 }
+
+ float Raylib::getDeltaTime() noexcept
+{
+    return GetFrameTime();
+}
