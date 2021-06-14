@@ -27,17 +27,18 @@ SceneMaxime::SceneMaxime(std::shared_ptr<Setting> settings) : AScene(settings)
     setInputFunction(Raylib::ENTER, [&]() {
         _enter = !_enter;
     });
-    //map->createDestructibleMap(std::make_pair(0, 0), std::make_pair(5, 5));
-    map->createContourMap(std::make_pair(-10, 10), std::make_pair(-10, 10));
+    map->createDestructibleMap(std::make_pair(0, 0), std::make_pair(5, 5));
+    map->createContourMap(std::make_pair(-10, 10), std::make_pair(-8, 8));
     for (auto const &block : map->_objectNoDestructibleList) {
-        std::cout << "[BLOCK] position => " << block.getPosition().first << " " << block.getPosition().second << " " << block.getPosition().third << "\n";
         _objects.emplace_back(std::make_shared<Wall>(block));
         _objects.back()->set3d(true);
-        _objects.back()->setScale(0.02f);
+        _objects.back()->setScale(1.0f);
     }
-    // _objects.emplace_back(std::make_shared<Wall>(coords(0, 0, 0), std::make_pair(0, 0), std::make_pair(_assetsPath.at(0), _assetsPath.at(1))));
-    // _objects.back()->set3d(true);
-    // _objects.back()->setScale(0.02f);
+    for (auto const &block : map->_objectDestructibleList) {
+        _objects.emplace_back(std::make_shared<DestructibleWall>(block));
+        _objects.back()->set3d(true);
+        _objects.back()->setScale(1.0f);
+    }
 }
 
 SceneMaxime::~SceneMaxime()

@@ -30,7 +30,7 @@ public:
      *
      * @param wall to copy
      */
-    Wall(const Wall &w) : Wall(w._pos, w._size, std::pair<std::string, std::string> {"asset/box_test/box-textures.png", "asset/box_test/Box.obj"}) {}
+    Wall(const Wall &w) : Wall(w._pos, w._size, std::pair<std::string, std::string> {"asset/OBJFormat/Textures/wall.png", "asset/OBJFormat/wallA.obj"}) {}
 };
 
 #endif //INDIESTUDIO_WALL_HPP
