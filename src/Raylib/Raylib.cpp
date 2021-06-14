@@ -89,18 +89,25 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
     BeginMode3D(_camera);
     for (auto &i : objects)
         if (i->getTypeField().is3D && i->getTypeField().isCollisionable) {
-            auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
-            drawModel(derived->getModel(), derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first);
+            auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(
+                i);
+            drawModel(derived->getModel(), derived->getTexture(),
+                i->getPosition(), i->getScale(), i->getColors().first);
         }
     DrawGrid(30, 1.0f);
     EndMode3D();
     for (auto &i : objects)
         if (!i->getTypeField().is3D) {
-            auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
-            drawTexture(derived->getTexture(), i->getPosition().first, i->getPosition().second, i->getColors().first);
+            auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(
+                i);
+            drawTexture(derived->getTexture(), i->getPosition().first,
+                i->getPosition().second, i->getColors().first);
             if (derived->getTypeField().isButton) {
-                auto const &derivedButton = std::dynamic_pointer_cast<Button>(i);
-                drawText(derivedButton->getText(), derivedButton->getTextPos(), derivedButton->getScale(), {derivedButton->getColors().second});
+                auto const &derivedButton = std::dynamic_pointer_cast<Button>(
+                    i);
+                drawText(derivedButton->getText(), derivedButton->getTextPos(),
+                    derivedButton->getScale(),
+                    {derivedButton->getColors().second});
             }
         }
     EndDrawing();
@@ -131,8 +138,7 @@ std::string Raylib::getControllerName(int const &idx) const noexcept
     return GetGamepadName(idx);
 }
 
-bool Raylib::isControllerValid(int const &idx,
-    std::string const &ControllerName
+bool Raylib::isControllerValid(int const &idx, std::string const &ControllerName
 ) const noexcept
 {
     if (ControllerName.compare("xbox"))
@@ -160,7 +166,9 @@ int Raylib::getKeyPressed() const noexcept
     return std::distance(_keys.begin(), iterator);
 }
 
-void Raylib::drawModel(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint)
+void Raylib::drawModel(const std::string &modelPath,
+    const std::string &texturePath, coords pos, float scale, RGB tint
+)
 {
     auto it = _models.find(modelPath);
     auto at = _textures.find(texturePath);
@@ -174,7 +182,8 @@ void Raylib::drawModel(const std::string &modelPath, const std::string &textureP
         it = _models.find(modelPath);
         SetMaterialTexture(&it->second.materials[0], MAP_DIFFUSE, at->second);
     }
-    DrawModel(it->second, {pos.first, pos.second, pos.third}, scale, {tint.r, tint.g, tint.b, tint.a});
+    DrawModel(it->second, {pos.first, pos.second, pos.third}, scale,
+        {tint.r, tint.g, tint.b, tint.a});
 }
 
 void Raylib::drawTexture(const std::string &path, int posX, int posY, RGB tint)
@@ -188,9 +197,12 @@ void Raylib::drawTexture(const std::string &path, int posX, int posY, RGB tint)
     DrawTexture(it->second, posX, posY, {tint.r, tint.g, tint.b, tint.a});
 }
 
-void Raylib::drawText(const std::string &text, coords pos, float scale, RGB tint)
+void Raylib::drawText(const std::string &text, coords pos, float scale,
+    RGB tint
+)
 {
-    DrawText(text.c_str(), pos.first, pos.second, scale, {tint.r, tint.g, tint.b, tint.a});
+    DrawText(text.c_str(), pos.first, pos.second, scale,
+        {tint.r, tint.g, tint.b, tint.a});
 }
 
 void Raylib::freeResources()
@@ -203,7 +215,21 @@ void Raylib::freeResources()
     _textures.clear();
 }
 
- float Raylib::getDeltaTime() noexcept
+float Raylib::getDeltaTime() noexcept
 {
     return GetFrameTime();
+}
+
+void Raylib::drawRectangleLines(const int &posX, const int &posY,
+    const int &width, const int &height, RGB color
+) const noexcept
+{
+    DrawRectangleLines(posX, posY, width, height, {color.r, color.g, color.b, color.a});
+}
+
+void Raylib::drawRectangle(const int &posX, const int &posY, const int &width,
+    const int &height, RGB color
+) const noexcept
+{
+    DrawRectangle(posX, posY, width, height, {color.r, color.g, color.b, color.a});
 }
