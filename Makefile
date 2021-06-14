@@ -11,7 +11,7 @@
 
 ## Var definition ##
 SHELL	=	/bin/sh
-RM		?=	rm -f
+RM		=	rm -rf
 
 ## Output
 BIN			=	bomberman

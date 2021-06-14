@@ -29,7 +29,7 @@ namespace core {
             _scenePos = _scene->run(lib, _scenePos);
             _scene.reset();
             lib.freeResources();
-            std::cout << "OOOAZIAZAIZAIZAI " << _scenePos << std::endl;
+            std::cout << "_scenePos: " << _scenePos << std::endl;
         }
     }
 
