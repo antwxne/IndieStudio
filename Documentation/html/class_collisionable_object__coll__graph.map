@@ -1,7 +1,0 @@
-<map id="CollisionableObject" name="CollisionableObject">
-<area shape="rect" id="node1" title=" " alt="" coords="65,171,213,197"/>
-<area shape="rect" id="node2" href="$class_a_object.html" title="Abstract class for objects." alt="" coords="103,95,176,121"/>
-<area shape="rect" id="node3" href="$class_i_object.html" title="interface for objects" alt="" coords="5,5,73,32"/>
-<area shape="rect" id="node4" href="$structtype_field.html" title=" " alt="" coords="98,5,181,32"/>
-<area shape="rect" id="node5" href="$structcoords.html" title=" " alt="" coords="209,5,275,32"/>
-</map>

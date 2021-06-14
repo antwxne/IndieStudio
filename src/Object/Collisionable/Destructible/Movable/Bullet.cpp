@@ -18,13 +18,6 @@ Bullet::Bullet(const coords &pos, const std::pair<int, int> &size) : MovableObje
 }
 void Bullet::constant_move() noexcept
 {
-//    static auto start = std::chrono::high_resolution_clock::now();
-//    auto now = std::chrono::high_resolution_clock::now();
-//    if (std::chrono::duration_cast<std::chrono::milliseconds>(now - start) >=
-//        std::chrono::milliseconds(static_cast<std::chrono::milliseconds>(1000 / _speed)) {
-//
-//    }
-
     static auto start = std::chrono::high_resolution_clock::now();
     auto now = std::chrono::high_resolution_clock::now();
 
