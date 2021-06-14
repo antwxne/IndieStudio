@@ -14,7 +14,7 @@
 #include "Button.hpp"
 
 Raylib::Raylib() : _camera(
-    {{0.0f, 10.0f, 10.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 45.0f, 0})
+    {{0.0f, 13.0f, 15.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 45.0f, 0})
 {
 }
 
@@ -89,15 +89,14 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
     BeginMode3D(_camera);
     for (auto &i : objects)
         if (i->getTypeField().is3D && i->getTypeField().isCollisionable) {
-            std::cout << "[RAYLIB DRAW] je print un object 3d\n";
             auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
-            drawModel(derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first);
+            drawModel(derived->getModel(), derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first);
         }
+    DrawGrid(30, 1.0f);
     EndMode3D();
     for (auto &i : objects)
         if (!i->getTypeField().is3D) {
-            std::cout << "[RAYLIB DRAW] je print un object 2d\n";
-            auto const &derived = std::dynamic_pointer_cast<UiObject>(i);
+            auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
             drawTexture(derived->getTexture(), i->getPosition().first, i->getPosition().second, i->getColors().first);
             if (derived->getTypeField().isButton) {
                 auto const &derivedButton = std::dynamic_pointer_cast<Button>(i);
@@ -155,17 +154,25 @@ int Raylib::getKeyPressed() const noexcept
 {
     int input = GetKeyPressed();
     auto iterator = std::find(_keys.begin(), _keys.end(), input);
+
     if (iterator == _keys.end())
         return (0);
     return std::distance(_keys.begin(), iterator);
 }
 
-void Raylib::drawModel(const std::string &path, coords pos, float scale, RGB tint)
+void Raylib::drawModel(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint)
 {
-    auto it = _models.find(path);
+    auto it = _models.find(modelPath);
+    auto at = _textures.find(texturePath);
+
+    if (at == _textures.end()) {
+        _textures.insert({texturePath, LoadTexture(texturePath.c_str())});
+        at = _textures.find(texturePath);
+    }
     if (it == _models.end()) {
-        _models.insert({path, LoadModel(path.c_str())});
-        it = _models.find(path);
+        _models.insert({modelPath, LoadModel(modelPath.c_str())});
+        it = _models.find(modelPath);
+        SetMaterialTexture(&it->second.materials[0], MAP_DIFFUSE, at->second);
     }
     DrawModel(it->second, {pos.first, pos.second, pos.third}, scale, {tint.r, tint.g, tint.b, tint.a});
 }
@@ -173,6 +180,7 @@ void Raylib::drawModel(const std::string &path, coords pos, float scale, RGB tin
 void Raylib::drawTexture(const std::string &path, int posX, int posY, RGB tint)
 {
     auto it = _textures.find(path);
+
     if (it == _textures.end()) {
         _textures.insert({path, LoadTexture(path.c_str())});
         it = _textures.find(path);
@@ -193,4 +201,9 @@ void Raylib::freeResources()
     for (auto &texture : _textures)
         UnloadTexture(texture.second);
     _textures.clear();
+}
+
+ float Raylib::getDeltaTime() noexcept
+{
+    return GetFrameTime();
 }

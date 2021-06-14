@@ -1,0 +1,134 @@
+\hypertarget{class_bullet}{}\doxysection{Bullet Class Reference}
+\label{class_bullet}\index{Bullet@{Bullet}}
+
+
+\mbox{\hyperlink{class_bullet}{Bullet}} to kill other player.  
+
+
+
+
+{\ttfamily \#include $<$Bullet.\+hpp$>$}
+
+
+
+Inheritance diagram for Bullet\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=191pt]{class_bullet__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Bullet\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_bullet__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_bullet_a5961881f18df8756236757b699930b21}{Bullet}} (const \mbox{\hyperlink{structcoords}{coords}} \&pos, const std\+::pair$<$ int, int $>$ \&size=\{-\/1000, -\/1000\})
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{class_bullet}{Bullet}} object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_bullet_af79375086a34bf6f34b0a6942242f8f5}{constant\+\_\+move}} () noexcept
+\begin{DoxyCompactList}\small\item\em once bullet was shot, it follows a vector and being updated by this method \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_bullet_a77747fe965c1611326a464239e6a374e}{move}} (const \mbox{\hyperlink{structcoords}{coords}} \&direction) noexcept override
+\begin{DoxyCompactList}\small\item\em set a new dir \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_bullet_ad186da8caf8950e2f59e95ca0af2fffc}{bounce}} () noexcept
+\begin{DoxyCompactList}\small\item\em bounce when hit surface \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_bullet}{Bullet}} to kill other player. 
+
+Definition at line 18 of file Bullet.\+hpp.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_bullet_a5961881f18df8756236757b699930b21}\label{class_bullet_a5961881f18df8756236757b699930b21}} 
+\index{Bullet@{Bullet}!Bullet@{Bullet}}
+\index{Bullet@{Bullet}!Bullet@{Bullet}}
+\doxysubsubsection{\texorpdfstring{Bullet()}{Bullet()}}
+{\footnotesize\ttfamily Bullet\+::\+Bullet (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structcoords}{coords}} \&}]{pos,  }\item[{const std\+::pair$<$ int, int $>$ \&}]{size = {\ttfamily \{-\/1000,~-\/1000\}} }\end{DoxyParamCaption})}
+
+
+
+Construct a new \mbox{\hyperlink{class_bullet}{Bullet}} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & \\
+\hline
+{\em size} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 13 of file Bullet.\+cpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_bullet_ad186da8caf8950e2f59e95ca0af2fffc}\label{class_bullet_ad186da8caf8950e2f59e95ca0af2fffc}} 
+\index{Bullet@{Bullet}!bounce@{bounce}}
+\index{bounce@{bounce}!Bullet@{Bullet}}
+\doxysubsubsection{\texorpdfstring{bounce()}{bounce()}}
+{\footnotesize\ttfamily void Bullet\+::bounce (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+bounce when hit surface 
+
+
+
+Definition at line 44 of file Bullet.\+cpp.
+
+\mbox{\Hypertarget{class_bullet_af79375086a34bf6f34b0a6942242f8f5}\label{class_bullet_af79375086a34bf6f34b0a6942242f8f5}} 
+\index{Bullet@{Bullet}!constant\_move@{constant\_move}}
+\index{constant\_move@{constant\_move}!Bullet@{Bullet}}
+\doxysubsubsection{\texorpdfstring{constant\_move()}{constant\_move()}}
+{\footnotesize\ttfamily void Bullet\+::constant\+\_\+move (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+once bullet was shot, it follows a vector and being updated by this method 
+
+
+
+Definition at line 19 of file Bullet.\+cpp.
+
+\mbox{\Hypertarget{class_bullet_a77747fe965c1611326a464239e6a374e}\label{class_bullet_a77747fe965c1611326a464239e6a374e}} 
+\index{Bullet@{Bullet}!move@{move}}
+\index{move@{move}!Bullet@{Bullet}}
+\doxysubsubsection{\texorpdfstring{move()}{move()}}
+{\footnotesize\ttfamily void Bullet\+::move (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structcoords}{coords}} \&}]{direction }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+set a new dir 
+
+
+\begin{DoxyParams}{Parameters}
+{\em direction} & \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{class_movable_object_a805352499d164629c4f9490c7aae17a2}{Movable\+Object}}.
+
+
+
+Definition at line 40 of file Bullet.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/antoine/\+E\+P\+I\+T\+E\+C\+H/indie\+Studio/src/\+Object/\+Collisionable/\+Destructible/\+Movable/Bullet.\+hpp\item 
+/home/antoine/\+E\+P\+I\+T\+E\+C\+H/indie\+Studio/src/\+Object/\+Collisionable/\+Destructible/\+Movable/Bullet.\+cpp\end{DoxyCompactItemize}

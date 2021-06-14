@@ -58,7 +58,7 @@ public:
     // all print funcs under will be private (ex: type Vector3 only defined in raylib.h)
     void printFps(std::pair<int, int> const &pos) const noexcept;
     void printGrid(int const &slices, float const &space) const noexcept;
-    void drawModel(const std::string &path, coords pos, float scale, RGB tint);
+    void drawModel(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint);
     void drawTexture(const std::string &path, int posX, int posY, RGB tint);
     void drawText(const std::string &text, coords pos, float scale, RGB tint);
 
@@ -77,6 +77,7 @@ public:
     int getKeyPressed() const noexcept;
     const std::pair<float, float> getMousePosition() const noexcept; 
 
+    static float getDeltaTime() noexcept;
     void freeResources();
 
 protected:

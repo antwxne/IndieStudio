@@ -1,0 +1,221 @@
+\hypertarget{class_tank_a_i}{}\doxysection{Tank\+AI Class Reference}
+\label{class_tank_a_i}\index{TankAI@{TankAI}}
+
+
+Inheritance diagram for Tank\+AI\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=191pt]{class_tank_a_i__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Tank\+AI\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_tank_a_i__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_tank_a_i_a721a03a67fd07c79a04759aa59649a8b}{Tank\+AI}} (const \mbox{\hyperlink{structcoords}{coords}} \&pos, const std\+::pair$<$ int, int $>$ \&size, \mbox{\hyperlink{class_cannon}{Cannon}} \&cannon)
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{class_tank}{Tank}} A I object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_tank_a_i_a61d6e67975b02dba1c285aa0a21cdaaa}{$\sim$\+Tank\+AI}} ()=default
+\begin{DoxyCompactList}\small\item\em Destroy the \mbox{\hyperlink{class_tank}{Tank}} A I object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_tank_a_i_abc175e23121ea8f72381fae55867581f}{target}} (const \mbox{\hyperlink{structcoords}{coords}} \&pos) noexcept
+\begin{DoxyCompactList}\small\item\em set a target (player or IA) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_tank_a_i_a580d720a23537a0b93e3b3686f7d1dd7}{auto\+Move}} () noexcept
+\begin{DoxyCompactList}\small\item\em call this every time to animate AI \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_tank_a_i_a2d717791df9a1d9a7bed19d254d557a2}{move}} (const \mbox{\hyperlink{structcoords}{coords}} \&direction) noexcept override
+\begin{DoxyCompactList}\small\item\em move object \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_tank_a_i_a34ad5720fa6fabdeb0f12ad17079f5b6}{rotate}} (float angle) noexcept override
+\begin{DoxyCompactList}\small\item\em rotate object \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_tank_a_i_a401086292a3c433f3910634bd6a1cd49}{set\+Blocked}} (bool blocked)
+\begin{DoxyCompactList}\small\item\em Set the Blocked object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_tank_a_i_a95a05f12c24271a8b5f69c4fe7d138fe}{fire}} () override
+\begin{DoxyCompactList}\small\item\em fire with the cannon every 5 seconds \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_tank_a_i_ae71d9910afa44846c366eb9ed2644e0b}\label{class_tank_a_i_ae71d9910afa44846c366eb9ed2644e0b}} 
+\mbox{\hyperlink{structcoords}{coords}} {\bfseries \+\_\+target\+Pos}
+\item 
+\mbox{\Hypertarget{class_tank_a_i_a8d2f9fb7b410a49b4df5aae2c587c80a}\label{class_tank_a_i_a8d2f9fb7b410a49b4df5aae2c587c80a}} 
+double {\bfseries \+\_\+stop\+Distance}
+\item 
+\mbox{\Hypertarget{class_tank_a_i_aefef60bffea7d783ec5cad13d4d14433}\label{class_tank_a_i_aefef60bffea7d783ec5cad13d4d14433}} 
+bool {\bfseries \+\_\+blocked}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 18 of file Tank\+Ai.\+hpp.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_tank_a_i_a721a03a67fd07c79a04759aa59649a8b}\label{class_tank_a_i_a721a03a67fd07c79a04759aa59649a8b}} 
+\index{TankAI@{TankAI}!TankAI@{TankAI}}
+\index{TankAI@{TankAI}!TankAI@{TankAI}}
+\doxysubsubsection{\texorpdfstring{TankAI()}{TankAI()}}
+{\footnotesize\ttfamily Tank\+A\+I\+::\+Tank\+AI (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structcoords}{coords}} \&}]{pos,  }\item[{const std\+::pair$<$ int, int $>$ \&}]{size,  }\item[{\mbox{\hyperlink{class_cannon}{Cannon}} \&}]{cannon }\end{DoxyParamCaption})}
+
+
+
+Construct a new \mbox{\hyperlink{class_tank}{Tank}} A I object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & \\
+\hline
+{\em size} & \\
+\hline
+{\em cannon} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 14 of file Tank\+Ai.\+cpp.
+
+\mbox{\Hypertarget{class_tank_a_i_a61d6e67975b02dba1c285aa0a21cdaaa}\label{class_tank_a_i_a61d6e67975b02dba1c285aa0a21cdaaa}} 
+\index{TankAI@{TankAI}!````~TankAI@{$\sim$TankAI}}
+\index{````~TankAI@{$\sim$TankAI}!TankAI@{TankAI}}
+\doxysubsubsection{\texorpdfstring{$\sim$TankAI()}{~TankAI()}}
+{\footnotesize\ttfamily Tank\+A\+I\+::$\sim$\+Tank\+AI (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Destroy the \mbox{\hyperlink{class_tank}{Tank}} A I object. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_tank_a_i_a580d720a23537a0b93e3b3686f7d1dd7}\label{class_tank_a_i_a580d720a23537a0b93e3b3686f7d1dd7}} 
+\index{TankAI@{TankAI}!autoMove@{autoMove}}
+\index{autoMove@{autoMove}!TankAI@{TankAI}}
+\doxysubsubsection{\texorpdfstring{autoMove()}{autoMove()}}
+{\footnotesize\ttfamily void Tank\+A\+I\+::auto\+Move (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+call this every time to animate AI 
+
+
+
+Definition at line 25 of file Tank\+Ai.\+cpp.
+
+\mbox{\Hypertarget{class_tank_a_i_a95a05f12c24271a8b5f69c4fe7d138fe}\label{class_tank_a_i_a95a05f12c24271a8b5f69c4fe7d138fe}} 
+\index{TankAI@{TankAI}!fire@{fire}}
+\index{fire@{fire}!TankAI@{TankAI}}
+\doxysubsubsection{\texorpdfstring{fire()}{fire()}}
+{\footnotesize\ttfamily void Tank\+A\+I\+::fire (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+fire with the cannon every 5 seconds 
+
+
+
+Reimplemented from \mbox{\hyperlink{class_tank_aec8a4c16067540f772adacb6b2086c24}{Tank}}.
+
+
+
+Definition at line 57 of file Tank\+Ai.\+cpp.
+
+\mbox{\Hypertarget{class_tank_a_i_a2d717791df9a1d9a7bed19d254d557a2}\label{class_tank_a_i_a2d717791df9a1d9a7bed19d254d557a2}} 
+\index{TankAI@{TankAI}!move@{move}}
+\index{move@{move}!TankAI@{TankAI}}
+\doxysubsubsection{\texorpdfstring{move()}{move()}}
+{\footnotesize\ttfamily void Tank\+A\+I\+::move (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structcoords}{coords}} \&}]{direction }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+move object 
+
+
+\begin{DoxyParams}{Parameters}
+{\em direction} & \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{class_movable_object_a805352499d164629c4f9490c7aae17a2}{Movable\+Object}}.
+
+
+
+Definition at line 39 of file Tank\+Ai.\+cpp.
+
+\mbox{\Hypertarget{class_tank_a_i_a34ad5720fa6fabdeb0f12ad17079f5b6}\label{class_tank_a_i_a34ad5720fa6fabdeb0f12ad17079f5b6}} 
+\index{TankAI@{TankAI}!rotate@{rotate}}
+\index{rotate@{rotate}!TankAI@{TankAI}}
+\doxysubsubsection{\texorpdfstring{rotate()}{rotate()}}
+{\footnotesize\ttfamily void Tank\+A\+I\+::rotate (\begin{DoxyParamCaption}\item[{float}]{angle }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+rotate object 
+
+
+\begin{DoxyParams}{Parameters}
+{\em angle} & \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{class_movable_object_a70bb73f730068a1b4fd2b39c4339e9e8}{Movable\+Object}}.
+
+
+
+Definition at line 47 of file Tank\+Ai.\+cpp.
+
+\mbox{\Hypertarget{class_tank_a_i_a401086292a3c433f3910634bd6a1cd49}\label{class_tank_a_i_a401086292a3c433f3910634bd6a1cd49}} 
+\index{TankAI@{TankAI}!setBlocked@{setBlocked}}
+\index{setBlocked@{setBlocked}!TankAI@{TankAI}}
+\doxysubsubsection{\texorpdfstring{setBlocked()}{setBlocked()}}
+{\footnotesize\ttfamily void Tank\+A\+I\+::set\+Blocked (\begin{DoxyParamCaption}\item[{bool}]{blocked }\end{DoxyParamCaption})}
+
+
+
+Set the Blocked object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em blocked} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 53 of file Tank\+Ai.\+cpp.
+
+\mbox{\Hypertarget{class_tank_a_i_abc175e23121ea8f72381fae55867581f}\label{class_tank_a_i_abc175e23121ea8f72381fae55867581f}} 
+\index{TankAI@{TankAI}!target@{target}}
+\index{target@{target}!TankAI@{TankAI}}
+\doxysubsubsection{\texorpdfstring{target()}{target()}}
+{\footnotesize\ttfamily void Tank\+A\+I\+::target (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structcoords}{coords}} \&}]{pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+set a target (player or IA) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 21 of file Tank\+Ai.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/antoine/\+E\+P\+I\+T\+E\+C\+H/indie\+Studio/src/\+Object/\+Collisionable/\+Destructible/\+Movable/Tank\+Ai.\+hpp\item 
+/home/antoine/\+E\+P\+I\+T\+E\+C\+H/indie\+Studio/src/\+Object/\+Collisionable/\+Destructible/\+Movable/Tank\+Ai.\+cpp\end{DoxyCompactItemize}
