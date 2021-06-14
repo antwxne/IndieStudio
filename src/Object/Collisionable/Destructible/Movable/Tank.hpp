@@ -25,8 +25,7 @@ public:
      * @param size 
      * @param cannon 
      */
-    Tank(const coords &pos, const std::pair<int, int> &size,
-        Cannon &cannon);
+    Tank(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path, const std::pair<std::string, std::string> &cannonPath);
     /**
      * @brief Destroy the Tank object
      * 
@@ -40,7 +39,7 @@ public:
     virtual void fire();
 
 protected:
-    Cannon &_cannon;
+    Cannon _cannon;
 };
 
 #endif //INDIESTUDIO_TANK_HPP
