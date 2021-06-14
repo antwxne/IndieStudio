@@ -22,5 +22,7 @@ Scenes SceneBoard::run(Raylib &lib, Scenes const &prevScene)
     while (lib.gameLoop()) {
 
     }
+    if (lib.gameLoop())
+        return (Scenes::QUIT);
     return (Scenes::MENU);
 }

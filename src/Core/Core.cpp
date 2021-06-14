@@ -28,6 +28,7 @@ namespace core {
             _scene = _enumToConstructor.at(_scenePos)(_settings);
             _scenePos = _scene->run(lib, _scenePos);
             _scene.reset();
+            lib.freeResources();
         }
     }
 

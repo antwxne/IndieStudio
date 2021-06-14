@@ -6,9 +6,12 @@
 */
 
 #include <algorithm>
-
+#include <iostream>
 #include "Raylib.hpp"
 #include "RaylibError.hpp"
+#include "Object/Collisionable/CollisionableObject.hpp"
+#include "UiObject/UiObject.hpp"
+#include "Button.hpp"
 
 Raylib::Raylib() : _camera(
     {{0.0f, 10.0f, 10.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 45.0f, 0})
@@ -61,6 +64,23 @@ bool Raylib::isKeyPressed(int &button) const noexcept
     return (IsKeyPressed(button));
 }
 
+bool Raylib::isMousePressed() const noexcept
+{
+    return (IsMouseButtonDown(MOUSE_BUTTON_LEFT));
+}
+
+bool Raylib::isMouseReleased() const noexcept
+{
+    return (IsMouseButtonReleased(MOUSE_BUTTON_LEFT));
+}
+
+const std::pair<float, float> Raylib::getMousePosition() const noexcept
+{
+    Vector2 vecPos = GetMousePosition();
+
+    return (std::make_pair(vecPos.x, vecPos.y));
+}
+
 //void Raylib::drawModel(const std::string &path, coords pos, float scale, RGB tint)
 void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
 {
@@ -77,8 +97,12 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
     for (auto &i : objects)
         if (!i->getTypeField().is3D) {
             std::cout << "[RAYLIB DRAW] je print un object 2d\n";
-            auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
+            auto const &derived = std::dynamic_pointer_cast<UiObject>(i);
             drawTexture(derived->getTexture(), i->getPosition().first, i->getPosition().second, i->getColors().first);
+            if (derived->getTypeField().isButton) {
+                auto const &derivedButton = std::dynamic_pointer_cast<Button>(i);
+                drawText(derivedButton->getText(), derivedButton->getTextPos(), derivedButton->getScale(), {derivedButton->getColors().second});
+            }
         }
     EndDrawing();
 }
@@ -154,6 +178,11 @@ void Raylib::drawTexture(const std::string &path, int posX, int posY, RGB tint)
         it = _textures.find(path);
     }
     DrawTexture(it->second, posX, posY, {tint.r, tint.g, tint.b, tint.a});
+}
+
+void Raylib::drawText(const std::string &text, coords pos, float scale, RGB tint)
+{
+    DrawText(text.c_str(), pos.first, pos.second, scale, {tint.r, tint.g, tint.b, tint.a});
 }
 
 void Raylib::freeResources()
