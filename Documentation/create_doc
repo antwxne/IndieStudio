@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+#VAR
+BOLD="\033[4m"
+GREEN="\033[1;92m"
+RED="\033[1;31m"
+NOCOLOR="\033[0m"
+
+if [[ ${PWD##*/} != "Documentation" ]];
+then
+    echo -e "Please run this scrip from the \"${BOLD}${RED}Document${NOCOLOR}\" folder"
+else
+    echo -e "Doxygen generating files..."
+    doxygen ./Doxyfile
+    echo -e "Doxygen files generation: ${GREEN}OK${NOCOLOR}"
+    echo -e "Generating PDF documentation..."
+    #make -C ./latex
+    echo -e "PDF documentation: ${GREEN}OK${NOCOLOR}"
+    echo -e "Running html view..."
+    firefox ./html/index.html
+fi

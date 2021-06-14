@@ -5,6 +5,7 @@
 ** Created by antoine,
 */
 
+#include "Raylib/Raylib.hpp"
 #include "MovableObject.hpp"
 
 MovableObject::MovableObject(const coords &pos, const std::pair<int, int> &size)
@@ -15,7 +16,9 @@ MovableObject::MovableObject(const coords &pos, const std::pair<int, int> &size)
 
 void MovableObject::move(const coords &direction) noexcept
 {
-    _pos += direction;
+    auto tmp = direction;
+    tmp *= _speed * Raylib::getDeltaTime();
+    _pos += tmp;
 }
 void MovableObject::rotate(float angle) noexcept
 {
