@@ -52,9 +52,7 @@ namespace menu {
         {std::make_pair(200.0f, 50.0f)}
     };
 
-    static const std::vector<std::string> _assetsPath {
-        "Assets/olivier_bg.png",
-    };
+    static const std::string _bgPath = "asset/background_asset/Background_01.png";
 
     static const std::array<std::string, 3> _buttonPath {
         "asset/menu_asset/Button_blue.png",
