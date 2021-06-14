@@ -21,6 +21,7 @@ set(DESTRUCT_PATH ${COLLIS_PATH}/Destructible)
 set(MOVABLE_PATH ${DESTRUCT_PATH}/Movable)
 set(MAP_PATH src/Map)
 set(SCENE_PATH src/Scene)
+set(GROUND_PATH src/Object/Ground)
 
 
 # Include directories
@@ -36,6 +37,7 @@ include_directories(${COLLIS_PATH})
 include_directories(${BUTTON_PATH})
 include_directories(${DESTRUCT_PATH})
 include_directories(${MOVABLE_PATH})
+include_directories(${GROUND_PATH})
 
 # Source files
 set(RAYLIB_SRCS
@@ -86,6 +88,9 @@ set(SCENE_SRCS
         ${SCENE_PATH}/SceneRobin.cpp
         )
 
+set(GROUND_SRCS
+        ${GROUND_PATH}/Ground.cpp)
+
 set(INDIE_SRCS
         ${RAYLIB_SRCS}
         ${ERROR_SRCS}
@@ -95,6 +100,7 @@ set(INDIE_SRCS
         ${CORE_SRCS}
         ${OBJECTS_SRCS}
         ${SCENE_SRCS}
+        ${GROUND_SRCS}
         )
 # Compilation
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules/)

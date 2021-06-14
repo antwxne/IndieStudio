@@ -1,8 +1,8 @@
 ##
 ## EPITECH PROJECT, 2020
-## Arcade
+## Indie Studio
 ## File description:
-## Arcade Makefile
+## Indie Studio Makefile
 ##
 
 ###							    ###
@@ -11,11 +11,12 @@
 
 ## Var definition ##
 SHELL	=	/bin/sh
-RM		=	rm -rf
+RM		?=	rm -f
 
 ## Output
 BIN			=	bomberman
 BUILD_DIR	=	build
+DOC_DIR 	=	./Documentation
 
 ## Rules ##
 .PHONY: all
@@ -25,31 +26,31 @@ all:
 # Clean build
 .PHONY: clean
 clean:
-	@$(RM) $(BUILD_DIR)
+	$(RM) $(BUILD_DIR)
+
+.PHONY: clean_doc
+clean_doc:
+	$(RM) -r $(DOC_DIR)/html/
+	$(RM) -r $(DOC_DIR)/latex/
 
 # Clean build and binaries
 .PHONY: fclean
-fclean: clean
-	@$(RM) $(BIN)
+fclean: clean clean_doc
+	$(RM) $(BIN)
 
 .PHONY: re
-re: fclean all clean
+re: fclean all
 
-# @$(RM) doc/html/
-# @$(RM) doc/latex/
-# Generate documentation
-# .PHONY: doc
-# doc:
-# 	doxygen doxygen.conf
+.PHONY: doc
+doc:
+	doxygen $(DOC_DIR)/Doxyfile
 
-# Launch doxygen in google-chrome browser
-# .PHONY: doc-chrome
-# doc-chrome:
-# 	doxygen doxygen.conf
-# 	google-chrome ./doc/html/index.html
+# Generate PDF documentation
+.PHONY: doc_pdf
+doc-pdf:	doc
+	make -C $(DOC_DIR)/latex/
 
 # Launch doxygen in firefox browser
-# .PHONY: doc-firefox
-# doc-firefox:
-# 	doxygen doxygen.conf
-# firefox ./doc/html/index.html
+.PHONY: doc-firefox
+doc-firefox:	doc
+	firefox $(DOC_DIR)/html/index.html

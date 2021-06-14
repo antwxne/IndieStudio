@@ -24,7 +24,7 @@ void Map::createDestructibleMap(std::pair<int, int> const &pos_left, std::pair<i
     for (std::pair<int, int> tmpMap; tmp != 3;) {
           findPos = true;
           tmpMap.first = std::rand() % pos_down_right.first + pos_left.second;
-          tmpMap.second = std::rand() % pos_down_right.second + pos_left.first;
+          tmpMap.second = std::rand() % pos_down_right.second + pos_left.first;;
           for (const auto &the_pos : _pos)
               if (the_pos == tmpMap) {
                   findPos = false;
@@ -39,7 +39,7 @@ void Map::createDestructibleMap(std::pair<int, int> const &pos_left, std::pair<i
           if (findPos == true) {
               tmp += 1;
               _objectDestructibleList.emplace_back(
-                  coords(static_cast<float>(tmpMap.first), static_cast<float>(tmpMap.second), 0), std::make_pair(0, 0), std::make_pair("", ""));
+                  coords(static_cast<float>(tmpMap.first), 0, static_cast<float>(tmpMap.second)), std::make_pair(0, 0), std::make_pair("", ""));
           }
       }
 }
@@ -48,19 +48,19 @@ void Map::createContourMap(int const &xMax, int const &yMax) noexcept
 {
       for (int x = 0, y = 0; x != xMax; ++x) {
           _objectNoDestructibleList.emplace_back(
-              coords(static_cast<float>(x), static_cast<float>(y), 0), std::make_pair(0, 0), std::make_pair("", ""));
+              coords(static_cast<float>(x), 0, static_cast<float>(y)), std::make_pair(0, 0), std::make_pair("", ""));
       }
       for (int x = 0, y = yMax; x != xMax; ++x) {
           _objectNoDestructibleList.emplace_back(
-              coords(static_cast<float>(x), static_cast<float>(y), 0), std::make_pair(0, 0), std::make_pair("", ""));
+              coords(static_cast<float>(x), 0, static_cast<float>(y)), std::make_pair(0, 0), std::make_pair("", ""));
       }
       for (int x = 0, y = 0; y != yMax; ++y) {
           _objectNoDestructibleList.emplace_back(
-              coords(static_cast<float>(x), static_cast<float>(y), 0), std::make_pair(0, 0), std::make_pair("", ""));
+              coords(static_cast<float>(x), 0, static_cast<float>(y)), std::make_pair(0, 0), std::make_pair("", ""));
       }
      for (int x = xMax, y = 0; y != yMax; y++) {
           _objectNoDestructibleList.emplace_back(
-              coords(static_cast<float>(x), static_cast<float>(y), 0), std::make_pair(0, 0), std::make_pair("", ""));
+              coords(static_cast<float>(x), 0, static_cast<float>(y)), std::make_pair(0, 0), std::make_pair("", ""));
       }
 }
 
@@ -85,7 +85,7 @@ void Map::readDestructibleList() noexcept
       file.read(reinterpret_cast<char *>(&size), sizeof(unsigned long));
       for (int i = 0; i != size; i++) {
           file.read(reinterpret_cast<char *>(&dest), sizeof(DestructibleObject::destructible_t));
-          _objectDestructibleList.emplace_back(coords(static_cast<float>(dest.x), static_cast<float>(dest.y), 0), std::make_pair(0, 0), std::make_pair("", "")).setLife(dest.life);
+          _objectDestructibleList.emplace_back(coords(static_cast<float>(dest.x), 0, static_cast<float>(dest.y)), std::make_pair(0, 0), std::make_pair("", "")).setLife(dest.life);
       }
       file.close();
 }
