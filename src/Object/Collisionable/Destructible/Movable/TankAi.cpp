@@ -10,6 +10,7 @@
 #include <raymath.h>
 
 #include "TankAi.hpp"
+#include "Raylib/Raylib.hpp"
 
 TankAI::TankAI(const coords &pos, const std::pair<int, int> &size,
     Cannon &cannon
@@ -17,6 +18,7 @@ TankAI::TankAI(const coords &pos, const std::pair<int, int> &size,
 {
     _typeField.isIa = true;
     _stopDistance = size.first * 2;
+    _speed = 5;
 }
 void TankAI::target(const coords &pos) noexcept
 {
@@ -41,7 +43,8 @@ void TankAI::move(const coords &direction) noexcept
     coords dir = {0, 0, 0};
 
     dir.first = direction.first > 0 ? 1 : direction.first < 0 ? -1 : 0;
-    dir.second = direction.second > 0 ? 1 : direction.second< 0 ? -1 : 0;
+    dir.second = direction.second > 0 ? 1 : direction.second < 0 ? -1 : 0;
+    dir *= _speed * Raylib::getDeltaTime();
     _pos += dir;
 }
 void TankAI::rotate(float angle) noexcept

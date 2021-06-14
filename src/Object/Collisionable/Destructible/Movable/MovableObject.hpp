@@ -39,7 +39,7 @@ public:
      */
     virtual void rotate(float angle) noexcept;
     /**
-     * @brief change speed for move
+     * @brief Increase speed for move
      * 
      * @param newSpeed 
      */

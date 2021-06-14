@@ -35,17 +35,24 @@ struct RGB
 struct coords
 {
     coords(float f = 0, float s = 0, float t = 0) : first(f), second(s), third(t) {};
-    coords operator+=(coords const &rhs) {
+    coords &operator+=(coords const &rhs) {
         first += rhs.first;
         second += rhs.second;
         third += rhs.third;
         return *this;
     }
 
-    coords operator-(coords const &rhs) {
-        first - rhs.first;
-        second - rhs.second;
-        third - rhs.third;
+    coords &operator-(coords const &rhs) {
+        first -= rhs.first;
+        second -= rhs.second;
+        third -= rhs.third;
+        return *this;
+    }
+
+    coords &operator*=(float val) {
+        first *= val;
+        second *= val;
+        third *= val;
         return *this;
     }
 
