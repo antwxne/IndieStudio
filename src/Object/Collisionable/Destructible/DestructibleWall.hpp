@@ -20,21 +20,21 @@ class DestructibleWall: public DestructibleObject {
 public:
     /**
      * @brief Construct a new Destructible Wall object
-     * 
-     * @param pos 
-     * @param size 
-     * @param path 
+     *
+     * @param pos
+     * @param size
+     * @param path
      */
     DestructibleWall(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path);
     /**
      * @brief Construct a new Destructible Wall object
-     * 
+     *
      * @param object to copy
      */
-    DestructibleWall(const DestructibleWall &e) : DestructibleWall(e._pos, e._size, std::pair<std::string, std::string>{"", ""}) {}
+    DestructibleWall(const DestructibleWall &e) : DestructibleWall(e._pos, e._size, std::pair<std::string, std::string>{"asset/box_test/box-textures.png", "asset/box_test/Box.obj"}) {}
     /**
      * @brief Destroy the Destructible Wall object
-     * 
+     *
      */
     ~DestructibleWall() = default;
 };

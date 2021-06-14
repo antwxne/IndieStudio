@@ -33,6 +33,8 @@ protected:
         {Raylib::SPACE, [](){}},
         {Raylib::ESCAPE, [](){}},
         {Raylib::TAB, [](){}},
+        {Raylib::CLICK, [](){}},
+        {Raylib::RELEASED, [](){}},
         {Raylib::UP, [](){}},
         {Raylib::DOWN, [](){}},
         {Raylib::RIGHT, [](){}},

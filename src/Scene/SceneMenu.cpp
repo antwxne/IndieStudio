@@ -24,8 +24,11 @@ namespace menu {
         setInputFunction(Raylib::UP, [&]() {
             _select = !_select ? QUIT : _select - 1;
         });
+        setInputFunction(Raylib::CLICK, [&]() {
+            _pressed = true;
+        });
         for (std::size_t i = 0; i != QUIT + 1; ++i)
-            _objects.emplace_back(std::make_shared<Button>(_menuPos[i].at(0), _menuPos[i].at(1), _menuText[i]));
+            _objects.emplace_back(std::make_shared<Button>(_menuPos.at(i), _menuSize.at(i), _buttonPath[0], _menuText[i], 20, std::make_pair(RGB(), RGB(0, 0, 0))));
     }
 
     SceneMenu::~SceneMenu()
@@ -35,8 +38,21 @@ namespace menu {
 
     Scenes SceneMenu::run(Raylib &lib, Scenes const &prevScene)
     {
+        std::pair<float, float> mousePos;
         //_music->StartMusic();
         while (!_enter && lib.gameLoop()) {
+            mousePos = lib.getMousePosition();
+            bool pressed = lib.isMousePressed();
+            for (auto &it : _objects)
+                if (it->getTypeField().isButton) {
+                    auto button = std::dynamic_pointer_cast<Button>(it);
+                    if (button->isInside(mousePos)) {
+                        button->setTexture(_buttonPath[1]);
+                        if (pressed)
+                            button->setTexture(_buttonPath[2]);
+                    } else
+                        button->setTexture(_buttonPath[0]);
+                }
             //_music->UpdateMusic();
             //_objects.at(1)->setPosition(_menuPos[_select].at(0));
             triggerInputActions(lib);

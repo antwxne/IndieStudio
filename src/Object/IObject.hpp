@@ -91,6 +91,7 @@ struct coords
 struct typeField {
     bool is3D: 1;
     bool isObject: 1;
+    bool isButton: 1;
     bool isCollisionable: 1;
     bool isDestructible: 1;
     bool isMovable: 1;

@@ -17,18 +17,15 @@
 #ifndef RAYLIBENCAPSULATION_HPP_
 #define RAYLIBENCAPSULATION_HPP_
 
-#include <cstddef>
 #include <string>
 #include <utility>
 #include <memory>
-#include <iostream>
 #include <vector>
 #include <unordered_map>
 #include <functional>
 #include "raylib.h"
 
 #include "Object/IObject.hpp"
-#include "Object/Collisionable/CollisionableObject.hpp"
 
 class Raylib
 {
@@ -41,6 +38,8 @@ public:
         SPACE,
         ESCAPE,
         TAB,
+        CLICK,
+        RELEASED,
         UP,
         DOWN,
         RIGHT,
@@ -59,8 +58,9 @@ public:
     // all print funcs under will be private (ex: type Vector3 only defined in raylib.h)
     void printFps(std::pair<int, int> const &pos) const noexcept;
     void printGrid(int const &slices, float const &space) const noexcept;
-    void drawModel(const std::string &path, coords pos, float scale, RGB tint);
+    void drawModel(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint);
     void drawTexture(const std::string &path, int posX, int posY, RGB tint);
+    void drawText(const std::string &text, coords pos, float scale, RGB tint);
 
     void setCamera(Vector3 &pos, Vector3 &target, Vector3 &up, float &fovy, int &projection) noexcept;
     Camera getCamera() const noexcept;
@@ -69,10 +69,14 @@ public:
     bool isControllerValid(int const &idx, std::string const &ControllerName) const noexcept;
     std::string getControllerName(int const &idx) const noexcept;
 
+    bool isMousePressed() const noexcept;
+    bool isMouseReleased() const noexcept;
     bool isKeyPressed(int &button) const noexcept;
     bool isKeyReleased(int &button) const noexcept;
     std::string textForSubText(std::string const &text, int &pos, int &frameCounter) const noexcept;
     int getKeyPressed() const noexcept;
+    const std::pair<float, float> getMousePosition() const noexcept; 
+
     static float getDeltaTime() noexcept;
     void freeResources();
 

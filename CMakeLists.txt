@@ -10,14 +10,13 @@ set(CMAKE_CXX_STANDARD 17)
 
 # Paths
 set(RAYLIB_PATH src/Raylib)
-set(RAYOBJ_PATH ${RAYLIB_PATH}/RayObj)
-set(RAYAUD_PATH ${RAYLIB_PATH}/RayAudio)
 set(ERROR_PATH src/Error)
 set(CORE_PATH src/Core)
 set(OBJECT_PATH src/Object)
 set(SCENE_PATH src/Scene)
 set(COLLIS_PATH ${OBJECT_PATH}/Collisionable)
-set(BUTTON_PATH ${OBJECT_PATH}/Button)
+set(UIOBJECT_PATH ${OBJECT_PATH}/UiObject)
+set(BUTTON_PATH ${UIOBJECT_PATH}/Button)
 set(DESTRUCT_PATH ${COLLIS_PATH}/Destructible)
 set(MOVABLE_PATH ${DESTRUCT_PATH}/Movable)
 set(MAP_PATH src/Map)
@@ -28,9 +27,8 @@ set(SCENE_PATH src/Scene)
 include_directories(src)
 include_directories(${MAP_PAT})
 include_directories(${RAYLIB_PATH})
-include_directories(${RAYOBJ_PATH})
-include_directories(${RAYAUD_PATH})
 include_directories(${ERROR_PATH})
+include_directories(${UIOBJECT_PATH})
 include_directories(${CORE_PATH})
 include_directories(${OBJECT_PATH})
 include_directories(${SCENE_PATH})
@@ -54,6 +52,15 @@ set(ERROR_SRCS
 set(CORE_SRCS
         ${CORE_PATH}/Core.cpp
 )
+
+set(UIOBJECT_SRCS
+        ${UIOBJECT_PATH}/UiObject.cpp
+)
+
+set(BUTTON_SRCS
+        ${BUTTON_PATH}/Button.cpp
+)
+
 set(OBJECTS_SRCS
         ${OBJECT_PATH}/AObject.cpp
         ${COLLIS_PATH}/CollisionableObject.cpp
@@ -82,6 +89,8 @@ set(SCENE_SRCS
 set(INDIE_SRCS
         ${RAYLIB_SRCS}
         ${ERROR_SRCS}
+        ${UIOBJECT_SRCS}
+        ${BUTTON_SRCS}
         ${MAP_SRCS}
         ${CORE_SRCS}
         ${OBJECTS_SRCS}

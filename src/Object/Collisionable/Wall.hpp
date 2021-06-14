@@ -19,18 +19,18 @@ class Wall: public CollisionableObject {
 public:
     /**
      * @brief Construct a new Wall object
-     * 
-     * @param pos 
-     * @param size 
-     * @param path 
+     *
+     * @param pos
+     * @param size
+     * @param path
      */
     Wall(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path);
     /**
      * @brief Construct a new Wall object
-     * 
+     *
      * @param wall to copy
      */
-    Wall(const Wall &w) : Wall(w._pos, w._size, std::pair<std::string, std::string> {"", ""}) {}
+    Wall(const Wall &w) : Wall(w._pos, w._size, std::pair<std::string, std::string> {"asset/box_test/box-textures.png", "asset/box_test/Box.obj"}) {}
 };
 
 #endif //INDIESTUDIO_WALL_HPP
