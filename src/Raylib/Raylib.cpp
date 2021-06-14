@@ -96,11 +96,11 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
     EndMode3D();
     for (auto &i : objects)
         if (!i->getTypeField().is3D) {
-            auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
+            auto const &derived = std::dynamic_pointer_cast<UiObject>(i);
             drawTexture(derived->getTexture(), i->getPosition().first, i->getPosition().second, i->getColors().first);
-            if (derived->getTypeField().isButton) {
+            if (i->getTypeField().isButton) {
                 auto const &derivedButton = std::dynamic_pointer_cast<Button>(i);
-                drawText(derivedButton->getText(), derivedButton->getTextPos(), derivedButton->getScale(), {derivedButton->getColors().second});
+                drawText(derivedButton->getText(), derivedButton->getTextPos(), i->getScale(), i->getColors().second);
             }
         }
     EndDrawing();

@@ -21,6 +21,16 @@ void AScene::triggerInputActions(Raylib &lib)
         if (itKey != _keys.end())
             itKey->second();
     }
+    if (lib.isMousePressed()) {
+        itKey = _keys.find(Raylib::CLICK);
+        if (itKey != _keys.end())
+            itKey->second();
+    }
+    if (lib.isMouseReleased()) {
+        itKey = _keys.find(Raylib::RELEASED);
+        if (itKey != _keys.end())
+            itKey->second();
+    }
 }
 
 void AScene::setInputFunction(Raylib::Keys key, std::function<void()> func)
