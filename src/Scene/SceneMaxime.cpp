@@ -8,6 +8,8 @@
 #include "SceneMaxime.hpp"
 #include "Core.hpp"
 #include "Map/Map.hpp"
+#include <bits/stdc++.h>
+
 
 #include "Raylib/Raylib.hpp"
 #include "Object/AObject.hpp"
@@ -21,14 +23,18 @@ const std::vector<std::string> SceneMaxime::_assetsPath {
 SceneMaxime::SceneMaxime(std::shared_ptr<Setting> settings) : AScene(settings)
 {
     auto const &map = std::make_unique<Map>();
-    coords const &aled = {0, 0, 0};
 
     setInputFunction(Raylib::ENTER, [&]() {
         _enter = !_enter;
     });
-    _objects.emplace_back(std::make_shared<Wall>(aled, std::make_pair(0, 0), std::make_pair(_assetsPath.at(0), _assetsPath.at(1))));
-    _objects.at(0)->set3d(true);
-    _objects.at(0)->setScale(0.05f);
+    //map->createDestructibleMap(std::make_pair(0, 0), std::make_pair(5, 5));
+    map->createContourMap(10, 10);
+    for (auto const &block : map->_objectNoDestructibleList) {
+        std::cout << "[BLOCK] position => " << block.getPosition().first << " " << block.getPosition().second << " " << block.getPosition().third << "\n";
+        _objects.emplace_back(std::make_shared<Wall>(block));
+        _objects.back()->set3d(true);
+        _objects.back()->setScale(0.02f);
+    }
 }
 
 SceneMaxime::~SceneMaxime()

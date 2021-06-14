@@ -75,7 +75,6 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
     EndMode3D();
     for (auto &i : objects)
         if (!i->getTypeField().is3D) {
-            std::cout << "[RAYLIB DRAW] je print un object 2d\n";
             auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
             drawTexture(derived->getTexture(), i->getPosition().first, i->getPosition().second, i->getColors().first);
         }

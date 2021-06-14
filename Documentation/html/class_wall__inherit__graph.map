@@ -1,0 +1,6 @@
+<map id="Wall" name="Wall">
+<area shape="rect" id="node1" title="class for non destructible wall" alt="" coords="54,229,105,256"/>
+<area shape="rect" id="node2" href="$class_collisionable_object.html" title=" " alt="" coords="5,155,153,181"/>
+<area shape="rect" id="node3" href="$class_a_object.html" title="Abstract class for objects." alt="" coords="43,80,116,107"/>
+<area shape="rect" id="node4" href="$class_i_object.html" title="interface for objects" alt="" coords="45,5,113,32"/>
+</map>

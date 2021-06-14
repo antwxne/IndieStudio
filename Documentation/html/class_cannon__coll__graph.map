@@ -1,0 +1,11 @@
+<map id="Cannon" name="Cannon">
+<area shape="rect" id="node1" title="Cannon wich is related to a tank and contains a bullet." alt="" coords="188,427,259,453"/>
+<area shape="rect" id="node2" href="$class_movable_object.html" title=" " alt="" coords="163,351,283,377"/>
+<area shape="rect" id="node3" href="$class_destructible_object.html" title=" " alt="" coords="152,275,295,301"/>
+<area shape="rect" id="node4" href="$class_collisionable_object.html" title=" " alt="" coords="65,178,213,205"/>
+<area shape="rect" id="node5" href="$class_a_object.html" title="Abstract class for objects." alt="" coords="103,95,176,121"/>
+<area shape="rect" id="node6" href="$class_i_object.html" title="interface for objects" alt="" coords="5,5,73,32"/>
+<area shape="rect" id="node7" href="$structtype_field.html" title=" " alt="" coords="98,5,181,32"/>
+<area shape="rect" id="node8" href="$structcoords.html" title=" " alt="" coords="209,5,275,32"/>
+<area shape="rect" id="node9" href="$struct_destructible_object_1_1destructible__t.html" title=" " alt="" coords="237,171,380,212"/>
+</map>

@@ -5,11 +5,11 @@
 ** SceneMenu
 */
 
-#include "Core/Core.hpp"
 #include <chrono>
-#include "Raylib/Raylib.hpp"
-#include "Object/AObject.hpp"
-#include "Scene/SceneMenu.hpp"
+#include "Core.hpp"
+#include "Raylib.hpp"
+#include "SceneMenu.hpp"
+#include "Button/Button.hpp"
 
 namespace menu {
 
@@ -24,21 +24,8 @@ namespace menu {
         setInputFunction(Raylib::UP, [&]() {
             _select = !_select ? QUIT : _select - 1;
         });
-        // _music = std::make_unique<RayMusic>(_musicPath, true, _settings->_musicVol);
-        // for (auto &it : _soundsPath)
-        //     _sounds.emplace_back(it, _settings->_soundVol);
-        // _objects.emplace_back(std::make_unique<AObject>(std::make_unique<RayTexture2D>(_assetsPath.at(0))));
-        // _objects.emplace_back(std::make_unique<AObject>(_menuPos[_select].at(0), std::make_pair(_menuPos[_select].at(1).first + 5, _menuPos[_select].at(1).second + 5), 1, std::make_pair(RGB(255, 127, 0, 255), RGB(255, 127, 0, 255)), std::make_unique<RaySquare>(objType_e::BASIC)));
-        // for (auto &it : _menuPos)
-        //     _objects.emplace_back(
-        //         std::make_unique<AObject>(it.at(0), it.at(1), 1,
-        //             std::make_pair(RGB(255, 0, 0, 255), RGB(255, 0, 0, 255)),
-        //             std::make_unique<RaySquare>(objType_e::BASIC)));
-        // for (std::size_t i = 0; i <= QUIT; ++i)
-        //     _objects.emplace_back(std::make_unique<AObject>(_menuPos[i].at(0),
-        //         std::make_pair(30, 30), 1,
-        //         std::make_pair(RGB(0, 0, 0, 255), RGB(0, 0, 0, 255)),
-        //         std::make_unique<RayText>(_menuText[i])));
+        // for (std::size_t i = 0; i != QUIT + 1; ++i)
+        //     _objects.emplace_back(std::make_shared<Button>(_menuPos[i].at(0), _menuPos[i].at(1), _menuText[i]));
     }
 
     SceneMenu::~SceneMenu()
@@ -55,6 +42,8 @@ namespace menu {
             triggerInputActions(lib);
             lib.printObjects(_objects);
         }
+        if (lib.gameLoop())
+            return (Scenes::QUIT);
         return (_returnScene.at(static_cast<menu_e>(_select)));
     }
 }

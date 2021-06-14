@@ -1,0 +1,125 @@
+\hypertarget{class_raylib}{}\doxysection{Raylib Class Reference}
+\label{class_raylib}\index{Raylib@{Raylib}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_raylib_a96df0976ed7e79973538c6d89c404836}\label{class_raylib_a96df0976ed7e79973538c6d89c404836}} 
+enum {\bfseries Keys} \{ \newline
+{\bfseries N\+U\+L\+L\+\_\+\+K\+EY}, 
+{\bfseries E\+N\+T\+ER}, 
+{\bfseries S\+P\+A\+CE}, 
+{\bfseries E\+S\+C\+A\+PE}, 
+\newline
+{\bfseries T\+AB}, 
+{\bfseries UP}, 
+{\bfseries D\+O\+WN}, 
+{\bfseries R\+I\+G\+HT}, 
+\newline
+{\bfseries L\+E\+FT}, 
+{\bfseries A}, 
+{\bfseries B}, 
+{\bfseries C}, 
+\newline
+{\bfseries D}, 
+{\bfseries E}, 
+{\bfseries F}, 
+{\bfseries G}, 
+\newline
+{\bfseries H}, 
+{\bfseries I}, 
+{\bfseries J}, 
+{\bfseries K}, 
+\newline
+{\bfseries L}, 
+{\bfseries M}, 
+{\bfseries N}, 
+{\bfseries O}, 
+\newline
+{\bfseries P}, 
+{\bfseries Q}, 
+{\bfseries R}, 
+{\bfseries S}, 
+\newline
+{\bfseries T}, 
+{\bfseries U}, 
+{\bfseries V}, 
+{\bfseries W}, 
+\newline
+{\bfseries X}, 
+{\bfseries Y}, 
+{\bfseries Z}
+ \}
+\item 
+\mbox{\Hypertarget{class_raylib_aa9fa876217c3588f6eff53deaf08b0e1}\label{class_raylib_aa9fa876217c3588f6eff53deaf08b0e1}} 
+using {\bfseries u\+I\+Object} = std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_i_object}{I\+Object}} $>$
+\item 
+\mbox{\Hypertarget{class_raylib_aec649428e9c62862b9c3cf4e82138301}\label{class_raylib_aec649428e9c62862b9c3cf4e82138301}} 
+using {\bfseries vector\+Object} = std\+::vector$<$ u\+I\+Object $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_raylib_ad21fd8e625f078fdeef5e86b3d6d63bb}\label{class_raylib_ad21fd8e625f078fdeef5e86b3d6d63bb}} 
+void {\bfseries create\+Window} (int \&screen\+Width, int \&screen\+Height, std\+::string const \&title, std\+::size\+\_\+t const \&Fps) noexcept
+\item 
+\mbox{\Hypertarget{class_raylib_a7e317ad6ad783b3c94c1e77ca22133e2}\label{class_raylib_a7e317ad6ad783b3c94c1e77ca22133e2}} 
+bool {\bfseries game\+Loop} () const noexcept
+\item 
+\mbox{\Hypertarget{class_raylib_a333b9bfeebca6c609c0e7bd229628a6b}\label{class_raylib_a333b9bfeebca6c609c0e7bd229628a6b}} 
+void {\bfseries print\+Objects} (vector\+Object \&objects) noexcept
+\item 
+\mbox{\Hypertarget{class_raylib_afc7c4034fbfe6759b14d71dbb4a18307}\label{class_raylib_afc7c4034fbfe6759b14d71dbb4a18307}} 
+void {\bfseries print\+Fps} (std\+::pair$<$ int, int $>$ const \&pos) const noexcept
+\item 
+\mbox{\Hypertarget{class_raylib_a910db514984a18fc1e27decc684e20a5}\label{class_raylib_a910db514984a18fc1e27decc684e20a5}} 
+void {\bfseries print\+Grid} (int const \&slices, float const \&space) const noexcept
+\item 
+\mbox{\Hypertarget{class_raylib_a6edae2d060a5c1acc4d82c509720562a}\label{class_raylib_a6edae2d060a5c1acc4d82c509720562a}} 
+void {\bfseries draw\+Model} (const std\+::string \&path, \mbox{\hyperlink{structcoords}{coords}} pos, float scale, \mbox{\hyperlink{struct_r_g_b}{R\+GB}} tint)
+\item 
+\mbox{\Hypertarget{class_raylib_a0ae399c226fef0d92e52944070a71037}\label{class_raylib_a0ae399c226fef0d92e52944070a71037}} 
+void {\bfseries draw\+Texture} (const std\+::string \&path, int posX, int posY, \mbox{\hyperlink{struct_r_g_b}{R\+GB}} tint)
+\item 
+\mbox{\Hypertarget{class_raylib_adfcb2e32f4e7ba97cb67acc383246b9f}\label{class_raylib_adfcb2e32f4e7ba97cb67acc383246b9f}} 
+void {\bfseries set\+Camera} (Vector3 \&pos, Vector3 \&target, Vector3 \&up, float \&fovy, int \&projection) noexcept
+\item 
+\mbox{\Hypertarget{class_raylib_a33a7442fbf239a3fa81c313dc77dfb94}\label{class_raylib_a33a7442fbf239a3fa81c313dc77dfb94}} 
+Camera {\bfseries get\+Camera} () const noexcept
+\item 
+\mbox{\Hypertarget{class_raylib_af6e106ecf232a32c79ab712120943a00}\label{class_raylib_af6e106ecf232a32c79ab712120943a00}} 
+bool {\bfseries is\+Controller\+Detected} (int const \&idx) const noexcept
+\item 
+\mbox{\Hypertarget{class_raylib_ab9c4b2cb734d35030e4cec1246b358c7}\label{class_raylib_ab9c4b2cb734d35030e4cec1246b358c7}} 
+bool {\bfseries is\+Controller\+Valid} (int const \&idx, std\+::string const \&Controller\+Name) const noexcept
+\item 
+\mbox{\Hypertarget{class_raylib_a77bc274124b904a4eed515f300fe754b}\label{class_raylib_a77bc274124b904a4eed515f300fe754b}} 
+std\+::string {\bfseries get\+Controller\+Name} (int const \&idx) const noexcept
+\item 
+\mbox{\Hypertarget{class_raylib_a53b47b74a63e5bccba1a696c78060141}\label{class_raylib_a53b47b74a63e5bccba1a696c78060141}} 
+bool {\bfseries is\+Key\+Pressed} (int \&button) const noexcept
+\item 
+\mbox{\Hypertarget{class_raylib_a50b0fbdffb27c0306910f651825cac0a}\label{class_raylib_a50b0fbdffb27c0306910f651825cac0a}} 
+bool {\bfseries is\+Key\+Released} (int \&button) const noexcept
+\item 
+\mbox{\Hypertarget{class_raylib_aba9bf6c9d84219e9abe01eee796bdfa1}\label{class_raylib_aba9bf6c9d84219e9abe01eee796bdfa1}} 
+std\+::string {\bfseries text\+For\+Sub\+Text} (std\+::string const \&text, int \&pos, int \&frame\+Counter) const noexcept
+\item 
+\mbox{\Hypertarget{class_raylib_a17933e61ef3dca62aafd9efba2ad1e17}\label{class_raylib_a17933e61ef3dca62aafd9efba2ad1e17}} 
+int {\bfseries get\+Key\+Pressed} () const noexcept
+\item 
+\mbox{\Hypertarget{class_raylib_a35357dc235688fff2d07ea9bce3c424d}\label{class_raylib_a35357dc235688fff2d07ea9bce3c424d}} 
+void {\bfseries free\+Resources} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 33 of file Raylib.\+hpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/antoine/\+E\+P\+I\+T\+E\+C\+H/indie\+Studio/src/\+Raylib/Raylib.\+hpp\item 
+/home/antoine/\+E\+P\+I\+T\+E\+C\+H/indie\+Studio/src/\+Raylib/Raylib.\+cpp\end{DoxyCompactItemize}

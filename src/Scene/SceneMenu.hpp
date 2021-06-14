@@ -36,13 +36,13 @@ namespace menu {
         "Quit"
     };
 
-    // static const std::vector<std::array<std::pair<float, float>, 2>> _menuPos {
-    //     {{std::make_pair(860.0f, 500.0f), std::make_pair(200.0f, 50.0f)}},
-    //     {{std::make_pair(860.0f, 600.0f), std::make_pair(200.0f, 50.0f)}},
-    //     {{std::make_pair(860.0f, 700.0f), std::make_pair(200.0f, 50.0f)}},
-    //     {{std::make_pair(860.0f, 800.0f), std::make_pair(200.0f, 50.0f)}},
-    //     {{std::make_pair(860.0f, 900.0f), std::make_pair(200.0f, 50.0f)}}
-    // };
+    static const std::vector<std::array<std::pair<float, float>, 2>> _menuPos {
+        {{std::make_pair(860.0f, 500.0f), std::make_pair(200.0f, 50.0f)}},
+        {{std::make_pair(860.0f, 600.0f), std::make_pair(200.0f, 50.0f)}},
+        {{std::make_pair(860.0f, 700.0f), std::make_pair(200.0f, 50.0f)}},
+        {{std::make_pair(860.0f, 800.0f), std::make_pair(200.0f, 50.0f)}},
+        {{std::make_pair(860.0f, 900.0f), std::make_pair(200.0f, 50.0f)}}
+    };
 
     static const std::vector<std::string> _assetsPath {
         "Assets/olivier_bg.png",

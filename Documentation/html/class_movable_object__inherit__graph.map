@@ -1,0 +1,11 @@
+<map id="MovableObject" name="MovableObject">
+<area shape="rect" id="node1" title=" " alt="" coords="65,304,185,331"/>
+<area shape="rect" id="node6" href="$class_bullet.html" title="Bullet to kill other player." alt="" coords="5,379,65,405"/>
+<area shape="rect" id="node7" href="$class_cannon.html" title="Cannon wich is related to a tank and contains a bullet." alt="" coords="89,379,160,405"/>
+<area shape="rect" id="node8" href="$class_tank.html" title="base class for tank which is played by the player" alt="" coords="184,379,236,405"/>
+<area shape="rect" id="node2" href="$class_destructible_object.html" title=" " alt="" coords="53,229,196,256"/>
+<area shape="rect" id="node3" href="$class_collisionable_object.html" title=" " alt="" coords="51,155,199,181"/>
+<area shape="rect" id="node4" href="$class_a_object.html" title="Abstract class for objects." alt="" coords="88,80,161,107"/>
+<area shape="rect" id="node5" href="$class_i_object.html" title="interface for objects" alt="" coords="91,5,159,32"/>
+<area shape="rect" id="node9" href="$class_tank_a_i.html" title=" " alt="" coords="177,453,243,480"/>
+</map>

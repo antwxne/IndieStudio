@@ -1,0 +1,188 @@
+\hypertarget{class_destructible_object}{}\doxysection{Destructible\+Object Class Reference}
+\label{class_destructible_object}\index{DestructibleObject@{DestructibleObject}}
+
+
+Inheritance diagram for Destructible\+Object\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=329pt]{class_destructible_object__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Destructible\+Object\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_destructible_object__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_destructible_object_1_1destructible__t}{destructible\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_destructible_object_ae917ecdff88a85d4108217e586db6291}{Destructible\+Object}} (const \mbox{\hyperlink{structcoords}{coords}} \&pos, const std\+::pair$<$ int, int $>$ \&size, const std\+::pair$<$ std\+::string, std\+::string $>$ \&path)
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{class_destructible}{Destructible}} Object object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_destructible_object_a3de5962e6e4385dfcac902f688676652}{$\sim$\+Destructible\+Object}} ()=default
+\begin{DoxyCompactList}\small\item\em Destroy the \mbox{\hyperlink{class_destructible}{Destructible}} Object object. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_destructible_object_a0e733149e74127ccbbf322ee605f617c}{get\+Life}} () const
+\begin{DoxyCompactList}\small\item\em Get the Life object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_destructible_object_a43dba98283593c3be019ba1f8619a0fb}{set\+Life}} (float life)
+\begin{DoxyCompactList}\small\item\em Set the Life object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_destructible_object_ac1a5531313d0ab34d173ddc1847596cd}{update\+Life}} (float life)
+\item 
+bool \mbox{\hyperlink{class_destructible_object_a2a7bac42ad2c8766b8d3aee1b7ec3228}{is\+Destroyed}} () const
+\item 
+const \mbox{\hyperlink{struct_destructible_object_1_1destructible__t}{destructible\+\_\+t}} \& \mbox{\hyperlink{class_destructible_object_ac43bebc868ffdfd38119d7d1c0476170}{get\+Struct\+Save}} () noexcept
+\begin{DoxyCompactList}\small\item\em Get the Struct Save object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_destructible_object_ab93d4a270f6bf08d8ccfc344496ff699}\label{class_destructible_object_ab93d4a270f6bf08d8ccfc344496ff699}} 
+float {\bfseries \+\_\+life}
+\item 
+\mbox{\Hypertarget{class_destructible_object_a2573d9fef6d2aa0c0489a8b462c5d927}\label{class_destructible_object_a2573d9fef6d2aa0c0489a8b462c5d927}} 
+\mbox{\hyperlink{struct_destructible_object_1_1destructible__t}{destructible\+\_\+t}} {\bfseries \+\_\+save}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 19 of file Destructible\+Object.\+hpp.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_destructible_object_ae917ecdff88a85d4108217e586db6291}\label{class_destructible_object_ae917ecdff88a85d4108217e586db6291}} 
+\index{DestructibleObject@{DestructibleObject}!DestructibleObject@{DestructibleObject}}
+\index{DestructibleObject@{DestructibleObject}!DestructibleObject@{DestructibleObject}}
+\doxysubsubsection{\texorpdfstring{DestructibleObject()}{DestructibleObject()}}
+{\footnotesize\ttfamily Destructible\+Object\+::\+Destructible\+Object (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structcoords}{coords}} \&}]{pos,  }\item[{const std\+::pair$<$ int, int $>$ \&}]{size,  }\item[{const std\+::pair$<$ std\+::string, std\+::string $>$ \&}]{path }\end{DoxyParamCaption})}
+
+
+
+Construct a new \mbox{\hyperlink{class_destructible}{Destructible}} Object object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & \\
+\hline
+{\em size} & \\
+\hline
+{\em path} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 10 of file Destructible\+Object.\+cpp.
+
+\mbox{\Hypertarget{class_destructible_object_a3de5962e6e4385dfcac902f688676652}\label{class_destructible_object_a3de5962e6e4385dfcac902f688676652}} 
+\index{DestructibleObject@{DestructibleObject}!````~DestructibleObject@{$\sim$DestructibleObject}}
+\index{````~DestructibleObject@{$\sim$DestructibleObject}!DestructibleObject@{DestructibleObject}}
+\doxysubsubsection{\texorpdfstring{$\sim$DestructibleObject()}{~DestructibleObject()}}
+{\footnotesize\ttfamily Destructible\+Object\+::$\sim$\+Destructible\+Object (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Destroy the \mbox{\hyperlink{class_destructible}{Destructible}} Object object. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_destructible_object_a0e733149e74127ccbbf322ee605f617c}\label{class_destructible_object_a0e733149e74127ccbbf322ee605f617c}} 
+\index{DestructibleObject@{DestructibleObject}!getLife@{getLife}}
+\index{getLife@{getLife}!DestructibleObject@{DestructibleObject}}
+\doxysubsubsection{\texorpdfstring{getLife()}{getLife()}}
+{\footnotesize\ttfamily float Destructible\+Object\+::get\+Life (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Life object. 
+
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}
+
+
+Definition at line 16 of file Destructible\+Object.\+cpp.
+
+\mbox{\Hypertarget{class_destructible_object_ac43bebc868ffdfd38119d7d1c0476170}\label{class_destructible_object_ac43bebc868ffdfd38119d7d1c0476170}} 
+\index{DestructibleObject@{DestructibleObject}!getStructSave@{getStructSave}}
+\index{getStructSave@{getStructSave}!DestructibleObject@{DestructibleObject}}
+\doxysubsubsection{\texorpdfstring{getStructSave()}{getStructSave()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{struct_destructible_object_1_1destructible__t}{Destructible\+Object\+::destructible\+\_\+t}} \& Destructible\+Object\+::get\+Struct\+Save (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Get the Struct Save object. 
+
+\begin{DoxyReturn}{Returns}
+const \mbox{\hyperlink{struct_destructible_object_1_1destructible__t}{destructible\+\_\+t}}\& 
+\end{DoxyReturn}
+
+
+Definition at line 33 of file Destructible\+Object.\+cpp.
+
+\mbox{\Hypertarget{class_destructible_object_a2a7bac42ad2c8766b8d3aee1b7ec3228}\label{class_destructible_object_a2a7bac42ad2c8766b8d3aee1b7ec3228}} 
+\index{DestructibleObject@{DestructibleObject}!isDestroyed@{isDestroyed}}
+\index{isDestroyed@{isDestroyed}!DestructibleObject@{DestructibleObject}}
+\doxysubsubsection{\texorpdfstring{isDestroyed()}{isDestroyed()}}
+{\footnotesize\ttfamily bool Destructible\+Object\+::is\+Destroyed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+
+
+Definition at line 28 of file Destructible\+Object.\+cpp.
+
+\mbox{\Hypertarget{class_destructible_object_a43dba98283593c3be019ba1f8619a0fb}\label{class_destructible_object_a43dba98283593c3be019ba1f8619a0fb}} 
+\index{DestructibleObject@{DestructibleObject}!setLife@{setLife}}
+\index{setLife@{setLife}!DestructibleObject@{DestructibleObject}}
+\doxysubsubsection{\texorpdfstring{setLife()}{setLife()}}
+{\footnotesize\ttfamily void Destructible\+Object\+::set\+Life (\begin{DoxyParamCaption}\item[{float}]{life }\end{DoxyParamCaption})}
+
+
+
+Set the Life object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em life} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 20 of file Destructible\+Object.\+cpp.
+
+\mbox{\Hypertarget{class_destructible_object_ac1a5531313d0ab34d173ddc1847596cd}\label{class_destructible_object_ac1a5531313d0ab34d173ddc1847596cd}} 
+\index{DestructibleObject@{DestructibleObject}!updateLife@{updateLife}}
+\index{updateLife@{updateLife}!DestructibleObject@{DestructibleObject}}
+\doxysubsubsection{\texorpdfstring{updateLife()}{updateLife()}}
+{\footnotesize\ttfamily void Destructible\+Object\+::update\+Life (\begin{DoxyParamCaption}\item[{float}]{life }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em life} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 24 of file Destructible\+Object.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/antoine/\+E\+P\+I\+T\+E\+C\+H/indie\+Studio/src/\+Object/\+Collisionable/\+Destructible/Destructible\+Object.\+hpp\item 
+/home/antoine/\+E\+P\+I\+T\+E\+C\+H/indie\+Studio/src/\+Object/\+Collisionable/\+Destructible/Destructible\+Object.\+cpp\end{DoxyCompactItemize}
