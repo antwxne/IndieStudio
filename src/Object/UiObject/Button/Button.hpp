@@ -26,11 +26,11 @@ class Button : public UiObject
         const std::string getText() const noexcept;
         const coords getTextPos() const noexcept;
         bool isInside(const std::pair<float, float> &pos) const;
+        void setState(const std::pair<float, float> &pos, std::array<std::string, 3> arr, bool clicked);
 
     private:
         std::string _text;
         coords _textPos;
-        buttonState_e _state;
 };
 
 #endif /* !BUTTON_HPP_ */

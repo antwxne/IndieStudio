@@ -56,7 +56,7 @@ namespace menu {
         "Assets/olivier_bg.png",
     };
 
-    static const std::vector<std::string> _buttonPath {
+    static const std::array<std::string, 3> _buttonPath {
         "asset/menu_asset/Button_blue.png",
         "asset/menu_asset/Button_beige.png",
         "asset/menu_asset/Button_blue_pressed.png"
@@ -68,11 +68,11 @@ namespace menu {
     };
 
     static const std::unordered_map<menu_e, Scenes> _returnScene {
-        {menu_e::START, Scenes::NEW_GAME},
-        {menu_e::LOAD, Scenes::GAME},
-        {menu_e::OPTION, Scenes::OPTION},
-        {menu_e::LEADERBOARD, Scenes::LEADERBOARD},
-        {menu_e::QUIT, Scenes::QUIT}
+        {menu_e::START,         Scenes::NEW_GAME},
+        {menu_e::LOAD,          Scenes::GAME},
+        {menu_e::OPTION,        Scenes::OPTION},
+        {menu_e::LEADERBOARD,   Scenes::LEADERBOARD},
+        {menu_e::QUIT,          Scenes::QUIT}
     };
 
     static const std::string _musicPath = "Assets/menu_music.mp3";
@@ -85,6 +85,7 @@ namespace menu {
             Scenes run(Raylib &lib, Scenes const &prevScene) final;
 
         private:
+            std::pair<float, float> _mousePos;
             std::size_t _select;
             bool _enter;
             bool _pressed;
