@@ -104,6 +104,10 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
                 auto const &derivedButton = std::dynamic_pointer_cast<Button>(i);
                 drawText(derivedButton->getText(), derivedButton->getTextPos(), i->getScale(), i->getColors().second);
             }
+            if (i->getTypeField().isRect == true) {
+                std::cout <<" x == " <<  i->getPosition().first << " y == " << i->getPosition().second << " size.x == " << i->getSize().first << " size.y == " << i->getSize().second << std::endl;// << i->getColors().first;
+                drawRectangle(i->getPosition().first, i->getPosition().second, i->getSize().first, i->getSize().second, i->getColors().first);
+            }
         }
     EndDrawing();
 }

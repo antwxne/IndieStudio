@@ -10,7 +10,7 @@
 #include "Map/Map.hpp"
 #include <bits/stdc++.h>
 
-
+#include "Object/UiObject/UiObject.hpp"
 #include "Raylib/Raylib.hpp"
 #include "Object/AObject.hpp"
 #include "Object/Collisionable/Wall.hpp"
@@ -35,6 +35,12 @@ SceneMaxime::SceneMaxime(std::shared_ptr<Setting> settings) : AScene(settings)
          _objects.back()->set3d(true);
          _objects.back()->setScale(0.02f);
      }
+     auto tmp = std::make_shared<UiObject>(coords(0,0), std::make_pair(3,3), "", 1, std::make_pair(RGB(150), RGB()));
+    std::cout << "Bizarre 1\n";
+    tmp->setRect(true);
+    std::cout << "Bizarre 2\n";
+    _objects.emplace_back(tmp);
+    std::cout << "Bizarre 3\n";
     // _objects.emplace_back(std::make_shared<Wall>(coords(0, 0, 0), std::make_pair(0, 0), std::make_pair(_assetsPath.at(0), _assetsPath.at(1))));
     // _objects.back()->set3d(true);
     // _objects.back()->setScale(0.02f);

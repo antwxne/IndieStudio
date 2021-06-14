@@ -101,6 +101,7 @@ struct typeField {
     bool isIa: 1;
     bool isWall: 1;
     bool isGround: 1;
+    bool isRect: 1;
 };
 
 /**

@@ -7,7 +7,7 @@
 
 #include "UiObject.hpp"
 
-UiObject::UiObject(const coords &pos, const std::pair<int, int> &size, const std::string &texture, float scale, std::pair<RGB, RGB> &color)
+UiObject::UiObject(const coords &pos, const std::pair<int, int> &size, const std::string &texture, float scale, std::pair<RGB, RGB> const &color)
     : AObject(pos, size, scale, color), _texture(texture)
 {
 }
@@ -29,4 +29,9 @@ void UiObject::setTexture(const std::string &newTexture) noexcept
 const std::string UiObject::getTexture() const noexcept
 {
     return (_texture);
+}
+
+void UiObject::setRect(bool tmp) noexcept
+{
+    _typeField.isRect = tmp;
 }
