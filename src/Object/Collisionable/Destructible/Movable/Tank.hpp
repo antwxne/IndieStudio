@@ -18,6 +18,12 @@
  */
 class Tank: public MovableObject {
 public:
+
+    static const std::string sandCamo;
+    static const std::string greenCamo;
+    static const std::string body;
+    static const std::string turret;
+    static const std::string cannon;
     /**
      * @brief Construct a new Tank object
      * 
