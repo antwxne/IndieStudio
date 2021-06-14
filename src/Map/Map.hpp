@@ -15,7 +15,7 @@ public:
     Map();
     ~Map() = default;
     void createDestructibleMap(std::pair<int, int> const &pos_left, std::pair<int, int> const &pos_down_right);
-    void createContourMap(int const &xMax, int const &yMax) noexcept;
+    void createContourMap(std::pair<int, int> const &xAxis,std::pair<int, int> const &yAxis) noexcept;
     void writeDestructibleList() noexcept;
     void readDestructibleList() noexcept;
 

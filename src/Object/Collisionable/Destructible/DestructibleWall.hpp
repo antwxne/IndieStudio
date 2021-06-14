@@ -31,8 +31,9 @@ public:
      *
      * @param object to copy
      */
-    DestructibleWall(const DestructibleWall &e) : DestructibleWall(e._pos, e._size, std::pair<std::string, std::string>{"asset/box_test/box-textures.png", "asset/box_test/Box.obj"}) {}
+    DestructibleWall(const DestructibleWall &e) : DestructibleWall(e._pos, e._size, std::pair<std::string, std::string>{"asset/OBJFormat/Textures/truck_alien.png", "asset/OBJFormat/truck_green.obj"}) {}
     /**
+     *
      * @brief Destroy the Destructible Wall object
      *
      */
