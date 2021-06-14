@@ -11,7 +11,7 @@
 #include "RaylibError.hpp"
 
 Raylib::Raylib() : _camera(
-    {{0.0f, 10.0f, 10.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 45.0f, 0})
+    {{0.0f, 13.0f, 15.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 45.0f, 0})
 {
 }
 
@@ -72,6 +72,7 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
             auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
             drawModel(derived->getModel(), derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first);
         }
+    DrawGrid(30, 1.0f);
     EndMode3D();
     for (auto &i : objects)
         if (!i->getTypeField().is3D) {
