@@ -26,13 +26,11 @@ CollisionableObject::CollisionableObject(CollisionableObject const &object) : AO
 
 void CollisionableObject::setTexture(const std::string &texture) noexcept
 {
-    std::cout << "[COLLISIONABLE] Set Texture" << '\n';
     _path.first = texture;
 }
 
 void CollisionableObject::setModel(const std::string &texture) noexcept
 {
-    std::cout << "[COLLISIONABLE] Set Model" << '\n';
     _path.second = texture;
 }
 

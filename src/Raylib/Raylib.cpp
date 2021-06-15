@@ -14,7 +14,7 @@
 #include "Button.hpp"
 
 Raylib::Raylib() : _camera(
-    {{0.0f, 17.0f, 15.0f}, {0.0f, -4.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 45.0f, 0})
+    {{0.0f, 20.0f, 20.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 40.0f, 0})
 {
 }
 
@@ -91,15 +91,14 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
 {
     BeginDrawing();
     ClearBackground(RAYWHITE);
-    BeginMode3D(_camera);
-    for (auto &i : objects)
+    DrawGrid(30, 1.0f);
+    for (auto &i : objects) {
         if (i->getTypeField().is3D && i->getTypeField().isCollisionable) {
+            BeginMode3D(_camera);
             auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
             drawModel(derived->getModel(), derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first);
+            EndMode3D();
         }
-    DrawGrid(30, 1.0f);
-    EndMode3D();
-    for (auto &i : objects)
         if (!i->getTypeField().is3D) {
             auto const &derived = std::dynamic_pointer_cast<UiObject>(i);
             drawTexture(derived->getTexture(), i->getPosition().first, i->getPosition().second, i->getColors().first);
@@ -108,6 +107,7 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
                 drawText(derivedButton->getText(), derivedButton->getTextPos(), i->getScale(), i->getColors().second);
             }
         }
+    }
     EndDrawing();
 }
 
@@ -209,6 +209,7 @@ void Raylib::drawModel(const std::string &modelPath, const std::string &textureP
         at = _textures.find(texturePath);
     }
     if (it == _models.end()) {
+        std::cout << "[RAYLIB] le model a insert est => " << modelPath.c_str() <<"\n";
         _models.insert({modelPath, LoadModel(modelPath.c_str())});
         it = _models.find(modelPath);
         SetMaterialTexture(&it->second.materials[0], MAP_DIFFUSE, at->second);

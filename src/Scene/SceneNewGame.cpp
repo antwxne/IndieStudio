@@ -5,22 +5,31 @@
 ** SceneNewGame
 */
 
+#include "UiObject/Button/Button.hpp"
 #include "SceneNewGame.hpp"
 
-SceneNewGame::SceneNewGame(Setting &settings) : AScene(settings)
-{
-}
+namespace newGame {
 
-SceneNewGame::~SceneNewGame()
-{
-}
-
-Scenes SceneNewGame::run(Raylib &lib, Scenes const &prevScene)
-{
-    while (lib.gameLoop()) {
-
+    SceneNewGame::SceneNewGame(Setting &settings) : AScene(settings)
+    {
+        _objects.emplace_back(std::make_shared<UiObject>(coords(), std::make_pair(0, 0), _bgPath, 1.0f));
+        for (std::size_t i = 0; i != 2; ++i)
+            _objects.emplace_back(std::make_shared<Button>(_menuPos.at(i), _menuSize.at(i), _buttonPath[buttonState_e::NOTHING], _menuText[i], 20, std::make_pair(RGB(), RGB(0, 0, 0))));
     }
-    if (lib.gameLoop())
-        return (Scenes::QUIT);
-    return (Scenes::GAME);
+
+    SceneNewGame::~SceneNewGame()
+    {
+    }
+
+    Scenes SceneNewGame::run(Raylib &lib, Scenes const &prevScene)
+    {
+        while (lib.gameLoop()) {
+            triggerInputActions(lib);
+            lib.printObjects(_objects);
+        }
+        if (lib.gameLoop())
+            return (Scenes::QUIT);
+        return (Scenes::GAME);
+    }
+
 }
