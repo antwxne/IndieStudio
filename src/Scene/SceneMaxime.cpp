@@ -19,6 +19,7 @@
 
 const std::vector<std::string> SceneMaxime::_assetsPath {
     "asset/background_asset/woodFloor2.png",
+    "asset/OBJFormat/ground.obj",
 };
 
 SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings)
@@ -30,7 +31,7 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings)
     setInputFunction(Raylib::ENTER, [&]() {
         _enter = !_enter;
     });
-    _objects.emplace_back(std::make_shared<Ground>(coords(0, 0, 0), std::make_pair(0, 0), _assetsPath.at(0), 2.0f));
+    _objects.emplace_back(std::make_shared<Ground>(coords(0, 0, 0), std::make_pair(0, 0), std::pair<std::string, std::string>(_assetsPath.at(0), _assetsPath.at(1))));
     for (auto const &block : map->_objectNoDestructibleList)
         _objects.emplace_back(std::make_shared<Wall>(block));
     for (auto const &block : map->_objectDestructibleList)

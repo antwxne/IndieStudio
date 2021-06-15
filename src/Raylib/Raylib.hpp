@@ -58,6 +58,7 @@ public:
     void printGrid(int const &slices, float const &space) const noexcept;
     void drawModel(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint);
     void drawTexture(const std::string &path, int posX, int posY, RGB tint);
+    void drawMesh(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint, const std::pair<int, int> &size);
     void drawText(const std::string &text, coords pos, float scale, RGB tint);
     void displayMusic(const std::string &path, float volume);
     void displaySound(const std::string &path, float volume);
