@@ -101,14 +101,14 @@ public:
      */
     float getRotation() const;
 
-    void setRect(bool) noexcept;
-
-    void setFillRect(bool tmp) noexcept;
-
     protected:
     coords _pos;
     std::pair<int, int> _size;
     std::pair<RGB, RGB> _color;
+    public:
+    void setColor(const std::pair<RGB, RGB> &color);
+
+    protected:
     float _rotation;
     typeField _typeField;
     float _scale;

@@ -61,17 +61,13 @@ const std::pair<RGB, RGB> &AObject::getColors() const noexcept
 {
     return _color;
 }
+
 float AObject::getRotation() const
 {
     return _rotation;
 }
 
-void AObject::setRect(bool tmp) noexcept
+void AObject::setColor(const std::pair<RGB, RGB> &color)
 {
-    _typeField.isContourRect = tmp;
-}
-
-void AObject::setFillRect(bool tmp) noexcept
-{
-    _typeField.isFillRect = tmp;
+    _color = color;
 }

@@ -17,7 +17,8 @@
 #include "Object/Ground/Ground.hpp"
 #include "Object/UiObject/UiObject.hpp"
 #include "Object/Collisionable/Wall.hpp"
-#include "Object/UiObject/UiGame/RectangleUI.hpp"
+#include "Object/UiObject/UiGame/FrameUI.hpp"
+#include "Object/UiObject/UiGame/LifeGame.hpp"
 
 const std::vector<std::string> SceneMaxime::_assetsPath {
     "asset/background_asset/woodFloor2.png",
@@ -41,26 +42,14 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings)
         _objects.back()->set3d(true);
         _objects.back()->setScale(1.0f);
     }
-    //for (unsigned int i = 0; i != _uiGamePos.size(); i++) {
-    /*auto tmp = std::make_shared<UiObject>(
-        coords(_uiGamePos[i].first, _uiGamePos[i].second),
-        std::make_pair(_uiGameSize[i].first, _uiGameSize[i].second), "", 9,
-        std::make_pair(RGB(0, 0, 0), RGB()));
-    tmp->setRect(true);*/
-    auto const &carre = std::make_unique<RectangleUI>();
-    /*for (auto const &carr : carre->_border) {
+    auto const &carre = std::make_unique<FrameUI>();
+    for (auto const &carr : carre->_border) {
         _objects.emplace_back(std::make_shared<BorderPlayer>(carr));
-    }*//*
-    for (auto const &i: _uiLifePos) {
-        auto tmp = std::make_shared<UiObject>(coords(i.first, i.second),
-            std::make_pair(20, 20), "", 1,
-            std::make_pair(RGB(150, 150, 150), RGB()));
-        tmp->setFillRect(true);
-        _objects.emplace_back(tmp);
-    }*/
-    // _objects.emplace_back(std::make_shared<Wall>(coords(0, 0, 0), std::make_pair(0, 0), std::make_pair(_assetsPath.at(0), _assetsPath.at(1))));
-    // _objects.back()->set3d(true);
-    // _objects.back()->setScale(0.02f);
+    }
+    auto const &life = std::make_unique<LifeGame>();
+    for (auto const &lif : life->_posLife) {
+        _objects.emplace_back(std::make_shared<FullSquare>(lif));
+    }
 }
 
 SceneMaxime::~SceneMaxime()

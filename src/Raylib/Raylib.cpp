@@ -96,14 +96,6 @@ void Raylib::drawRectangleLinesEx(const float &posX, const float &posY, const fl
     DrawRectangleLinesEx(rec, lineThick, {color.r, color.g, color.b, color.a});
 }
 
-void Raylib::draw(const BorderPlayer &i)
-{
-    std::cout << "BOYYYY\n";
-    std::cout << i.getSize().first << i.getSize().second;
-    drawRectangleLinesEx(500, 500, i.getSize().first, i.getSize().second, i.getColors().first, i.getScale());
-}
-
-//void Raylib::drawModel(const std::string &path, coords pos, float scale, RGB tint)
 void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
 {
     BeginDrawing();
@@ -128,16 +120,13 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
                 auto const &derivedButton = std::dynamic_pointer_cast<Button>(i);
                 drawText(derivedButton->getText(), derivedButton->getTextPos(), i->getSize().first, i->getColors().second);
             }
-            //if (i->getTypeField().) {
-            //    drawRectangleLinesEx(i->getPosition().first, i->getPosition().second, i->getSize().first, i->getSize().second, i->getColors().first, i->getScale());
-           // }
-            if (i->getTypeField().isFillRect == true) {
+            if (i->getTypeField().isContourRect) {
+                std::cout << i->getPosition().first << std::endl;
+                drawRectangleLinesEx(i->getPosition().first, i->getPosition().second, i->getSize().first, i->getSize().second, i->getColors().first, i->getScale());
+           }
+            if (i->getTypeField().isFullSquare) {
+                std::cout << i->getPosition().first << std::endl;
                 drawRectangle(i->getPosition().first, i->getPosition().second, i->getSize().first, i->getSize().second, i->getColors().first);
-            }
-            try {
-                auto tmp = reinterpret_cast<BorderPlayer *>(&i);
-                draw(*tmp);
-            } catch (...) {
             }
         }
     }
