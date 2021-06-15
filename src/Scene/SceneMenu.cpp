@@ -13,7 +13,7 @@
 
 namespace menu {
 
-    SceneMenu::SceneMenu(std::shared_ptr<Setting> settings) : _select(menu_e::START), _enter(false), AScene(settings), _pressed(false)
+    SceneMenu::SceneMenu(Setting &settings) : _select(menu_e::START), _enter(false), AScene(settings), _pressed(false)
     {
         setInputFunction(Raylib::CLICK, [&]() {
             _pressed = true;

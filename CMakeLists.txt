@@ -53,6 +53,7 @@ set(ERROR_SRCS
 )
 set(CORE_SRCS
         ${CORE_PATH}/Core.cpp
+        ${CORE_PATH}/Setting.cpp
 )
 
 set(UIOBJECT_SRCS

@@ -20,7 +20,7 @@ const std::vector<std::string> SceneMaxime::_assetsPath {
     "asset/box_test/Box.obj",
 };
 
-SceneMaxime::SceneMaxime(std::shared_ptr<Setting> settings) : AScene(settings)
+SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings)
 {
     auto const &map = std::make_unique<Map>();
 
@@ -29,16 +29,10 @@ SceneMaxime::SceneMaxime(std::shared_ptr<Setting> settings) : AScene(settings)
     });
     map->createDestructibleMap(std::make_pair(0, 0), std::make_pair(5, 5));
     map->createContourMap(std::make_pair(-10, 10), std::make_pair(-8, 8));
-    for (auto const &block : map->_objectNoDestructibleList) {
+    for (auto const &block : map->_objectNoDestructibleList)
         _objects.emplace_back(std::make_shared<Wall>(block));
-        _objects.back()->set3d(true);
-        _objects.back()->setScale(1.0f);
-    }
-    for (auto const &block : map->_objectDestructibleList) {
+    for (auto const &block : map->_objectDestructibleList)
         _objects.emplace_back(std::make_shared<DestructibleWall>(block));
-        _objects.back()->set3d(true);
-        _objects.back()->setScale(1.0f);
-    }
 }
 
 SceneMaxime::~SceneMaxime()

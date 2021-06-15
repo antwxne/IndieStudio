@@ -7,7 +7,7 @@
 
 #include "AScene.hpp"
 
-AScene::AScene(std::shared_ptr<Setting> settings) : _settings(settings)
+AScene::AScene(Setting &settings) : _settings(settings)
 {
 }
 

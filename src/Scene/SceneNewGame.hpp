@@ -14,7 +14,7 @@
 class SceneNewGame : public AScene
 {
     public:
-        SceneNewGame(std::shared_ptr<Setting> settings);
+        SceneNewGame(Setting &settings);
         ~SceneNewGame();
         Scenes run(Raylib &lib, Scenes const &prevScene) final;
 };
