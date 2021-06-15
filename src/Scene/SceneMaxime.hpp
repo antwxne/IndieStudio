@@ -12,7 +12,7 @@
 
 class SceneMaxime : public AScene {
     public:
-        SceneMaxime(std::shared_ptr<Setting> settings);
+        SceneMaxime(Setting &settings);
         ~SceneMaxime();
 
         Scenes run(Raylib &lib, Scenes const &prevScene) final;

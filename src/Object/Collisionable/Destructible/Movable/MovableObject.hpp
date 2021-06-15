@@ -10,7 +10,6 @@
 #ifndef INDIESTUDIO_MOVABLEOBJECT_HPP
 #define INDIESTUDIO_MOVABLEOBJECT_HPP
 
-
 /**
  * @class Movable Object
  *
@@ -24,7 +23,7 @@ public:
      * @param pos 
      * @param size 
      */
-    MovableObject(const coords &pos, const std::pair<int, int> &size);
+    MovableObject(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path);
 
     /**
      * @brief move object

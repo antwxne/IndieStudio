@@ -14,7 +14,7 @@
 #include "Button.hpp"
 
 Raylib::Raylib() : _camera(
-    {{0.0f, 13.0f, 15.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 45.0f, 0})
+    {{0.0f, 17.0f, 15.0f}, {0.0f, -4.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 45.0f, 0})
 {
 }
 
@@ -66,6 +66,11 @@ bool Raylib::isKeyPressed(int &button) const noexcept
 
 bool Raylib::isMousePressed() const noexcept
 {
+    return (IsMouseButtonPressed(MOUSE_BUTTON_LEFT));
+}
+
+bool Raylib::isMouseDown() const noexcept
+{
     return (IsMouseButtonDown(MOUSE_BUTTON_LEFT));
 }
 
@@ -96,11 +101,11 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
     EndMode3D();
     for (auto &i : objects)
         if (!i->getTypeField().is3D) {
-            auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
+            auto const &derived = std::dynamic_pointer_cast<UiObject>(i);
             drawTexture(derived->getTexture(), i->getPosition().first, i->getPosition().second, i->getColors().first);
-            if (derived->getTypeField().isButton) {
+            if (i->getTypeField().isButton) {
                 auto const &derivedButton = std::dynamic_pointer_cast<Button>(i);
-                drawText(derivedButton->getText(), derivedButton->getTextPos(), derivedButton->getScale(), {derivedButton->getColors().second});
+                drawText(derivedButton->getText(), derivedButton->getTextPos(), i->getScale(), i->getColors().second);
             }
         }
     EndDrawing();
@@ -158,6 +163,40 @@ int Raylib::getKeyPressed() const noexcept
     if (iterator == _keys.end())
         return (0);
     return std::distance(_keys.begin(), iterator);
+}
+
+void Raylib::displayMusic(const std::string &path, float volume)
+{
+    auto it = _music.find(path);
+
+    if (it == _music.end()) {
+        _music.insert({path, LoadMusicStream(path.c_str())});
+        it = _music.find(path);
+        it->second.looping = true;
+    }
+    SetMusicVolume(it->second, volume);
+    PlayMusicStream(it->second);
+}
+
+void Raylib::displaySound(const std::string &path, float volume)
+{
+    auto it = _sound.find(path);
+
+    if (it == _sound.end()) {
+        _sound.insert({path, LoadSound(path.c_str())});
+        it = _sound.find(path);
+    }
+    SetSoundVolume(it->second, volume);
+    PlaySoundMulti(it->second);
+}
+
+void Raylib::updateMusic(const std::string &path)
+{
+    auto it = _music.find(path);
+
+    if (it == _music.end())
+        return;
+    UpdateMusicStream(it->second);
 }
 
 void Raylib::drawModel(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint)

@@ -7,7 +7,7 @@
 
 #include "SceneNewGame.hpp"
 
-SceneNewGame::SceneNewGame(std::shared_ptr<Setting> settings) : AScene(settings)
+SceneNewGame::SceneNewGame(Setting & settings) : AScene(settings)
 {
 }
 

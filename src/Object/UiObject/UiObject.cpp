@@ -28,6 +28,5 @@ void UiObject::setTexture(const std::string &newTexture) noexcept
 
 const std::string UiObject::getTexture() const noexcept
 {
-    std::cout << "coucou la texture " << _texture << std::endl;
     return (_texture);
 }
