@@ -12,9 +12,9 @@
 #include <string>
 
 #include "Raylib.hpp"
-#include "IObject.hpp"
+#include "AObject.hpp"
 #include "IScene.hpp"
-#include "Settings.hpp"
+#include "Setting.hpp"
 
 class AScene : public IScene
 {
@@ -26,7 +26,7 @@ protected:
     void triggerInputActions(Raylib &lib);
     void setInputFunction(Raylib::Inputs, std::function<void()> function);
     Setting &_settings;
-    std::vector<std::shared_ptr<IObject>> _objects;
+    std::vector<std::shared_ptr<AObject>> _objects;
     std::unordered_map<int,std::function<void()>> _keys = {
         {Raylib::NULL_KEY, [](){}},
         {Raylib::ENTER, [](){}},

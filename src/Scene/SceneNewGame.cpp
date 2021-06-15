@@ -7,7 +7,7 @@
 
 #include "SceneNewGame.hpp"
 
-SceneNewGame::SceneNewGame(Setting & settings) : AScene(settings)
+SceneNewGame::SceneNewGame(Setting &settings) : AScene(settings)
 {
 }
 

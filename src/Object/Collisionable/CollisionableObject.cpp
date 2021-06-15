@@ -13,14 +13,15 @@ CollisionableObject::CollisionableObject(const coords &pos,
 ) : AObject(pos, size, 1)
 {
     _path = path;
-    _typeField.isCollisionable = true;
     _typeField.is3D = true;
+    _typeField.isCollisionable = true;
 }
 
 CollisionableObject::CollisionableObject(CollisionableObject const &object) : AObject(object._pos, object._size, 1), _path(object._path)
 {
-    _typeField.isCollisionable = true;
+    _path = object._path;
     _typeField.is3D = true;
+    _typeField.isCollisionable = true;
 }
 
 void CollisionableObject::setTexture(const std::string &texture) noexcept

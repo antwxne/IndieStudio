@@ -25,13 +25,13 @@
 #include <functional>
 #include "raylib.h"
 
-#include "Object/IObject.hpp"
+#include "Object/AObject.hpp"
 
 class Raylib
 {
 public:
-    using uIObject = std::shared_ptr<IObject>;
-    using vectorObject = std::vector<uIObject>;
+    using uAObject = std::shared_ptr<AObject>;
+    using vectorObject = std::vector<uAObject>;
     enum Inputs {
         NULL_KEY,
         ENTER,

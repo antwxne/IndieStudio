@@ -14,7 +14,7 @@
 class SceneNewGame : public AScene
 {
     public:
-        SceneNewGame(Setting & settings);
+        SceneNewGame(Setting &settings);
         ~SceneNewGame();
         Scenes run(Raylib &lib, Scenes const &prevScene) final;
 };
