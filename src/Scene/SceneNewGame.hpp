@@ -24,15 +24,22 @@ namespace newGame {
     };
 
     static const std::vector<struct coords> _menuPos {
-        {coords(200.0f, 900.0f, 0.0f)},
-        {coords(1200.0f, 900.0f, 0.0f)}
+        {coords(200.0f,     900.0f, 0.0f)},
+        {coords(1200.0f,    900.0f, 0.0f)}
     };
 
     static const std::vector<struct coords> _playerPos {
-        {coords(200.0f, 200.0f, 0.0f)},
-        {coords(600.0f, 200.0f, 0.0f)},
-        {coords(1000.0f, 200.0f, 0.0f)},
-        {coords(1400.0f, 200.0f, 0.0f)}
+        {coords(200.0f,     200.0f, 0.0f)},
+        {coords(600.0f,     200.0f, 0.0f)},
+        {coords(1000.0f,    200.0f, 0.0f)},
+        {coords(1400.0f,    200.0f, 0.0f)}
+    };
+
+    static const std::vector<struct coords> _inputPos {
+        {coords(200.0f,     300.0f, 0.0f)},
+        {coords(600.0f,     300.0f, 0.0f)},
+        {coords(1000.0f,    300.0f, 0.0f)},
+        {coords(1400.0f,    300.0f, 0.0f)}
     };
 
     static const std::string _bgPath = "asset/background_asset/Background_02.png";
@@ -44,6 +51,8 @@ namespace newGame {
             ~SceneNewGame();
             Scenes run(Raylib &lib, Scenes const &prevScene) final;
         private:
+            void fillAi();
+            void fillName();
             std::pair<float, float> _mousePos;
             int _select;
             bool _pressed;

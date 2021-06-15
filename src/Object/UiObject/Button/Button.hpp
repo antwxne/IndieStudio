@@ -45,7 +45,7 @@ namespace button {
             bool isInside(const std::pair<float, float> &pos) const;
             void setState(const std::pair<float, float> &pos, std::array<std::string, 3> buttonPath, bool clicked);
 
-        private:
+        protected:
             std::string _text;
             int _textSize;
             coords _textPos;

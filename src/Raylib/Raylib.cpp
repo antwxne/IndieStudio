@@ -15,7 +15,7 @@
 #include "Button.hpp"
 
 Raylib::Raylib() : _camera(
-    {{0.0f, 20.0f, 20.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 40.0f, 0})
+    {{0.0f, 20.0f, 15.0f}, { 0.0f, 0.0f, 2.0f}, {0.0f, 1.0f, 0.0f}, 40.0f, 0})
 {
 }
 
@@ -159,6 +159,23 @@ std::string Raylib::textForSubText(const std::string &text, int &pos,
 ) const noexcept
 {
     return TextSubtext(text.c_str(), pos, frameCounter);
+}
+
+bool Raylib::checkCollision(std::pair<float, float> pos, float width, float height, float posX, float posY)
+{
+    Rectangle rect = {posX, posY, width, height};
+    Vector2 vec = {pos.first, pos.second};
+
+    return (CheckCollisionPointRec(vec, rect));
+}
+
+char Raylib::getPressedCharacter() noexcept
+{
+    char key = GetCharPressed();
+
+    if (IsKeyPressed(KEY_BACKSPACE))
+        return (-1);
+    return (key);
 }
 
 int Raylib::getKeyPressed() const noexcept
