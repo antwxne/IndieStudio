@@ -13,6 +13,7 @@
 
 #include "Raylib/Raylib.hpp"
 #include "Object/AObject.hpp"
+#include "Object/Ground/Ground.hpp"
 #include "Object/UiObject/UiObject.hpp"
 #include "Object/Collisionable/Wall.hpp"
 
@@ -22,15 +23,14 @@ const std::vector<std::string> SceneMaxime::_assetsPath {
 
 SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings)
 {
-    std::cout << "[SCENE MAXIME] init les assets\n";
     auto const &map = std::make_unique<Map>();
-    map->createDestructibleMap(std::make_pair(0, 0), std::make_pair(5, 5));
+    map->createDestructibleMap(std::make_pair(-5, -5), std::make_pair(5, 5));
     map->createContourMap(std::make_pair(-10, 10), std::make_pair(-8, 8));
 
     setInputFunction(Raylib::ENTER, [&]() {
         _enter = !_enter;
     });
-    _objects.emplace_back(std::make_shared<UiObject>(coords(0, 0, 0), std::make_pair(1000, 1000), _assetsPath.at(0), 2.0f));
+    _objects.emplace_back(std::make_shared<Ground>(coords(0, 0, 0), std::make_pair(0, 0), _assetsPath.at(0), 2.0f));
     for (auto const &block : map->_objectNoDestructibleList)
         _objects.emplace_back(std::make_shared<Wall>(block));
     for (auto const &block : map->_objectDestructibleList)
@@ -44,7 +44,6 @@ SceneMaxime::~SceneMaxime()
 
 Scenes SceneMaxime::run(Raylib &lib, Scenes const &prevScene)
 {
-    std::cout << "[SCENE MAXIME] run la scene\n";
     while (lib.gameLoop()) {
         lib.printObjects(_objects);
     }

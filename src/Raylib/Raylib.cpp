@@ -209,7 +209,6 @@ void Raylib::drawModel(const std::string &modelPath, const std::string &textureP
         at = _textures.find(texturePath);
     }
     if (it == _models.end()) {
-        std::cout << "[RAYLIB] le model a insert est => " << modelPath.c_str() <<"\n";
         _models.insert({modelPath, LoadModel(modelPath.c_str())});
         it = _models.find(modelPath);
         SetMaterialTexture(&it->second.materials[0], MAP_DIFFUSE, at->second);

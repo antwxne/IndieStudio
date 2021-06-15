@@ -15,7 +15,7 @@
 SceneRobin::SceneRobin(Setting &settings) : AScene(settings)
 {
     // setInputFunction(Raylib::ENTER, [](){std::cout << "ENTERRRRRRR" << std::endl;});
-    _objects.emplace_back(std::make_shared<Tank>(coords(10,10,10), std::make_pair(10, 10), std::make_pair(Tank::body, Tank::sandCamo), std::make_pair(Tank::turret, Tank::greenCamo)));
+    _objects.emplace_back(std::make_shared<Tank>(coords(0,0,0), std::make_pair(10, 10), std::make_pair(Tank::sandCamo, Tank::body), std::make_pair(Tank::greenCamo, Tank::turret)));
 }
 
 SceneRobin::~SceneRobin()
