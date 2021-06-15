@@ -18,6 +18,10 @@ struct Players {
     std::string name;
 };
 
+/**
+ * @class setting
+ * @brief store game settings
+ */
 struct Setting {
     Setting(int widthScreen = 1920, int heightScreen = 1080, const std::size_t &fps = 60, float musicVol = 1.0f, float soundVol = 1.0f);
     // Setting(int widthScreen = 1920, int heightScreen = 1080, const std::size_t &fps = 60);
