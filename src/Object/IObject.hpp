@@ -21,7 +21,10 @@ enum objType_e {
     LINES,
     WIRES
 };
-
+/**
+ * @struct RGB
+ * @brief contains rgba info
+ */
 struct RGB
 {
     RGB(int red = 255, int green = 255, int blue = 255, int alpha = 255) : r(red), g(green), b(blue), a(alpha) {};
@@ -31,7 +34,10 @@ struct RGB
     unsigned char a;
 };
 
-
+/**
+ * @struct coords
+ * @brief contains info 3D position x, y, z
+ */
 struct coords
 {
     coords(float f = 0, float s = 0, float t = 0) : first(f), second(s), third(t) {};
@@ -61,6 +67,10 @@ struct coords
     float third;
 };
 
+/**
+ * @struct typeField
+ * @brief contains booleans for object's type
+ */
 struct typeField {
     typeField() : is3D(false), isObject(false), isButton(false), isCollisionable(false), isDestructible(false), isMovable(false), isTank(false), isCannon(false), isBullet(false), isIa(false), isWall(false), isGround(false) {}
     bool is3D: 1;
