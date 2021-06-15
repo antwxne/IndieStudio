@@ -11,5 +11,4 @@ Wall::Wall(const coords &pos, const std::pair<int, int> &size, const std::pair<s
     : CollisionableObject(pos, size, path)
 {
     _typeField.isWall = true;
-    //change sprite
 }

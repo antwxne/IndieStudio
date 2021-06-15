@@ -13,32 +13,28 @@
 
 #include "Raylib/Raylib.hpp"
 #include "Object/AObject.hpp"
+#include "Object/UiObject/UiObject.hpp"
 #include "Object/Collisionable/Wall.hpp"
 
 const std::vector<std::string> SceneMaxime::_assetsPath {
-    "asset/box_test/box-textures.png",
-    "asset/box_test/Box.obj",
+    "asset/background_asset/woodFloor.png",
 };
 
 SceneMaxime::SceneMaxime(std::shared_ptr<Setting> settings) : AScene(settings)
 {
+    std::cout << "[SCENE MAXIME] init les assets\n";
     auto const &map = std::make_unique<Map>();
+    map->createDestructibleMap(std::make_pair(0, 0), std::make_pair(5, 5));
+    map->createContourMap(std::make_pair(-10, 10), std::make_pair(-8, 8));
 
     setInputFunction(Raylib::ENTER, [&]() {
         _enter = !_enter;
     });
-    map->createDestructibleMap(std::make_pair(0, 0), std::make_pair(5, 5));
-    map->createContourMap(std::make_pair(-10, 10), std::make_pair(-8, 8));
-    for (auto const &block : map->_objectNoDestructibleList) {
+    _objects.emplace_back(std::make_shared<UiObject>(coords(100, 0, 100), std::make_pair(0, 0), _assetsPath.at(0), 1.0f));
+    for (auto const &block : map->_objectNoDestructibleList)
         _objects.emplace_back(std::make_shared<Wall>(block));
-        _objects.back()->set3d(true);
-        _objects.back()->setScale(1.0f);
-    }
-    for (auto const &block : map->_objectDestructibleList) {
+    for (auto const &block : map->_objectDestructibleList)
         _objects.emplace_back(std::make_shared<DestructibleWall>(block));
-        _objects.back()->set3d(true);
-        _objects.back()->setScale(1.0f);
-    }
 }
 
 SceneMaxime::~SceneMaxime()
@@ -48,6 +44,7 @@ SceneMaxime::~SceneMaxime()
 
 Scenes SceneMaxime::run(Raylib &lib, Scenes const &prevScene)
 {
+    std::cout << "[SCENE MAXIME] run la scene\n";
     while (lib.gameLoop()) {
         lib.printObjects(_objects);
     }
