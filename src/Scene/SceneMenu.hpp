@@ -75,8 +75,7 @@ namespace menu {
 
         private:
             std::pair<float, float> _mousePos;
-            std::size_t _select;
-            bool _enter;
+            int _select;
             bool _pressed;
     };
 }
