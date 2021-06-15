@@ -62,10 +62,11 @@ struct coords
 };
 
 struct typeField {
-    typeField() : is3D(false), isObject(false), isButton(false), isCollisionable(false), isDestructible(false), isMovable(false), isTank(false), isCannon(false), isBullet(false), isIa(false), isWall(false), isGround(false) {}
+    typeField() : is3D(false), isObject(false), isButton(false), isCollisionable(false), isDestructible(false), isMovable(false), isTank(false), isCannon(false), isBullet(false), isIa(false), isWall(false), isGround(false), isInputBox(false) {}
     bool is3D: 1;
     bool isObject: 1;
     bool isButton: 1;
+    bool isInputBox: 1;
     bool isCollisionable: 1;
     bool isDestructible: 1;
     bool isMovable: 1;

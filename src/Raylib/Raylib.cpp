@@ -161,6 +161,23 @@ std::string Raylib::textForSubText(const std::string &text, int &pos,
     return TextSubtext(text.c_str(), pos, frameCounter);
 }
 
+bool Raylib::checkCollision(std::pair<float, float> pos, float width, float height, float posX, float posY)
+{
+    Rectangle rect = {posX, posY, width, height};
+    Vector2 vec = {pos.first, pos.second};
+
+    return (CheckCollisionPointRec(vec, rect));
+}
+
+char Raylib::getPressedCharacter() noexcept
+{
+    char key = GetCharPressed();
+
+    if (IsKeyPressed(KEY_BACKSPACE))
+        return (-1);
+    return (key);
+}
+
 int Raylib::getKeyPressed() const noexcept
 {
     int input = GetKeyPressed();
