@@ -100,12 +100,14 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
         if (!i->getTypeField().is3D) {
             auto const &derived = std::dynamic_pointer_cast<UiObject>(i);
             drawTexture(derived->getTexture(), i->getPosition().first, i->getPosition().second, i->getColors().first);
-            if (i->getTypeField().isButton) {
+            if (i->getTypeField().isButton && i->getTypeField().isContourRect == false) {
                 auto const &derivedButton = std::dynamic_pointer_cast<Button>(i);
                 drawText(derivedButton->getText(), derivedButton->getTextPos(), i->getScale(), i->getColors().second);
             }
-            if (i->getTypeField().isRect == true) {
-                std::cout <<" x == " <<  i->getPosition().first << " y == " << i->getPosition().second << " size.x == " << i->getSize().first << " size.y == " << i->getSize().second << std::endl;// << i->getColors().first;
+            if (i->getTypeField().isContourRect == true) {
+                drawRectangleLinesEx(i->getPosition().first, i->getPosition().second, i->getSize().first, i->getSize().second, i->getColors().first, i->getScale());
+            }
+            if (i->getTypeField().isFillRect == true) {
                 drawRectangle(i->getPosition().first, i->getPosition().second, i->getSize().first, i->getSize().second, i->getColors().first);
             }
         }
@@ -231,4 +233,11 @@ void Raylib::drawRectangle(const int &posX, const int &posY, const int &width,
 ) const noexcept
 {
     DrawRectangle(posX, posY, width, height, {color.r, color.g, color.b, color.a});
+}
+
+void Raylib::drawRectangleLinesEx(const float &posX, const float &posY, const float &width,
+    const float &height, RGB color, int const &lineThick) noexcept
+{
+    Rectangle rec = {posX, posY, width, height};
+    DrawRectangleLinesEx(rec, lineThick, {color.r, color.g, color.b, color.a});
 }

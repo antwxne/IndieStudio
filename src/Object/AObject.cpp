@@ -67,3 +67,13 @@ float AObject::getRotation() const
 {
     return _rotation;
 }
+
+void AObject::setRect(bool tmp) noexcept
+{
+    _typeField.isContourRect = tmp;
+}
+
+void AObject::setFillRect(bool tmp) noexcept
+{
+    _typeField.isFillRect = tmp;
+}

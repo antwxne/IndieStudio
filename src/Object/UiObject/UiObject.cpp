@@ -30,8 +30,3 @@ const std::string UiObject::getTexture() const noexcept
 {
     return (_texture);
 }
-
-void UiObject::setRect(bool tmp) noexcept
-{
-    _typeField.isRect = tmp;
-}

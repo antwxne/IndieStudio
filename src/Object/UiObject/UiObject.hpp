@@ -18,7 +18,6 @@ class UiObject : public AObject
         ~UiObject();
         void setTexture(const std::string &newTexture) noexcept;
         const std::string getTexture() const noexcept;
-        void setRect(bool) noexcept;
     private:
         std::string _texture;
 };

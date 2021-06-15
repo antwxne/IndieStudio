@@ -80,6 +80,8 @@ public:
     void drawRectangle(int const &posX, int const &posY, int const &width, int const &height, RGB color) const noexcept;
     static float getDeltaTime() noexcept;
     void freeResources();
+    void drawRectangleLinesEx(const float &posX, const float &posY, const float &width,
+        const float &height, RGB color, int const &lineThick) noexcept;
 
 protected:
 private:
