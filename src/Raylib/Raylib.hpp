@@ -42,7 +42,9 @@ public:
         DOWN,
         RIGHT,
         LEFT,
-        A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, PRESSED, RELEASED
+        A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
+        PRESSED,
+        RELEASED
     };
 
     Raylib();
@@ -57,8 +59,11 @@ public:
     void printFps(std::pair<int, int> const &pos) const noexcept;
     void printGrid(int const &slices, float const &space) const noexcept;
     void drawModel(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint);
-    void drawTexture(const std::string &path, int posX, int posY, RGB tint);
     void drawMesh(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint, const std::pair<int, int> &size);
+
+//    void drawTexture(const std::string &path, int posX, int posY, RGB tint);
+    void drawTexture(const std::string &path, Vector2 pos, float rotation, float scale, RGB tint);
+
     void drawText(const std::string &text, coords pos, float scale, RGB tint);
     void displayMusic(const std::string &path, float volume);
     void displaySound(const std::string &path, float volume);
