@@ -42,6 +42,36 @@ namespace newGame {
     {
     }
 
+    void SceneNewGame::fillAi()
+    {
+        std::size_t fillStruct = 0;
+
+        for (auto &it : _objects) {
+            if (!it->getTypeField().isButton || it->getTypeField().isInputBox)
+                continue;
+            auto button = std::dynamic_pointer_cast<button::Button>(it);
+            if (std::find(_playerIA.begin(), _playerIA.end(), button->getText()) != _playerIA.end()) {
+                _settings._players[fillStruct].ai = button->getText() == _playerIA[0];
+                ++fillStruct;
+            }
+        }
+    }
+
+    void SceneNewGame::fillName()
+    {
+        std::size_t fillStruct = 0;
+
+        for (auto &it : _objects) {
+            if (!it->getTypeField().isInputBox)
+                continue;
+            auto button = std::dynamic_pointer_cast<button::Button>(it);
+            if (std::find(_playerIA.begin(), _playerIA.end(), button->getText()) != _playerIA.end()) {
+                _settings._players[fillStruct].name.assign(button->getText());
+                ++fillStruct;
+            }
+        }
+    }
+
     Scenes SceneNewGame::run(Raylib &lib, Scenes const &prevScene)
     {
         char input;
@@ -63,6 +93,8 @@ namespace newGame {
                 }
             lib.printObjects(_objects);
         }
+        fillAi();
+        fillName();
         if (!_select)
             return (Scenes::MENU);
         return (Scenes::GAME);

@@ -8,7 +8,7 @@
 #include "InputBox.hpp"
 
 InputBox::InputBox(const coords &pos, const std::pair<int, int> &size, const std::string &path, int sizeText, float scale, std::pair<RGB, RGB> color)
-    : button::Button(pos, size, path, std::string(), sizeText, scale, color)
+    : button::Button(pos, size, path, "", sizeText, scale, color)
 {
     _typeField.isInputBox = true;
 }

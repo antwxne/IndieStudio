@@ -51,6 +51,8 @@ namespace newGame {
             ~SceneNewGame();
             Scenes run(Raylib &lib, Scenes const &prevScene) final;
         private:
+            void fillAi();
+            void fillName();
             std::pair<float, float> _mousePos;
             int _select;
             bool _pressed;

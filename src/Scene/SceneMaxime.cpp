@@ -45,6 +45,7 @@ SceneMaxime::~SceneMaxime()
 
 Scenes SceneMaxime::run(Raylib &lib, Scenes const &prevScene)
 {
+    std::cout << _settings._players.at(0).name << " " << _settings._players.at(2).name << " " << _settings._players.at(2).ai << std::endl;
     while (lib.gameLoop()) {
         lib.printObjects(_objects);
     }
