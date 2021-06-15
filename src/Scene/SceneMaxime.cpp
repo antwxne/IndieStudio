@@ -36,7 +36,7 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings)
     _objects.emplace_back(std::make_shared<Ground>(coords(0, 0, 0), std::make_pair(20, 16), std::pair<std::string, std::string>(_assetsPath.at(0), _assetsPath.at(1))));
     for (auto const &block : map->_objectNoDestructibleList)
         _objects.emplace_back(std::make_shared<Wall>(block));
-    for (auto const &block : map->_objectDestructibleList)
+    for (auto const &block : map->_objectDestructibleList) {
         _objects.emplace_back(std::make_shared<DestructibleWall>(block));
         _objects.back()->set3d(true);
         _objects.back()->setScale(1.0f);
@@ -48,16 +48,16 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings)
         std::make_pair(RGB(0, 0, 0), RGB()));
     tmp->setRect(true);*/
     auto const &carre = std::make_unique<RectangleUI>();
-    for (auto const &carr : carre->_border) {
+    /*for (auto const &carr : carre->_border) {
         _objects.emplace_back(std::make_shared<BorderPlayer>(carr));
-    }
+    }*//*
     for (auto const &i: _uiLifePos) {
         auto tmp = std::make_shared<UiObject>(coords(i.first, i.second),
             std::make_pair(20, 20), "", 1,
             std::make_pair(RGB(150, 150, 150), RGB()));
         tmp->setFillRect(true);
         _objects.emplace_back(tmp);
-    }
+    }*/
     // _objects.emplace_back(std::make_shared<Wall>(coords(0, 0, 0), std::make_pair(0, 0), std::make_pair(_assetsPath.at(0), _assetsPath.at(1))));
     // _objects.back()->set3d(true);
     // _objects.back()->setScale(0.02f);

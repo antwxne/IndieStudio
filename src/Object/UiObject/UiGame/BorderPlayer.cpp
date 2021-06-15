@@ -8,4 +8,5 @@ BorderPlayer::BorderPlayer(coords pos, std::pair<float, float> size,
     float scale, const std::pair<RGB, RGB> &color, int sizeBorder
 ) : UiObject(pos, size, "", scale, color)
 {
+    _typeField.isContourRect = true;
 }

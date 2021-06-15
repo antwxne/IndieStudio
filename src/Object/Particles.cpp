@@ -19,7 +19,7 @@ Particles::Particles(const coords &pos, const std::pair<int, int> &size,
     std::uniform_int_distribution<> alpha(100, 250);
     std::uniform_real_distribution<float> acc(0.f, 0.5f);
     std::uniform_real_distribution<float> vel(-20, 20);
-    particle tmp = {.position = pos, .color = colors.first, .size = size, .scale = scale};
+   particle tmp = {.position = pos, .color = colors.first, .size = size, .scale = scale};
 
     _particles.reserve(nParticles);
     _typeField.isParticle = true;
@@ -51,7 +51,6 @@ void Particles::update(const coords &objPos) noexcept
             i.size = _size;
         }
     }
-
 }
 void Particles::changeColor(const RGB &color) noexcept
 {
