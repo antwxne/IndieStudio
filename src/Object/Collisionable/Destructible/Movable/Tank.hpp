@@ -33,13 +33,14 @@ public:
      * @param cannon 
      */
     Tank(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path, const std::pair<std::string, std::string> &cannonPath);
-
+    Tank(const Tank &to_copy);
     /**
      * @brief Destroy the Tank object
      * 
      */
     ~Tank() = default;
 
+    Cannon const &getCannon() const;
     /**
      * @brief fire with the cannon
      * 

@@ -19,6 +19,9 @@
 #include "Object/Collisionable/Wall.hpp"
 #include "Object/UiObject/UiGame/FrameUI.hpp"
 #include "Object/UiObject/UiGame/LifeGame.hpp"
+#include "Player/Player.hpp"
+#include "Object/UiObject/Button/Button.hpp"
+#include "Object/Collisionable/Destructible/Movable/Tank.hpp"
 
 const std::vector<std::string> SceneMaxime::_assetsPath {
     "asset/background_asset/ground.png",
@@ -29,6 +32,7 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings)
 {
     auto const &map = std::make_unique<Map>();
     map->createDestructibleMap(std::make_pair(-5, -5), std::make_pair(5, 5));
+    map->createDestructibleMap(std::make_pair(-5, -5), std::make_pair(6, 6));
     map->createContourMap(std::make_pair(-10, 10), std::make_pair(-8, 8));
 
     setInputFunction(Raylib::ENTER, [&]() {
@@ -50,6 +54,14 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings)
     for (auto const &lif : life->_posLife) {
         _objects.emplace_back(std::make_shared<FullSquare>(lif));
     }
+    for (unsigned int i = 0; i != _playerName.size(); i++) {
+        _objects.emplace_back(std::make_shared<button::Button>(coords(_playerPos[i].first,_playerPos[i].second), std::make_pair(50,50), "", _playerName[i], 20, 1, std::make_pair(
+            RGB(150), RGB())));
+    }
+    for (unsigned int i = 0; i != _scorePos.size(); i++) {
+        _objects.emplace_back(std::make_shared<button::Button>(coords(_scorePos[i].first,_scorePos[i].second), std::make_pair(50,50), "", std::to_string(_playerScore[i]), 20, 1, std::make_pair(
+            RGB(150), RGB())));
+    }
 }
 
 SceneMaxime::~SceneMaxime()
@@ -59,6 +71,7 @@ SceneMaxime::~SceneMaxime()
 
 Scenes SceneMaxime::run(Raylib &lib, Scenes const &prevScene)
 {
+    std::cout << _settings._players.at(0).name << " " << _settings._players.at(2).name << " " << _settings._players.at(2).ai << std::endl;
     while (lib.gameLoop()) {
         lib.printObjects(_objects);
     }

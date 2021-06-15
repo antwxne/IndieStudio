@@ -17,12 +17,14 @@ set(SCENE_PATH src/Scene)
 set(COLLIS_PATH ${OBJECT_PATH}/Collisionable)
 set(UIOBJECT_PATH ${OBJECT_PATH}/UiObject)
 set(BUTTON_PATH ${UIOBJECT_PATH}/Button)
+set(INPUTBOX_PATH ${BUTTON_PATH}/InputBox)
 set(DESTRUCT_PATH ${COLLIS_PATH}/Destructible)
 set(MOVABLE_PATH ${DESTRUCT_PATH}/Movable)
 set(MAP_PATH src/Map)
 set(SCENE_PATH src/Scene)
 set(GROUND_PATH src/Object/Ground)
 set(UIGAME_PATH src/Object/UiObject/UiGame)
+set(PLAYER_PATH src/Player)
 
 
 # Include directories
@@ -36,10 +38,12 @@ include_directories(${OBJECT_PATH})
 include_directories(${SCENE_PATH})
 include_directories(${COLLIS_PATH})
 include_directories(${BUTTON_PATH})
+include_directories(${INPUTBOX_PATH})
 include_directories(${DESTRUCT_PATH})
 include_directories(${MOVABLE_PATH})
 include_directories(${GROUND_PATH})
 include_directories(${UIGAME_PATH})
+include_directories(${PLAYER_PATH})
 
 # Source files
 set(RAYLIB_SRCS
@@ -60,6 +64,10 @@ set(CORE_SRCS
 
 set(UIOBJECT_SRCS
         ${UIOBJECT_PATH}/UiObject.cpp
+)
+
+set(INPUTBOX_SRCS
+        ${INPUTBOX_PATH}/InputBox.cpp
 )
 
 set(BUTTON_SRCS
@@ -101,6 +109,9 @@ set(UIGAME_SRCS
         ${UIGAME_PATH}/BorderPlayer.cpp
         ${UIGAME_PATH}/FrameUI.cpp
         ${UIGAME_PATH}/FullSquare.cpp
+)
+set(PLAYER_SRCS
+        ${PLAYER_PATH}/Player.cpp
         )
 
 set(INDIE_SRCS
@@ -108,12 +119,14 @@ set(INDIE_SRCS
         ${ERROR_SRCS}
         ${UIOBJECT_SRCS}
         ${BUTTON_SRCS}
+        ${INPUTBOX_SRCS}
         ${MAP_SRCS}
         ${CORE_SRCS}
         ${OBJECTS_SRCS}
         ${SCENE_SRCS}
         ${GROUND_SRCS}
         ${UIGAME_SRCS}
+        ${PLAYER_SRCS}
         )
 # Compilation
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules/)

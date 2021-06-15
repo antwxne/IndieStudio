@@ -72,10 +72,12 @@ public:
 
     void setCamera(Vector3 &pos, Vector3 &target, Vector3 &up, float &fovy, int &projection) noexcept;
     Camera getCamera() const noexcept;
+    bool checkCollision(std::pair<float, float> mousePos, float width, float height, float posX, float posY);
 
     bool isControllerDetected(int const &idx) const noexcept;
     bool isControllerValid(int const &idx, std::string const &ControllerName) const noexcept;
     std::string getControllerName(int const &idx) const noexcept;
+    char getPressedCharacter() noexcept;
 
     bool isMousePressed() const noexcept;
     bool isMouseDown() const noexcept;

@@ -30,7 +30,10 @@ namespace core {
         // {Scenes::OPTION,        [](const Setting & &settings){return std::make_unique<SceneOption>(settings);}},
         // {Scenes::LEADERBOARD,   [](const Setting & &settings){return std::make_unique<SceneBoard>(settings);}}
     };
-
+    /**
+     * @class Core
+     * @brief core of the game
+     */
     class Core {
         public:
             Core(int screenWidth = 1920, int screenHeight = 1080, std::string const &title = "default", const std::size_t &fps = 60);
