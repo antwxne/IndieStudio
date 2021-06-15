@@ -1,7 +1,7 @@
 # Blender MTL File: 'None'
 # Material Count: 1
 
-newmtl Green.001
+newmtl Green
 Ns 225.000000
 Ka 1.000000 1.000000 1.000000
 Kd 0.093059 0.138432 0.048172

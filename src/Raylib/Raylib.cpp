@@ -109,8 +109,8 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
             auto const &derived = std::dynamic_pointer_cast<UiObject>(i);
             drawTexture(derived->getTexture(), {i->getPosition().first, i->getPosition().second}, i->getRotation(), i->getScale(), i->getColors().first);
             if (i->getTypeField().isButton) {
-                auto const &derivedButton = std::dynamic_pointer_cast<Button>(i);
-                drawText(derivedButton->getText(), derivedButton->getTextPos(), i->getSize().first, i->getColors().second);
+                auto const &derivedButton = std::dynamic_pointer_cast<button::Button>(i);
+                drawText(derivedButton->getText(), derivedButton->getTextPos(), derivedButton->getTextSize(), i->getColors().second);
             }
         }
     }
