@@ -16,10 +16,8 @@ Cannon::Cannon(const coords &pos, const std::pair<int, int> &size, const std::pa
     _scale = 0.2f;
 }
 
-Cannon::Cannon(const Cannon &to_copy) : MovableObject(to_copy._pos, to_copy._size, to_copy._path)
+Cannon::Cannon(const Cannon &to_copy) : Cannon(to_copy._pos, to_copy._size, to_copy._path)
 {
-    _typeField.isCannon = true;
-    _scale = 0.2f;
 }
 
 void Cannon::fire()

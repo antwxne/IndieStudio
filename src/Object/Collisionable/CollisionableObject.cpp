@@ -10,16 +10,14 @@
 
 CollisionableObject::CollisionableObject(const coords &pos,
     const std::pair<int, int> &size, const std::pair<std::string, std::string> &path
-) : AObject(pos, size, 1)
+) : AObject(pos, size, 1), _path(path)
 {
-    _path = path;
     _typeField.is3D = true;
     _typeField.isCollisionable = true;
 }
 
-CollisionableObject::CollisionableObject(CollisionableObject const &object) : AObject(object._pos, object._size, 1), _path(object._path)
+CollisionableObject::CollisionableObject(CollisionableObject const &object) : AObject(object._pos, object._size, object._scale), _path(object._path)
 {
-    _path = object._path;
     _typeField.is3D = true;
     _typeField.isCollisionable = true;
 }
