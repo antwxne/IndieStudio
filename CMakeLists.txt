@@ -65,6 +65,8 @@ set(BUTTON_SRCS
 
 set(OBJECTS_SRCS
         ${OBJECT_PATH}/AObject.cpp
+        ${OBJECT_PATH}/Particles.cpp
+        ${OBJECT_PATH}/Particles.hpp
         ${COLLIS_PATH}/CollisionableObject.cpp
         ${COLLIS_PATH}/Wall.cpp
         ${BUTTON_PATH}/Button.cpp
@@ -76,8 +78,7 @@ set(OBJECTS_SRCS
         ${MOVABLE_PATH}/Bullet.cpp
         ${MOVABLE_PATH}/TankAi.cpp
         ${MOVABLE_PATH}/TankAi.hpp
-        ${MOVABLE_PATH}/Particles.cpp
-        ${MOVABLE_PATH}/Particles.hpp)
+        )
 
 set(SCENE_SRCS
         ${SCENE_PATH}/AScene.cpp
