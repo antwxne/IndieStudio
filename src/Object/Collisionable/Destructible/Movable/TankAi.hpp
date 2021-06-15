@@ -24,8 +24,7 @@ public:
      * @param size 
      * @param cannon 
      */
-    TankAI(const coords &pos, const std::pair<int, int> &size,
-        Cannon &cannon);
+    TankAI(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path, const std::pair<std::string, std::string> &cannonPath);
     /**
      * @brief Destroy the Tank A I object
      * 

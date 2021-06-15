@@ -21,19 +21,23 @@ const std::vector<std::string> SceneMaxime::_assetsPath{
 
 SceneMaxime::SceneMaxime(std::shared_ptr<Setting> settings) : AScene(settings)
 {
-    /* auto const &map = std::make_unique<Map>();
+    auto const &map = std::make_unique<Map>();
 
-     setInputFunction(Raylib::ENTER, [&]() {
-         _enter = !_enter;
-     });
-     map->createDestructibleMap(std::make_pair(0, 0), std::make_pair(5, 5));
-      map->createContourMap(10, 10);
-      for (auto const &block : map->_objectNoDestructibleList) {
-          std::cout << "[BLOCK] position => " << block.getPosition().first << " " << block.getPosition().second << " " << block.getPosition().third << "\n";
-          _objects.emplace_back(std::make_shared<Wall>(block));
-          _objects.back()->set3d(true);
-          _objects.back()->setScale(0.02f);
-      }*/
+    setInputFunction(Raylib::ENTER, [&]() {
+        _enter = !_enter;
+    });
+    map->createDestructibleMap(std::make_pair(0, 0), std::make_pair(5, 5));
+    map->createContourMap(std::make_pair(-10, 10), std::make_pair(-8, 8));
+    for (auto const &block : map->_objectNoDestructibleList) {
+        _objects.emplace_back(std::make_shared<Wall>(block));
+        _objects.back()->set3d(true);
+        _objects.back()->setScale(1.0f);
+    }
+    for (auto const &block : map->_objectDestructibleList) {
+        _objects.emplace_back(std::make_shared<DestructibleWall>(block));
+        _objects.back()->set3d(true);
+        _objects.back()->setScale(1.0f);
+    }
     for (unsigned int i = 0; i != _uiGamePos.size(); i++) {
         auto tmp = std::make_shared<UiObject>(
             coords(_uiGamePos[i].first, _uiGamePos[i].second),

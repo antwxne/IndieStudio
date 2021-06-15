@@ -8,8 +8,8 @@
 #include "Raylib/Raylib.hpp"
 #include "MovableObject.hpp"
 
-MovableObject::MovableObject(const coords &pos, const std::pair<int, int> &size)
-     : DestructibleObject(pos, size, std::pair<std::string, std::string> {"", ""}), _speed(0)
+MovableObject::MovableObject(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path)
+     : DestructibleObject(pos, size, path), _speed(0)
 {
     _typeField.isMovable = true;
 }
