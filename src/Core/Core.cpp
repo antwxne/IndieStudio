@@ -10,8 +10,8 @@
 
 namespace core {
 
-    Core::Core(int screenWidth, int screenHeight, std::string const &title, std::size_t const fps)
-        : _title(title), _scenePos(Scenes::MENU), _settings(screenWidth, screenHeight, fps)
+    Core::Core(int screenWidth, int screenHeight, std::string const &title, const std::size_t &fps)
+        : _settings(screenWidth, screenHeight, fps, 1.0f, 1.0f), _scenePos(Scenes::MENU), _title(title)
     {
     }
 
@@ -31,5 +31,4 @@ namespace core {
             lib.freeResources();
         }
     }
-
 }

@@ -14,7 +14,7 @@
 class SceneBoard : public AScene
 {
     public:
-        SceneBoard(Setting & settings);
+        SceneBoard(Setting &settings);
         ~SceneBoard();
         Scenes run(Raylib &lib, Scenes const &prevScene) final;
 };

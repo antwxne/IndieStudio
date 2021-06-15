@@ -19,8 +19,8 @@ Tank::Tank(const coords &pos, const std::pair<int, int> &size, const std::pair<s
     _typeField.isTank = true;
     _life = 10;
     _speed = 5;
-    //changer le sprite
 }
+
 void Tank::fire()
 {
     _cannon.fire();

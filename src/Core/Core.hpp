@@ -10,7 +10,7 @@
 
 #include <string>
 #include "Scene/IScene.hpp"
-#include "Settings.hpp"
+#include "Setting.hpp"
 #include <memory>
 #include <unordered_map>
 #include "SceneMaxime.hpp"
@@ -33,7 +33,7 @@ namespace core {
 
     class Core {
         public:
-            Core(int screenWidth = 1920, int screenHeight = 1080, std::string const &title = "default", std::size_t const fps = 60);
+            Core(int screenWidth = 1920, int screenHeight = 1080, std::string const &title = "default", const std::size_t &fps = 60);
             ~Core();
 
             void start();
