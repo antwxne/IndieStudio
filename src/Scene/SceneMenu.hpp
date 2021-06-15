@@ -29,7 +29,7 @@ namespace menu {
     };
 
     static const std::vector<std::string> _menuText {
-        "Start game",
+        "New game",
         "Load game",
         "Settings",
         "Leaderboard",
@@ -53,12 +53,6 @@ namespace menu {
     };
 
     static const std::string _bgPath = "asset/background_asset/Background_01.png";
-
-    static const std::array<std::string, 3> _buttonPath {
-        "asset/menu_asset/Button_blue.png",
-        "asset/menu_asset/Button_beige.png",
-        "asset/menu_asset/Button_blue_pressed.png"
-    };
 
     static const std::string _soundsPath = "asset/sound_effects/tud.wav";
 
