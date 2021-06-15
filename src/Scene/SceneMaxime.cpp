@@ -20,7 +20,7 @@ const std::vector<std::string> SceneMaxime::_assetsPath {
     "asset/box_test/Box.obj",
 };
 
-SceneMaxime::SceneMaxime(std::shared_ptr<Setting> settings) : AScene(settings)
+SceneMaxime::SceneMaxime(Setting & settings) : AScene(settings)
 {
     auto const &map = std::make_unique<Map>();
 

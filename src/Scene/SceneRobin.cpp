@@ -12,7 +12,7 @@
 #include "Core.hpp"
 #include "Tank.hpp"
 
-SceneRobin::SceneRobin(std::shared_ptr<Setting> settings) : AScene(settings)
+SceneRobin::SceneRobin(Setting & settings) : AScene(settings)
 {
     // setInputFunction(Raylib::ENTER, [](){std::cout << "ENTERRRRRRR" << std::endl;});
     _objects.emplace_back(std::make_shared<Tank>(Tank({10,10,10}, {10, 10}, {Tank::body, Tank::sandCamo}, {Tank::turret, Tank::greenCamo})));

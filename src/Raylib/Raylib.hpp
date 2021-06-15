@@ -32,19 +32,17 @@ class Raylib
 public:
     using uIObject = std::shared_ptr<IObject>;
     using vectorObject = std::vector<uIObject>;
-    enum Keys {
+    enum Inputs {
         NULL_KEY,
         ENTER,
         SPACE,
         ESCAPE,
         TAB,
-        CLICK,
-        RELEASED,
         UP,
         DOWN,
         RIGHT,
         LEFT,
-        A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
+        A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, PRESSED, RELEASED
     };
 
     Raylib();

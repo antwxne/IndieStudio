@@ -7,7 +7,7 @@
 
 #include "AScene.hpp"
 
-AScene::AScene(std::shared_ptr<Setting> settings) : _settings(settings)
+AScene::AScene(Setting &settings) : _settings(settings)
 {
 }
 
@@ -22,7 +22,7 @@ void AScene::triggerInputActions(Raylib &lib)
             itKey->second();
     }
     if (lib.isMousePressed()) {
-        itKey = _keys.find(Raylib::CLICK);
+        itKey = _keys.find(Raylib::PRESSED);
         if (itKey != _keys.end())
             itKey->second();
     }
@@ -33,7 +33,7 @@ void AScene::triggerInputActions(Raylib &lib)
     }
 }
 
-void AScene::setInputFunction(Raylib::Keys key, std::function<void()> func)
+void AScene::setInputFunction(Raylib::Inputs key, std::function<void()> func)
 {
     std::unordered_map<int,std::function<void()>>::iterator itKey;
 

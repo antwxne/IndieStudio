@@ -78,7 +78,7 @@ namespace menu {
     class SceneMenu : public AScene
     {
         public:
-            SceneMenu(std::shared_ptr<Setting> settings);
+            SceneMenu(Setting &settings);
             ~SceneMenu();
             Scenes run(Raylib &lib, Scenes const &prevScene) final;
 
