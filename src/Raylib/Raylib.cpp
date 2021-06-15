@@ -10,6 +10,7 @@
 #include "Raylib.hpp"
 #include "RaylibError.hpp"
 #include "Object/Collisionable/CollisionableObject.hpp"
+#include "Object/Ground/Ground.hpp"
 #include "UiObject/UiObject.hpp"
 #include "Button.hpp"
 
@@ -90,13 +91,18 @@ const std::pair<float, float> Raylib::getMousePosition() const noexcept
 void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
 {
     BeginDrawing();
-    ClearBackground(RAYWHITE);
-    DrawGrid(30, 1.0f);
+    ClearBackground(BLACK);
     for (auto &i : objects) {
-        if (i->getTypeField().is3D && i->getTypeField().isCollisionable) {
+        if (i->getTypeField().is3D) {
             BeginMode3D(_camera);
+            if (i->getTypeField().isCollisionable) {
             auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
             drawModel(derived->getModel(), derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first);
+            }
+            else if (i->getTypeField().isGround) {
+                auto const &derived = std::dynamic_pointer_cast<Ground>(i);
+                drawMesh(derived->getModel(), derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first, i->getSize());
+            }
             EndMode3D();
         }
         if (!i->getTypeField().is3D) {
@@ -197,6 +203,23 @@ void Raylib::updateMusic(const std::string &path)
     if (it == _music.end())
         return;
     UpdateMusicStream(it->second);
+}
+
+void Raylib::drawMesh(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint, const std::pair<int, int> &size)
+{
+    auto it = _models.find(modelPath);
+    auto at = _textures.find(texturePath);
+
+    if (at == _textures.end()) {
+        _textures.insert({texturePath, LoadTexture(texturePath.c_str())});
+        at = _textures.find(texturePath);
+    }
+    if (it == _models.end()) {
+        _models.insert({modelPath, LoadModelFromMesh(GenMeshPlane(size.first, size.second, 5, 5))});
+        it = _models.find(modelPath);
+        SetMaterialTexture(&it->second.materials[0], MAP_DIFFUSE, at->second);
+    }
+    DrawModel(it->second, {pos.first, pos.second, pos.third}, scale, {tint.r, tint.g, tint.b, tint.a});
 }
 
 void Raylib::drawModel(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint)
