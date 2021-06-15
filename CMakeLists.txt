@@ -76,7 +76,8 @@ set(OBJECTS_SRCS
         ${MOVABLE_PATH}/Bullet.cpp
         ${MOVABLE_PATH}/TankAi.cpp
         ${MOVABLE_PATH}/TankAi.hpp
-        )
+        ${MOVABLE_PATH}/Particles.cpp
+        ${MOVABLE_PATH}/Particles.hpp)
 
 set(SCENE_SRCS
         ${SCENE_PATH}/AScene.cpp

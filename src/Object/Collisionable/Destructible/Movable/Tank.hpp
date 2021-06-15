@@ -18,6 +18,12 @@
  */
 class Tank: public MovableObject {
 public:
+
+    static const std::string sandCamo;
+    static const std::string greenCamo;
+    static const std::string body;
+    static const std::string turret;
+    static const std::string cannon;
     /**
      * @brief Construct a new Tank object
      * 
@@ -25,8 +31,7 @@ public:
      * @param size 
      * @param cannon 
      */
-    Tank(const coords &pos, const std::pair<int, int> &size,
-        Cannon &cannon);
+    Tank(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path, const std::pair<std::string, std::string> &cannonPath);
     /**
      * @brief Destroy the Tank object
      * 
@@ -40,7 +45,7 @@ public:
     virtual void fire();
 
 protected:
-    Cannon &_cannon;
+    Cannon _cannon;
 };
 
 #endif //INDIESTUDIO_TANK_HPP

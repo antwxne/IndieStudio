@@ -66,6 +66,11 @@ bool Raylib::isKeyPressed(int &button) const noexcept
 
 bool Raylib::isMousePressed() const noexcept
 {
+    return (IsMouseButtonPressed(MOUSE_BUTTON_LEFT));
+}
+
+bool Raylib::isMouseDown() const noexcept
+{
     return (IsMouseButtonDown(MOUSE_BUTTON_LEFT));
 }
 
@@ -158,6 +163,40 @@ int Raylib::getKeyPressed() const noexcept
     if (iterator == _keys.end())
         return (0);
     return std::distance(_keys.begin(), iterator);
+}
+
+void Raylib::displayMusic(const std::string &path, float volume)
+{
+    auto it = _music.find(path);
+
+    if (it == _music.end()) {
+        _music.insert({path, LoadMusicStream(path.c_str())});
+        it = _music.find(path);
+        it->second.looping = true;
+    }
+    SetMusicVolume(it->second, volume);
+    PlayMusicStream(it->second);
+}
+
+void Raylib::displaySound(const std::string &path, float volume)
+{
+    auto it = _sound.find(path);
+
+    if (it == _sound.end()) {
+        _sound.insert({path, LoadSound(path.c_str())});
+        it = _sound.find(path);
+    }
+    SetSoundVolume(it->second, volume);
+    PlaySoundMulti(it->second);
+}
+
+void Raylib::updateMusic(const std::string &path)
+{
+    auto it = _music.find(path);
+
+    if (it == _music.end())
+        return;
+    UpdateMusicStream(it->second);
 }
 
 void Raylib::drawModel(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint)

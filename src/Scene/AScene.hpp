@@ -19,13 +19,13 @@
 class AScene : public IScene
 {
 public:
-    AScene(std::shared_ptr<Setting> settings);
+    AScene(Setting &settings);
     virtual ~AScene() = default;
 
 protected:
     void triggerInputActions(Raylib &lib);
-    void setInputFunction(Raylib::Keys, std::function<void()> function);
-    std::shared_ptr<Setting> _settings;
+    void setInputFunction(Raylib::Inputs, std::function<void()> function);
+    Setting &_settings;
     std::vector<std::shared_ptr<IObject>> _objects;
     std::unordered_map<int,std::function<void()>> _keys = {
         {Raylib::NULL_KEY, [](){}},
@@ -33,7 +33,7 @@ protected:
         {Raylib::SPACE, [](){}},
         {Raylib::ESCAPE, [](){}},
         {Raylib::TAB, [](){}},
-        {Raylib::CLICK, [](){}},
+        {Raylib::PRESSED, [](){}},
         {Raylib::RELEASED, [](){}},
         {Raylib::UP, [](){}},
         {Raylib::DOWN, [](){}},

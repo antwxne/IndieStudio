@@ -22,13 +22,13 @@
 
 namespace core {
 
-    static const std::unordered_map<Scenes, std::function<std::unique_ptr<IScene>(std::shared_ptr<Setting> settings)>> _enumToConstructor {
-        {Scenes::GAME,          [](const std::shared_ptr<Setting> &settings){return std::make_unique<SceneMaxime>(settings);}},
-        //{Scenes::MENU,          [](const std::shared_ptr<Setting> &settings){return std::make_unique<menu::SceneMenu>(settings);}},
-        // {Scenes::NEW_GAME,      [](const std::shared_ptr<Setting> &settings){return std::make_unique<SceneNewGame>(settings);}},
-        // {Scenes::LOAD,          [](const std::shared_ptr<Setting> &settings){return std::make_unique<SceneRobin>(settings);}},
-        // {Scenes::OPTION,        [](const std::shared_ptr<Setting> &settings){return std::make_unique<SceneOption>(settings);}},
-        // {Scenes::LEADERBOARD,   [](const std::shared_ptr<Setting> &settings){return std::make_unique<SceneBoard>(settings);}}
+    static const std::unordered_map<Scenes, std::function<std::unique_ptr<IScene>(Setting &settings)>> _enumToConstructor {
+        {Scenes::MENU,          [](Setting &settings){return std::make_unique<menu::SceneMenu>(settings);}},
+        {Scenes::GAME,          [](Setting &settings){return std::make_unique<SceneMaxime>(settings);}},
+        // {Scenes::NEW_GAME,      [](const Setting & &settings){return std::make_unique<SceneNewGame>(settings);}},
+        // {Scenes::LOAD,          [](const Setting & &settings){return std::make_unique<SceneRobin>(settings);}},
+        // {Scenes::OPTION,        [](const Setting & &settings){return std::make_unique<SceneOption>(settings);}},
+        // {Scenes::LEADERBOARD,   [](const Setting & &settings){return std::make_unique<SceneBoard>(settings);}}
     };
 
     class Core {
@@ -41,7 +41,7 @@ namespace core {
         protected:
         private:
             std::unique_ptr<IScene> _scene;
-            std::shared_ptr<Setting> _settings;
+            Setting _settings;
             Scenes _scenePos;
             std::string _title;
     };

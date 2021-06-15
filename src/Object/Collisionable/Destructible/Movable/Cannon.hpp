@@ -26,8 +26,7 @@ public:
      * @param size 
      * @param bullet 
      */
-    Cannon(const coords &pos, const std::pair<int, int> &size,
-        Bullet &bullet);
+    Cannon(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path);
 
     /**
      * @brief shot one bullet
@@ -35,7 +34,7 @@ public:
      */
     void fire();
 private:
-    Bullet &_bullet;
+    std::vector<Bullet> _bullets;
 };
 
 #endif //INDIESTUDIO_CANNON_HPP

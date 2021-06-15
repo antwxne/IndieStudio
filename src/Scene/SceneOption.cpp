@@ -8,7 +8,7 @@
 #include "Core.hpp"
 #include "SceneOption.hpp"
 
-SceneOption::SceneOption(std::shared_ptr<Setting> settings) : AScene(settings), _quit(false)
+SceneOption::SceneOption(Setting & settings) : AScene(settings), _quit(false)
 {
     setInputFunction(Raylib::ENTER, [&]() {
         _quit = !_quit;

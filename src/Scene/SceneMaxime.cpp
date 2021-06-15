@@ -20,7 +20,7 @@ const std::vector<std::string> SceneMaxime::_assetsPath {
     "asset/background_asset/woodFloor.png",
 };
 
-SceneMaxime::SceneMaxime(std::shared_ptr<Setting> settings) : AScene(settings)
+SceneMaxime::SceneMaxime(Setting & settings) : AScene(settings)
 {
     std::cout << "[SCENE MAXIME] init les assets\n";
     auto const &map = std::make_unique<Map>();
