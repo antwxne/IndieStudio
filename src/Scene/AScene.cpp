@@ -21,7 +21,7 @@ void AScene::triggerInputActions(Raylib &lib)
         if (itKey != _keys.end())
             itKey->second();
     }
-    if (lib.isMousePressed()) {
+    if (lib.isMouseDown()) {
         itKey = _keys.find(Raylib::PRESSED);
         if (itKey != _keys.end())
             itKey->second();

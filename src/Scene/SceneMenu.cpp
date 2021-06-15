@@ -43,11 +43,13 @@ namespace menu {
 
     Scenes SceneMenu::run(Raylib &lib, Scenes const &prevScene)
     {
-        //_music->StartMusic();
+        lib.displayMusic(_musicPath, _settings._musicVol);
         while (!_enter && lib.gameLoop()) {
-            //_music->UpdateMusic();
+            lib.updateMusic(_musicPath);
             _mousePos = lib.getMousePosition();
             triggerInputActions(lib);
+            if (lib.isMousePressed())
+                lib.displaySound(_soundsPath, _settings._soundVol);
             for (auto &it : _objects)
                 if (it->getTypeField().isButton) {
                     auto button = std::dynamic_pointer_cast<Button>(it);
