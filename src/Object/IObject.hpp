@@ -61,34 +61,8 @@ struct coords
     float third;
 };
 
-// template<typename T>
-// struct Type3
-// {
-//     Type3(T f, T s, T t) : first(f), second(s), third(t) {};
-//     T first;
-//     T second;
-//     T third;
-// };
-
-// template <typename T>
-// struct Type3<T> &operator+=(struct Type3<T>&current, const struct Type3<T> &other)
-// {
-//     current.first += other.first;
-//     current.second += other.second;
-//     current.third += other.third;
-//     return current;
-// }
-
-// template<typename T>
-// struct Type3<T> &operator-(struct Type3<T> &a, const struct Type3<T> &b)
-// {
-//     a.first -= b.first;
-//     a.second -= b.second;
-//     a.third -= b.third;
-//     return a;
-// }
-
 struct typeField {
+    typeField() : is3D(false), isObject(false), isButton(false), isCollisionable(false), isDestructible(false), isMovable(false), isTank(false), isCannon(false), isBullet(false), isIa(false), isWall(false), isGround(false), isParticle(false), isContourRect(false), isFillRect(false) {}
     bool is3D: 1;
     bool isObject: 1;
     bool isButton: 1;
@@ -103,6 +77,7 @@ struct typeField {
     bool isGround: 1;
     bool isContourRect: 1;
     bool isFillRect: 1;
+    bool isParticle: 1;
 };
 
 /**

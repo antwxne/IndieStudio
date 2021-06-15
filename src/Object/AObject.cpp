@@ -10,13 +10,11 @@
 AObject::AObject(const coords &pos, const std::pair<int, int> &size, float scale, const std::pair<RGB, RGB> &colors)
     : _pos(pos), _size(size), _rotation(0), _scale(scale), _color(colors)
 {
-    _typeField.is3D = false;
 }
 
 AObject::AObject(const coords &pos, const std::pair<int, int> &size, float scale)
     : _pos(pos), _size(size), _rotation(0), _scale(scale), _color(std::make_pair(RGB(), RGB()))
 {
-    _typeField.is3D = false;
 }
 
 const coords &AObject::getPosition() const noexcept

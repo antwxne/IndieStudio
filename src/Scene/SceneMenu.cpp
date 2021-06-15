@@ -13,9 +13,9 @@
 
 namespace menu {
 
-    SceneMenu::SceneMenu(std::shared_ptr<Setting> settings) : _select(menu_e::START), _enter(false), AScene(settings), _pressed(false)
+    SceneMenu::SceneMenu(Setting &settings) : _select(menu_e::START), _enter(false), AScene(settings), _pressed(false)
     {
-        setInputFunction(Raylib::CLICK, [&]() {
+        setInputFunction(Raylib::PRESSED, [&]() {
             _pressed = true;
         });
         setInputFunction(Raylib::RELEASED, [&]() {
@@ -33,7 +33,7 @@ namespace menu {
         });
         _objects.emplace_back(std::make_shared<UiObject>(coords(), std::make_pair(0, 0), _bgPath, 1.0f));
         for (std::size_t i = 0; i != QUIT + 1; ++i)
-            _objects.emplace_back(std::make_shared<Button>(_menuPos.at(i), _menuSize.at(i), _buttonPath[buttonState_e::NOTHING], _menuText[i], 20, std::make_pair(RGB(), RGB(0, 0, 0))));
+            _objects.emplace_back(std::make_shared<Button>(_menuPos.at(i), _menuSize.at(i), _buttonPath[buttonState_e::NOTHING], _menuText[i], 20, 1, std::make_pair(RGB(), RGB(0, 0, 0))));
     }
 
     SceneMenu::~SceneMenu()
@@ -43,11 +43,13 @@ namespace menu {
 
     Scenes SceneMenu::run(Raylib &lib, Scenes const &prevScene)
     {
-        //_music->StartMusic();
+        lib.displayMusic(_musicPath, _settings._musicVol);
         while (!_enter && lib.gameLoop()) {
-            //_music->UpdateMusic();
+            lib.updateMusic(_musicPath);
             _mousePos = lib.getMousePosition();
             triggerInputActions(lib);
+            if (lib.isMousePressed())
+                lib.displaySound(_soundsPath, _settings._soundVol);
             for (auto &it : _objects)
                 if (it->getTypeField().isButton) {
                     auto button = std::dynamic_pointer_cast<Button>(it);

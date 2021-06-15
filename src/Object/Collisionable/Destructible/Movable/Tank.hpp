@@ -24,6 +24,7 @@ public:
     static const std::string body;
     static const std::string turret;
     static const std::string cannon;
+
     /**
      * @brief Construct a new Tank object
      * 
@@ -32,6 +33,7 @@ public:
      * @param cannon 
      */
     Tank(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path, const std::pair<std::string, std::string> &cannonPath);
+
     /**
      * @brief Destroy the Tank object
      * 

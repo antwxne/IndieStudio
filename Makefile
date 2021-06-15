@@ -28,14 +28,15 @@ all:
 clean:
 	$(RM) $(BUILD_DIR)
 
-.PHONY: clean_doc
-clean_doc:
+.PHONY: doc-clean
+doc-clean:
 	$(RM) -r $(DOC_DIR)/html/
 	$(RM) -r $(DOC_DIR)/latex/
+	$(RM) $(DOC_DIR)/refman.pdf
 
 # Clean build and binaries
 .PHONY: fclean
-fclean: clean clean_doc
+fclean: clean doc-clean
 	$(RM) $(BIN)
 
 .PHONY: re
@@ -49,6 +50,7 @@ doc:
 .PHONY: doc_pdf
 doc-pdf:	doc
 	make -C $(DOC_DIR)/latex/
+	cp $(DOC_DIR)/latex/refman.pdf $(DOC_DIR)
 
 # Launch doxygen in firefox browser
 .PHONY: doc-firefox

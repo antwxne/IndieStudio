@@ -29,7 +29,7 @@ namespace menu {
     };
 
     static const std::vector<std::string> _menuText {
-        "Start game",
+        "New game",
         "Load game",
         "Settings",
         "Leaderboard",
@@ -54,16 +54,7 @@ namespace menu {
 
     static const std::string _bgPath = "asset/background_asset/Background_01.png";
 
-    static const std::array<std::string, 3> _buttonPath {
-        "asset/menu_asset/Button_blue.png",
-        "asset/menu_asset/Button_beige.png",
-        "asset/menu_asset/Button_blue_pressed.png"
-    };
-
-    static const std::vector<std::string> _soundsPath {
-        "truc_tank/Sample_0000.wav",
-        "truc_tank/Sample_0005.wav"
-    };
+    static const std::string _soundsPath = "asset/sound_effects/tud.wav";
 
     static const std::unordered_map<menu_e, Scenes> _returnScene {
         {menu_e::START,         Scenes::NEW_GAME},
@@ -73,12 +64,12 @@ namespace menu {
         {menu_e::QUIT,          Scenes::QUIT}
     };
 
-    static const std::string _musicPath = "Assets/menu_music.mp3";
+    static const std::string _musicPath = "asset/music/053 - Tanks - Variation 1.mp3";
 
     class SceneMenu : public AScene
     {
         public:
-            SceneMenu(std::shared_ptr<Setting> settings);
+            SceneMenu(Setting &settings);
             ~SceneMenu();
             Scenes run(Raylib &lib, Scenes const &prevScene) final;
 

@@ -10,7 +10,7 @@
 
 #include <string>
 #include "Scene/IScene.hpp"
-#include "Settings.hpp"
+#include "Setting.hpp"
 #include <memory>
 #include <unordered_map>
 #include "SceneMaxime.hpp"
@@ -22,18 +22,18 @@
 
 namespace core {
 
-    static const std::unordered_map<Scenes, std::function<std::unique_ptr<IScene>(std::shared_ptr<Setting> settings)>> _enumToConstructor {
-        {Scenes::MENU,          [](const std::shared_ptr<Setting> &settings){return std::make_unique<menu::SceneMenu>(settings);}},
-        {Scenes::GAME,          [](const std::shared_ptr<Setting> &settings){return std::make_unique<SceneMaxime>(settings);}},
-        // {Scenes::NEW_GAME,      [](const std::shared_ptr<Setting> &settings){return std::make_unique<SceneNewGame>(settings);}},
-        // {Scenes::LOAD,          [](const std::shared_ptr<Setting> &settings){return std::make_unique<SceneRobin>(settings);}},
-        // {Scenes::OPTION,        [](const std::shared_ptr<Setting> &settings){return std::make_unique<SceneOption>(settings);}},
-        // {Scenes::LEADERBOARD,   [](const std::shared_ptr<Setting> &settings){return std::make_unique<SceneBoard>(settings);}}
+    static const std::unordered_map<Scenes, std::function<std::unique_ptr<IScene>(Setting &settings)>> _enumToConstructor {
+        {Scenes::NEW_GAME,      [](Setting &settings){return std::make_unique<newGame::SceneNewGame>(settings);}},
+        {Scenes::MENU,          [](Setting &settings){return std::make_unique<menu::SceneMenu>(settings);}},
+        {Scenes::GAME,          [](Setting &settings){return std::make_unique<SceneMaxime>(settings);}},
+        // {Scenes::LOAD,          [](const Setting & &settings){return std::make_unique<SceneRobin>(settings);}},
+        // {Scenes::OPTION,        [](const Setting & &settings){return std::make_unique<SceneOption>(settings);}},
+        // {Scenes::LEADERBOARD,   [](const Setting & &settings){return std::make_unique<SceneBoard>(settings);}}
     };
 
     class Core {
         public:
-            Core(int screenWidth = 1920, int screenHeight = 1080, std::string const &title = "default", std::size_t const fps = 60);
+            Core(int screenWidth = 1920, int screenHeight = 1080, std::string const &title = "default", const std::size_t &fps = 60);
             ~Core();
 
             void start();
@@ -41,7 +41,7 @@ namespace core {
         protected:
         private:
             std::unique_ptr<IScene> _scene;
-            std::shared_ptr<Setting> _settings;
+            Setting _settings;
             Scenes _scenePos;
             std::string _title;
     };

@@ -26,26 +26,27 @@
 #include "raylib.h"
 
 #include "Object/IObject.hpp"
-    #include "Object/UiObject/UiGame/BorderPlayer.hpp"
+#include "Object/UiObject/UiGame/BorderPlayer.hpp"
+#include "Object/AObject.hpp"
 
 class Raylib
 {
 public:
-    using uIObject = std::shared_ptr<IObject>;
-    using vectorObject = std::vector<uIObject>;
-    enum Keys {
+    using uAObject = std::shared_ptr<AObject>;
+    using vectorObject = std::vector<uAObject>;
+    enum Inputs {
         NULL_KEY,
         ENTER,
         SPACE,
         ESCAPE,
         TAB,
-        CLICK,
-        RELEASED,
         UP,
         DOWN,
         RIGHT,
         LEFT,
         A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
+        PRESSED,
+        RELEASED
     };
 
     Raylib();
@@ -60,8 +61,14 @@ public:
     void printFps(std::pair<int, int> const &pos) const noexcept;
     void printGrid(int const &slices, float const &space) const noexcept;
     void drawModel(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint);
-    void drawTexture(const std::string &path, int posX, int posY, RGB tint);
+    void drawMesh(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint, const std::pair<int, int> &size);
+
+//    void drawTexture(const std::string &path, int posX, int posY, RGB tint);
+    void drawTexture(const std::string &path, Vector2 pos, float rotation, float scale, RGB tint);
+
     void drawText(const std::string &text, coords pos, float scale, RGB tint);
+    void displayMusic(const std::string &path, float volume);
+    void displaySound(const std::string &path, float volume);
 
     void setCamera(Vector3 &pos, Vector3 &target, Vector3 &up, float &fovy, int &projection) noexcept;
     Camera getCamera() const noexcept;
@@ -71,6 +78,7 @@ public:
     std::string getControllerName(int const &idx) const noexcept;
 
     bool isMousePressed() const noexcept;
+    bool isMouseDown() const noexcept;
     bool isMouseReleased() const noexcept;
     bool isKeyPressed(int &button) const noexcept;
     bool isKeyReleased(int &button) const noexcept;
@@ -80,6 +88,7 @@ public:
     void drawRectangleLines(int const &posX, int const &posY, int const &width, int const &height, RGB color) const noexcept;
     void drawRectangle(int const &posX, int const &posY, int const &width, int const &height, RGB color) const noexcept;
     static float getDeltaTime() noexcept;
+    void updateMusic(const std::string &path);
     void freeResources();
     void drawRectangleLinesEx(const float &posX, const float &posY, const float &width,
         const float &height, RGB color, int const &lineThick) noexcept;
@@ -91,6 +100,8 @@ private:
     Camera _camera;
     std::unordered_map<std::string, Model> _models;
     std::unordered_map<std::string, Texture2D> _textures;
+    std::unordered_map<std::string, Music> _music;
+    std::unordered_map<std::string, Sound> _sound;
     std::vector<int> _keys = {
         KEY_NULL,
         KEY_ENTER,

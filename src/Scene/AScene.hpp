@@ -12,28 +12,28 @@
 #include <string>
 
 #include "Raylib.hpp"
-#include "IObject.hpp"
+#include "AObject.hpp"
 #include "IScene.hpp"
-#include "Settings.hpp"
+#include "Setting.hpp"
 
 class AScene : public IScene
 {
 public:
-    AScene(std::shared_ptr<Setting> settings);
+    AScene(Setting &settings);
     virtual ~AScene() = default;
 
 protected:
     void triggerInputActions(Raylib &lib);
-    void setInputFunction(Raylib::Keys, std::function<void()> function);
-    std::shared_ptr<Setting> _settings;
-    std::vector<std::shared_ptr<IObject>> _objects;
+    void setInputFunction(Raylib::Inputs, std::function<void()> function);
+    Setting &_settings;
+    std::vector<std::shared_ptr<AObject>> _objects;
     std::unordered_map<int,std::function<void()>> _keys = {
         {Raylib::NULL_KEY, [](){}},
         {Raylib::ENTER, [](){}},
         {Raylib::SPACE, [](){}},
         {Raylib::ESCAPE, [](){}},
         {Raylib::TAB, [](){}},
-        {Raylib::CLICK, [](){}},
+        {Raylib::PRESSED, [](){}},
         {Raylib::RELEASED, [](){}},
         {Raylib::UP, [](){}},
         {Raylib::DOWN, [](){}},

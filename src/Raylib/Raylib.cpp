@@ -11,11 +11,12 @@
 #include "RaylibError.hpp"
 #include "Object/Collisionable/CollisionableObject.hpp"
 #include "Object/UiObject/UiGame/BorderPlayer.hpp"
+#include "Object/Ground/Ground.hpp"
 #include "UiObject/UiObject.hpp"
 #include "Button.hpp"
 
 Raylib::Raylib() : _camera(
-    {{0.0f, 17.0f, 15.0f}, {0.0f, -4.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 45.0f, 0})
+    {{0.0f, 20.0f, 20.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 40.0f, 0})
 {
 }
 
@@ -67,6 +68,11 @@ bool Raylib::isKeyPressed(int &button) const noexcept
 
 bool Raylib::isMousePressed() const noexcept
 {
+    return (IsMouseButtonPressed(MOUSE_BUTTON_LEFT));
+}
+
+bool Raylib::isMouseDown() const noexcept
+{
     return (IsMouseButtonDown(MOUSE_BUTTON_LEFT));
 }
 
@@ -101,24 +107,26 @@ void Raylib::draw(const BorderPlayer &i)
 void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
 {
     BeginDrawing();
-    ClearBackground(RAYWHITE);
-    BeginMode3D(_camera);
-    for (auto &i : objects)
-        if (i->getTypeField().is3D && i->getTypeField().isCollisionable) {
-            auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(
-                i);
-            drawModel(derived->getModel(), derived->getTexture(),
-                i->getPosition(), i->getScale(), i->getColors().first);
+    ClearBackground(BLACK);
+    for (auto &i : objects) {
+        if (i->getTypeField().is3D) {
+            BeginMode3D(_camera);
+            if (i->getTypeField().isCollisionable) {
+            auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
+            drawModel(derived->getModel(), derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first);
+            }
+            else if (i->getTypeField().isGround) {
+                auto const &derived = std::dynamic_pointer_cast<Ground>(i);
+                drawMesh(derived->getModel(), derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first, i->getSize());
+            }
+            EndMode3D();
         }
-    DrawGrid(30, 1.0f);
-    EndMode3D();
-    for (auto &i : objects)
         if (!i->getTypeField().is3D) {
             auto const &derived = std::dynamic_pointer_cast<UiObject>(i);
-            drawTexture(derived->getTexture(), i->getPosition().first, i->getPosition().second, i->getColors().first);
-            if (i->getTypeField().isButton && i->getTypeField().isContourRect == false) {
+            drawTexture(derived->getTexture(), {i->getPosition().first, i->getPosition().second}, i->getRotation(), i->getScale(), i->getColors().first);
+            if (i->getTypeField().isButton) {
                 auto const &derivedButton = std::dynamic_pointer_cast<Button>(i);
-                drawText(derivedButton->getText(), derivedButton->getTextPos(), i->getScale(), i->getColors().second);
+                drawText(derivedButton->getText(), derivedButton->getTextPos(), i->getSize().first, i->getColors().second);
             }
             //if (i->getTypeField().) {
             //    drawRectangleLinesEx(i->getPosition().first, i->getPosition().second, i->getSize().first, i->getSize().second, i->getColors().first, i->getScale());
@@ -132,6 +140,7 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
             } catch (...) {
             }
         }
+    }
     EndDrawing();
 }
 
@@ -188,9 +197,58 @@ int Raylib::getKeyPressed() const noexcept
     return std::distance(_keys.begin(), iterator);
 }
 
-void Raylib::drawModel(const std::string &modelPath,
-    const std::string &texturePath, coords pos, float scale, RGB tint
-)
+void Raylib::displayMusic(const std::string &path, float volume)
+{
+    auto it = _music.find(path);
+
+    if (it == _music.end()) {
+        _music.insert({path, LoadMusicStream(path.c_str())});
+        it = _music.find(path);
+        it->second.looping = true;
+    }
+    SetMusicVolume(it->second, volume);
+    PlayMusicStream(it->second);
+}
+
+void Raylib::displaySound(const std::string &path, float volume)
+{
+    auto it = _sound.find(path);
+
+    if (it == _sound.end()) {
+        _sound.insert({path, LoadSound(path.c_str())});
+        it = _sound.find(path);
+    }
+    SetSoundVolume(it->second, volume);
+    PlaySoundMulti(it->second);
+}
+
+void Raylib::updateMusic(const std::string &path)
+{
+    auto it = _music.find(path);
+
+    if (it == _music.end())
+        return;
+    UpdateMusicStream(it->second);
+}
+
+void Raylib::drawMesh(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint, const std::pair<int, int> &size)
+{
+    auto it = _models.find(modelPath);
+    auto at = _textures.find(texturePath);
+
+    if (at == _textures.end()) {
+        _textures.insert({texturePath, LoadTexture(texturePath.c_str())});
+        at = _textures.find(texturePath);
+    }
+    if (it == _models.end()) {
+        _models.insert({modelPath, LoadModelFromMesh(GenMeshPlane(size.first, size.second, 5, 5))});
+        it = _models.find(modelPath);
+        SetMaterialTexture(&it->second.materials[0], MAP_DIFFUSE, at->second);
+    }
+    DrawModel(it->second, {pos.first, pos.second, pos.third}, scale, {tint.r, tint.g, tint.b, tint.a});
+}
+
+void Raylib::drawModel(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint)
 {
     auto it = _models.find(modelPath);
     auto at = _textures.find(texturePath);
@@ -208,7 +266,7 @@ void Raylib::drawModel(const std::string &modelPath,
         {tint.r, tint.g, tint.b, tint.a});
 }
 
-void Raylib::drawTexture(const std::string &path, int posX, int posY, RGB tint)
+void Raylib::drawTexture(const std::string &path, Vector2 pos, float rotation, float scale, RGB tint)
 {
     auto it = _textures.find(path);
 
@@ -216,7 +274,7 @@ void Raylib::drawTexture(const std::string &path, int posX, int posY, RGB tint)
         _textures.insert({path, LoadTexture(path.c_str())});
         it = _textures.find(path);
     }
-    DrawTexture(it->second, posX, posY, {tint.r, tint.g, tint.b, tint.a});
+    DrawTextureEx(it->second, pos, rotation, scale, {tint.r, tint.g, tint.b, tint.a});
 }
 
 void Raylib::drawText(const std::string &text, coords pos, float scale,
