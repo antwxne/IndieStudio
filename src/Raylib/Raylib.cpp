@@ -16,7 +16,7 @@
 #include "Button.hpp"
 
 Raylib::Raylib() : _camera(
-    {{0.0f, 20.0f, 20.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 40.0f, 0})
+    {{0.0f, 20.0f, 15.0f}, { 0.0f, 0.0f, 2.0f}, {0.0f, 1.0f, 0.0f}, 40.0f, 0})
 {
 }
 
@@ -117,8 +117,8 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
             auto const &derived = std::dynamic_pointer_cast<UiObject>(i);
             drawTexture(derived->getTexture(), {i->getPosition().first, i->getPosition().second}, i->getRotation(), i->getScale(), i->getColors().first);
             if (i->getTypeField().isButton) {
-                auto const &derivedButton = std::dynamic_pointer_cast<Button>(i);
-                drawText(derivedButton->getText(), derivedButton->getTextPos(), i->getSize().first, i->getColors().second);
+                auto const &derivedButton = std::dynamic_pointer_cast<button::Button>(i);
+                drawText(derivedButton->getText(), derivedButton->getTextPos(), derivedButton->getTextSize(), i->getColors().second);
             }
             if (i->getTypeField().isContourRect) {
                 std::cout << i->getPosition().first << std::endl;
