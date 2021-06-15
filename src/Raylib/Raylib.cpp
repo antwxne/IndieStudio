@@ -10,6 +10,7 @@
 #include "Raylib.hpp"
 #include "RaylibError.hpp"
 #include "Object/Collisionable/CollisionableObject.hpp"
+#include "Object/UiObject/UiGame/BorderPlayer.hpp"
 #include "UiObject/UiObject.hpp"
 #include "Button.hpp"
 
@@ -81,6 +82,21 @@ const std::pair<float, float> Raylib::getMousePosition() const noexcept
     return (std::make_pair(vecPos.x, vecPos.y));
 }
 
+
+void Raylib::drawRectangleLinesEx(const float &posX, const float &posY, const float &width,
+    const float &height, RGB color, int const &lineThick) noexcept
+{
+    Rectangle rec = {posX, posY, width, height};
+    DrawRectangleLinesEx(rec, lineThick, {color.r, color.g, color.b, color.a});
+}
+
+void Raylib::draw(const BorderPlayer &i)
+{
+    std::cout << "BOYYYY\n";
+    std::cout << i.getSize().first << i.getSize().second;
+    drawRectangleLinesEx(500, 500, i.getSize().first, i.getSize().second, i.getColors().first, i.getScale());
+}
+
 //void Raylib::drawModel(const std::string &path, coords pos, float scale, RGB tint)
 void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
 {
@@ -104,11 +120,16 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
                 auto const &derivedButton = std::dynamic_pointer_cast<Button>(i);
                 drawText(derivedButton->getText(), derivedButton->getTextPos(), i->getScale(), i->getColors().second);
             }
-            if (i->getTypeField().isContourRect == true) {
-                drawRectangleLinesEx(i->getPosition().first, i->getPosition().second, i->getSize().first, i->getSize().second, i->getColors().first, i->getScale());
-            }
+            //if (i->getTypeField().) {
+            //    drawRectangleLinesEx(i->getPosition().first, i->getPosition().second, i->getSize().first, i->getSize().second, i->getColors().first, i->getScale());
+           // }
             if (i->getTypeField().isFillRect == true) {
                 drawRectangle(i->getPosition().first, i->getPosition().second, i->getSize().first, i->getSize().second, i->getColors().first);
+            }
+            try {
+                auto tmp = reinterpret_cast<BorderPlayer *>(&i);
+                draw(*tmp);
+            } catch (...) {
             }
         }
     EndDrawing();
@@ -233,11 +254,4 @@ void Raylib::drawRectangle(const int &posX, const int &posY, const int &width,
 ) const noexcept
 {
     DrawRectangle(posX, posY, width, height, {color.r, color.g, color.b, color.a});
-}
-
-void Raylib::drawRectangleLinesEx(const float &posX, const float &posY, const float &width,
-    const float &height, RGB color, int const &lineThick) noexcept
-{
-    Rectangle rec = {posX, posY, width, height};
-    DrawRectangleLinesEx(rec, lineThick, {color.r, color.g, color.b, color.a});
 }

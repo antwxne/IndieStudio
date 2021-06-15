@@ -15,6 +15,7 @@
 #include "Raylib/Raylib.hpp"
 #include "Object/AObject.hpp"
 #include "Object/Collisionable/Wall.hpp"
+#include "Object/UiObject/UiGame/RectangleUI.hpp"
 
 const std::vector<std::string> SceneMaxime::_assetsPath{
     "asset/box_test/box-textures.png", "asset/box_test/Box.obj",};
@@ -38,13 +39,15 @@ SceneMaxime::SceneMaxime(std::shared_ptr<Setting> settings) : AScene(settings)
         _objects.back()->set3d(true);
         _objects.back()->setScale(1.0f);
     }
-    for (unsigned int i = 0; i != _uiGamePos.size(); i++) {
-        auto tmp = std::make_shared<UiObject>(
-            coords(_uiGamePos[i].first, _uiGamePos[i].second),
-            std::make_pair(_uiGameSize[i].first, _uiGameSize[i].second), "", 9,
-            std::make_pair(RGB(0, 0, 0), RGB()));
-        tmp->setRect(true);
-        _objects.emplace_back(tmp);
+    //for (unsigned int i = 0; i != _uiGamePos.size(); i++) {
+    /*auto tmp = std::make_shared<UiObject>(
+        coords(_uiGamePos[i].first, _uiGamePos[i].second),
+        std::make_pair(_uiGameSize[i].first, _uiGameSize[i].second), "", 9,
+        std::make_pair(RGB(0, 0, 0), RGB()));
+    tmp->setRect(true);*/
+    auto const &carre = std::make_unique<RectangleUI>();
+    for (auto const &carr : carre->_border) {
+        _objects.emplace_back(std::make_shared<BorderPlayer>(carr));
     }
     for (auto const &i: _uiLifePos) {
         auto tmp = std::make_shared<UiObject>(coords(i.first, i.second),

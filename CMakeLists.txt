@@ -94,7 +94,7 @@ set(GROUND_SRCS
         ${GROUND_PATH}/Ground.cpp)
 
 set(UIGAME_SRCS
-        ${UIGAME_PATH}/UiGame.cpp)
+        ${UIGAME_PATH}/UiGame.cpp src/Object/UiObject/UiGame/BorderPlayer.cpp src/Object/UiObject/UiGame/BorderPlayer.hpp src/Object/UiObject/UiGame/RectangleUI.cpp src/Object/UiObject/UiGame/RectangleUI.hpp)
 
 set(INDIE_SRCS
         ${RAYLIB_SRCS}

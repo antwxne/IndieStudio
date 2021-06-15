@@ -26,6 +26,7 @@
 #include "raylib.h"
 
 #include "Object/IObject.hpp"
+    #include "Object/UiObject/UiGame/BorderPlayer.hpp"
 
 class Raylib
 {
@@ -82,8 +83,9 @@ public:
     void freeResources();
     void drawRectangleLinesEx(const float &posX, const float &posY, const float &width,
         const float &height, RGB color, int const &lineThick) noexcept;
+    void draw(const BorderPlayer &i);
 
-protected:
+    protected:
 private:
     std::pair<int, int> _screenSize;
     Camera _camera;
