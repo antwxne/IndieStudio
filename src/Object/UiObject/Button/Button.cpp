@@ -7,8 +7,8 @@
 
 #include "Button.hpp"
 
-Button::Button(const coords &pos, const std::pair<int, int> &size, const std::string &path, const std::string &text, float scale, std::pair<RGB, RGB> color)
-    : UiObject(pos, size, path, scale, color), _text(text),  _textPos(pos.first + 10, pos.second + 10)
+Button::Button(const coords &pos, const std::pair<int, int> &size, const std::string &path, const std::string &text, float sizeText, float scale, std::pair<RGB, RGB> color)
+    : UiObject(pos, size, path, scale, color), _text(text),  _textPos(pos.first + size.first / text.length(), pos.second + size.second / 3)
 {
     _typeField.isButton = true;
 }

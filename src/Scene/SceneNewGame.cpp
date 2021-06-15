@@ -14,7 +14,7 @@ namespace newGame {
     {
         _objects.emplace_back(std::make_shared<UiObject>(coords(), std::make_pair(0, 0), _bgPath, 1.0f));
         for (std::size_t i = 0; i != 2; ++i)
-            _objects.emplace_back(std::make_shared<Button>(_menuPos.at(i), _menuSize.at(i), _buttonPath[buttonState_e::NOTHING], _menuText[i], 20, std::make_pair(RGB(), RGB(0, 0, 0))));
+            _objects.emplace_back(std::make_shared<Button>(_menuPos.at(i), _buttonSize, _buttonPath[buttonState_e::NOTHING], _menuText[i], 20, 1, std::make_pair(RGB(), RGB(0, 0, 0))));
     }
 
     SceneNewGame::~SceneNewGame()

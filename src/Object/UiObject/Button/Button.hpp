@@ -17,10 +17,18 @@ enum buttonState_e
     CLICKED
 };
 
+static const std::array<std::string, 3> _buttonPath {
+    "asset/menu_asset/Button_blue.png",
+    "asset/menu_asset/Button_beige.png",
+    "asset/menu_asset/Button_blue_pressed.png"
+};
+
+static const std::pair<float, float> _buttonSize = std::make_pair(200, 50);
+
 class Button : public UiObject
 {
     public:
-        Button(const coords &pos, const std::pair<int, int> &size, const std::string &path, const std::string &text, float scale, std::pair<RGB, RGB> color);
+        Button(const coords &pos, const std::pair<int, int> &size, const std::string &path, const std::string &text, float sizeText, float scale, std::pair<RGB, RGB> color);
         ~Button();
         void setText(const std::string &newText) noexcept;
         const std::string getText() const noexcept;

@@ -23,11 +23,6 @@ namespace newGame {
         {coords(1500.0f, 800.0f, 0.0f)}
     };
 
-    static const std::vector<std::pair<float, float>> _menuSize {
-        {std::make_pair(500.0f, 300.0f)},
-        {std::make_pair(500.0f, 300.0f)}
-    };
-
     static const std::string _bgPath = "asset/background_asset/Background_02.png";
 
     class SceneNewGame : public AScene

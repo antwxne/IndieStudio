@@ -101,10 +101,10 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
         }
         if (!i->getTypeField().is3D) {
             auto const &derived = std::dynamic_pointer_cast<UiObject>(i);
-            drawTexture(derived->getTexture(), i->getPosition().first, i->getPosition().second, i->getColors().first);
+            drawTexture(derived->getTexture(), {i->getPosition().first, i->getPosition().second}, i->getRotation(), i->getScale(), i->getColors().first);
             if (i->getTypeField().isButton) {
                 auto const &derivedButton = std::dynamic_pointer_cast<Button>(i);
-                drawText(derivedButton->getText(), derivedButton->getTextPos(), i->getScale(), i->getColors().second);
+                drawText(derivedButton->getText(), derivedButton->getTextPos(), i->getSize().first, i->getColors().second);
             }
         }
     }
@@ -209,7 +209,6 @@ void Raylib::drawModel(const std::string &modelPath, const std::string &textureP
         at = _textures.find(texturePath);
     }
     if (it == _models.end()) {
-        std::cout << "[RAYLIB] le model a insert est => " << modelPath.c_str() <<"\n";
         _models.insert({modelPath, LoadModel(modelPath.c_str())});
         it = _models.find(modelPath);
         SetMaterialTexture(&it->second.materials[0], MAP_DIFFUSE, at->second);
@@ -217,7 +216,7 @@ void Raylib::drawModel(const std::string &modelPath, const std::string &textureP
     DrawModel(it->second, {pos.first, pos.second, pos.third}, scale, {tint.r, tint.g, tint.b, tint.a});
 }
 
-void Raylib::drawTexture(const std::string &path, int posX, int posY, RGB tint)
+void Raylib::drawTexture(const std::string &path, Vector2 pos, float rotation, float scale, RGB tint)
 {
     auto it = _textures.find(path);
 
@@ -225,7 +224,7 @@ void Raylib::drawTexture(const std::string &path, int posX, int posY, RGB tint)
         _textures.insert({path, LoadTexture(path.c_str())});
         it = _textures.find(path);
     }
-    DrawTexture(it->second, posX, posY, {tint.r, tint.g, tint.b, tint.a});
+    DrawTextureEx(it->second, pos, rotation, scale, {tint.r, tint.g, tint.b, tint.a});
 }
 
 void Raylib::drawText(const std::string &text, coords pos, float scale, RGB tint)
