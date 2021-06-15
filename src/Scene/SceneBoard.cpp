@@ -8,11 +8,7 @@
 #include "Core.hpp"
 #include "SceneBoard.hpp"
 
-<<<<<<< HEAD
 SceneBoard::SceneBoard(Setting &settings) : AScene(settings)
-=======
-SceneBoard::SceneBoard(Setting & settings) : AScene(settings)
->>>>>>> 45b6de4b5229598a7bd0f302740cc8b3f941e278
 {
 }
 
