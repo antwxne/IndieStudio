@@ -14,7 +14,11 @@
 class SceneOption : public AScene
 {
     public:
+<<<<<<< HEAD
         SceneOption(Setting &settings);
+=======
+        SceneOption(Setting & settings);
+>>>>>>> 45b6de4b5229598a7bd0f302740cc8b3f941e278
         ~SceneOption();
         Scenes run(Raylib &lib, Scenes const &prevScene) final;
     

@@ -7,7 +7,11 @@
 
 #include "SceneNewGame.hpp"
 
+<<<<<<< HEAD
 SceneNewGame::SceneNewGame(Setting &settings) : AScene(settings)
+=======
+SceneNewGame::SceneNewGame(Setting & settings) : AScene(settings)
+>>>>>>> 45b6de4b5229598a7bd0f302740cc8b3f941e278
 {
 }
 

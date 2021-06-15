@@ -32,19 +32,17 @@ class Raylib
 public:
     using uAObject = std::shared_ptr<AObject>;
     using vectorObject = std::vector<uAObject>;
-    enum Keys {
+    enum Inputs {
         NULL_KEY,
         ENTER,
         SPACE,
         ESCAPE,
         TAB,
-        CLICK,
-        RELEASED,
         UP,
         DOWN,
         RIGHT,
         LEFT,
-        A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
+        A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, PRESSED, RELEASED
     };
 
     Raylib();
@@ -61,6 +59,8 @@ public:
     void drawModel(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint);
     void drawTexture(const std::string &path, int posX, int posY, RGB tint);
     void drawText(const std::string &text, coords pos, float scale, RGB tint);
+    void displayMusic(const std::string &path, float volume);
+    void displaySound(const std::string &path, float volume);
 
     void setCamera(Vector3 &pos, Vector3 &target, Vector3 &up, float &fovy, int &projection) noexcept;
     Camera getCamera() const noexcept;
@@ -70,6 +70,7 @@ public:
     std::string getControllerName(int const &idx) const noexcept;
 
     bool isMousePressed() const noexcept;
+    bool isMouseDown() const noexcept;
     bool isMouseReleased() const noexcept;
     bool isKeyPressed(int &button) const noexcept;
     bool isKeyReleased(int &button) const noexcept;
@@ -78,6 +79,7 @@ public:
     const std::pair<float, float> getMousePosition() const noexcept; 
 
     static float getDeltaTime() noexcept;
+    void updateMusic(const std::string &path);
     void freeResources();
 
 protected:
@@ -86,6 +88,8 @@ private:
     Camera _camera;
     std::unordered_map<std::string, Model> _models;
     std::unordered_map<std::string, Texture2D> _textures;
+    std::unordered_map<std::string, Music> _music;
+    std::unordered_map<std::string, Sound> _sound;
     std::vector<int> _keys = {
         KEY_NULL,
         KEY_ENTER,

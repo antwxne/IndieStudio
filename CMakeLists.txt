@@ -66,6 +66,8 @@ set(BUTTON_SRCS
 
 set(OBJECTS_SRCS
         ${OBJECT_PATH}/AObject.cpp
+        ${OBJECT_PATH}/Particles.cpp
+        ${OBJECT_PATH}/Particles.hpp
         ${COLLIS_PATH}/CollisionableObject.cpp
         ${COLLIS_PATH}/Wall.cpp
         ${BUTTON_PATH}/Button.cpp

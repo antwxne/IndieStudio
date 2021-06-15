@@ -23,8 +23,8 @@
 namespace core {
 
     static const std::unordered_map<Scenes, std::function<std::unique_ptr<IScene>(Setting &settings)>> _enumToConstructor = {
-        {Scenes::MENU,          [](Setting &settings){return std::make_unique<menu::SceneMenu>(settings);}},
-        {Scenes::MENU,          [](Setting &settings){return std::make_unique<SceneMaxime>(settings);}}
+        {Scenes::MENU, [](Setting &settings){return std::make_unique<menu::SceneMenu>(settings);}},
+        {Scenes::GAME, [](Setting &settings){return std::make_unique<SceneMaxime>(settings);}}
         // {Scenes::NEW_GAME,      [](const std::shared_ptr<Setting> &settings){return std::make_unique<SceneNewGame>(settings);}},
         // {Scenes::LOAD,          [](const std::shared_ptr<Setting> &settings){return std::make_unique<SceneRobin>(settings);}},
         // {Scenes::OPTION,        [](const std::shared_ptr<Setting> &settings){return std::make_unique<SceneOption>(settings);}},
