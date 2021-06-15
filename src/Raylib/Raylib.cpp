@@ -13,6 +13,8 @@
 #include "Object/Ground/Ground.hpp"
 #include "UiObject/UiObject.hpp"
 #include "Button.hpp"
+#include "Tank.hpp"
+#include "Cannon.hpp"
 
 Raylib::Raylib() : _camera(
     {{0.0f, 20.0f, 15.0f}, { 0.0f, 0.0f, 2.0f}, {0.0f, 1.0f, 0.0f}, 40.0f, 0})
@@ -95,7 +97,16 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
     for (auto &i : objects) {
         if (i->getTypeField().is3D) {
             BeginMode3D(_camera);
-            if (i->getTypeField().isCollisionable) {
+            if (i->getTypeField().isTank) {
+                //i know it's uggly right? :c
+                auto const &tank = std::dynamic_pointer_cast<Tank>(i);
+                auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
+                auto const &cannonCasted = static_cast<CollisionableObject>(tank->getCannon());
+                drawModel(derived->getModel(), derived->getTexture(), derived->getPosition(), i->getScale(), i->getColors().first);
+                std::cout << tank->getCannon().getScale() << std::endl;
+                std::cout << cannonCasted.getScale() << std::endl << std::endl;
+                drawModel(cannonCasted.getModel(), cannonCasted.getTexture(), cannonCasted.getPosition(), cannonCasted.getScale(), cannonCasted.getColors().first);
+            } else if (i->getTypeField().isCollisionable) {
             auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
             drawModel(derived->getModel(), derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first);
             }

@@ -31,9 +31,3 @@ Scenes SceneRobin::run(Raylib &lib, Scenes const &prevScene)
     }
     return (Scenes::QUIT);
 }
-
-// auto const &tank = std::dynamic_pointer_cast<Tank>(i);
-// auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
-// auto const &cannonCasted = static_cast<CollisionableObject>(tank->getCannon());
-// drawModel(derived->getModel(), derived->getTexture(), derived->getPosition(), i->getScale(), i->getColors().first);
-// drawModel(cannonCasted.getModel(), cannonCasted.getTexture(), cannonCasted.getPosition(), cannonCasted.getScale(), cannonCasted.getColors().first);
