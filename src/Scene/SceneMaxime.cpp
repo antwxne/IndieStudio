@@ -17,7 +17,7 @@
 #include "Object/Collisionable/Wall.hpp"
 
 const std::vector<std::string> SceneMaxime::_assetsPath {
-    "asset/background_asset/woodFloor.png",
+    "asset/background_asset/woodFloor2.png",
 };
 
 SceneMaxime::SceneMaxime(Setting & settings) : AScene(settings)
@@ -30,7 +30,7 @@ SceneMaxime::SceneMaxime(Setting & settings) : AScene(settings)
     setInputFunction(Raylib::ENTER, [&]() {
         _enter = !_enter;
     });
-    _objects.emplace_back(std::make_shared<UiObject>(coords(100, 0, 100), std::make_pair(0, 0), _assetsPath.at(0), 1.0f));
+    _objects.emplace_back(std::make_shared<UiObject>(coords(0, 0, 0), std::make_pair(1000, 1000), _assetsPath.at(0), 2.0f));
     for (auto const &block : map->_objectNoDestructibleList)
         _objects.emplace_back(std::make_shared<Wall>(block));
     for (auto const &block : map->_objectDestructibleList)
