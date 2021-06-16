@@ -54,6 +54,7 @@ public:
 protected:
     Cannon _cannon;
     std::string _name;
+    std::vector<int> _iterator;
     std::size_t _score;
 };
 

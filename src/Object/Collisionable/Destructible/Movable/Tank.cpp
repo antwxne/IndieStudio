@@ -17,9 +17,10 @@ Tank::Tank(const std::string &name, const coords &pos, const std::pair<int, int>
     : MovableObject(pos, size, path), _cannon(coords{pos.first, pos.second + 0.2, pos.third}, size, cannonPath), _name(name), _score(0)
 {
     _typeField.isTank = true;
-    _life = 10;
+    _life = 3;
     _speed = 5;
     _scale = 0.2f;
+    _score = 0;
 }
 
 Tank::Tank(const Tank &to_copy)
@@ -29,6 +30,7 @@ Tank::Tank(const Tank &to_copy)
     _life = 10;
     _speed = 5;
     _scale = 0.2f;
+    _score = 0;
 }
 
 void Tank::fire()

@@ -123,7 +123,7 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
             }
             EndMode3D();
         }
-        if (!i->getTypeField().is3D) {
+        if (!i->getTypeField().is3D && i->getTypeField().isTransparent == false) {
             auto const &derived = std::dynamic_pointer_cast<UiObject>(i);
             drawTexture(derived->getTexture(), {i->getPosition().first, i->getPosition().second}, i->getRotation(), i->getScale(), i->getColors().first);
             if (i->getTypeField().isButton) {
@@ -131,11 +131,9 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
                 drawText(derivedButton->getText(), derivedButton->getTextPos(), derivedButton->getTextSize(), i->getColors().second);
             }
             if (i->getTypeField().isContourRect) {
-                std::cout << i->getPosition().first << std::endl;
                 drawRectangleLinesEx(i->getPosition().first, i->getPosition().second, i->getSize().first, i->getSize().second, i->getColors().first, i->getScale());
            }
             if (i->getTypeField().isFullSquare) {
-                std::cout << i->getPosition().first << std::endl;
                 drawRectangle(i->getPosition().first, i->getPosition().second, i->getSize().first, i->getSize().second, i->getColors().first);
             }
             if (i->getTypeField().isText) {

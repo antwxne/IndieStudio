@@ -3,28 +3,17 @@
 //
 
 #pragma once
+
 #include "vector"
 #include "Object/UiObject/UiObject.hpp"
 #include "Object/UiObject/UiGame/FullSquare.hpp"
 
-class LifeGame {
+class LifeGame : public UiObject {
     public:
-    LifeGame();
+    LifeGame(std::string const &name, coords pos);
     ~LifeGame() = default;
-    std::vector<UiObject> _posLife;
-};
-
-static const std::vector<std::pair<float, float>>_uiLifePos {
-    {std::make_pair(265, 1050)},
-    {std::make_pair(295, 1050)},
-    {std::make_pair(325, 1050)},
-    {std::make_pair(765, 1050)},
-    {std::make_pair(795, 1050)},
-    {std::make_pair(825, 1050)},
-    {std::make_pair(1265, 1050)},
-    {std::make_pair(1295, 1050)},
-    {std::make_pair(1325, 1050)},
-    {std::make_pair(1765, 1050)},
-    {std::make_pair(1795, 1050)},
-    {std::make_pair(1825, 1050)},
+    const std::string &getName() const;
+    void setTransparancy(bool);
+    private:
+    std::string _name;
 };

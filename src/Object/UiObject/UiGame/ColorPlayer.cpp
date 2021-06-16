@@ -6,7 +6,7 @@
 
 ColorPlayer::ColorPlayer()
 {
-    for (auto const &i: _posColor) {
-        _posColorSquare.emplace_back(coords(i.first,i.second), std::make_pair(50,30), 1, std::make_pair(RGB{230,0,0}, RGB()));
+    for (unsigned int i = 0; i != _posColor.size(); i++) {
+        _posColorSquare.emplace_back(coords(_posColor[i].first,_posColor[i].second), std::make_pair(50,30), 1, _colorPlayer[i]);
     }
 }
