@@ -25,6 +25,7 @@ void DestructibleObject::updateLife(float life)
 {
     _life += life;
 }
+
 bool DestructibleObject::isDestroyed() const
 {
     return _life > 0;

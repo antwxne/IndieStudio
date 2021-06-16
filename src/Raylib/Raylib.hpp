@@ -42,7 +42,7 @@ public:
         DOWN,
         RIGHT,
         LEFT,
-        A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
+        A, Z, E, R, T, Y, U, O, I, P, Q, S, D, F, G, H, J, K, L, M, W, X, C, V, B, N,
         PRESSED,
         RELEASED
     };
@@ -58,7 +58,7 @@ public:
     // all print funcs under will be private (ex: type Vector3 only defined in raylib.h)
     void printFps(std::pair<int, int> const &pos) const noexcept;
     void printGrid(int const &slices, float const &space) const noexcept;
-    void drawModel(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint);
+    void drawModel(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint, coords axis, float angle);
     void drawMesh(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint, const std::pair<int, int> &size);
 
 //    void drawTexture(const std::string &path, int posX, int posY, RGB tint);
@@ -85,6 +85,7 @@ public:
     bool isKeyReleased(int &button) const noexcept;
     std::string textForSubText(std::string const &text, int &pos, int &frameCounter) const noexcept;
     int getKeyPressed() const noexcept;
+    std::vector<int> getKeysDown() noexcept;
     const std::pair<float, float> getMousePosition() const noexcept; 
 
     static float getDeltaTime() noexcept;
@@ -98,6 +99,7 @@ private:
     std::unordered_map<std::string, Texture2D> _textures;
     std::unordered_map<std::string, std::pair<Music, bool>> _music;
     std::unordered_map<std::string, Sound> _sound;
+    std::vector<int> _inputSave;
     std::vector<int> _keys = {
         KEY_NULL,
         KEY_ENTER,

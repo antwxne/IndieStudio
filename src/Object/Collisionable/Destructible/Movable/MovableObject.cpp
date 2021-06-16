@@ -9,7 +9,7 @@
 #include "MovableObject.hpp"
 
 MovableObject::MovableObject(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path)
-     : DestructibleObject(pos, size, path), _speed(0)
+     : DestructibleObject(pos, size, path), _speed(4)
 {
     _typeField.isMovable = true;
 }
@@ -20,9 +20,10 @@ void MovableObject::move(const coords &direction) noexcept
     tmp *= _speed * Raylib::getDeltaTime();
     _pos += tmp;
 }
+
 void MovableObject::rotate(float angle) noexcept
 {
-    _rotation += angle;
+    _rotationAngle += angle;
 }
 
 void MovableObject::changeSpeed(float newSpeed)

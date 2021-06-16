@@ -45,6 +45,7 @@ public:
      * 
      */
     virtual void fire();
+    void move(const coords &direction) noexcept override;
 
     Cannon const &getCannon() const;
     std::string const &getName() const;

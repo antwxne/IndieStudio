@@ -20,41 +20,41 @@ class DestructibleObject: public CollisionableObject {
 public:
     /**
      * @brief Construct a new Destructible Object object
-     * 
-     * @param pos 
-     * @param size 
-     * @param path 
+     *
+     * @param pos
+     * @param size
+     * @param path
      */
     DestructibleObject(const coords &pos,
         const std::pair<int, int> &size, const std::pair<std::string, std::string> &path);
     /**
      * @brief Destroy the Destructible Object object
-     * 
+     *
      */
     ~DestructibleObject() = default;
     /**
      * @brief Get the Life object
-     * 
-     * @return float 
+     *
+     * @return float
      */
     [[nodiscard]] float getLife() const;
     /**
      * @brief Set the Life object
-     * 
-     * @param life 
+     *
+     * @param life
      */
     void setLife(float life);
     /**
-     * @brief 
-     * 
-     * @param life 
+     * @brief
+     *
+     * @param life
      */
     void updateLife(float life);
     /**
-     * @brief 
-     * 
-     * @return true 
-     * @return false 
+     * @brief
+     *
+     * @return true
+     * @return false
      */
     bool isDestroyed() const;
     struct destructible_t {
@@ -64,8 +64,8 @@ public:
     };
     /**
      * @brief Get the Struct Save object
-     * 
-     * @return const destructible_t& 
+     *
+     * @return const destructible_t&
      */
     const destructible_t &getStructSave() noexcept;
 

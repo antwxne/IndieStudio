@@ -22,7 +22,7 @@ struct Players {
 // to-do: tableau associatif inputs --> char pour pouvoir les custom depuis les settings
 
 /**
- * @class setting
+ * @struct setting
  * @brief store game settings
  */
 struct Setting {

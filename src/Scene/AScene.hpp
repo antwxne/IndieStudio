@@ -24,9 +24,10 @@ public:
 
 protected:
     void triggerInputActions(Raylib &lib);
-    void setTankInputs();
+    void setInputsNewTank();
     void setInputFunction(Raylib::Inputs, std::function<void()> function);
     Setting &_settings;
+    std::vector<int> _inputSave;
     std::vector<std::shared_ptr<AObject>> _objects;
     std::unordered_map<int,std::function<void()>> _keys = {
         {Raylib::NULL_KEY, [](){}},
