@@ -43,11 +43,12 @@ public:
      * @brief Constructor
      * @param pos position for place the particles
      * @param size size of one particle
+     * @param maxSize maximum size of one particle
      * @param scale scaling
      * @param colors colors of particles
      * @param nParticles number of particles
      */
-    Particles(const coords &pos, const std::pair<int, int> &size, float scale, const std::pair<RGB, RGB> &colors, std::size_t nParticles);
+    Particles(const coords &pos, const std::pair<int, int> &size, const std::pair<int, int> &maxSize, float scale, const std::pair<RGB, RGB> &colors, std::size_t nParticles);
     /**
      * @brief default destructor for particles
      */
@@ -74,6 +75,16 @@ private:
      * @brief store all particles infos
      */
     std::vector<particle> _particles;
+    /**
+     * @var pair of int
+     * @brief maximum size of particles
+     */
+    std::pair<int, int> _maxSize;
+    /**
+     * @var coord reference
+     * @brief reference to object position
+     */
+    const coords &_objPos;
 };
 
 #endif //INDIESTUDIO_PARTICLES_HPP
