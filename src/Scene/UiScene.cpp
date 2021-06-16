@@ -22,8 +22,8 @@ UiScene::~UiScene()
 Scenes UiScene::run(Raylib &lib, Scenes const &prevScene)
 {
     while (_state == -1) {
-        triggerInputActions(lib);
         _mousePos = lib.getMousePosition();
+        triggerInputActions(lib);
         std::for_each(_objects.begin(), _objects.end(), [&](auto &it){
             if (it->getTypeField().isButton) {
                 auto button = std::dynamic_pointer_cast<button::Button>(it);

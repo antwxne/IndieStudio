@@ -57,4 +57,20 @@ void AScene::setInputsNewTank()
         auto tank = std::dynamic_pointer_cast<Tank>(_objects.back());
         tank->move(coords((std::cos(tank->getRotationAngle())) * (-1), 0, (std::sin(tank->getRotationAngle()) * (-1))));
     });
+    setInputFunction(_settings._keysPlayerOne[2], [this](){
+        auto tank = std::dynamic_pointer_cast<Tank>(_objects.back());
+        tank->rotate(0.7f);
+    });
+    setInputFunction(_settings._keysPlayerOne[3], [this](){
+        auto tank = std::dynamic_pointer_cast<Tank>(_objects.back());
+        tank->rotate(-0.7f);
+    });
+    setInputFunction(_settings._keysPlayerOne[4], [this](){
+        auto tank = std::dynamic_pointer_cast<Tank>(_objects.back());
+        tank->rotateCannon(0.7f);
+    });
+    setInputFunction(_settings._keysPlayerOne[5], [this](){
+        auto tank = std::dynamic_pointer_cast<Tank>(_objects.back());
+        tank->rotateCannon(-0.7f);
+    });
 }

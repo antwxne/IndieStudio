@@ -7,6 +7,7 @@
 
 #include "Object/Collisionable/Destructible/Movable/Cannon.hpp"
 #include "Object/Collisionable/Destructible/Movable/MovableObject.hpp"
+#include <utility>
 
 #ifndef INDIESTUDIO_TANK_HPP
 #define INDIESTUDIO_TANK_HPP
@@ -33,7 +34,6 @@ public:
      * @param cannon 
      */
     Tank(const std::string &name, const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path, const std::pair<std::string, std::string> &cannonPath);
-    Tank(const Tank &to_copy);
     /**
      * @brief Destroy the Tank object
      * 
@@ -46,6 +46,7 @@ public:
      */
     virtual void fire();
     void move(const coords &direction) noexcept override;
+    void rotateCannon(float angle);
 
     Cannon const &getCannon() const;
     std::string const &getName() const;
