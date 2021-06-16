@@ -41,13 +41,13 @@ namespace menu {
 
     void SceneMenu::eventScene(Raylib &lib)
     {
+        lib.displayMusic(core::_musicPath, _settings._musicVol);
         if (lib.isMousePressed())
-            lib.displaySound(_soundsPath, _settings._soundVol);
+            lib.displaySound(core::_soundsPath, _settings._soundVol);
     }
 
     Scenes SceneMenu::endScene(Scenes const &prevScene) noexcept
     {
-        std::cout << "oui" << std::endl;
         return (_returnScene.at(static_cast<menu_e>(_state)));
     }
 

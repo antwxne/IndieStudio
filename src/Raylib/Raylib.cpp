@@ -221,12 +221,16 @@ void Raylib::displayMusic(const std::string &path, float volume)
     auto it = _music.find(path);
 
     if (it == _music.end()) {
-        _music.insert({path, LoadMusicStream(path.c_str())});
+        _music.insert({path, {LoadMusicStream(path.c_str()), false}});
         it = _music.find(path);
-        it->second.looping = true;
+        it->second.first.looping = true;
     }
-    SetMusicVolume(it->second, volume);
-    PlayMusicStream(it->second);
+    if (!it->second.second) {
+        PlayMusicStream(it->second.first);
+        it->second.second = true;
+    }
+    SetMusicVolume(it->second.first, volume);
+    UpdateMusicStream(it->second.first);
 }
 
 void Raylib::displaySound(const std::string &path, float volume)
@@ -239,15 +243,6 @@ void Raylib::displaySound(const std::string &path, float volume)
     }
     SetSoundVolume(it->second, volume);
     PlaySoundMulti(it->second);
-}
-
-void Raylib::updateMusic(const std::string &path)
-{
-    auto it = _music.find(path);
-
-    if (it == _music.end())
-        return;
-    UpdateMusicStream(it->second);
 }
 
 void Raylib::drawMesh(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint, const std::pair<int, int> &size)
@@ -282,6 +277,12 @@ void Raylib::drawModel(const std::string &modelPath, const std::string &textureP
         SetMaterialTexture(&it->second.materials[0], MAP_DIFFUSE, at->second);
     }
     DrawModelEx(it->second, {pos.first, pos.second, pos.third}, {axis.first, axis.second, axis.third}, angle, {scale, scale, scale}, {tint.r, tint.g, tint.b, tint.a});
+}
+
+void drawSlider(Vector2 pos, Vector2 size, float slider, const std::string name)
+{
+    DrawText(name.c_str(), pos.x - size.x, pos.y - size.y, 20, GRAY);
+    DrawRectangle(pos.x, pos.y, size.x, size.y, GRAY);
 }
 
 void Raylib::drawTexture(const std::string &path, Vector2 pos, float rotation, float scale, RGB tint)

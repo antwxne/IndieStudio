@@ -54,8 +54,6 @@ namespace menu {
 
     static const std::string _bgPath = "asset/background_asset/Background_01.png";
 
-    static const std::string _soundsPath = "asset/sound_effects/tud.wav";
-
     static const std::unordered_map<menu_e, Scenes> _returnScene {
         {menu_e::START,         Scenes::NEW_GAME},
         {menu_e::LOAD,          Scenes::GAME},
@@ -63,8 +61,6 @@ namespace menu {
         {menu_e::LEADERBOARD,   Scenes::LEADERBOARD},
         {menu_e::QUIT,          Scenes::QUIT}
     };
-
-    static const std::string _musicPath = "asset/music/053 - Tanks - Variation 1.mp3";
 
     class SceneMenu : public UiScene
     {

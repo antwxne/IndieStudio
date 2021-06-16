@@ -19,6 +19,24 @@ namespace option {
 
     static const std::string _bgPath = "asset/background_asset/Background_02.png";
 
+    static const std::array<std::string, 6> _configAudio {
+        "Music: 0%",
+        "Music: 50%",
+        "Music: 100%",
+        "Sound: 0%",
+        "Sound: 50%",
+        "Sound: 100%"
+    };
+
+    static const std::array<coords, 6> _posAudio {
+        coords(200, 300),
+        coords(500, 300),
+        coords(800, 300),
+        coords(200, 500),
+        coords(500, 500),
+        coords(800, 500)
+    };
+
     class SceneOption : public UiScene
     {
         public:
@@ -26,11 +44,7 @@ namespace option {
             ~SceneOption();
             void eventScene(Raylib &lib) final;
             Scenes endScene(Scenes const &prevScene) noexcept final;
-
-        private:
-            std::pair<float, float> _mousePos;
-            bool _quit;
-            bool _clicked;
+            void changeAudio(const std::string &name);
     };
 
 }
