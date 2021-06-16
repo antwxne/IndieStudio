@@ -10,6 +10,7 @@
 #include "Raylib.hpp"
 #include "RaylibError.hpp"
 #include "Object/Collisionable/CollisionableObject.hpp"
+#include "Object/UiObject/UiGame/TexteUi.hpp"
 #include "Object/UiObject/UiGame/BorderPlayer.hpp"
 #include "Object/Ground/Ground.hpp"
 #include "UiObject/UiObject.hpp"
@@ -136,6 +137,10 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
             if (i->getTypeField().isFullSquare) {
                 std::cout << i->getPosition().first << std::endl;
                 drawRectangle(i->getPosition().first, i->getPosition().second, i->getSize().first, i->getSize().second, i->getColors().first);
+            }
+            if (i->getTypeField().isText) {
+                auto const &text = std::dynamic_pointer_cast<TexteUI>(i);
+                drawText(text->getText(), text->getTextPos(), text->getTextSize(), i->getColors().first);
             }
         }
     }

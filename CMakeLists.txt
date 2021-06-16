@@ -108,7 +108,7 @@ set(UIGAME_SRCS
         ${UIGAME_PATH}/BorderPlayer.cpp
         ${UIGAME_PATH}/FrameUI.cpp
         ${UIGAME_PATH}/FullSquare.cpp
-        src/Object/UiObject/UiGame/ColorPlayer.cpp src/Object/UiObject/UiGame/ColorPlayer.hpp)
+        src/Object/UiObject/UiGame/ColorPlayer.cpp src/Object/UiObject/UiGame/ColorPlayer.hpp src/Object/UiObject/UiGame/TexteUi.cpp src/Object/UiObject/UiGame/TexteUi.hpp)
 set(PLAYER_SRCS
         ${PLAYER_PATH}/Player.cpp
         )
