@@ -12,6 +12,7 @@
 
 #include "Raylib/Raylib.hpp"
 #include "Object/AObject.hpp"
+#include "Object/Particles.hpp"
 #include "Object/Ground/Ground.hpp"
 #include "Object/UiObject/UiObject.hpp"
 #include "Object/Collisionable/Wall/Wall.hpp"
@@ -25,7 +26,9 @@ const std::vector<std::string> SceneMaxime::_assetsPath {
 
 SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false)
 {
+    //auto const &particule = std::make_unique<Particles>();
     auto const &map = std::make_unique<Map>();
+
     map->createDestructibleMap(std::make_pair(-5, -5), std::make_pair(5, 5));
     map->createContourMap(std::make_pair(-10, 10), std::make_pair(-8, 8));
 
@@ -61,13 +64,17 @@ Scenes SceneMaxime::run(Raylib &lib, Scenes const &prevScene)
             for (auto it = _objects.begin(); it != _objects.end(); ) {
                 if (it->get()->getTypeField().isDestructible == true) {
                     _objects.emplace_back(std::make_shared<PowerUps>(coords(it->get()->getPosition().first,it->get()->getPosition().second + 1.0f, it->get()->getPosition().third), std::make_pair(0, 0), std::pair<std::string, std::string>("", _assetsPath.at(2))));
-                    _objects.back()->setScale(0.03f);
+                    std::dynamic_pointer_cast<PowerUps>(_objects.back())->setRotationAxis(coords(0, 1, 0));
                     it = _objects.erase(it);
                     break;
                 } else
                     ++it;
             }
         }
+        for (auto &it: _objects)
+            if (it->getTypeField().isPowerUps == true) {
+                std::dynamic_pointer_cast<PowerUps>(it)->rotate(0.5f);
+            }
     }
     return (Scenes::QUIT);
 }

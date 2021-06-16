@@ -8,11 +8,19 @@
 #include "PowerUps.hpp"
 
 PowerUps::PowerUps(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path, const Power &powerUps)
-    : MovableObject(pos, size, path), _powerUps(powerUps) {}
+    : MovableObject(pos, size, path), _powerUps(powerUps)
+{
+    _typeField.isPowerUps = true;
+    _scale = 0.03f;
+    _rotationAxis = {0, 1, 0};
+}
 
 PowerUps::PowerUps(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path)
     : MovableObject(pos, size, path), _powerUps()
 {
+    _typeField.isPowerUps = true;
+    _scale = 0.03f;
+    _rotationAxis = {0, 1, 0};
     srand(time(NULL));
     int nb = rand() % 3;
 

@@ -112,6 +112,10 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
                 auto const &derived = std::dynamic_pointer_cast<Ground>(i);
                 drawMesh(derived->getModel(), derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first, i->getSize());
             }
+            // else if (i->getTypeField().isParticule) {
+            //     auto const &derived = std::dynamic_pointer_cast<Ground>(i);
+            //     drawMesh(derived->getModel(), derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first, i->getSize());
+            // }
             EndMode3D();
         }
         if (!i->getTypeField().is3D) {
@@ -229,6 +233,11 @@ void Raylib::updateMusic(const std::string &path)
     if (it == _music.end())
         return;
     UpdateMusicStream(it->second);
+}
+
+void Raylib::drawSphere(coords &pos, const RGB tint, const float radius)
+{
+    DrawSphere({pos.first, pos.second, pos.third}, radius, {tint.r, tint.g, tint.b, tint.a});
 }
 
 void Raylib::drawMesh(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint, const std::pair<int, int> &size)

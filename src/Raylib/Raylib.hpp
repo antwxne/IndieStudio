@@ -60,6 +60,7 @@ public:
     void printGrid(int const &slices, float const &space) const noexcept;
     void drawModel(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint, coords axis, float angle);
     void drawMesh(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint, const std::pair<int, int> &size);
+    void drawSphere(coords &pos, const RGB tint, const float radius);
 
 //    void drawTexture(const std::string &path, int posX, int posY, RGB tint);
     void drawTexture(const std::string &path, Vector2 pos, float rotation, float scale, RGB tint);
