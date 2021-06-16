@@ -91,6 +91,7 @@ set(OBJECTS_SRCS
 
 set(SCENE_SRCS
         ${SCENE_PATH}/AScene.cpp
+        ${SCENE_PATH}/UiScene.cpp
         ${SCENE_PATH}/SceneBoard.cpp
         ${SCENE_PATH}/SceneMaxime.cpp
         ${SCENE_PATH}/SceneMenu.cpp
