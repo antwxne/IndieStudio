@@ -41,11 +41,8 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false)
     _objects.emplace_back(std::make_shared<Ground>(coords(0, 0, 0), std::make_pair(40, 22), std::pair<std::string, std::string>(_assetsPath.at(0), _assetsPath.at(1))));
     for (auto const &block : map->_objectNoDestructibleList)
         _objects.emplace_back(std::make_shared<Wall>(block));
-    for (auto const &block : map->_objectDestructibleList) {
+    for (auto const &block : map->_objectDestructibleList)
         _objects.emplace_back(std::make_shared<DestructibleWall>(block));
-        std::dynamic_pointer_cast<DestructibleWall>(_objects.back())->setRotationAngle(90.0f);
-        std::dynamic_pointer_cast<DestructibleWall>(_objects.back())->setRotationAxis(coords(0, 1, 0));
-    }
 }
 
 SceneMaxime::~SceneMaxime()
@@ -55,15 +52,18 @@ SceneMaxime::~SceneMaxime()
 
 Scenes SceneMaxime::run(Raylib &lib, Scenes const &prevScene)
 {
+    bool isLock = false;
+
     while (lib.gameLoop()) {
         triggerInputActions(lib);
         lib.printObjects(_objects);
-        if (_pressed) {
+        if (_pressed && !isLock) {
             _pressed = false;
+            isLock = true;
             for (auto it = _objects.begin(); it != _objects.end(); ) {
                 if (it->get()->getTypeField().isDestructible == true) {
+                    _objects.emplace_back(std::make_shared<Particles>(coords(0, 1, 0), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(), RGB()), 10, coords(0, 1, 0)));
                     _objects.emplace_back(std::make_shared<PowerUps>(coords(it->get()->getPosition().first,it->get()->getPosition().second + 1.0f, it->get()->getPosition().third), std::make_pair(0, 0), std::pair<std::string, std::string>("", _assetsPath.at(2))));
-                    std::dynamic_pointer_cast<PowerUps>(_objects.back())->setRotationAxis(coords(0, 1, 0));
                     it = _objects.erase(it);
                     break;
                 } else
@@ -71,7 +71,10 @@ Scenes SceneMaxime::run(Raylib &lib, Scenes const &prevScene)
             }
         }
         for (auto &it: _objects)
-            if (it->getTypeField().isPowerUps == true) {
+            if (it->getTypeField().isParticule == true) {
+                std::dynamic_pointer_cast<Particles>(it)->update();
+            }
+            else if (it->getTypeField().isPowerUps == true) {
                 std::dynamic_pointer_cast<PowerUps>(it)->rotate(0.5f);
             }
     }

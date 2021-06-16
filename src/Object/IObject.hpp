@@ -72,7 +72,7 @@ struct coords
  * @brief contains booleans for object's type
  */
 struct typeField {
-    typeField() : is3D(false), isObject(false), isButton(false), isCollisionable(false), isDestructible(false), isMovable(false), isTank(false), isCannon(false), isBullet(false), isIa(false), isWall(false), isGround(false), isPowerUps(false), isParticule(true), isInputBox(false) {}
+    typeField() : is3D(false), isObject(false), isButton(false), isCollisionable(false), isDestructible(false), isMovable(false), isTank(false), isCannon(false), isBullet(false), isIa(false), isWall(false), isGround(false), isPowerUps(false), isParticule(false), isInputBox(false) {}
     bool is3D: 1;
     bool isObject: 1;
     bool isButton: 1;

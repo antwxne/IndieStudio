@@ -15,15 +15,15 @@ Particles::Particles(const coords &pos, const std::pair<int, int> &size, float m
 ) : AObject(pos, size, scale, colors),_particles(), _maxSize(maxSize), _objPos(pos), _acceleration(accelleration)
 {
     _typeField.isParticule = true;
+    _typeField.is3D = true;
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> alpha(100, 250);
     std::uniform_real_distribution<float> acc(0, 0.5f);
-    std::uniform_real_distribution<float> vel(-20, 20);
-    particule tmp {.position = pos, .color = colors.first, .radius = static_cast<float>(size.first), .scale = scale};
+    std::uniform_real_distribution<float> vel(-5, 5);
+    particule tmp {.position = pos, .color = colors.first, .radius = (static_cast<float>(size.first)), .scale = scale};
     float tmpRand;
 
-    _particles.reserve(nParticles);
     for (std::size_t i = 0; i < nParticles; ++i) {
         tmp.color.a = alpha(gen);
         tmp.a = accelleration;
@@ -34,8 +34,9 @@ Particles::Particles(const coords &pos, const std::pair<int, int> &size, float m
         tmpRand = acc(gen);
         tmp.a.third += tmp.a.third > 0 ? tmpRand : -tmpRand;
         tmp.v = {vel(gen), vel(gen), vel(gen)};
-        _particles[i] = tmp;
+        _particles.push_back(tmp);
     }
+    std::cout << "[PARTICULE] size du tab: " << _particles.size() << "\n";
 }
 const std::vector<Particles::particule> &Particles::getParticles() const noexcept
 {

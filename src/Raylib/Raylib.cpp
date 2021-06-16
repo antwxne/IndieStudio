@@ -12,6 +12,7 @@
 #include "Object/Collisionable/CollisionableObject.hpp"
 #include "Object/Ground/Ground.hpp"
 #include "UiObject/UiObject.hpp"
+#include "Object/Particles.hpp"
 #include "Button.hpp"
 #include "Tank.hpp"
 #include "Cannon.hpp"
@@ -112,10 +113,12 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
                 auto const &derived = std::dynamic_pointer_cast<Ground>(i);
                 drawMesh(derived->getModel(), derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first, i->getSize());
             }
-            // else if (i->getTypeField().isParticule) {
-            //     auto const &derived = std::dynamic_pointer_cast<Ground>(i);
-            //     drawMesh(derived->getModel(), derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first, i->getSize());
-            // }
+            else if (i->getTypeField().isParticule) {
+                auto const derived = std::dynamic_pointer_cast<Particles>(i);
+                for (auto const &i: derived->getParticles()) {
+                    drawSphere(i.position, i.color, (i.radius  * i.scale));
+                }
+            }
             EndMode3D();
         }
         if (!i->getTypeField().is3D) {
@@ -255,8 +258,12 @@ void Raylib::updateMusic(const std::string &path)
     UpdateMusicStream(it->second);
 }
 
-void Raylib::drawSphere(coords &pos, const RGB tint, const float radius)
+void Raylib::drawSphere(const coords &pos, const RGB tint, const float radius)
 {
+    std::cout << "[RAYLIB] pos x: " << pos.first <<"\n";
+    std::cout << "[RAYLIB] pos Y: " << pos.second <<"\n";
+    std::cout << "[RAYLIB] pos z: " << pos.third <<"\n";
+    std::cout << "[RAYLIB] radius: " << radius <<"\n";
     DrawSphere({pos.first, pos.second, pos.third}, radius, {tint.r, tint.g, tint.b, tint.a});
 }
 
