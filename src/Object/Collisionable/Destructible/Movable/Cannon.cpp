@@ -17,7 +17,7 @@ Cannon::Cannon(const coords &pos, const std::pair<int, int> &size,
     _scale = 0.2f;
     _bullets.reserve(10);
     for (int i = 0; i < 10; ++i) {
-        _bullets[i] = Bullet({-10000, 0, 0}, std::make_pair(1, 1));
+        _bullets.emplace_back(Bullet({-10000, 0, 0}, std::make_pair(1, 1)));
     }
 }
 
