@@ -8,17 +8,13 @@
 #include "PowerUps.hpp"
 
 PowerUps::PowerUps(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path, const Power &powerUps)
-    : CollisionableObject(pos, size, path), _powerUps(powerUps)
-{
-    std::cout << "[CTOR WITHOUT POWER]\n";
-}
+    : CollisionableObject(pos, size, path), _powerUps(powerUps) {}
 
 PowerUps::PowerUps(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path)
     : CollisionableObject(pos, size, path), _powerUps()
 {
     srand(time(NULL));
     int nb = rand() % 3;
-    std::cout << "[CTOR POWER UPS] le nb est => " << nb << "\n";
 
     switch (nb) {
     case (0):
@@ -38,9 +34,7 @@ PowerUps::PowerUps(const coords &pos, const std::pair<int, int> &size, const std
     }
 }
 
-PowerUps::~PowerUps()
-{
-}
+PowerUps::~PowerUps() {}
 
 const Power &PowerUps::getPowerUps() const noexcept
 {

@@ -50,7 +50,7 @@ void AScene::setTankInputs()
     setInputFunction(_settings._keysPlayerOne[2], [this](){
         std::cout << "moving up" << std::endl;
         auto x = std::dynamic_pointer_cast<MovableObject>(_objects.back());
-        x->move(coords(cos(x->getRotation()),0,sin(x->getRotation())));
+        x->move(coords(cos(x->getRotationAngle()),0,sin(x->getRotationAngle())));
     });
     // setInputFunction(keys[0], [](Tank &tank){tank.move(coords(cos(tank.getRotation()), 0, sin(tank.getRotation())));});
 }

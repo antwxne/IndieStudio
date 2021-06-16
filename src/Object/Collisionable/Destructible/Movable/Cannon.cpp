@@ -28,7 +28,7 @@ Cannon::Cannon(const Cannon &to_copy) : Cannon(to_copy._pos, to_copy._size,
 
 void Cannon::fire()
 {
-    float angle = _rotation * 180 / PI;
+    float angle = _rotationAngle * 180 / PI;
 
     coords dir = {cos(angle), sin(angle), 0};
     for (auto &i : _bullets) {

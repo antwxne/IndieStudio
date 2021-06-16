@@ -100,13 +100,13 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
             if (i->getTypeField().isTank) {
                 //i know it's uggly right? :c
                 auto const &tank = std::dynamic_pointer_cast<Tank>(i);
-                auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
                 auto const &cannonCasted = static_cast<CollisionableObject>(tank->getCannon());
-                drawModel(derived->getModel(), derived->getTexture(), derived->getPosition(), i->getScale(), i->getColors().first);
-                drawModel(cannonCasted.getModel(), cannonCasted.getTexture(), cannonCasted.getPosition(), cannonCasted.getScale(), cannonCasted.getColors().first);
+                //auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
+                drawModel(tank->getModel(), tank->getTexture(), tank->getPosition(), tank->getScale(), tank->getColors().first, tank->getRotationAxis(), tank->getRotationAngle());
+                drawModel(cannonCasted.getModel(), cannonCasted.getTexture(), cannonCasted.getPosition(), cannonCasted.getScale(), cannonCasted.getColors().first, cannonCasted.getRotationAxis() ,cannonCasted.getRotationAngle());
             } else if (i->getTypeField().isCollisionable) {
             auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
-            drawModel(derived->getModel(), derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first);
+            drawModel(derived->getModel(), derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first, i->getRotationAxis(), i->getRotationAngle());
             }
             else if (i->getTypeField().isGround) {
                 auto const &derived = std::dynamic_pointer_cast<Ground>(i);
@@ -116,7 +116,7 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
         }
         if (!i->getTypeField().is3D) {
             auto const &derived = std::dynamic_pointer_cast<UiObject>(i);
-            drawTexture(derived->getTexture(), {i->getPosition().first, i->getPosition().second}, i->getRotation(), i->getScale(), i->getColors().first);
+            drawTexture(derived->getTexture(), {i->getPosition().first, i->getPosition().second}, i->getRotationAngle(), i->getScale(), i->getColors().first);
             if (i->getTypeField().isButton) {
                 auto const &derivedButton = std::dynamic_pointer_cast<button::Button>(i);
                 drawText(derivedButton->getText(), derivedButton->getTextPos(), derivedButton->getTextSize(), i->getColors().second);
@@ -248,7 +248,7 @@ void Raylib::drawMesh(const std::string &modelPath, const std::string &texturePa
     DrawModel(it->second, {pos.first, pos.second, pos.third}, scale, {tint.r, tint.g, tint.b, tint.a});
 }
 
-void Raylib::drawModel(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint)
+void Raylib::drawModel(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint, coords axis, float angle)
 {
     auto it = _models.find(modelPath);
     auto at = _textures.find(texturePath);
@@ -262,7 +262,7 @@ void Raylib::drawModel(const std::string &modelPath, const std::string &textureP
         it = _models.find(modelPath);
         SetMaterialTexture(&it->second.materials[0], MAP_DIFFUSE, at->second);
     }
-    DrawModel(it->second, {pos.first, pos.second, pos.third}, scale, {tint.r, tint.g, tint.b, tint.a});
+    DrawModelEx(it->second, {pos.first, pos.second, pos.third}, {axis.first, axis.second, axis.third}, angle, {scale, scale, scale}, {tint.r, tint.g, tint.b, tint.a});
 }
 
 void Raylib::drawTexture(const std::string &path, Vector2 pos, float rotation, float scale, RGB tint)
