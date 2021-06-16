@@ -7,6 +7,8 @@
 
 #include "AScene.hpp"
 #include "MovableObject.hpp"
+#include "Tank.hpp"
+#include <cmath>
 
 AScene::AScene(Setting &settings) : _settings(settings)
 {
@@ -17,8 +19,8 @@ void AScene::triggerInputActions(Raylib &lib)
     int input = Raylib::NULL_KEY;
     std::unordered_map<int,std::function<void()>>::iterator itKey;
 
-    while ((input = lib.getKeyPressed()) != Raylib::NULL_KEY) {
-        itKey = _keys.find(input);
+    for (auto const &key : lib.getKeysDown()) {
+        itKey = _keys.find(key);
         if (itKey != _keys.end())
             itKey->second();
     }
@@ -43,14 +45,16 @@ void AScene::setInputFunction(Raylib::Inputs key, std::function<void()> func)
         itKey->second = func;
 }
 
-//  - events not repeated if key keep being pressed
-#include <math.h>
-void AScene::setTankInputs()
+void AScene::setInputsNewTank()
 {
-    setInputFunction(_settings._keysPlayerOne[2], [this](){
-        std::cout << "moving up" << std::endl;
-        auto x = std::dynamic_pointer_cast<MovableObject>(_objects.back());
-        x->move(coords(cos(x->getRotationAngle()),0,sin(x->getRotationAngle())));
+    if (!_objects.back()->getTypeField().isTank)
+        return;
+    setInputFunction(_settings._keysPlayerOne[0], [this](){
+        auto tank = std::dynamic_pointer_cast<Tank>(_objects.back());
+        tank->move(coords(std::cos(tank->getRotationAngle()),0,std::sin(tank->getRotationAngle())));
     });
-    // setInputFunction(keys[0], [](Tank &tank){tank.move(coords(cos(tank.getRotation()), 0, sin(tank.getRotation())));});
+    setInputFunction(_settings._keysPlayerOne[1], [this](){
+        auto tank = std::dynamic_pointer_cast<Tank>(_objects.back());
+        tank->move(coords((std::cos(tank->getRotationAngle())) * (-1), 0, (std::sin(tank->getRotationAngle()) * (-1))));
+    });
 }

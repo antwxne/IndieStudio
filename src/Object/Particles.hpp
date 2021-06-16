@@ -27,7 +27,7 @@ public:
      * @var v velocity of the particle (x, y, z)
      * @var position position (x, y, z)
      * @var color color of the particle (r, g, b, a)
-     * @var size pair of int for size of the particle
+     * @var size float radius of sphere
      * @var scale scaling of the particle
      */
     struct particle {
@@ -35,7 +35,7 @@ public:
         coords v;
         coords position;
         RGB color;
-        std::pair<int, int> size;
+        float radius;
         float scale;
     };
 public:
@@ -48,7 +48,7 @@ public:
      * @param colors colors of particles
      * @param nParticles number of particles
      */
-    Particles(const coords &pos, const std::pair<int, int> &size, const std::pair<int, int> &maxSize, float scale, const std::pair<RGB, RGB> &colors, std::size_t nParticles);
+    Particles(const coords &pos, const std::pair<int, int> &size, float maxSize, float scale, const std::pair<RGB, RGB> &colors, std::size_t nParticles, const coords &accelleration);
     /**
      * @brief default destructor for particles
      */
@@ -58,7 +58,7 @@ public:
      *
      * @param objPos object position to reset particle to it
      */
-    void update(const coords &objPos) noexcept;
+    void update() noexcept;
     /**
      * @brief get all the particles from the object
      * @return vector with infos to display each particle
@@ -69,6 +69,12 @@ public:
      * @param new color
      */
     void changeColor(const RGB &color) noexcept;
+    /**
+     * @brief Set the Acceleration object
+     * 
+     * @param acceleration 
+     */
+    void setAcceleration(const coords &acceleration);
 private:
     /**
      * @var vector de particle
@@ -76,15 +82,19 @@ private:
      */
     std::vector<particle> _particles;
     /**
-     * @var pair of int
+     * @var float
      * @brief maximum size of particles
      */
-    std::pair<int, int> _maxSize;
+    float _maxSize;
     /**
      * @var coord reference
      * @brief reference to object position
      */
     const coords &_objPos;
+    /**
+     * @brief acceleration base
+     */
+    coords _acceleration;
 };
 
 #endif //INDIESTUDIO_PARTICLES_HPP

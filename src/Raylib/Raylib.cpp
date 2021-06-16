@@ -201,6 +201,26 @@ int Raylib::getKeyPressed() const noexcept
     return std::distance(_keys.begin(), iterator);
 }
 
+std::vector<int> Raylib::getKeysDown() noexcept
+{
+    int input;
+    std::vector<int> keysDown = {};
+    std::unordered_map<int,std::function<void()>>::iterator itKey;
+
+    while ((input = getKeyPressed()) != Raylib::NULL_KEY) {
+        _inputSave.emplace_back(input);
+    }
+    for (auto it = _inputSave.begin(); it != _inputSave.end();) {
+        if (IsKeyUp(_keys.at(*it))) {
+            it = _inputSave.erase(it);
+            continue;
+        }
+        keysDown.emplace_back(*it);
+        it++;
+    }
+    return keysDown;
+}
+
 void Raylib::displayMusic(const std::string &path, float volume)
 {
     auto it = _music.find(path);

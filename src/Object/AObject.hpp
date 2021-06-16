@@ -94,9 +94,23 @@ public:
      * @param scale
      */
     void setScale(float scale) noexcept final;
-
-    [[nodiscard]] const float &getRotationAngle() const noexcept;
-    [[nodiscard]]const coords &getRotationAxis() const noexcept;
+    /**
+     * @brief set a new position
+     * @param pos new position
+     */
+    void setPos(const coords &pos);
+    /**
+     * @brief Get the Rotation Angle object
+     * 
+     * @return const float 
+     */
+    [[nodiscard]] const float getRotationAngle() const noexcept;
+    /**
+     * @brief Get the Rotation Axis object
+     * 
+     * @return const coords& 
+     */
+    [[nodiscard]] const coords &getRotationAxis() const noexcept;
 
 protected:
     coords _pos;

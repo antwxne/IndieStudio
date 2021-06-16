@@ -62,9 +62,13 @@ const std::pair<RGB, RGB> &AObject::getColors() const noexcept
     return _color;
 }
 
-const float &AObject::getRotationAngle() const noexcept
+const float AObject::getRotationAngle() const noexcept
 {
     return _rotationAngle;
+}
+void AObject::setPos(const coords &pos)
+{
+    _pos = pos;
 }
 
 const coords &AObject::getRotationAxis() const noexcept
