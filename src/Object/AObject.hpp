@@ -100,6 +100,11 @@ public:
      * @return float
      */
     float getRotation() const;
+    /**
+     * @brief set a new position
+     * @param pos new position
+     */
+    void setPos(const coords &pos);
 
 protected:
     coords _pos;

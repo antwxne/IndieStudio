@@ -65,3 +65,7 @@ float AObject::getRotation() const
 {
     return _rotation;
 }
+void AObject::setPos(const coords &pos)
+{
+    _pos = pos;
+}

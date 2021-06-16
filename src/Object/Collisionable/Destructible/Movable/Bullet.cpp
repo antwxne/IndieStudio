@@ -17,7 +17,6 @@ Bullet::Bullet(const coords &pos, const std::pair<int, int> &size) : MovableObje
 {
     _typeField.isBullet = true;
     _life = 3;
-    //changer le sprite
 }
 void Bullet::constant_move() noexcept
 {
@@ -31,7 +30,7 @@ void Bullet::constant_move() noexcept
         _pos.third += _direction.third;
         _pos += _direction;
     }
-    rotate(static_cast<double>(atan2(_direction.second, _direction.first)) * (PI / 180));
+    rotate(static_cast<double>(std::atan2(_direction.second, _direction.first)) * (PI / 180));
 }
 void Bullet::move(const coords &direction) noexcept
 {
