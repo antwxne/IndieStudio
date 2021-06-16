@@ -70,6 +70,9 @@ public:
      */
     void setModel(const std::string &texture) noexcept;
 
+    void setRotationAngle(const float angle) noexcept;
+    void setRotationAxis(const coords &axis) noexcept;
+
 protected:
     std::pair<std::string, std::string> _path;
 };

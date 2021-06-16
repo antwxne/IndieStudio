@@ -94,18 +94,16 @@ public:
      * @param scale
      */
     void setScale(float scale) noexcept final;
-    /**
-     * @brief Get the Rotation object
-     *
-     * @return float
-     */
-    float getRotation() const;
+
+    [[nodiscard]] const float &getRotationAngle() const noexcept;
+    [[nodiscard]]const coords &getRotationAxis() const noexcept;
 
 protected:
     coords _pos;
     std::pair<int, int> _size;
     std::pair<RGB, RGB> _color;
-    float _rotation;
+    float _rotationAngle;
+    coords _rotationAxis;
     typeField _typeField;
     float _scale;
 };

@@ -43,6 +43,16 @@ const std::string &CollisionableObject::getModel() const noexcept
     return _path.second;
 }
 
+void CollisionableObject::setRotationAngle(const float angle) noexcept
+{
+    _rotationAngle = angle;
+}
+
+void CollisionableObject::setRotationAxis(const coords &axis) noexcept
+{
+    _rotationAxis = axis;
+}
+
 bool CollisionableObject::hit(const CollisionableObject &obj) noexcept
 {
     if (this->_pos.first + this->_size.first >= obj._pos.first
