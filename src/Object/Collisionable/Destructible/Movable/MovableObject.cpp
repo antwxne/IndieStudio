@@ -9,7 +9,7 @@
 #include "MovableObject.hpp"
 
 MovableObject::MovableObject(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path)
-     : DestructibleObject(pos, size, path), _speed(4)
+     : DestructibleObject(pos, size, path), _speed(3)
 {
     _typeField.isMovable = true;
 }

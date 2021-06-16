@@ -100,10 +100,9 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
             if (i->getTypeField().isTank) {
                 //i know it's uggly right? :c
                 auto const &tank = std::dynamic_pointer_cast<Tank>(i);
-                auto const &cannonCasted = static_cast<CollisionableObject>(tank->getCannon());
-                //auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
+                auto const &cannon = tank->getCannon();
                 drawModel(tank->getModel(), tank->getTexture(), tank->getPosition(), tank->getScale(), tank->getColors().first, tank->getRotationAxis(), tank->getRotationAngle());
-                drawModel(cannonCasted.getModel(), cannonCasted.getTexture(), cannonCasted.getPosition(), cannonCasted.getScale(), cannonCasted.getColors().first, cannonCasted.getRotationAxis() ,cannonCasted.getRotationAngle());
+                drawModel(cannon.getModel(), cannon.getTexture(), cannon.getPosition(), cannon.getScale(), cannon.getColors().first, cannon.getRotationAxis() ,cannon.getRotationAngle());
             } else if (i->getTypeField().isCollisionable) {
             auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
             drawModel(derived->getModel(), derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first, i->getRotationAxis(), i->getRotationAngle());

@@ -31,7 +31,6 @@ public:
      * @brief copy constructor
      * @param cannon object to copy
      */
-    Cannon(const Cannon &cannon);
     ~Cannon() = default;
     /**
      * @brief shot one bullet
