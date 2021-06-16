@@ -7,25 +7,31 @@
 
 #include "Core.hpp"
 #include "SceneOption.hpp"
+#include "UiObject/Button/Button.hpp"
 
-SceneOption::SceneOption(Setting &settings) : AScene(settings), _quit(false)
-{
-    setInputFunction(Raylib::ENTER, [&]() {
-        _quit = !_quit;
-    });
-}
+namespace option {
 
-SceneOption::~SceneOption()
-{
-}
-
-Scenes SceneOption::run(Raylib &lib, Scenes const &prevScene)
-{
-    while (!_quit && lib.gameLoop()) {
-        triggerInputActions(lib);
-        lib.printObjects(_objects);
+    SceneOption::SceneOption(Setting &settings) : UiScene(settings)
+    {
+        setInputFunction(Raylib::ENTER, [&]() {
+            _quit = !_quit;
+        });
+        _objects.emplace_back(std::make_shared<UiObject>(coords(), std::make_pair(0, 0), _bgPath, 1.0f));
+        _objects.emplace_back(std::make_shared<button::Button>(_menuPos, button::_buttonSize, button::_buttonNavigPath, _returnText, 20, 2, std::make_pair(RGB(), RGB(0, 0, 0))));
     }
-    if (lib.gameLoop())
-        return (Scenes::QUIT);
-    return (prevScene);
+
+    SceneOption::~SceneOption()
+    {
+    }
+
+    void SceneOption::eventScene(Raylib &lib)
+    {
+
+    }
+
+    Scenes SceneOption::endScene(Scenes const &prevScene) noexcept
+    {
+
+    }
+
 }

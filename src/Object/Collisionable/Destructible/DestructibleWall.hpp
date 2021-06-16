@@ -5,7 +5,7 @@
 ** Created by antoine,
 */
 
-#include "Object/Collisionable/Wall.hpp"
+#include "Object/Collisionable/Wall/Wall.hpp"
 #include "Object/Collisionable/Destructible/DestructibleObject.hpp"
 
 #ifndef INDIESTUDIO_DESTRUCTIBLEWALL_HPP

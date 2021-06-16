@@ -11,18 +11,15 @@
 
 namespace newGame {
 
-    SceneNewGame::SceneNewGame(Setting &settings) : AScene(settings), _pressed(false), _select(-1)
+    SceneNewGame::SceneNewGame(Setting &settings) : UiScene(settings)
     {
-        setInputFunction(Raylib::PRESSED, [&]() {
-            _pressed = true;
-        });
         setInputFunction(Raylib::RELEASED, [&]() {
             _pressed = false;
             for (auto &it : _objects)
                 if (it->getTypeField().isButton) {
                     auto button = std::dynamic_pointer_cast<button::Button>(it);
                     if (std::find(_menuText.begin(), _menuText.end(), button->getText()) != _menuText.end() && button->isInside(_mousePos)) {
-                        _select = std::find(_menuText.begin(), _menuText.end(), button->getText()) - _menuText.begin();
+                        _state = std::find(_menuText.begin(), _menuText.end(), button->getText()) - _menuText.begin();
                         return;
                     }
                     if (std::find(_playerIA.begin(), _playerIA.end(), button->getText()) != _playerIA.end() && button->isInside(_mousePos))
@@ -68,32 +65,54 @@ namespace newGame {
         }
     }
 
-    Scenes SceneNewGame::run(Raylib &lib, Scenes const &prevScene)
+    void SceneNewGame::eventScene(Raylib &lib)
     {
         char input;
 
-        while (_select == -1) {
-            _mousePos = lib.getMousePosition();
-            triggerInputActions(lib);
-            input = lib.getPressedCharacter();
-            for (auto &it : _objects)
-                if (it->getTypeField().isButton) {
-                    if (it->getTypeField().isInputBox) {
-                        auto inputBox = std::dynamic_pointer_cast<InputBox>(it);
-                        inputBox->changeText(input, _mousePos);
-                        inputBox->setState(_mousePos, _pressed);
-                    } else {
-                        auto button = std::dynamic_pointer_cast<button::Button>(it);
-                        button->setState(_mousePos, _pressed);
-                    }
-                }
-            lib.printObjects(_objects);
-        }
+        input = lib.getPressedCharacter();
+        std::for_each(_objects.begin(), _objects.end(), [&, input](auto &it){
+            if (it->getTypeField().isInputBox) {
+                auto button = std::dynamic_pointer_cast<InputBox>(it);
+                button->changeText(input, _mousePos);
+            }
+        });
+    }
+
+    Scenes SceneNewGame::endScene(Scenes const &prevScene) noexcept
+    {
         fillAi();
         fillName();
-        if (!_select)
+        if (!_state)
             return (Scenes::MENU);
         return (Scenes::GAME);
     }
+
+    // Scenes SceneNewGame::run(Raylib &lib, Scenes const &prevScene)
+    // {
+    //     char input;
+
+    //     while (_select == -1) {
+    //         _mousePos = lib.getMousePosition();
+    //         triggerInputActions(lib);
+    //         input = lib.getPressedCharacter();
+    //         for (auto &it : _objects)
+    //             if (it->getTypeField().isButton) {
+    //                 if (it->getTypeField().isInputBox) {
+    //                     auto inputBox = std::dynamic_pointer_cast<InputBox>(it);
+    //                     inputBox->changeText(input, _mousePos);
+    //                     inputBox->setState(_mousePos, _pressed);
+    //                 } else {
+    //                     auto button = std::dynamic_pointer_cast<button::Button>(it);
+    //                     button->setState(_mousePos, _pressed);
+    //                 }
+    //             }
+    //         lib.printObjects(_objects);
+    //     }
+    //     fillAi();
+    //     fillName();
+    //     if (!_select)
+    //         return (Scenes::MENU);
+    //     return (Scenes::GAME);
+    // }
 
 }

@@ -26,8 +26,8 @@ namespace core {
         {Scenes::NEW_GAME,      [](Setting &settings){return std::make_unique<newGame::SceneNewGame>(settings);}},
         {Scenes::MENU,          [](Setting &settings){return std::make_unique<menu::SceneMenu>(settings);}},
         {Scenes::GAME,          [](Setting &settings){return std::make_unique<SceneMaxime>(settings);}},
+        {Scenes::OPTION,        [](Setting &settings){return std::make_unique<option::SceneOption>(settings);}},
         // {Scenes::LOAD,          [](const Setting & &settings){return std::make_unique<SceneRobin>(settings);}},
-        // {Scenes::OPTION,        [](const Setting & &settings){return std::make_unique<SceneOption>(settings);}},
         // {Scenes::LEADERBOARD,   [](const Setting & &settings){return std::make_unique<SceneBoard>(settings);}}
     };
     /**

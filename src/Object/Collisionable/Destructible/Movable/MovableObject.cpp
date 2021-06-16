@@ -20,9 +20,10 @@ void MovableObject::move(const coords &direction) noexcept
     tmp *= _speed * Raylib::getDeltaTime();
     _pos += tmp;
 }
+
 void MovableObject::rotate(float angle) noexcept
 {
-    _rotation += angle;
+    _rotationAngle += angle;
 }
 
 void MovableObject::changeSpeed(float newSpeed)

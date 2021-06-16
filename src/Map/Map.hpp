@@ -5,7 +5,7 @@
 #pragma once
 
 #include "Object/Collisionable/Destructible/DestructibleWall.hpp"
-#include "Object/Collisionable/Wall.hpp"
+#include "Object/Collisionable/Wall/Wall.hpp"
 #include <utility>
 #include <vector>
 #include <map>

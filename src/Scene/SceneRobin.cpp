@@ -18,7 +18,7 @@
 #include "Object/AObject.hpp"
 #include "Object/Ground/Ground.hpp"
 #include "Object/UiObject/UiObject.hpp"
-#include "Object/Collisionable/Wall.hpp"
+#include "Object/Collisionable/Wall/Wall.hpp"
 
 const std::vector<std::string> _assetsPath {
     "asset/background_asset/ground.png",
