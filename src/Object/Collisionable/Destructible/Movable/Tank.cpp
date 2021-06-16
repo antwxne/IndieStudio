@@ -14,7 +14,7 @@ const std::string Tank::body = "asset/Tank/tankBodyNEW.obj";
 const std::string Tank::turret = "asset/Tank/turretWithCannonNEW.obj";
 
 Tank::Tank(const std::string &name, const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path, const std::pair<std::string, std::string> &cannonPath)
-    : MovableObject(pos, size, path), _cannon(coords{pos.first, pos.second + 0.2, pos.third}, size, cannonPath), _name(name), _score(0)
+    : MovableObject(pos, size, path), _cannon(coords{pos.first, pos.second + 0.2f, pos.third}, size, cannonPath), _name(name), _score(0)
 {
     _typeField.isTank = true;
     _life = 10;

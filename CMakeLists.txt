@@ -25,8 +25,6 @@ set(SCENE_PATH src/Scene)
 set(GROUND_PATH src/Object/Ground)
 set(POWERUPS_PATH ${COLLIS_PATH}/PowerUps)
 set(WALL_PATH ${COLLIS_PATH}/Wall)
-set(PLAYER_PATH src/Player)
-
 
 # Include directories
 include_directories(src)
@@ -107,10 +105,6 @@ set(SCENE_SRCS
 
 set(GROUND_SRCS
         ${GROUND_PATH}/Ground.cpp)
-
-set(PLAYER_SRCS
-        ${PLAYER_PATH}/Player.cpp
-        )
 
 set(INDIE_SRCS
         ${RAYLIB_SRCS}
