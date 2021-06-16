@@ -63,6 +63,7 @@ public:
 
 //    void drawTexture(const std::string &path, int posX, int posY, RGB tint);
     void drawTexture(const std::string &path, Vector2 pos, float rotation, float scale, RGB tint);
+    void drawSlider(Vector2 pos, Vector2 size, float slider, const std::string name);
 
     void drawText(const std::string &text, coords pos, float scale, RGB tint);
     void displayMusic(const std::string &path, float volume);
@@ -87,7 +88,6 @@ public:
     const std::pair<float, float> getMousePosition() const noexcept; 
 
     static float getDeltaTime() noexcept;
-    void updateMusic(const std::string &path);
     void freeResources();
 
 protected:
@@ -96,7 +96,7 @@ private:
     Camera _camera;
     std::unordered_map<std::string, Model> _models;
     std::unordered_map<std::string, Texture2D> _textures;
-    std::unordered_map<std::string, Music> _music;
+    std::unordered_map<std::string, std::pair<Music, bool>> _music;
     std::unordered_map<std::string, Sound> _sound;
     std::vector<int> _keys = {
         KEY_NULL,

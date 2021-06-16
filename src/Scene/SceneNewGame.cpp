@@ -7,6 +7,7 @@
 
 #include "UiObject/Button/Button.hpp"
 #include "InputBox.hpp"
+#include "Core.hpp"
 #include "SceneNewGame.hpp"
 
 namespace newGame {
@@ -69,6 +70,9 @@ namespace newGame {
     {
         char input;
 
+        lib.displayMusic(core::_musicPath, _settings._musicVol);
+        if (lib.isMousePressed())
+            lib.displaySound(core::_soundsPath, _settings._soundVol);
         input = lib.getPressedCharacter();
         std::for_each(_objects.begin(), _objects.end(), [&, input](auto &it){
             if (it->getTypeField().isInputBox) {
@@ -83,36 +87,8 @@ namespace newGame {
         fillAi();
         fillName();
         if (!_state)
-            return (Scenes::MENU);
+            return (prevScene);
         return (Scenes::GAME);
     }
-
-    // Scenes SceneNewGame::run(Raylib &lib, Scenes const &prevScene)
-    // {
-    //     char input;
-
-    //     while (_select == -1) {
-    //         _mousePos = lib.getMousePosition();
-    //         triggerInputActions(lib);
-    //         input = lib.getPressedCharacter();
-    //         for (auto &it : _objects)
-    //             if (it->getTypeField().isButton) {
-    //                 if (it->getTypeField().isInputBox) {
-    //                     auto inputBox = std::dynamic_pointer_cast<InputBox>(it);
-    //                     inputBox->changeText(input, _mousePos);
-    //                     inputBox->setState(_mousePos, _pressed);
-    //                 } else {
-    //                     auto button = std::dynamic_pointer_cast<button::Button>(it);
-    //                     button->setState(_mousePos, _pressed);
-    //                 }
-    //             }
-    //         lib.printObjects(_objects);
-    //     }
-    //     fillAi();
-    //     fillName();
-    //     if (!_select)
-    //         return (Scenes::MENU);
-    //     return (Scenes::GAME);
-    // }
 
 }
