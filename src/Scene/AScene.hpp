@@ -24,7 +24,7 @@ public:
 
 protected:
     void triggerInputActions(Raylib &lib);
-    void setTankInputs();
+    void setInputsNewTank();
     void setInputFunction(Raylib::Inputs, std::function<void()> function);
     Setting &_settings;
     std::vector<int> _inputSave;
