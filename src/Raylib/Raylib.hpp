@@ -42,7 +42,7 @@ public:
         DOWN,
         RIGHT,
         LEFT,
-        A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
+        A, Z, E, R, T, Y, U, O, I, P, Q, S, D, F, G, H, J, K, L, M, W, X, C, V, B, N,
         PRESSED,
         RELEASED
     };
@@ -84,6 +84,7 @@ public:
     bool isKeyReleased(int &button) const noexcept;
     std::string textForSubText(std::string const &text, int &pos, int &frameCounter) const noexcept;
     int getKeyPressed() const noexcept;
+    std::vector<int> getKeysDown() noexcept;
     const std::pair<float, float> getMousePosition() const noexcept; 
 
     static float getDeltaTime() noexcept;
@@ -98,6 +99,7 @@ private:
     std::unordered_map<std::string, Texture2D> _textures;
     std::unordered_map<std::string, Music> _music;
     std::unordered_map<std::string, Sound> _sound;
+    std::vector<int> _inputSave;
     std::vector<int> _keys = {
         KEY_NULL,
         KEY_ENTER,

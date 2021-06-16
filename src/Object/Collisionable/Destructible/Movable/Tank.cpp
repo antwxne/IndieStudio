@@ -6,6 +6,7 @@
 */
 
 #include "Tank.hpp"
+#include "Raylib.hpp"
 #include <functional>
 
 const std::string Tank::sandCamo = "asset/Tank/sand_camo.png";
@@ -18,7 +19,7 @@ Tank::Tank(const std::string &name, const coords &pos, const std::pair<int, int>
 {
     _typeField.isTank = true;
     _life = 10;
-    _speed = 5;
+    _speed = 4;
     _scale = 0.2f;
 }
 
@@ -29,6 +30,7 @@ Tank::Tank(const Tank &to_copy)
     _life = 10;
     _speed = 5;
     _scale = 0.2f;
+    // _rotation = 1;
 }
 
 void Tank::fire()
@@ -36,6 +38,13 @@ void Tank::fire()
     _cannon.fire();
 }
 
+void Tank::move(const coords &direction) noexcept
+{
+    auto tmp = direction;
+    tmp *= _speed * Raylib::getDeltaTime();
+    _pos += tmp;
+    _cannon.move(direction);
+}
 
 Cannon const &Tank::getCannon() const
 {

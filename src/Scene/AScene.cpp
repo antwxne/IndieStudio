@@ -7,6 +7,7 @@
 
 #include "AScene.hpp"
 #include "MovableObject.hpp"
+#include "Tank.hpp"
 
 AScene::AScene(Setting &settings) : _settings(settings)
 {
@@ -17,8 +18,8 @@ void AScene::triggerInputActions(Raylib &lib)
     int input = Raylib::NULL_KEY;
     std::unordered_map<int,std::function<void()>>::iterator itKey;
 
-    while ((input = lib.getKeyPressed()) != Raylib::NULL_KEY) {
-        itKey = _keys.find(input);
+    for (auto const &key : lib.getKeysDown()) {
+        itKey = _keys.find(key);
         if (itKey != _keys.end())
             itKey->second();
     }
@@ -47,10 +48,13 @@ void AScene::setInputFunction(Raylib::Inputs key, std::function<void()> func)
 #include <math.h>
 void AScene::setTankInputs()
 {
-    setInputFunction(_settings._keysPlayerOne[2], [this](){
-        std::cout << "moving up" << std::endl;
-        auto x = std::dynamic_pointer_cast<MovableObject>(_objects.back());
+    setInputFunction(_settings._keysPlayerOne[0], [this](){
+        auto x = std::dynamic_pointer_cast<Tank>(_objects.back());
         x->move(coords(cos(x->getRotation()),0,sin(x->getRotation())));
+    });
+    setInputFunction(_settings._keysPlayerOne[1], [this](){
+        auto x = std::dynamic_pointer_cast<Tank>(_objects.back());
+        x->move(coords((cos(x->getRotation())) * (-1), 0, (sin(x->getRotation()) * (-1))));
     });
     // setInputFunction(keys[0], [](Tank &tank){tank.move(coords(cos(tank.getRotation()), 0, sin(tank.getRotation())));});
 }
