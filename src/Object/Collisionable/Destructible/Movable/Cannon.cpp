@@ -13,8 +13,13 @@ Cannon::Cannon(const coords &pos, const std::pair<int, int> &size, const std::pa
     : MovableObject(pos, size, path)
 {
     _typeField.isCannon = true;
-    //changer le sprite
+    _scale = 0.2f;
 }
+
+Cannon::Cannon(const Cannon &to_copy) : Cannon(to_copy._pos, to_copy._size, to_copy._path)
+{
+}
+
 void Cannon::fire()
 {
     // float angle = _rotation * 180 / PI;

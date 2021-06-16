@@ -8,11 +8,13 @@
 #include "Setting.hpp"
 
 Setting::Setting(int widthScreen, int heightScreen, const std::size_t &fps, float musicVol, float soundVol)
-    : _musicVol(musicVol), _soundVol(soundVol), _widthScreen(widthScreen), _heightScreen(heightScreen), _fps(fps)
+    : _musicVol(musicVol), _soundVol(soundVol), _widthScreen(widthScreen), _heightScreen(heightScreen), _fps(fps),
+    _keysPlayerOne({Raylib::Z, Raylib::S, Raylib::Q, Raylib::D, Raylib::R, Raylib::T, Raylib::SPACE}),
+    _keysPlayerTwo({Raylib::UP, Raylib::DOWN, Raylib::LEFT, Raylib::RIGHT, Raylib::I, Raylib::O, Raylib::P})
 {
 }
 
 Setting::Setting(const Setting &settings)
-    : _musicVol(settings._musicVol), _soundVol(settings._soundVol), _widthScreen(settings._widthScreen), _heightScreen(settings._heightScreen), _fps(settings._fps)
+    : Setting(settings._widthScreen, settings._heightScreen, settings._fps, settings._musicVol, settings._soundVol)
 {
 }

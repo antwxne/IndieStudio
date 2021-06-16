@@ -36,16 +36,17 @@ namespace button {
     class Button : public UiObject
     {
         public:
-            Button(const coords &pos, const std::pair<int, int> &size, const std::string &path, const std::string &text, int sizeText, float scale, std::pair<RGB, RGB> color);
+            Button(const coords &pos, const std::pair<int, int> &size, const std::array<std::string, 3> &path, const std::string &text, int sizeText, float scale, std::pair<RGB, RGB> color);
             ~Button();
             void setText(const std::string &newText) noexcept;
             const std::string getText() const noexcept;
             const coords getTextPos() const noexcept;
             const int getTextSize() const noexcept;
             bool isInside(const std::pair<float, float> &pos) const;
-            void setState(const std::pair<float, float> &pos, std::array<std::string, 3> buttonPath, bool clicked);
+            void setState(const std::pair<float, float> &pos, bool clicked);
 
-        private:
+        protected:
+            std::array<std::string, 3> _texturePath;
             std::string _text;
             int _textSize;
             coords _textPos;

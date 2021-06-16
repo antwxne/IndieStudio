@@ -13,7 +13,7 @@
 
 namespace menu {
 
-    SceneMenu::SceneMenu(Setting &settings) : _select(-1), AScene(settings), _pressed(false)
+    SceneMenu::SceneMenu(Setting &settings) : UiScene(settings)
     {
         setInputFunction(Raylib::PRESSED, [&]() {
             _pressed = true;
@@ -24,14 +24,14 @@ namespace menu {
                 if (it->getTypeField().isButton) {
                     auto button = std::dynamic_pointer_cast<button::Button>(it);
                     if (button->isInside(_mousePos)) {
-                        _select = std::find(_menuText.begin(), _menuText.end(), button->getText()) - _menuText.begin();
+                        _state = std::find(_menuText.begin(), _menuText.end(), button->getText()) - _menuText.begin();
                         return;
                     }
                 }
         });
         _objects.emplace_back(std::make_shared<UiObject>(coords(), std::make_pair(0, 0), _bgPath, 1.0f));
         for (std::size_t i = 0; i != QUIT + 1; ++i)
-            _objects.emplace_back(std::make_shared<button::Button>(_menuPos.at(i), _menuSize.at(i), button::_buttonNavigPath[button::buttonState_e::NOTHING], _menuText[i], 20, 1, std::make_pair(RGB(), RGB(0, 0, 0))));
+            _objects.emplace_back(std::make_shared<button::Button>(_menuPos.at(i), _menuSize.at(i), button::_buttonNavigPath, _menuText[i], 20, 1, std::make_pair(RGB(), RGB(0, 0, 0))));
     }
 
     SceneMenu::~SceneMenu()
@@ -39,22 +39,16 @@ namespace menu {
         _objects.clear();
     }
 
-    Scenes SceneMenu::run(Raylib &lib, Scenes const &prevScene)
+    void SceneMenu::eventScene(Raylib &lib)
     {
-        lib.displayMusic(_musicPath, _settings._musicVol);
-        while (_select == -1) {
-            lib.updateMusic(_musicPath);
-            _mousePos = lib.getMousePosition();
-            triggerInputActions(lib);
-            if (lib.isMousePressed())
-                lib.displaySound(_soundsPath, _settings._soundVol);
-            for (auto &it : _objects)
-                if (it->getTypeField().isButton) {
-                    auto button = std::dynamic_pointer_cast<button::Button>(it);
-                    button->setState(_mousePos, button::_buttonNavigPath, _pressed);
-                }
-            lib.printObjects(_objects);
-        }
-        return (_returnScene.at(static_cast<menu_e>(_select)));
+        if (lib.isMousePressed())
+            lib.displaySound(_soundsPath, _settings._soundVol);
     }
+
+    Scenes SceneMenu::endScene(Scenes const &prevScene) noexcept
+    {
+        std::cout << "oui" << std::endl;
+        return (_returnScene.at(static_cast<menu_e>(_state)));
+    }
+
 }

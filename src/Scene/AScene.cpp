@@ -6,6 +6,7 @@
 */
 
 #include "AScene.hpp"
+#include "MovableObject.hpp"
 
 AScene::AScene(Setting &settings) : _settings(settings)
 {
@@ -40,4 +41,16 @@ void AScene::setInputFunction(Raylib::Inputs key, std::function<void()> func)
     itKey = _keys.find(key);
     if (itKey != _keys.end())
         itKey->second = func;
+}
+
+//  - events not repeated if key keep being pressed
+#include <math.h>
+void AScene::setTankInputs()
+{
+    setInputFunction(_settings._keysPlayerOne[2], [this](){
+        std::cout << "moving up" << std::endl;
+        auto x = std::dynamic_pointer_cast<MovableObject>(_objects.back());
+        x->move(coords(cos(x->getRotation()),0,sin(x->getRotation())));
+    });
+    // setInputFunction(keys[0], [](Tank &tank){tank.move(coords(cos(tank.getRotation()), 0, sin(tank.getRotation())));});
 }

@@ -11,6 +11,10 @@
 #include <exception>
 #include <string>
 
+/**
+ * @class Error
+ * @brief customized exception class
+ */
 class Error : public std::exception {
     public:
         Error(const std::string &desc) noexcept;

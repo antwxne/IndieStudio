@@ -27,6 +27,8 @@ public:
      * @param bullet
      */
     Cannon(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path);
+    Cannon(const Cannon &cannon);
+    ~Cannon() = default;
 
     /**
      * @brief shot one bullet
