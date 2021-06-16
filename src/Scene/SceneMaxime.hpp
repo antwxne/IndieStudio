@@ -21,13 +21,6 @@ class SceneMaxime : public AScene {
         bool _enter;
 };
 
-static const std::vector<std::string> _playerName {
-    "player1",
-    "player2",
-    "player3",
-    "player4"
-};
-
 static const std::vector<std::pair<float, float>> _playerPos {
     {std::make_pair(170.0f, 1035.0f)},
     {std::make_pair(670.0f, 1035.0f)},

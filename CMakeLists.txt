@@ -100,7 +100,6 @@ set(SCENE_SRCS
         ${SCENE_PATH}/SceneOption.cpp
         ${SCENE_PATH}/SceneRobin.cpp
         )
-
 set(GROUND_SRCS
         ${GROUND_PATH}/Ground.cpp)
 
@@ -109,7 +108,7 @@ set(UIGAME_SRCS
         ${UIGAME_PATH}/BorderPlayer.cpp
         ${UIGAME_PATH}/FrameUI.cpp
         ${UIGAME_PATH}/FullSquare.cpp
-)
+        src/Object/UiObject/UiGame/ColorPlayer.cpp src/Object/UiObject/UiGame/ColorPlayer.hpp)
 set(PLAYER_SRCS
         ${PLAYER_PATH}/Player.cpp
         )
