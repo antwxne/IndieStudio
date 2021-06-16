@@ -10,14 +10,14 @@
 
 #include "Particles.hpp"
 
-Particles::Particles(const coords &pos, const std::pair<int, int> &size,
+Particles::Particles(const coords &pos, const std::pair<int, int> &size, const std::pair<int, int> &maxSize,
     float scale, const std::pair<RGB, RGB> &colors, std::size_t nParticles
-) : AObject(pos, size, scale, colors)
+) : AObject(pos, size, scale, colors),_particles(), _maxSize(maxSize), _objPos(pos)
 {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> alpha(100, 250);
-    std::uniform_real_distribution<float> acc(0.f, 0.5f);
+    std::uniform_real_distribution<float> acc(-0.5f, 0.5f);
     std::uniform_real_distribution<float> vel(-20, 20);
     particle tmp {.position = pos, .color = colors.first, .size = size, .scale = scale};
 
@@ -44,9 +44,9 @@ void Particles::update(const coords &objPos) noexcept
         r = gen() % 10 <= 3;
         i.v += i.a;
         i.position += i.v;
-        i.size.first -= r;
-        i.size.second -= r;
-        if (i.size.first <= 0 || i.size.second <= 0) {
+        i.size.first += r;
+        i.size.second += r;
+        if (i.size.first <= _maxSize.first || i.size.second <= _maxSize.second) {
             i.position = objPos;
             i.size = _size;
         }
