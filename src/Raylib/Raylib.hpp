@@ -82,7 +82,7 @@ public:
     bool isKeyReleased(int &button) const noexcept;
     std::string textForSubText(std::string const &text, int &pos, int &frameCounter) const noexcept;
     int getKeyPressed() const noexcept;
-    const std::pair<float, float> getMousePosition() const noexcept; 
+    const std::pair<float, float> getMousePosition() const noexcept;
 
     static float getDeltaTime() noexcept;
     void updateMusic(const std::string &path);

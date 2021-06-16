@@ -22,6 +22,8 @@ set(MOVABLE_PATH ${DESTRUCT_PATH}/Movable)
 set(MAP_PATH src/Map)
 set(SCENE_PATH src/Scene)
 set(GROUND_PATH src/Object/Ground)
+set(POWERUPS_PATH ${COLLIS_PATH}/PowerUps)
+set(WALL_PATH ${COLLIS_PATH}/Wall)
 
 
 # Include directories
@@ -38,6 +40,8 @@ include_directories(${BUTTON_PATH})
 include_directories(${DESTRUCT_PATH})
 include_directories(${MOVABLE_PATH})
 include_directories(${GROUND_PATH})
+include_directories(${POWERUPS_PATH})
+include_directories(${WALL_PATH})
 
 # Source files
 set(RAYLIB_SRCS
@@ -69,7 +73,7 @@ set(OBJECTS_SRCS
         ${OBJECT_PATH}/Particles.cpp
         ${OBJECT_PATH}/Particles.hpp
         ${COLLIS_PATH}/CollisionableObject.cpp
-        ${COLLIS_PATH}/Wall.cpp
+        ${COLLIS_PATH}/Wall/Wall.cpp
         ${BUTTON_PATH}/Button.cpp
         ${DESTRUCT_PATH}/DestructibleObject.cpp
         ${DESTRUCT_PATH}/DestructibleWall.cpp
@@ -79,6 +83,7 @@ set(OBJECTS_SRCS
         ${MOVABLE_PATH}/Bullet.cpp
         ${MOVABLE_PATH}/TankAi.cpp
         ${MOVABLE_PATH}/TankAi.hpp
+        ${POWERUPS_PATH}/PowerUps.cpp
         )
 
 set(SCENE_SRCS

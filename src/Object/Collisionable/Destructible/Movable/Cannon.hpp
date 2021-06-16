@@ -21,16 +21,16 @@ class Cannon: public MovableObject {
 public:
     /**
      * @brief Construct a new Cannon object
-     * 
-     * @param pos 
-     * @param size 
-     * @param bullet 
+     *
+     * @param pos
+     * @param size
+     * @param bullet
      */
     Cannon(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path);
 
     /**
      * @brief shot one bullet
-     * 
+     *
      */
     void fire();
 private:

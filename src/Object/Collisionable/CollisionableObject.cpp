@@ -7,6 +7,7 @@
 
 #include "Object/Collisionable/Destructible/Movable/TankAi.hpp"
 #include "CollisionableObject.hpp"
+#include "Object/Collisionable/PowerUps/PowerUps.hpp"
 
 CollisionableObject::CollisionableObject(const coords &pos,
     const std::pair<int, int> &size, const std::pair<std::string, std::string> &path
@@ -51,16 +52,21 @@ bool CollisionableObject::hit(const CollisionableObject &obj) noexcept
     && this->_pos.second + this->_size.second >= obj._pos.second
     && this->_pos.second <= obj._pos.second + obj._size.second) {
         if (this->_typeField.isIa && obj._typeField.isWall) {
-            auto tmp = dynamic_cast<TankAI *>(this);
-            tmp->setBlocked(true);
+            auto tankIa = dynamic_cast<TankAI *>(this);
+            tankIa->setBlocked(true);
         }
         if (this->_typeField.isDestructible) {
-            auto tmp = dynamic_cast<DestructibleObject *>(this);
-            tmp->updateLife(-1);
+            auto destructObj = dynamic_cast<DestructibleObject *>(this);
+            destructObj->updateLife(-1);
         }
         if (this->_typeField.isBullet) {
-            auto tmp = dynamic_cast<Bullet *>(this);
-            tmp->bounce();
+            auto bullet = dynamic_cast<Bullet *>(this);
+            bullet->bounce();
+        }
+        if (this->_typeField.isPowerUps && obj.getTypeField().isTank) {
+            auto power = dynamic_cast<PowerUps *>(this);
+            auto &tank = dynamic_cast<Tank&>(*this);
+            power->applyPowerUps(tank);
         }
         return true;
     }
