@@ -32,7 +32,7 @@ public:
      * @param size 
      * @param cannon 
      */
-    Tank(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path, const std::pair<std::string, std::string> &cannonPath);
+    Tank(const std::string &name, const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path, const std::pair<std::string, std::string> &cannonPath);
     Tank(const Tank &to_copy);
     /**
      * @brief Destroy the Tank object
@@ -40,15 +40,21 @@ public:
      */
     ~Tank() = default;
 
-    Cannon const &getCannon() const;
     /**
      * @brief fire with the cannon
      * 
      */
     virtual void fire();
 
+    Cannon const &getCannon() const;
+    std::string const &getName() const;
+    std::size_t const &getScore() const;
+    void setScore(const std::size_t &score);
+
 protected:
     Cannon _cannon;
+    std::string _name;
+    std::size_t _score;
 };
 
 #endif //INDIESTUDIO_TANK_HPP

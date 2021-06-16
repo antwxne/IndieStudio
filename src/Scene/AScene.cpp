@@ -6,6 +6,7 @@
 */
 
 #include "AScene.hpp"
+#include "MovableObject.hpp"
 
 AScene::AScene(Setting &settings) : _settings(settings)
 {
@@ -42,8 +43,6 @@ void AScene::setInputFunction(Raylib::Inputs key, std::function<void()> func)
         itKey->second = func;
 }
 
-//problems:
-//  - english keyboard
 //  - events not repeated if key keep being pressed
 #include <math.h>
 void AScene::setTankInputs()
