@@ -12,8 +12,8 @@
 #include "TankAi.hpp"
 #include "Raylib/Raylib.hpp"
 
-TankAI::TankAI(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path, const std::pair<std::string, std::string> &cannonPath)
-    : Tank(pos, size, path, cannonPath)
+TankAI::TankAI(const std::string &name, const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path, const std::pair<std::string, std::string> &cannonPath)
+    : Tank(name, pos, size, path, cannonPath)
 {
     _typeField.isIa = true;
     _stopDistance = size.first * 2;
