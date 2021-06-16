@@ -14,16 +14,16 @@ Particles::Particles(const coords &pos, const std::pair<int, int> &size, float m
     float scale, const std::pair<RGB, RGB> &colors, std::size_t nParticles, const coords &accelleration
 ) : AObject(pos, size, scale, colors),_particles(), _maxSize(maxSize), _objPos(pos), _acceleration(accelleration)
 {
+    _typeField.isParticule = true;
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> alpha(100, 250);
     std::uniform_real_distribution<float> acc(0, 0.5f);
     std::uniform_real_distribution<float> vel(-20, 20);
-    particle tmp {.position = pos, .color = colors.first, .radius = static_cast<float>(size.first), .scale = scale};
+    particule tmp {.position = pos, .color = colors.first, .radius = static_cast<float>(size.first), .scale = scale};
     float tmpRand;
 
     _particles.reserve(nParticles);
-    _typeField.isParticle = true;
     for (std::size_t i = 0; i < nParticles; ++i) {
         tmp.color.a = alpha(gen);
         tmp.a = accelleration;
@@ -37,7 +37,7 @@ Particles::Particles(const coords &pos, const std::pair<int, int> &size, float m
         _particles[i] = tmp;
     }
 }
-const std::vector<Particles::particle> &Particles::getParticles() const noexcept
+const std::vector<Particles::particule> &Particles::getParticles() const noexcept
 {
     return _particles;
 }

@@ -26,7 +26,6 @@ const std::vector<std::string> SceneMaxime::_assetsPath {
 
 SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false)
 {
-    //auto const &particule = std::make_unique<Particles>();
     auto const &map = std::make_unique<Map>();
 
     map->createDestructibleMap(std::make_pair(-5, -5), std::make_pair(5, 5));

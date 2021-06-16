@@ -30,7 +30,7 @@ public:
      * @var size float radius of sphere
      * @var scale scaling of the particle
      */
-    struct particle {
+    struct particule {
         coords a;
         coords v;
         coords position;
@@ -63,7 +63,7 @@ public:
      * @brief get all the particles from the object
      * @return vector with infos to display each particle
      */
-    const std::vector<particle> &getParticles() const noexcept;
+    const std::vector<particule> &getParticles() const noexcept;
     /**
      * @brief change the color of all the particles
      * @param new color
@@ -71,8 +71,8 @@ public:
     void changeColor(const RGB &color) noexcept;
     /**
      * @brief Set the Acceleration object
-     * 
-     * @param acceleration 
+     *
+     * @param acceleration
      */
     void setAcceleration(const coords &acceleration);
 private:
@@ -80,7 +80,7 @@ private:
      * @var vector de particle
      * @brief store all particles infos
      */
-    std::vector<particle> _particles;
+    std::vector<particule> _particles;
     /**
      * @var float
      * @brief maximum size of particles
