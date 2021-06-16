@@ -43,3 +43,10 @@ static const std::vector<std::pair<float, float>> _uiLifePosPlayer{
     std::make_pair(1265, 1050),
     std::make_pair(1765, 1050)
 };
+
+static const std::vector<std::pair<float, float>> _posTank {
+    std::make_pair(1, 1),
+    std::make_pair(0, 0),
+    std::make_pair(600, 100),
+    std::make_pair(800, 700)
+};

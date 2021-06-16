@@ -57,7 +57,7 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings)
     for (unsigned int i = 0; i != _playerPos.size(); i++) {
         auto tmp = _objects.emplace_back(
             std::make_shared<Tank>(_settings._players.at(i).name,
-                coords(0, 0, 0), std::make_pair(10, 10),
+                coords(_posTank[i].first, _posTank[i].second), std::make_pair(10, 10),
                 std::make_pair(Tank::sandCamo, Tank::body),
                 std::make_pair(Tank::greenCamo, Tank::turret)));
         auto tank = std::dynamic_pointer_cast<Tank>(_objects.back());
