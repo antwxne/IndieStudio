@@ -19,8 +19,8 @@ namespace newGame {
     };
 
     static const std::vector<std::string> _playerIA {
-        "Player",
-        "IA"
+        "IA",
+        "Player"
     };
 
     static const std::vector<struct coords> _menuPos {

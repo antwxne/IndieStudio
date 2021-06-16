@@ -111,8 +111,6 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
                 auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
                 auto const &cannonCasted = static_cast<CollisionableObject>(tank->getCannon());
                 drawModel(derived->getModel(), derived->getTexture(), derived->getPosition(), i->getScale(), i->getColors().first);
-                std::cout << tank->getCannon().getScale() << std::endl;
-                std::cout << cannonCasted.getScale() << std::endl << std::endl;
                 drawModel(cannonCasted.getModel(), cannonCasted.getTexture(), cannonCasted.getPosition(), cannonCasted.getScale(), cannonCasted.getColors().first);
             } else if (i->getTypeField().isCollisionable) {
             auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);

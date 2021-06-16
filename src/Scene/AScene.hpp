@@ -24,6 +24,7 @@ public:
 
 protected:
     void triggerInputActions(Raylib &lib);
+    void setTankInputs();
     void setInputFunction(Raylib::Inputs, std::function<void()> function);
     Setting &_settings;
     std::vector<std::shared_ptr<AObject>> _objects;

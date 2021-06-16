@@ -24,6 +24,7 @@ void MovableObject::rotate(float angle) noexcept
 {
     _rotation += angle;
 }
+
 void MovableObject::changeSpeed(float newSpeed)
 {
     _speed += newSpeed;

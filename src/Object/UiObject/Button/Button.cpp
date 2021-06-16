@@ -9,8 +9,8 @@
 
 namespace button {
 
-    Button::Button(const coords &pos, const std::pair<int, int> &size, const std::string &path, const std::string &text, int sizeText, float scale, std::pair<RGB, RGB> color)
-        : UiObject(pos, size, path, scale, color), _text(text), _textSize(sizeText * scale), _textPos(pos.first + size.first / (text.length() + 1), pos.second + size.second / 3)
+    Button::Button(const coords &pos, const std::pair<int, int> &size, const std::array<std::string, 3> &path, const std::string &text, int sizeText, float scale, std::pair<RGB, RGB> color)
+        : UiObject(pos, size, path[0], scale, color), _text(text), _textSize(sizeText * scale), _textPos(pos.first + size.first / (text.length() + 1), pos.second + size.second / 3), _texturePath(path)
     {
         _typeField.isButton = true;
     }
@@ -40,12 +40,12 @@ namespace button {
                 (_pos.second <= pos.second && pos.second <= _pos.second + _size.second * _scale));
     }
 
-    void Button::setState(const std::pair<float, float> &pos, std::array<std::string, 3> buttonPath, bool clicked)
+    void Button::setState(const std::pair<float, float> &pos, bool clicked)
     {
         if (isInside(pos)) {
-            setTexture(clicked ? buttonPath.at(buttonState_e::CLICKED) : buttonPath.at(buttonState_e::OVER));
+            setTexture(clicked ? _texturePath.at(buttonState_e::CLICKED) : _texturePath.at(buttonState_e::OVER));
         } else {
-            setTexture(buttonPath.at(buttonState_e::NOTHING));
+            setTexture(_texturePath.at(buttonState_e::NOTHING));
         }
     }
 
