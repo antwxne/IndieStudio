@@ -15,7 +15,7 @@
 #include "Object/Ground/Ground.hpp"
 #include "Object/UiObject/UiObject.hpp"
 #include "Object/Collisionable/Wall/Wall.hpp"
-#include "Object/Collisionable/PowerUps/PowerUps.hpp"
+#include "Object/Collisionable/Destructible/Movable/PowerUps/PowerUps.hpp"
 
 const std::vector<std::string> SceneMaxime::_assetsPath {
     "asset/background_asset/ground.png",

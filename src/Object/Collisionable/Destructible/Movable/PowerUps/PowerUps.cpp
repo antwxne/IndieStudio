@@ -8,10 +8,10 @@
 #include "PowerUps.hpp"
 
 PowerUps::PowerUps(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path, const Power &powerUps)
-    : CollisionableObject(pos, size, path), _powerUps(powerUps) {}
+    : MovableObject(pos, size, path), _powerUps(powerUps) {}
 
 PowerUps::PowerUps(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path)
-    : CollisionableObject(pos, size, path), _powerUps()
+    : MovableObject(pos, size, path), _powerUps()
 {
     srand(time(NULL));
     int nb = rand() % 3;

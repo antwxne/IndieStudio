@@ -23,7 +23,7 @@ set(MOVABLE_PATH ${DESTRUCT_PATH}/Movable)
 set(MAP_PATH src/Map)
 set(SCENE_PATH src/Scene)
 set(GROUND_PATH src/Object/Ground)
-set(POWERUPS_PATH ${COLLIS_PATH}/PowerUps)
+set(POWERUPS_PATH ${MOVABLE_PATH}/PowerUps)
 set(WALL_PATH ${COLLIS_PATH}/Wall)
 set(PLAYER_PATH src/Player)
 
