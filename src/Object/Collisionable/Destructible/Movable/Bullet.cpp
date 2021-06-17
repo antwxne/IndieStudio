@@ -17,6 +17,7 @@ Bullet::Bullet(const coords &pos, const std::pair<int, int> &size) : MovableObje
 {
     _typeField.isBullet = true;
     _life = 3;
+    _damage = 1;
 }
 void Bullet::constant_move() noexcept
 {
@@ -48,4 +49,12 @@ void Bullet::bounce() noexcept
         _direction.first *= -1;
         _direction.second *= -1;
     }
+}
+float Bullet::getDamage() const noexcept
+{
+    return _damage;
+}
+void Bullet::setDamage(float damage) noexcept
+{
+    _damage = damage;
 }

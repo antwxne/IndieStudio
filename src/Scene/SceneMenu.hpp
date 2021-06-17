@@ -17,7 +17,6 @@ namespace menu {
         START,
         LOAD,
         OPTION,
-        LEADERBOARD,
         QUIT
     };
 
@@ -32,7 +31,6 @@ namespace menu {
         "New game",
         "Load game",
         "Settings",
-        "Leaderboard",
         "Quit"
     };
 
@@ -41,15 +39,6 @@ namespace menu {
         {coords(860.0f, 600.0f, 0.0f)},
         {coords(860.0f, 700.0f, 0.0f)},
         {coords(860.0f, 800.0f, 0.0f)},
-        {coords(860.0f, 900.0f, 0.0f)}
-    };
-
-    static const std::vector<std::pair<float, float>> _menuSize {
-        {std::make_pair(200.0f, 50.0f)},
-        {std::make_pair(200.0f, 50.0f)},
-        {std::make_pair(200.0f, 50.0f)},
-        {std::make_pair(200.0f, 50.0f)},
-        {std::make_pair(200.0f, 50.0f)}
     };
 
     static const std::string _bgPath = "asset/background_asset/Background_01.png";
@@ -58,7 +47,6 @@ namespace menu {
         {menu_e::START,         Scenes::NEW_GAME},
         {menu_e::LOAD,          Scenes::GAME},
         {menu_e::OPTION,        Scenes::OPTION},
-        {menu_e::LEADERBOARD,   Scenes::LEADERBOARD},
         {menu_e::QUIT,          Scenes::QUIT}
     };
 

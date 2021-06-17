@@ -42,10 +42,13 @@ public:
      *
      */
     void bounce() noexcept;
+    float getDamage() const noexcept;
+    void setDamage(float damage) noexcept;
 
 private:
     coords _direction;
     coords _prevPos;
+    float _damage;
 };
 
 #endif //INDIESTUDIO_BULLET_HPP

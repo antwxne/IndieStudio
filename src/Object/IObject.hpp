@@ -54,6 +54,12 @@ struct coords
         third -= rhs.third;
         return *this;
     }
+    coords &operator*(float n) {
+        first *= n;
+        second *= n;
+        third *= n;
+        return *this;
+    }
 
     coords &operator*=(float val) {
         first *= val;

@@ -37,3 +37,8 @@ const std::vector<Bullet> &Cannon::getBullets() const
 {
     return _bullets;
 }
+void Cannon::increaseDamage() noexcept
+{
+    for (auto &it : _bullets)
+        it.setDamage(it.getDamage() + 1);
+}

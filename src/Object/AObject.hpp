@@ -98,7 +98,7 @@ public:
      * @brief set a new position
      * @param pos new position
      */
-    void setPos(const coords &pos);
+    virtual void setPos(const coords &pos);
     /**
      * @brief Get the Rotation Angle object
      * 
