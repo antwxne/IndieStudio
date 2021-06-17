@@ -35,10 +35,10 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false)
 {
 /////////////////////////////START CEMENT//////////////////////:
 
+    _objects.emplace_back(std::make_shared<Ground>(coords(0, 0, 0), std::make_pair(40, 22), std::pair<std::string, std::string>(_assetsPath.at(0), _assetsPath.at(1))));
     auto const &carre = std::make_unique<FrameUI>();
-    for (auto const &carr : carre->getBorder()) {
+    for (auto const &carr : carre->getBorder())
         _objects.emplace_back(std::make_shared<BorderPlayer>(carr));
-    }
     for (unsigned int i = 0; i != _posTank.size(); i++) {
         auto tmp = _objects.emplace_back(
             std::make_shared<Tank>(_settings._players.at(i).name,
@@ -87,7 +87,6 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false)
     setInputFunction(Raylib::SPACE, [&]() {
         _pressed = true;
     });
-    _objects.emplace_back(std::make_shared<Ground>(coords(0, 0, 0), std::make_pair(40, 22), std::pair<std::string, std::string>(_assetsPath.at(0), _assetsPath.at(1))));
     for (auto const &block : map->_objectNoDestructibleList)
         _objects.emplace_back(std::make_shared<Wall>(block));
     for (auto const &block : map->_objectDestructibleList) {
