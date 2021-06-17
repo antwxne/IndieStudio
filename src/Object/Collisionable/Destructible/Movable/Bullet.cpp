@@ -20,6 +20,7 @@ Bullet::Bullet(const coords &pos, float angle) : MovableObject(pos, std::make_pa
     _life = 1;
     _rotationAngle = angle;
     _rotationAxis = coords(0.0f, 1.0f, 0.0f);
+    _damage = 1;
 }
 void Bullet::constant_move() noexcept
 {
@@ -51,4 +52,12 @@ void Bullet::bounce() noexcept
         _direction.first *= -1;
         _direction.second *= -1;
     }
+}
+float Bullet::getDamage() const noexcept
+{
+    return _damage;
+}
+void Bullet::setDamage(float damage) noexcept
+{
+    _damage = damage;
 }

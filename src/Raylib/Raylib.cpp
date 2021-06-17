@@ -275,10 +275,10 @@ void Raylib::displaySound(const std::string &path, float volume)
 
 void Raylib::drawSphere(const coords &pos, const RGB tint, const float radius)
 {
-    std::cout << "[RAYLIB] pos x: " << pos.first <<"\n";
-    std::cout << "[RAYLIB] pos Y: " << pos.second <<"\n";
-    std::cout << "[RAYLIB] pos z: " << pos.third <<"\n";
-    std::cout << "[RAYLIB] radius: " << radius <<"\n";
+    // std::cout << "[RAYLIB] pos x: " << pos.first <<"\n";
+    // std::cout << "[RAYLIB] pos Y: " << pos.second <<"\n";
+    // std::cout << "[RAYLIB] pos z: " << pos.third <<"\n";
+    // std::cout << "[RAYLIB] radius: " << radius <<"\n";
     DrawSphere({pos.first, pos.second, pos.third}, radius, {tint.r, tint.g, tint.b, tint.a});
 }
 

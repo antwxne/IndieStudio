@@ -59,20 +59,21 @@ bool CollisionableObject::hit(const CollisionableObject &obj) noexcept
     && this->_pos.first <= obj._pos.first + obj._size.first
     && this->_pos.second + this->_size.second >= obj._pos.second
     && this->_pos.second <= obj._pos.second + obj._size.second) {
-        if (this->_typeField.isIa && obj._typeField.isWall) {
-            auto tankIa = dynamic_cast<TankAI *>(this);
-            tankIa->setBlocked(true);
+        if (this->_typeField.isTank && obj._typeField.isCollisionable) {
+            auto tmp = dynamic_cast<Tank *>(this);
+            tmp->setPosition(tmp->getPreviousPos());
         }
-        if (this->_typeField.isDestructible) {
+        if (this->_typeField.isDestructible && obj._typeField.isBullet) {
             auto destructObj = dynamic_cast<DestructibleObject *>(this);
-            destructObj->updateLife(-1);
+            auto bullet = dynamic_cast<const Bullet *>(&obj);
+            destructObj->updateLife(-bullet->getDamage());
         }
         if (this->_typeField.isBullet) {
             auto bullet = dynamic_cast<Bullet *>(this);
             bullet->bounce();
         }
-        if (this->_typeField.isPowerUps && obj.getTypeField().isTank) {
-            auto power = dynamic_cast<PowerUps *>(this);
+        if (this->_typeField.isTank && obj.getTypeField().isPowerUps) {
+            auto power = dynamic_cast<const PowerUps *>(&obj);
             auto &tank = dynamic_cast<Tank&>(*this);
             power->applyPowerUps(tank);
         }

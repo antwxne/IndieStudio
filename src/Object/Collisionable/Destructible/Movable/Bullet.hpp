@@ -42,12 +42,15 @@ public:
      *
      */
     void bounce() noexcept;
+    float getDamage() const noexcept;
+    void setDamage(float damage) noexcept;
 
     static const std::string modelPath;
     static const std::string texturePath;
 private:
     coords _direction;
     coords _prevPos;
+    float _damage;
 };
 
 #endif //INDIESTUDIO_BULLET_HPP

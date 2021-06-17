@@ -7,7 +7,6 @@
 
 #include "SceneMaxime.hpp"
 #include "Core.hpp"
-#include "raylib.h"
 #include "Map/Map.hpp"
 #include <bits/stdc++.h>
 
@@ -34,34 +33,16 @@ const std::vector<std::string> SceneMaxime::_assetsPath {
 
 SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false)
 {
-    auto const &map = std::make_unique<Map>();
+/////////////////////////////START CEMENT//////////////////////:
 
-    map->createDestructibleMap(std::make_pair(-5, -5), std::make_pair(5, 5));
-    map->createDestructibleMap(std::make_pair(-5, -5), std::make_pair(6, 6));
-    map->createContourMap(std::make_pair(-10, 10), std::make_pair(-8, 8));
-
-    setInputFunction(Raylib::ENTER, [&]() {
-        _enter = !_enter;
-    });
-
-    setInputFunction(Raylib::SPACE, [&]() {
-        _pressed = true;
-    });
     _objects.emplace_back(std::make_shared<Ground>(coords(0, 0, 0), std::make_pair(40, 22), std::pair<std::string, std::string>(_assetsPath.at(0), _assetsPath.at(1))));
-    for (auto const &block : map->_objectNoDestructibleList)
-        _objects.emplace_back(std::make_shared<Wall>(block));
-    for (auto const &block : map->_objectDestructibleList) {
-        _objects.emplace_back(std::make_shared<DestructibleWall>(block));
-    }
-
     auto const &carre = std::make_unique<FrameUI>();
-    for (auto const &carr : carre->getBorder()) {
+    for (auto const &carr : carre->getBorder())
         _objects.emplace_back(std::make_shared<BorderPlayer>(carr));
-    }
     for (unsigned int i = 0; i != _posTank.size(); i++) {
         auto tmp = _objects.emplace_back(
             std::make_shared<Tank>(_settings._players.at(i).name,
-                coords(_posTank[i].first, _posTank[i].second), std::make_pair(10, 10),
+                coords(_posTank[i].first, 0, _posTank[i].second), std::make_pair(10, 10),
                 std::make_pair(Tank::sable, Tank::body),
                 std::make_pair(Tank::darkGreen, Tank::turret)));
         auto tank = std::dynamic_pointer_cast<Tank>(_objects.back());
@@ -84,6 +65,38 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false)
     for (auto &color : colorPlayer->getPosColorSquare()) {
         _objects.emplace_back(std::make_shared<UiObject>(color));
     }
+    /////////////////////////////END CLEMENT//////////////////////:
+    /////////////////////////////START Maxime//////////////////////:
+    std::vector<std::pair<int, int>> size;
+
+    for (auto &i : _objects)
+        if (i->getTypeField().isTank) {
+            size.push_back(std::make_pair(static_cast<int>(i->getPosition().first), static_cast<int>(i->getPosition().third)));
+        }
+    auto const &map = std::make_unique<Map>(size);
+
+    map->createDestructibleMap(std::make_pair(-8, -5), std::make_pair(1, 1));
+    map->createDestructibleMap(std::make_pair(-8, -1), std::make_pair(-1, -5));
+    map->createDestructibleMap(std::make_pair(1, -1), std::make_pair(5, -5));
+    map->createDestructibleMap(std::make_pair(1, 5), std::make_pair(5, 1));
+
+    //map->createDestructibleMap(std::make_pair(1, 5), std::make_pair(5, 1));
+    map->createContourMap(std::make_pair(-10, 10), std::make_pair(-8, 8));
+
+    setInputFunction(Raylib::ENTER, [&]() {
+        _enter = !_enter;
+    });
+
+    setInputFunction(Raylib::SPACE, [&]() {
+        _pressed = true;
+    });
+    for (auto const &block : map->_objectNoDestructibleList)
+        _objects.emplace_back(std::make_shared<Wall>(block));
+    for (auto const &block : map->_objectDestructibleList) {
+        _objects.emplace_back(std::make_shared<DestructibleWall>(block));
+    }
+
+/////////////////////////////END MAXIME//////////////////////:
 }
 
 SceneMaxime::~SceneMaxime()
@@ -101,11 +114,21 @@ void SceneMaxime::manageHeart(const std::string &name, const int life)
             auto heart = std::dynamic_pointer_cast<LifeGame>(_objects[i]);
             if (heart->getName() == name) {
                 if (idx == life) {
-                    _iterator.push_back(i);
+                    _listPosHeart.push_back(i);
                 } else
                     ++idx;
             }
         }
+    }
+}
+
+void SceneMaxime::checkHeart() noexcept
+{
+    if (_listPosHeart.size() != 0) {
+        for (auto &i : _listPosHeart) {
+            _objects.erase(_objects.begin() + i);
+        }
+        _listPosHeart.clear();
     }
 }
 
@@ -114,17 +137,6 @@ Scenes SceneMaxime::run(Raylib &lib, Scenes const &prevScene)
     bool isLock = false;
 
     while (lib.gameLoop()) {
-        for (auto &tmp : _objects) {
-            if (tmp->getTypeField().isTank) {
-                auto test = std::dynamic_pointer_cast<Tank>(tmp);
-                manageHeart(test->getName(), test->getLife());
-            }
-        }
-        if (_iterator.size() != 0) {
-            for (auto &i : _iterator)
-                _objects.erase(_objects.begin() + i);
-            _iterator.clear();
-        }
         triggerInputActions(lib);
         lib.printObjects(_objects);
         if (_pressed && !isLock) {
@@ -140,13 +152,19 @@ Scenes SceneMaxime::run(Raylib &lib, Scenes const &prevScene)
                     ++it;
             }
         }
-        for (auto &it: _objects)
+        for (auto &it: _objects) {
+            if (it->getTypeField().isTank) {
+                auto tank = std::dynamic_pointer_cast<Tank>(it);
+                manageHeart(tank->getName(), tank->getLife());
+            }
             if (it->getTypeField().isParticule == true) {
                 std::dynamic_pointer_cast<Particles>(it)->update();
             }
             else if (it->getTypeField().isPowerUps == true) {
                 std::dynamic_pointer_cast<PowerUps>(it)->rotate(0.5f);
             }
+        }
+        checkHeart();
     }
     return (Scenes::QUIT);
 }

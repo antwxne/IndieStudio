@@ -2,5 +2,5 @@
 
 mkdir -p build
 cd build || exit 1
-cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug
 cmake --build .

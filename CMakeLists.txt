@@ -104,6 +104,7 @@ set(SCENE_SRCS
         ${SCENE_PATH}/SceneNewGame.cpp
         ${SCENE_PATH}/SceneOption.cpp
         ${SCENE_PATH}/SceneRobin.cpp
+        ${SCENE_PATH}/SceneIntro.cpp
         )
 set(GROUND_SRCS
         ${GROUND_PATH}/Ground.cpp)

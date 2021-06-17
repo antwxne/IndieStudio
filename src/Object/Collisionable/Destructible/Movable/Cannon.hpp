@@ -42,6 +42,7 @@ public:
      * @return vector of bullet
      */
     const std::vector<Bullet> &getBullets() const;
+    void increaseDamage() noexcept;
 private:
     /**
      * @var bullet's vector
