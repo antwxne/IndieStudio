@@ -21,14 +21,12 @@ namespace core {
 
     void Core::start()
     {
-        Scenes previous = Scenes::INTRODUCTION;
         Raylib lib;
 
         lib.createWindow(_settings._widthScreen, _settings._heightScreen, _title, _settings._fps);
         while (_scenePos != QUIT) {
             _scene = _enumToConstructor.at(_scenePos)(_settings);
-            previous = _scenePos == previous ? _scenePos : previous;
-            _scenePos = _scene->run(lib, previous);
+            _scenePos = _scene->run(lib);
             _scene.reset();
             lib.freeResources();
         }

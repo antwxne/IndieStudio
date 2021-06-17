@@ -66,7 +66,6 @@ public:
 
 //    void drawTexture(const std::string &path, int posX, int posY, RGB tint);
     void drawTexture(const std::string &path, Vector2 pos, float rotation, float scale, RGB tint);
-    void drawSlider(Vector2 pos, Vector2 size, float slider, const std::string name);
 
     void drawText(const std::string &text, coords pos, float scale, RGB tint);
     void displayMusic(const std::string &path, float volume);
@@ -89,7 +88,7 @@ public:
     std::string textForSubText(std::string const &text, int &pos, int &frameCounter) const noexcept;
     int getKeyPressed() const noexcept;
     std::vector<int> getKeysDown() noexcept;
-    const std::pair<float, float> getMousePosition() const noexcept; 
+    const std::pair<float, float> getMousePosition() const noexcept;
     void drawRectangleLines(int const &posX, int const &posY, int const &width, int const &height, RGB color) const noexcept;
     void drawRectangle(int const &posX, int const &posY, int const &width, int const &height, RGB color) const noexcept;
     void updateMusic(const std::string &path);

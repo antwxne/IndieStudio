@@ -19,7 +19,6 @@
 #include "Object/UiObject/UiGame/FrameUI.hpp"
 #include "Object/UiObject/UiGame/LifeGame.hpp"
 #include "Object/UiObject/Button/Button.hpp"
-#include "Object/Collisionable/Destructible/Movable/Tank.hpp"
 #include "Object/UiObject/UiGame/ColorPlayer.hpp"
 #include "Object/UiObject/UiGame/TexteUi.hpp"
 #include "Object/Collisionable/Wall/Wall.hpp"
@@ -30,7 +29,7 @@ const std::vector<std::string> SceneMaxime::_assetsPath{
     "asset/OBJFormat/ground.obj",
     "asset/bonus/arrow.obj"};
 
-SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false)
+SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false), _isPause(false), _scenePause(settings)
 {
     /////////////////////////////START CEMENT//////////////////////:
 
@@ -81,10 +80,15 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false)
 
     map->createContourMap(std::make_pair(-10, 10), std::make_pair(-8, 8));
 
-    setInputFunction(Raylib::ENTER, [&]()
-                     { _enter = !_enter; });
-    setInputFunction(Raylib::SPACE, [&]()
-                     { _pressed = true; });
+    setInputFunction(Raylib::ENTER, [&]() {
+        _enter = !_enter;
+    });
+    setInputFunction(Raylib::SPACE, [&]() {
+        _pressed = true;
+    });
+    setInputFunction(Raylib::ESCAPE, [&]() {
+        _isPause = !_isPause;
+    });
     for (auto const &block : map->_objectNoDestructibleList)
         _objects.emplace_back(std::make_shared<Wall>(block));
     for (auto const &block : map->_objectDestructibleList)
@@ -133,7 +137,7 @@ void SceneMaxime::checkHeart() noexcept
     }
 }
 
-Scenes SceneMaxime::run(Raylib &lib, Scenes const &prevScene)
+Scenes SceneMaxime::run(Raylib &lib)
 {
     bool isLock = false;
 
@@ -141,12 +145,16 @@ Scenes SceneMaxime::run(Raylib &lib, Scenes const &prevScene)
     {
         triggerInputActions(lib);
         lib.printObjects(_objects);
-        if (_pressed && !isLock)
-        {
+        if (_isPause) {
+            auto newScene = _scenePause.run(lib);
+            if (newScene != Scenes::GAME)
+                return (newScene);
+            _isPause = false;
+        }
+        if (_pressed && !isLock) {
             _pressed = false;
             isLock = true;
-            for (auto it = _objects.begin(); it != _objects.end();)
-            {
+            for (auto it = _objects.begin(); it != _objects.end();) {
                 if (it->get()->getTypeField().isDestructible == true)
                 {
                     _objects.emplace_back(std::make_shared<PowerUps>(coords(it->get()->getPosition().first, it->get()->getPosition().second + 1.0f, it->get()->getPosition().third), std::make_pair(0, 0), std::pair<std::string, std::string>("", _assetsPath.at(2))));
@@ -158,21 +166,15 @@ Scenes SceneMaxime::run(Raylib &lib, Scenes const &prevScene)
                     ++it;
             }
         }
-        for (auto &it : _objects)
-        {
-            if (it->getTypeField().isTank)
-            {
+        for (auto &it : _objects) {
+            if (it->getTypeField().isTank) {
                 auto tank = std::dynamic_pointer_cast<Tank>(it);
                 manageHeart(tank->getName(), tank->getLife());
             }
             if (it->getTypeField().isParticule == true)
-            {
                 std::dynamic_pointer_cast<Particles>(it)->update();
-            }
             else if (it->getTypeField().isPowerUps == true)
-            {
                 std::dynamic_pointer_cast<PowerUps>(it)->rotate(0.5f);
-            }
         }
         checkHeart();
     }
