@@ -48,6 +48,7 @@ private:
      * @var bullet's vector
      * @brief vector containing bullets
      */
+    static const int _nbBullets;
     std::vector<Bullet> _bullets;
 };
 

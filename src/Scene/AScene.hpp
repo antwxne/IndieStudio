@@ -24,10 +24,8 @@ public:
 
 protected:
     void triggerInputActions(Raylib &lib);
-    void setInputsFirstTank(const std::array<Raylib::Inputs, 7> &controls);
-    void setInputsSecondTank(const std::array<Raylib::Inputs, 7> &controls);
+    void setInputsTank(const std::array<Raylib::Inputs, 7> &controls, std::shared_ptr<AObject> tank);
     void setInputFunction(Raylib::Inputs, std::function<void()> function);
-    std::shared_ptr<AObject> const &getNthTank(const std::size_t &n);
 
     Setting &_settings;
     std::vector<int> _inputSave;

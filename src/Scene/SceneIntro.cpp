@@ -34,12 +34,15 @@ SceneIntro::SceneIntro(Setting &settings) : AScene(settings)
     for (auto const &block : map->_objectNoDestructibleList)
         _objects.emplace_back(std::make_shared<Wall>(block));
 
-    //_objects.emplace_back(std::make_shared<Tank>("tankLeft", coords(-8,0,7), std::make_pair(10, 10), std::make_pair(Tank::sandCamo, Tank::body), std::make_pair(Tank::greenCamo, Tank::turret)));
-    _objects.emplace_back(std::make_shared<Tank>("tankLeft", coords(0, 0, 0), std::make_pair(10, 10), std::make_pair(Tank::sandCamo, Tank::body), std::make_pair(Tank::greenCamo, Tank::turret)));
-    setInputsFirstTank(_settings._keysPlayerOne);
-    // std::dynamic_pointer_cast<Tank>(_objects.back())->rotateCannon(90);
-    // _objects.emplace_back(std::make_shared<Tank>("tankRight", coords(8,0,-7), std::make_pair(10, 10), std::make_pair(Tank::sandCamo, Tank::body), std::make_pair(Tank::greenCamo, Tank::turret)));
+    _objects.emplace_back(std::make_shared<Tank>("tankRight", coords(0,0,0), std::make_pair(10, 10), std::make_pair(Tank::sable, Tank::body), std::make_pair(Tank::darkGreen, Tank::turret)));
+    //_objects.emplace_back(std::make_shared<Tank>("tankRight", coords(-8,0,7), std::make_pair(10, 10), std::make_pair(Tank::sable, Tank::body), std::make_pair(Tank::darkGreen, Tank::turret)));
     // std::dynamic_pointer_cast<Tank>(_objects.back())->rotateCannon(270);
+    setInputsTank(_settings._keysPlayerOne, _objects.back());
+
+    //_objects.emplace_back(std::make_shared<Tank>("tankLeft", coords(8,0,1), std::make_pair(10, 10), std::make_pair(Tank::sable, Tank::body), std::make_pair(Tank::darkGreen, Tank::turret)));
+    // std::dynamic_pointer_cast<Tank>(_objects.back())->rotateCannon(270);
+    //setInputsTank(_settings._keysPlayerTwo, _objects.back());
+
     _objects.emplace_back(std::make_shared<TexteUI>(coords(((settings._widthScreen / 2) - 50), ((settings._heightScreen / 4))), std::make_pair(100, 100), "Our Tank", 20, 1, std::make_pair(RGB(221, 131, 68), RGB())));
     _objects.emplace_back(std::make_shared<TexteUI>(coords(((settings._widthScreen / 2) - 110), ((settings._heightScreen / 1.1))), std::make_pair(50, 50), "press enter to start", 20, 1, std::make_pair(RGB(177, 129, 78), RGB())));
     setInputFunction(Raylib::ENTER, [&]() {

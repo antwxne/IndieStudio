@@ -40,15 +40,16 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false),
         _objects.emplace_back(std::make_shared<BorderPlayer>(carr));
     for (unsigned int i = 0; i != _posTank.size(); i++)
     {
-        auto tmp = _objects.emplace_back(
-            std::make_shared<Tank>(
-                _settings._players.at(i).name, coords(_posTank[i].first, 0, _posTank[i].second),
-                std::make_pair(10, 10), std::make_pair(Tank::sandCamo, Tank::body), std::make_pair(Tank::greenCamo, Tank::turret)));
+        auto tmp = _objects.emplace_back(std::make_shared<Tank>( _settings._players.at(i).name, coords(_posTank[i].first, 0, _posTank[i].second), std::make_pair(10, 10), std::make_pair(Tank::sable, Tank::body), std::make_pair(Tank::darkGreen, Tank::turret)));
+        if (i == 0)
+            setInputsTank(_settings._keysPlayerOne, _objects.back());
+        else if (i == i) {
+            setInputsTank(_settings._keysPlayerTwo, _objects.back());
+        }
         auto tank = std::dynamic_pointer_cast<Tank>(_objects.back());
         for (int y = 0; y != tank->getLife(); y++)
             _objects.emplace_back(std::make_shared<LifeGame>(
                 tank->getName(), coords(_uiLifePosPlayer[i].first + (30 * y), _uiLifePosPlayer[i].second)));
-        setInputsFirstTank(_settings._keysPlayerOne);
         _objects.emplace_back(std::make_shared<TexteUI>(
             coords(_playerPos[i].first, _playerPos[i].second),
             std::make_pair(50, 50), dynamic_cast<Tank &>(*tmp).getName(), 20,

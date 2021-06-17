@@ -9,8 +9,8 @@
 #include "Raylib.hpp"
 #include <functional>
 
-const std::string Tank::sandCamo = "asset/Tank/sand_camo.png";
-const std::string Tank::greenCamo = "asset/Tank/green_camo.png";
+const std::string Tank::sable = "asset/Tank/sable.png";
+const std::string Tank::darkGreen = "asset/Tank/dark_green.png";
 const std::string Tank::body = "asset/Tank/tankBodyNEW.obj";
 const std::string Tank::turret = "asset/Tank/turretWithCannonNEW.obj";
 
@@ -18,7 +18,6 @@ Tank::Tank(const std::string &name, const coords &pos, const std::pair<int, int>
     : MovableObject(pos, size, path), _cannon(coords{pos.first, pos.second + 0.15f, pos.third}, size, cannonPath), _name(name), _score(0), _previousPos(pos)
 {
     _typeField.isTank = true;
-    _scale = 0.2f;
     _life = 10;
     _scale = 0.2f;
     _rotationAngle = 0.0f;
