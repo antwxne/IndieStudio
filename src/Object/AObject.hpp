@@ -112,10 +112,15 @@ public:
      */
     [[nodiscard]] const coords &getRotationAxis() const noexcept;
 
-protected:
+    protected:
     coords _pos;
     std::pair<int, int> _size;
     std::pair<RGB, RGB> _color;
+    public:
+    void setColor(const std::pair<RGB, RGB> &color);
+
+    protected:
+    float _rotation;
     float _rotationAngle;
     coords _rotationAxis;
     typeField _typeField;

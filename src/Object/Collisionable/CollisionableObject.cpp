@@ -7,7 +7,7 @@
 
 #include "Object/Collisionable/Destructible/Movable/TankAi.hpp"
 #include "CollisionableObject.hpp"
-#include "Object/Collisionable/PowerUps/PowerUps.hpp"
+#include "Object/Collisionable/Destructible/Movable/PowerUps/PowerUps.hpp"
 
 CollisionableObject::CollisionableObject(const coords &pos,
     const std::pair<int, int> &size, const std::pair<std::string, std::string> &path

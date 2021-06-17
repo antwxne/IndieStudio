@@ -7,7 +7,7 @@
 
 #include "UiObject.hpp"
 
-UiObject::UiObject(const coords &pos, const std::pair<int, int> &size, const std::string &texture, float scale, std::pair<RGB, RGB> &color)
+UiObject::UiObject(const coords &pos, const std::pair<int, int> &size, const std::string &texture, float scale, std::pair<RGB, RGB> const &color)
     : AObject(pos, size, scale, color), _texture(texture)
 {
 }

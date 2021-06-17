@@ -10,8 +10,11 @@
 #include "Raylib.hpp"
 #include "RaylibError.hpp"
 #include "Object/Collisionable/CollisionableObject.hpp"
+#include "Object/UiObject/UiGame/TexteUi.hpp"
+#include "Object/UiObject/UiGame/BorderPlayer.hpp"
 #include "Object/Ground/Ground.hpp"
 #include "UiObject/UiObject.hpp"
+#include "Object/Particles.hpp"
 #include "Button.hpp"
 #include "Tank.hpp"
 #include "Cannon.hpp"
@@ -89,7 +92,14 @@ const std::pair<float, float> Raylib::getMousePosition() const noexcept
     return (std::make_pair(vecPos.x, vecPos.y));
 }
 
-//void Raylib::drawModel(const std::string &path, coords pos, float scale, RGB tint)
+
+void Raylib::drawRectangleLinesEx(const float &posX, const float &posY, const float &width,
+    const float &height, RGB color, int const &lineThick) noexcept
+{
+    Rectangle rec = {posX, posY, width, height};
+    DrawRectangleLinesEx(rec, lineThick, {color.r, color.g, color.b, color.a});
+}
+
 void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
 {
     BeginDrawing();
@@ -111,14 +121,30 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
                 auto const &derived = std::dynamic_pointer_cast<Ground>(i);
                 drawMesh(derived->getModel(), derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first, i->getSize());
             }
+            else if (i->getTypeField().isParticule) {
+                auto const derived = std::dynamic_pointer_cast<Particles>(i);
+                for (auto const &i: derived->getParticles()) {
+                    drawSphere(i.position, i.color, (i.radius  * i.scale));
+                }
+            }
             EndMode3D();
         }
-        if (!i->getTypeField().is3D) {
+        if (!i->getTypeField().is3D && i->getTypeField().isTransparent == false) {
             auto const &derived = std::dynamic_pointer_cast<UiObject>(i);
             drawTexture(derived->getTexture(), {i->getPosition().first, i->getPosition().second}, i->getRotationAngle(), i->getScale(), i->getColors().first);
             if (i->getTypeField().isButton) {
                 auto const &derivedButton = std::dynamic_pointer_cast<button::Button>(i);
                 drawText(derivedButton->getText(), derivedButton->getTextPos(), derivedButton->getTextSize(), i->getColors().second);
+            }
+            if (i->getTypeField().isContourRect) {
+                drawRectangleLinesEx(i->getPosition().first, i->getPosition().second, i->getSize().first, i->getSize().second, i->getColors().first, i->getScale());
+           }
+            if (i->getTypeField().isFullSquare) {
+                drawRectangle(i->getPosition().first, i->getPosition().second, i->getSize().first, i->getSize().second, i->getColors().first);
+            }
+            if (i->getTypeField().isText) {
+                auto const &text = std::dynamic_pointer_cast<TexteUI>(i);
+                drawText(text->getText(), text->getTextPos(), text->getTextSize(), i->getColors().first);
             }
         }
     }
@@ -150,8 +176,7 @@ std::string Raylib::getControllerName(int const &idx) const noexcept
     return GetGamepadName(idx);
 }
 
-bool Raylib::isControllerValid(int const &idx,
-    std::string const &ControllerName
+bool Raylib::isControllerValid(int const &idx, std::string const &ControllerName
 ) const noexcept
 {
     if (ControllerName.compare("xbox"))
@@ -245,6 +270,15 @@ void Raylib::displaySound(const std::string &path, float volume)
     PlaySoundMulti(it->second);
 }
 
+void Raylib::drawSphere(const coords &pos, const RGB tint, const float radius)
+{
+    std::cout << "[RAYLIB] pos x: " << pos.first <<"\n";
+    std::cout << "[RAYLIB] pos Y: " << pos.second <<"\n";
+    std::cout << "[RAYLIB] pos z: " << pos.third <<"\n";
+    std::cout << "[RAYLIB] radius: " << radius <<"\n";
+    DrawSphere({pos.first, pos.second, pos.third}, radius, {tint.r, tint.g, tint.b, tint.a});
+}
+
 void Raylib::drawMesh(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint, const std::pair<int, int> &size)
 {
     auto it = _models.find(modelPath);
@@ -296,9 +330,12 @@ void Raylib::drawTexture(const std::string &path, Vector2 pos, float rotation, f
     DrawTextureEx(it->second, pos, rotation, scale, {tint.r, tint.g, tint.b, tint.a});
 }
 
-void Raylib::drawText(const std::string &text, coords pos, float scale, RGB tint)
+void Raylib::drawText(const std::string &text, coords pos, float scale,
+    RGB tint
+)
 {
-    DrawText(text.c_str(), pos.first, pos.second, scale, {tint.r, tint.g, tint.b, tint.a});
+    DrawText(text.c_str(), pos.first, pos.second, scale,
+        {tint.r, tint.g, tint.b, tint.a});
 }
 
 void Raylib::freeResources()
@@ -311,7 +348,21 @@ void Raylib::freeResources()
     _textures.clear();
 }
 
- float Raylib::getDeltaTime() noexcept
+float Raylib::getDeltaTime() noexcept
 {
     return GetFrameTime();
+}
+
+void Raylib::drawRectangleLines(const int &posX, const int &posY,
+    const int &width, const int &height, RGB color
+) const noexcept
+{
+    DrawRectangleLines(posX, posY, width, height, {color.r, color.g, color.b, color.a});
+}
+
+void Raylib::drawRectangle(const int &posX, const int &posY, const int &width,
+    const int &height, RGB color
+) const noexcept
+{
+    DrawRectangle(posX, posY, width, height, {color.r, color.g, color.b, color.a});
 }

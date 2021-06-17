@@ -62,6 +62,13 @@ struct coords
         return *this;
     }
 
+    coords &operator/(float val) {
+        first /= val;
+        second /= val;
+        third /= val;
+        return *this;
+    }
+
     float first;
     float second;
     float third;
@@ -72,7 +79,8 @@ struct coords
  * @brief contains booleans for object's type
  */
 struct typeField {
-    typeField() : is3D(false), isObject(false), isButton(false), isCollisionable(false), isDestructible(false), isMovable(false), isTank(false), isCannon(false), isBullet(false), isIa(false), isWall(false), isGround(false), isPowerUps(false), isInputBox(false) {}
+    typeField() : is3D(false), isObject(false), isButton(false), isCollisionable(false), isDestructible(false), isMovable(false), isTank(false), isCannon(false), isBullet(false), isIa(false), isWall(false), isGround(false), isParticle(false), isContourRect(false), isFullSquare(false), isInputBox(false), isText(
+        false), isLife(false), isTransparent(false), isPowerUps(false), isParticule(false) {}
     bool is3D: 1;
     bool isObject: 1;
     bool isButton: 1;
@@ -86,7 +94,13 @@ struct typeField {
     bool isIa: 1;
     bool isWall: 1;
     bool isGround: 1;
+    bool isContourRect: 1;
+    bool isFullSquare: 1;
     bool isParticle: 1;
+    bool isText: 1;
+    bool isLife: 1;
+    bool isTransparent: 1;
+    bool isParticule: 1;
     bool isPowerUps: 1;
 };
 

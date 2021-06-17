@@ -25,6 +25,8 @@
 #include <functional>
 #include "raylib.h"
 
+#include "Object/IObject.hpp"
+#include "Object/UiObject/UiGame/BorderPlayer.hpp"
 #include "Object/AObject.hpp"
 
 class Raylib
@@ -60,6 +62,7 @@ public:
     void printGrid(int const &slices, float const &space) const noexcept;
     void drawModel(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint, coords axis, float angle);
     void drawMesh(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint, const std::pair<int, int> &size);
+    void drawSphere(const coords &pos, const RGB tint, const float radius);
 
 //    void drawTexture(const std::string &path, int posX, int posY, RGB tint);
     void drawTexture(const std::string &path, Vector2 pos, float rotation, float scale, RGB tint);
@@ -87,11 +90,17 @@ public:
     int getKeyPressed() const noexcept;
     std::vector<int> getKeysDown() noexcept;
     const std::pair<float, float> getMousePosition() const noexcept; 
+    void drawRectangleLines(int const &posX, int const &posY, int const &width, int const &height, RGB color) const noexcept;
+    void drawRectangle(int const &posX, int const &posY, int const &width, int const &height, RGB color) const noexcept;
+    void updateMusic(const std::string &path);
 
     static float getDeltaTime() noexcept;
     void freeResources();
+    void drawRectangleLinesEx(const float &posX, const float &posY, const float &width,
+        const float &height, RGB color, int const &lineThick) noexcept;
+    void draw(const BorderPlayer &i);
 
-protected:
+    protected:
 private:
     std::pair<int, int> _screenSize;
     Camera _camera;

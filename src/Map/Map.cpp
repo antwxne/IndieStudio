@@ -11,8 +11,8 @@
 
 Map::Map()
 {
-    _pos.push_back(std::make_pair(2, 2));
-    _pos.push_back(std::make_pair(3, 2));
+    _pos.push_back(std::make_pair(6, 4));
+    _pos.push_back(std::make_pair(6, 4));
 }
 
 void Map::createDestructibleMap(std::pair<int, int> const &pos_left, std::pair<int, int> const &pos_down_right)
@@ -25,7 +25,6 @@ void Map::createDestructibleMap(std::pair<int, int> const &pos_left, std::pair<i
         findPos = true;
         tmpMap.first = std::rand() % pos_down_right.first + pos_left.second;
         tmpMap.second = std::rand() % pos_down_right.second + pos_left.first;
-        ;
         for (const auto &the_pos : _pos)
             if (the_pos == tmpMap) {
                 findPos = false;

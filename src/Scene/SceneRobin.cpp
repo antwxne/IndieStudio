@@ -50,6 +50,7 @@ Scenes SceneRobin::run(Raylib &lib, Scenes const &prevScene)
     while (lib.gameLoop()) {
         triggerInputActions(lib);
         lib.printObjects(_objects);
+        std::cout << "BITE\n";
     }
     return (Scenes::QUIT);
 }

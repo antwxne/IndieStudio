@@ -8,7 +8,7 @@
 #ifndef POWERUPS_HPP_
 #define POWERUPS_HPP_
 
-#include "Object/Collisionable/CollisionableObject.hpp"
+#include "Object/Collisionable/Destructible/Movable/MovableObject.hpp"
 #include "Object/Collisionable/Destructible/Movable/Tank.hpp"
 #include <stdlib.h>
 #include <time.h>
@@ -27,7 +27,7 @@ const std::vector<std::string> _assetsPath {
     "asset/bonus/Arrows-Red.png",
 };
 
-class PowerUps : public CollisionableObject
+class PowerUps : public MovableObject
 {
     public:
         PowerUps(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path, const Power &powerUps);

@@ -23,7 +23,9 @@ set(MOVABLE_PATH ${DESTRUCT_PATH}/Movable)
 set(MAP_PATH src/Map)
 set(SCENE_PATH src/Scene)
 set(GROUND_PATH src/Object/Ground)
-set(POWERUPS_PATH ${COLLIS_PATH}/PowerUps)
+set(UIGAME_PATH src/Object/UiObject/UiGame)
+set(PLAYER_PATH src/Player)
+set(POWERUPS_PATH ${MOVABLE_PATH}/PowerUps)
 set(WALL_PATH ${COLLIS_PATH}/Wall)
 
 # Include directories
@@ -41,6 +43,7 @@ include_directories(${INPUTBOX_PATH})
 include_directories(${DESTRUCT_PATH})
 include_directories(${MOVABLE_PATH})
 include_directories(${GROUND_PATH})
+include_directories(${UIGAME_PATH})
 include_directories(${POWERUPS_PATH})
 include_directories(${WALL_PATH})
 include_directories(${PLAYER_PATH})
@@ -102,9 +105,17 @@ set(SCENE_SRCS
         ${SCENE_PATH}/SceneOption.cpp
         ${SCENE_PATH}/SceneRobin.cpp
         )
-
 set(GROUND_SRCS
         ${GROUND_PATH}/Ground.cpp)
+
+set(UIGAME_SRCS
+        ${UIGAME_PATH}/LifeGame.cpp
+        ${UIGAME_PATH}/BorderPlayer.cpp
+        ${UIGAME_PATH}/FrameUI.cpp
+        ${UIGAME_PATH}/FullSquare.cpp
+        ${UIGAME_PATH}/ColorPlayer.cpp
+        ${UIGAME_PATH}/TexteUi.cpp 
+        )
 
 set(INDIE_SRCS
         ${RAYLIB_SRCS}
@@ -117,6 +128,7 @@ set(INDIE_SRCS
         ${OBJECTS_SRCS}
         ${SCENE_SRCS}
         ${GROUND_SRCS}
+        ${UIGAME_SRCS}
         ${PLAYER_SRCS}
         )
 # Compilation
