@@ -22,11 +22,19 @@ Tank::Tank(const std::string &name, const coords &pos, const std::pair<int, int>
     _typeField.isTank = true;
     _scale = 0.2f;
     _life = 10;
-    _scale = 0.2f;
     _rotationAngle = 0.0f;
     _rotationAxis = coords(0.0f, 1.0f, 0.0f);
 }
-
+/*
+Tank::Tank(Tank &tank)
+    : MovableObject(tank.getPosition(), tank.getSize(), std::make_pair(Tank::sandCamo, Tank::body)), _cannon(coords{tank.getPosition().first, 0 + 0.15f, tank.getPosition().third}, tank.getSize(), std::make_pair(Tank::greenCamo, Tank::turret)), _name(tank.getName()), _score(tank.getScore()), _previousPos(tank.getPreviousPos())
+{
+    _life = tank.getLife();
+    _rotationAngle = 0.0f;
+    _rotationAxis = coords(0.0f, 1.0f, 0.0f);
+    _scale = 0.2f;
+    _typeField.isTank = true;
+}*/
 void Tank::fire()
 {
     _cannon.fire();
@@ -79,12 +87,17 @@ void Tank::increaseDamage() noexcept
     _cannon.increaseDamage();
 }
 
+std::pair<std::string, std::string > Tank::getPathTank() noexcept {
+    return _path;
+}
+
 const Tank::tank_t &Tank::getTankStructSave() noexcept
 {
     _save.x = _pos.first;
-    _save.y = _pos.second;
+    _save.y = _pos.third;
     _save.life = _life;
     _save.score = _score;
+    _save.z = _pos.second;
     std::strcpy(_save.name, _name.c_str());
     return _save;
 }
@@ -116,10 +129,10 @@ std::vector<Tank> Tank::readTank() noexcept
     for (int i = 0; i != size; i++) {
         file.read(reinterpret_cast<char *>(&dest),
             sizeof(Tank::tank_t));
-        std::cout << "----------------------------" << std::endl;
+        //std::cout << "----------------------------" << std::endl;
         std::cout << "name == " << dest.name << " pos.x == " << dest.x << " pos.y == " << dest.y << "_life == " << dest.life << " _score == " << dest.score << std::endl;
         auto tank = tmp.emplace_back(dest.name,
-            coords(static_cast<float>(dest.x), 0, static_cast<float>(dest.y)),
+            coords(static_cast<float>(dest.x), static_cast<float>(dest.z), static_cast<float>(dest.y)),
             std::make_pair(10, 10), std::make_pair(Tank::sandCamo, Tank::body), std::make_pair(Tank::greenCamo, Tank::turret));
         tank.setScore(dest.score);
         tank.setLife(dest.life);
@@ -127,5 +140,3 @@ std::vector<Tank> Tank::readTank() noexcept
     file.close();
     return tmp;
 }
-
-

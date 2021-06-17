@@ -40,12 +40,20 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false)
     for (auto const &carr : carre->getBorder())
         _objects.emplace_back(std::make_shared<BorderPlayer>(carr));
     for (unsigned int i = 0; i != _posTank.size(); i++) {
-        auto tmp = _objects.emplace_back(
-            std::make_shared<Tank>(_settings._players.at(i).name,
-                coords(_posTank[i].first, 0, _posTank[i].second), std::make_pair(10, 10),
-                std::make_pair(Tank::sandCamo, Tank::body),
-                std::make_pair(Tank::greenCamo, Tank::turret)));
-        auto tank = std::dynamic_pointer_cast<Tank>(_objects.back());
+        auto tmp = _objects.back();
+        if (settings.load == true) {
+            auto tanks = Tank::readTank();
+            tmp = _objects.emplace_back(std::make_shared<Tank>(tanks[i].getName(), coords(tanks[i].getPosition().first, 0, tanks[i].getPosition().third), std::make_pair(10,10),
+                std::make_pair(Tank::sandCamo, Tank::body), std::make_pair(Tank::greenCamo, Tank::turret)));
+        } else {
+            tmp = _objects.emplace_back(
+                std::make_shared<Tank>(_settings._players.at(i).name,
+                    coords(_posTank[i].first, 0, _posTank[i].second),
+                    std::make_pair(10, 10),
+                    std::make_pair(Tank::sandCamo, Tank::body),
+                    std::make_pair(Tank::greenCamo, Tank::turret)));
+       }
+        auto tank = std::dynamic_pointer_cast<Tank>(tmp);
         for (int y = 0; y != tank->getLife(); y++) {
             _objects.emplace_back(std::make_shared<LifeGame>(tank->getName(),
                 coords(_uiLifePosPlayer[i].first + (30 * y),
@@ -75,10 +83,11 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false)
         }
     auto const &map = std::make_unique<Map>(size);
 
-    map->createDestructibleMap(std::make_pair(-8, -5), std::make_pair(1, 1));
-    map->createDestructibleMap(std::make_pair(-8, -1), std::make_pair(-1, -5));
-    map->createDestructibleMap(std::make_pair(1, -1), std::make_pair(5, -5));
-    map->createDestructibleMap(std::make_pair(1, 5), std::make_pair(5, 1));
+       // if (settings.load == false)
+            map->createDestructibleMap(std::make_pair(-8, -5), std::make_pair(1, 1));
+            map->createDestructibleMap(std::make_pair(-8, -1), std::make_pair(-1, -5));
+            map->createDestructibleMap(std::make_pair(1, -1), std::make_pair(5, -5));
+            map->createDestructibleMap(std::make_pair(1, 5), std::make_pair(5, 1));
 
     //map->createDestructibleMap(std::make_pair(1, 5), std::make_pair(5, 1));
     map->createContourMap(std::make_pair(-10, 10), std::make_pair(-8, 8));
@@ -164,6 +173,17 @@ Scenes SceneMaxime::run(Raylib &lib, Scenes const &prevScene)
                 std::dynamic_pointer_cast<PowerUps>(it)->rotate(0.5f);
             }
         }
+        /*std::vector<Tank> ki;
+        for (auto &it: _objects) {
+            if (it->getTypeField().isTank) {
+                auto tank = std::dynamic_pointer_cast<Tank>(it);
+                ki.push_back(dynamic_cast<Tank &>(*tank));
+            }
+        }
+        for (auto &it: ki) {
+            std::cout << it.getName() <<" " << it.getPosition().first << std::endl;
+        }
+        Tank::writeTankList(ki);*/
         checkHeart();
     }
     return (Scenes::QUIT);

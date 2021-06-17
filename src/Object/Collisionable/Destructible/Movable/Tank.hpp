@@ -38,6 +38,7 @@ public:
      * @brief Destroy the Tank object
      * 
      */
+     //Tank(Tank &tank);
     ~Tank() = default;
 
     /**
@@ -55,8 +56,10 @@ public:
     const coords &getPreviousPos() const noexcept;
     void setPos(const coords &pos) noexcept override;
     void increaseDamage() noexcept;
+    std::pair<std::string, std::string> getPathTank() noexcept;
     struct tank_t {
         float x;
+        float z;
         float y;
         float life;
         std::size_t score;

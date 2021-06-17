@@ -48,6 +48,8 @@ namespace menu {
 
     Scenes SceneMenu::endScene(Scenes const &prevScene) noexcept
     {
+        if (_state == 1)
+            _settings.load = true;
         return (_returnScene.at(static_cast<menu_e>(_state)));
     }
 
