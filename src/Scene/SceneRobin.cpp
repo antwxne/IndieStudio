@@ -54,7 +54,7 @@ SceneRobin::~SceneRobin()
     _objects.clear();
 }
 
-Scenes SceneRobin::run(Raylib &lib, Scenes const &prevScene)
+Scenes SceneRobin::run(Raylib &lib)
 {
     while (lib.gameLoop()) {
         triggerInputActions(lib);

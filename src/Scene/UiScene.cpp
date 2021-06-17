@@ -19,7 +19,7 @@ UiScene::~UiScene()
     _objects.clear();
 }
 
-Scenes UiScene::run(Raylib &lib, Scenes const &prevScene)
+Scenes UiScene::run(Raylib &lib)
 {
     while (_state == -1) {
         _mousePos = lib.getMousePosition();
@@ -33,5 +33,5 @@ Scenes UiScene::run(Raylib &lib, Scenes const &prevScene)
         eventScene(lib);
         lib.printObjects(_objects);
     }
-    return (endScene(prevScene));
+    return (endScene(lib));
 }

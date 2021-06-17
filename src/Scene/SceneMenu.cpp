@@ -31,7 +31,7 @@ namespace menu {
         });
         _objects.emplace_back(std::make_shared<UiObject>(coords(), std::make_pair(0, 0), _bgPath, 1.0f));
         for (std::size_t i = 0; i != QUIT + 1; ++i)
-            _objects.emplace_back(std::make_shared<button::Button>(_menuPos.at(i), _menuSize.at(i), button::_buttonNavigPath, _menuText[i], 20, 1, std::make_pair(RGB(), RGB(0, 0, 0))));
+            _objects.emplace_back(std::make_shared<button::Button>(_menuPos.at(i), button::_buttonSize, button::_buttonNavigPath, _menuText[i], 20, 1, std::make_pair(RGB(), RGB(0, 0, 0))));
     }
 
     SceneMenu::~SceneMenu()
@@ -46,7 +46,7 @@ namespace menu {
             lib.displaySound(core::_soundsPath, _settings._soundVol);
     }
 
-    Scenes SceneMenu::endScene(Scenes const &prevScene) noexcept
+    Scenes SceneMenu::endScene(Raylib &lib) noexcept
     {
         if (_state == 1)
             _settings.load = true;
