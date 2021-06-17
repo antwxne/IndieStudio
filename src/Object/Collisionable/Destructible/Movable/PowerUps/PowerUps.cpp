@@ -54,7 +54,7 @@ void PowerUps::setPowerUps(const Power &power) noexcept
     _powerUps = power;
 }
 
-void PowerUps::applyPowerUps(Tank &tank) noexcept
+void PowerUps::applyPowerUps(Tank &tank) const noexcept
 {
     if (_powerUps.isLifeUp)
         tank.updateLife(1);

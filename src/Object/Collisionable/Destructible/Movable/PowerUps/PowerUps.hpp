@@ -36,7 +36,7 @@ class PowerUps : public MovableObject
 
         [[nodiscard]] const Power &getPowerUps() const noexcept;
         void setPowerUps(const Power &power) noexcept;
-        void applyPowerUps(Tank &tank) noexcept;
+        void applyPowerUps(Tank &tank) const noexcept;
     protected:
     private:
         Power _powerUps;

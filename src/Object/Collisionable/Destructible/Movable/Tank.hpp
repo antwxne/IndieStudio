@@ -48,16 +48,19 @@ public:
     void move(const coords &direction) noexcept override;
     void rotateCannon(float angle);
 
-    Cannon const &getCannon() const;
-    std::string const &getName() const;
-    std::size_t const &getScore() const;
-    void setScore(const std::size_t &score);
-
+    Cannon const &getCannon() const noexcept;
+    std::string const &getName() const noexcept;
+    std::size_t const &getScore() const noexcept;
+    void setScore(const std::size_t &score) noexcept;
+    const coords &getPreviousPos() const noexcept;
+    void setPos(const coords &pos) noexcept override;
+    void increaseDamage() noexcept;
 protected:
     Cannon _cannon;
     std::string _name;
     std::vector<int> _iterator;
     std::size_t _score;
+    coords _previousPos;
 };
 
 #endif //INDIESTUDIO_TANK_HPP
