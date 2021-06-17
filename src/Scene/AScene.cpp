@@ -45,32 +45,45 @@ void AScene::setInputFunction(Raylib::Inputs key, std::function<void()> func)
         itKey->second = func;
 }
 
-void AScene::setInputsNewTank()
+std::shared_ptr<AObject> const &AScene::getNthTank(const std::size_t &n)
 {
-    if (!_objects.back()->getTypeField().isTank)
-        return;
-    setInputFunction(_settings._keysPlayerOne[0], [this](){
-        auto tank = std::dynamic_pointer_cast<Tank>(_objects.back());
-        tank->move(coords(std::cos(tank->getRotationAngle()),0,std::sin(tank->getRotationAngle())));
+    std::size_t counter = 1;
+
+    for (auto &object : _objects) {
+        if (object->getTypeField().isTank) {
+            if (counter == n)
+                return object;
+            counter += 1;
+        }
+    }
+    return *(_objects.begin());
+}
+
+void AScene::setInputsFirstTank(const std::array<Raylib::Inputs, 7> &controls)
+{
+    setInputFunction(controls[0], [this](){
+        auto tank = std::dynamic_pointer_cast<Tank>(getNthTank(1));
+        tank->move(coords(std::sin(M_PI * tank->getRotationAngle() / 180), 0, std::cos(M_PI * tank->getRotationAngle() / 180)));
     });
-    setInputFunction(_settings._keysPlayerOne[1], [this](){
-        auto tank = std::dynamic_pointer_cast<Tank>(_objects.back());
-        tank->move(coords((std::cos(tank->getRotationAngle())) * (-1), 0, (std::sin(tank->getRotationAngle()) * (-1))));
+    setInputFunction(controls[1], [this](){
+        auto tank = std::dynamic_pointer_cast<Tank>(getNthTank(1));
+        auto newAngle = (static_cast<int>(tank->getRotationAngle()) + 180) % 360;
+        tank->move(coords(std::sin(M_PI *  newAngle / 180), 0, std::cos(M_PI * newAngle / 180)));
     });
-    setInputFunction(_settings._keysPlayerOne[2], [this](){
-        auto tank = std::dynamic_pointer_cast<Tank>(_objects.back());
-        tank->rotate(0.7f);
+    setInputFunction(controls[2], [this](){
+        auto tank = std::dynamic_pointer_cast<Tank>(getNthTank(1));
+        tank->rotate(0.8f);
     });
-    setInputFunction(_settings._keysPlayerOne[3], [this](){
-        auto tank = std::dynamic_pointer_cast<Tank>(_objects.back());
-        tank->rotate(-0.7f);
+    setInputFunction(controls[3], [this](){
+        auto tank = std::dynamic_pointer_cast<Tank>(getNthTank(1));
+        tank->rotate(-0.8f);
     });
-    setInputFunction(_settings._keysPlayerOne[4], [this](){
-        auto tank = std::dynamic_pointer_cast<Tank>(_objects.back());
-        tank->rotateCannon(0.7f);
+    setInputFunction(controls[4], [this](){
+        auto tank = std::dynamic_pointer_cast<Tank>(getNthTank(1));
+        tank->rotateCannon(1.2f);
     });
-    setInputFunction(_settings._keysPlayerOne[5], [this](){
-        auto tank = std::dynamic_pointer_cast<Tank>(_objects.back());
-        tank->rotateCannon(-0.7f);
+    setInputFunction(controls[5], [this](){
+        auto tank = std::dynamic_pointer_cast<Tank>(getNthTank(1));
+        tank->rotateCannon(-1.2f);
     });
 }

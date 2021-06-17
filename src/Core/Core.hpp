@@ -28,7 +28,7 @@ namespace core {
 
     static const std::unordered_map<Scenes, std::function<std::unique_ptr<IScene>(Setting &settings)>> _enumToConstructor {
         {Scenes::NEW_GAME,      [](Setting &settings){return std::make_unique<newGame::SceneNewGame>(settings);}},
-        {Scenes::MENU,          [](Setting &settings){return std::make_unique<menu::SceneMenu>(settings);}},
+        {Scenes::MENU,          [](Setting &settings){return std::make_unique<SceneRobin>(settings);}},
         {Scenes::GAME,          [](Setting &settings){return std::make_unique<SceneMaxime>(settings);}},
         {Scenes::OPTION,        [](Setting &settings){return std::make_unique<option::SceneOption>(settings);}},
         // {Scenes::LOAD,          [](const Setting & &settings){return std::make_unique<SceneRobin>(settings);}},
@@ -40,7 +40,7 @@ namespace core {
      */
     class Core {
         public:
-            Core(int screenWidth = 1920, int screenHeight = 1080, std::string const &title = "default", const std::size_t &fps = 60);
+            Core(int screenWidth = 800, int screenHeight = 600, std::string const &title = "default", const std::size_t &fps = 60);
             ~Core();
 
             void start();

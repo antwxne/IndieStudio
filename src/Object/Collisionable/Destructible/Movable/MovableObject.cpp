@@ -24,6 +24,10 @@ void MovableObject::move(const coords &direction) noexcept
 void MovableObject::rotate(float angle) noexcept
 {
     _rotationAngle += angle;
+    auto casted = static_cast<int>(_rotationAngle);
+    auto moduloed = casted % 360;
+    if (moduloed != casted)
+        _rotationAngle = moduloed;
 }
 
 void MovableObject::changeSpeed(float newSpeed)
