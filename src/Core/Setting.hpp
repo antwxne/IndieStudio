@@ -39,6 +39,7 @@ struct Setting {
     int _heightScreen;
     int _fps;
     bool load = false;
+    bool _statementLoad = false;
 };
 
 #endif /* !SETTINGS_HPP_ */

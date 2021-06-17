@@ -102,7 +102,7 @@ void Map::writeDestructibleList() noexcept
     unsigned long size = _objectDestructibleList.size();
     DestructibleObject::destructible_t dest;
     std::ofstream file("destructibleList.txt",
-        std::ios::out | std::ofstream::binary);
+        std::ios::out | std::ofstream::binary | std::ofstream::trunc);
     file.write(reinterpret_cast<const char *>(&size), sizeof(unsigned long));
     for (auto &i : _objectDestructibleList) {
         dest = i.getStructSave();
@@ -112,12 +112,14 @@ void Map::writeDestructibleList() noexcept
     file.close();
 }
 
-void Map::readDestructibleList() noexcept
+void Map::readDestructibleList()
 {
     unsigned long size = 0;
     DestructibleObject::destructible_t dest;
     std::ifstream file("destructibleList.txt",
         std::ios::in | std::ifstream::binary);
+    if (file.is_open() == false)
+        throw std::runtime_error("No Save File");
     file.read(reinterpret_cast<char *>(&size), sizeof(unsigned long));
     for (int i = 0; i != size; i++) {
         file.read(reinterpret_cast<char *>(&dest),

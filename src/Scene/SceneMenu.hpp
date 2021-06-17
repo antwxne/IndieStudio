@@ -57,6 +57,7 @@ namespace menu {
             ~SceneMenu();
             void eventScene(Raylib &lib) final;
             Scenes endScene(Raylib &lib) noexcept final;
+            virtual bool canOpen();
     };
 }
 

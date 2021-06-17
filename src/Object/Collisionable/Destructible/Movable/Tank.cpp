@@ -21,20 +21,11 @@ Tank::Tank(const std::string &name, const coords &pos, const std::pair<int, int>
 {
     _typeField.isTank = true;
     _scale = 0.2f;
-    _life = 10;
+    _life = 3;
     _rotationAngle = 0.0f;
     _rotationAxis = coords(0.0f, 1.0f, 0.0f);
 }
-/*
-Tank::Tank(Tank &tank)
-    : MovableObject(tank.getPosition(), tank.getSize(), std::make_pair(Tank::sandCamo, Tank::body)), _cannon(coords{tank.getPosition().first, 0 + 0.15f, tank.getPosition().third}, tank.getSize(), std::make_pair(Tank::greenCamo, Tank::turret)), _name(tank.getName()), _score(tank.getScore()), _previousPos(tank.getPreviousPos())
-{
-    _life = tank.getLife();
-    _rotationAngle = 0.0f;
-    _rotationAxis = coords(0.0f, 1.0f, 0.0f);
-    _scale = 0.2f;
-    _typeField.isTank = true;
-}*/
+
 void Tank::fire()
 {
     _cannon.fire();
@@ -107,24 +98,25 @@ void Tank::writeTankList(std::vector<Tank> _tankList) noexcept
     unsigned long size = _tankList.size();
     Tank::tank_t dest;
     std::ofstream file("tank.txt",
-        std::ios::out | std::ofstream::binary);
+        std::ios::out | std::ofstream::binary | std::ofstream::trunc);
     file.write(reinterpret_cast<const char *>(&size), sizeof(unsigned long));
     for (auto &i : _tankList) {
         dest = i.getTankStructSave();
-        std::cout << "name == " <<dest.name << " pos.x == " << dest.x << " pos.y == " << dest.y << "_life == " << dest.life << " _score == " << dest.score << std::endl;
         file.write(reinterpret_cast<const char *>(&dest),
             sizeof(Tank::tank_t));
     }
     file.close();
 }
 
-std::vector<Tank> Tank::readTank() noexcept
+std::vector<Tank> Tank::readTank()
 {
     std::vector<Tank> tmp;
     unsigned long size = 0;
     Tank::tank_t dest;
     std::ifstream file("tank.txt",
         std::ios::in | std::ifstream::binary);
+    if (file.is_open() == false)
+        throw std::runtime_error("Can not open");
     file.read(reinterpret_cast<char *>(&size), sizeof(unsigned long));
     for (int i = 0; i != size; i++) {
         file.read(reinterpret_cast<char *>(&dest),

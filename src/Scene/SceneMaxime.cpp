@@ -7,7 +7,6 @@
 
 #include "SceneMaxime.hpp"
 #include "Core.hpp"
-#include "Map/Map.hpp"
 #include <bits/stdc++.h>
 
 #include "Object/UiObject/UiObject.hpp"
@@ -80,16 +79,21 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false),
         if (i->getTypeField().isTank) {
             size.push_back(std::make_pair(static_cast<int>(i->getPosition().first), static_cast<int>(i->getPosition().third)));
         }
-    auto const &map = std::make_unique<Map>(size);
+        _map = std::make_unique<Map>(size);
 
-       // if (settings.load == false)
-            map->createDestructibleMap(std::make_pair(-8, -5), std::make_pair(1, 1));
-            map->createDestructibleMap(std::make_pair(-8, -1), std::make_pair(-1, -5));
-            map->createDestructibleMap(std::make_pair(1, -1), std::make_pair(5, -5));
-            map->createDestructibleMap(std::make_pair(1, 5), std::make_pair(5, 1));
-
-    //map->createDestructibleMap(std::make_pair(1, 5), std::make_pair(5, 1));
-    map->createContourMap(std::make_pair(-10, 10), std::make_pair(-8, 8));
+       if (settings.load == false) {
+           _map->createDestructibleMap(std::make_pair(-8, -5),
+               std::make_pair(1, 1));
+           _map->createDestructibleMap(std::make_pair(-8, -1),
+               std::make_pair(-1, -5));
+           _map->createDestructibleMap(std::make_pair(1, -1),
+               std::make_pair(5, -5));
+           _map->createDestructibleMap(std::make_pair(1, 5),
+               std::make_pair(5, 1));
+       } else
+            _map->readDestructibleList();
+    _map->createDestructibleMap(std::make_pair(1, 5), std::make_pair(5, 1));
+    _map->createContourMap(std::make_pair(-10, 10), std::make_pair(-8, 8));
 
     setInputFunction(Raylib::ENTER, [&]() {
         _enter = !_enter;
@@ -101,9 +105,9 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false),
     setInputFunction(Raylib::SPACE, [&]() {
         _pressed = true;
     });
-    for (auto const &block : map->_objectNoDestructibleList)
+    for (auto const &block : _map->_objectNoDestructibleList)
         _objects.emplace_back(std::make_shared<Wall>(block));
-    for (auto const &block : map->_objectDestructibleList) {
+    for (auto const &block : _map->_objectDestructibleList) {
         _objects.emplace_back(std::make_shared<DestructibleWall>(block));
     }
 
@@ -143,6 +147,18 @@ void SceneMaxime::checkHeart() noexcept
     }
 }
 
+void SceneMaxime::saveTanks() noexcept
+{
+    std::vector<Tank> ki;
+    for (auto &it: _objects) {
+        if (it->getTypeField().isTank) {
+            auto tank = std::dynamic_pointer_cast<Tank>(it);
+            ki.push_back(dynamic_cast<Tank &>(*tank));
+        }
+    }
+    Tank::writeTankList(ki);
+}
+
 Scenes SceneMaxime::run(Raylib &lib)
 {
     bool isLock = false;
@@ -152,7 +168,10 @@ Scenes SceneMaxime::run(Raylib &lib)
         lib.printObjects(_objects);
         if (_isPause) {
             auto newScene = _scenePause.run(lib);
-            if (newScene != Scenes::GAME)
+            if (newScene == Scenes::SAVE) {
+                SceneMaxime::saveTanks();
+                _map->writeDestructibleList();
+            } else if (newScene != Scenes::GAME)
                 return (newScene);
             _isPause = false;
         }
@@ -168,17 +187,6 @@ Scenes SceneMaxime::run(Raylib &lib)
                 std::dynamic_pointer_cast<PowerUps>(it)->rotate(0.5f);
             }
         }
-        /*std::vector<Tank> ki;
-        for (auto &it: _objects) {
-            if (it->getTypeField().isTank) {
-                auto tank = std::dynamic_pointer_cast<Tank>(it);
-                ki.push_back(dynamic_cast<Tank &>(*tank));
-            }
-        }
-        for (auto &it: ki) {
-            std::cout << it.getName() <<" " << it.getPosition().first << std::endl;
-        }
-        Tank::writeTankList(ki);*/
         checkHeart();
     }
     return (Scenes::QUIT);

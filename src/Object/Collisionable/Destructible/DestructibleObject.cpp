@@ -34,7 +34,7 @@ bool DestructibleObject::isDestroyed() const
 const DestructibleObject::destructible_t &DestructibleObject::getStructSave() noexcept
 {
     _save.x = _pos.first;
-    _save.y = _pos.second;
+    _save.y = _pos.third;
     _save.life = _life;
     return _save;
 }

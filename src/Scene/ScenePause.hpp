@@ -22,7 +22,7 @@ namespace pause {
 
     static const std::array<Scenes, 5> _returnScene {
         Scenes::GAME,
-        Scenes::OPTION,
+        Scenes::SAVE,
         Scenes::OPTION,
         Scenes::MENU,
         Scenes::QUIT

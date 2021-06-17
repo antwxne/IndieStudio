@@ -8,6 +8,7 @@
 #pragma once
 #include "AScene.hpp"
 #include "ScenePause.hpp"
+#include "Map/Map.hpp"
 #include "Object/Collisionable/Destructible/Movable/Tank.hpp"
 #include <vector>
 
@@ -28,6 +29,8 @@ class SceneMaxime : public AScene {
         bool _enter;
         bool _isPause;
         bool _state;
+        void saveTanks() noexcept;
+        std::unique_ptr<Map> _map;
 };
 
 static const std::vector<std::pair<float, float>> _playerPos {

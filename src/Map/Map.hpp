@@ -37,7 +37,7 @@ public:
      * @brief read object from file
      *
      */
-    void readDestructibleList() noexcept;
+    void readDestructibleList();
 
     public:
     std::vector<DestructibleWall> _objectDestructibleList;

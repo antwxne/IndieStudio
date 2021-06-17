@@ -68,7 +68,7 @@ public:
 
     const tank_t &getTankStructSave() noexcept;
     static void writeTankList(std::vector<Tank> _tankList) noexcept;
-    static std::vector<Tank> readTank() noexcept;
+    static std::vector<Tank> readTank();
 
     protected:
     Cannon _cannon;
