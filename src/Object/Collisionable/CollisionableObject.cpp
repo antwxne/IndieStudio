@@ -56,10 +56,7 @@ void CollisionableObject::setRotationAxis(const coords &axis) noexcept
 
 bool CollisionableObject::hit(const CollisionableObject &obj) noexcept
 {
-    if (this->_pos.first + this->_size.first >= obj._pos.first
-    && this->_pos.first <= obj._pos.first + obj._size.first
-    && this->_pos.second + this->_size.second >= obj._pos.second
-    && this->_pos.second <= obj._pos.second + obj._size.second) {
+
         if (this->_typeField.isTank && obj._typeField.isCollisionable) {
             auto tmp = dynamic_cast<Tank *>(this);
             tmp->setPosition(tmp->getPreviousPos());
@@ -78,7 +75,5 @@ bool CollisionableObject::hit(const CollisionableObject &obj) noexcept
             auto &tank = dynamic_cast<Tank&>(*this);
             power->applyPowerUps(tank);
         }
-        return true;
-    }
     return false;
 }

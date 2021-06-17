@@ -72,6 +72,7 @@ public:
 
     void setRotationAngle(const float angle) noexcept;
     void setRotationAxis(const coords &axis) noexcept;
+    const coords &get3DSize() const noexcept {return  _3DSize;};
 
 protected:
     std::pair<std::string, std::string> _path;
