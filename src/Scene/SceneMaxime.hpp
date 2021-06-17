@@ -15,9 +15,9 @@ class SceneMaxime : public AScene {
         ~SceneMaxime();
         Scenes run(Raylib &lib, Scenes const &prevScene) final;
         void manageHeart(const std::string &name, const int life);
-
+        void checkHeart() noexcept;
     private:
-        std::vector<int> _iterator;
+        std::vector<int> _listPosHeart;
         static const std::vector<std::array<std::pair<float, float>, 2>> _menuPos;
         static const std::vector<std::string> _assetsPath;
         bool _pressed;
