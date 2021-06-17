@@ -19,8 +19,8 @@ Particles::Particles(const coords &pos, const std::pair<int, int> &size, float m
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> alpha(100, 250);
-    std::uniform_real_distribution<float> acc(0, 0.5f);
-    std::uniform_real_distribution<float> vel(-5, 5);
+    std::uniform_real_distribution<float> acc(0.0f, 0.05f);
+    std::uniform_real_distribution<float> vel(-0.05f, 0.05f);
     particule tmp {.position = pos, .color = colors.first, .radius = (static_cast<float>(size.first)), .scale = scale};
     float tmpRand;
 
@@ -36,7 +36,6 @@ Particles::Particles(const coords &pos, const std::pair<int, int> &size, float m
         tmp.v = {vel(gen), vel(gen), vel(gen)};
         _particles.push_back(tmp);
     }
-    std::cout << "[PARTICULE] size du tab: " << _particles.size() << "\n";
 }
 const std::vector<Particles::particule> &Particles::getParticles() const noexcept
 {
@@ -46,15 +45,15 @@ void Particles::update() noexcept
 {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_real_distribution<float> vel(-20, 20);
-    std::uniform_real_distribution<float> acc(0, 0.5f);
+    std::uniform_real_distribution<float> vel(-0.5f, 0.5f);
+    std::uniform_real_distribution<float> acc(0.0f, 0.05f);
     bool r;
     float tmpRand;
 
     for (auto &i : _particles) {
         r = gen() % 10 <= 3;
         i.v += i.a;
-        i.position += i.v;
+        i.position += (i.v / 2);
         i.radius += static_cast<float>(r);
         if (i.radius > _maxSize) {
             i.position = _objPos;

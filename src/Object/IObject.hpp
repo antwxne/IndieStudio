@@ -62,6 +62,13 @@ struct coords
         return *this;
     }
 
+    coords &operator/(float val) {
+        first /= val;
+        second /= val;
+        third /= val;
+        return *this;
+    }
+
     float first;
     float second;
     float third;
