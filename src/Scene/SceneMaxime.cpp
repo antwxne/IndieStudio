@@ -142,7 +142,7 @@ Scenes SceneMaxime::run(Raylib &lib, Scenes const &prevScene)
             for (auto it = _objects.begin(); it != _objects.end(); ) {
                 if (it->get()->getTypeField().isDestructible == true) {
                     _objects.emplace_back(std::make_shared<PowerUps>(coords(it->get()->getPosition().first,it->get()->getPosition().second + 1.0f, it->get()->getPosition().third), std::make_pair(0, 0), std::pair<std::string, std::string>("", _assetsPath.at(2))));
-                    _objects.emplace_back(std::make_shared<Particles>(coords(it->get()->getPosition().first,it->get()->getPosition().second + 1.0f, it->get()->getPosition().third), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(218, 165, 32), RGB()), 10, coords(0, 0.2f, 0)));
+                    _objects.emplace_back(std::make_shared<Particles>(_objects.back()->getPosition(), std::make_pair(1.f, 1), 1.1f, 0.05f, std::make_pair(RGB(218, 165, 32), RGB()), 25, coords(.0f, .001f, .0f)));
                     it = _objects.erase(it);
                     break;
                 } else

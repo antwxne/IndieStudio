@@ -48,7 +48,7 @@ public:
      * @param colors colors of particles
      * @param nParticles number of particles
      */
-    Particles(const coords &pos, const std::pair<int, int> &size, float maxSize, float scale, const std::pair<RGB, RGB> &colors, std::size_t nParticles, const coords &accelleration);
+    Particles(const coords &pos, const std::pair<float, int> &size, float maxSize, float scale, const std::pair<RGB, RGB> &colors, std::size_t nParticles, const coords &accelleration);
     /**
      * @brief default destructor for particles
      */
@@ -95,6 +95,7 @@ private:
      * @brief acceleration base
      */
     coords _acceleration;
+    float _sizeParticle;
 };
 
 #endif //INDIESTUDIO_PARTICLES_HPP
