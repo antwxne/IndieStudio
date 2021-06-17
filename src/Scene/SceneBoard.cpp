@@ -17,7 +17,7 @@ SceneBoard::~SceneBoard()
     _objects.clear();
 }
 
-Scenes SceneBoard::run(Raylib &lib, Scenes const &prevScene)
+Scenes SceneBoard::run(Raylib &lib)
 {
     while (lib.gameLoop()) {
 

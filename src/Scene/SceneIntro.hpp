@@ -8,5 +8,5 @@
 class SceneIntro : public AScene {
     SceneIntro(Setting &settings);
     ~SceneIntro() noexcept;
-    Scenes run(Raylib &lib, Scenes const &prevScene) final;
+    Scenes run(Raylib &lib) final;
 };

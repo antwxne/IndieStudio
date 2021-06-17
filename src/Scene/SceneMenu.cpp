@@ -46,7 +46,7 @@ namespace menu {
             lib.displaySound(core::_soundsPath, _settings._soundVol);
     }
 
-    Scenes SceneMenu::endScene(Scenes const &prevScene) noexcept
+    Scenes SceneMenu::endScene(Raylib &lib) noexcept
     {
         return (_returnScene.at(static_cast<menu_e>(_state)));
     }

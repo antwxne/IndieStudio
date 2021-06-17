@@ -50,7 +50,7 @@ namespace newGame {
             SceneNewGame(Setting & settings);
             ~SceneNewGame();
             void eventScene(Raylib &lib) final;
-            Scenes endScene(Scenes const &prevScene) noexcept final;
+            Scenes endScene(Raylib &lib) noexcept final;
 
         private:
             void fillAi();

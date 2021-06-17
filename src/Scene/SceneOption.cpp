@@ -34,7 +34,7 @@ namespace option {
     SceneOption::~SceneOption()
     {
     }
-    
+
     void SceneOption::changeAudio(const std::string &name)
     {
         if (name.find("Music") != name.npos)
@@ -50,9 +50,9 @@ namespace option {
             lib.displaySound(core::_soundsPath, _settings._soundVol);
     }
 
-    Scenes SceneOption::endScene(Scenes const &prevScene) noexcept
+    Scenes SceneOption::endScene(Raylib &lib) noexcept
     {
-        return (prevScene);
+        return (Scenes::MENU);
     }
 
 }

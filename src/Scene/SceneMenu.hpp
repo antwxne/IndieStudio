@@ -68,7 +68,7 @@ namespace menu {
             SceneMenu(Setting &settings);
             ~SceneMenu();
             void eventScene(Raylib &lib) final;
-            Scenes endScene(Scenes const &prevScene) noexcept final;
+            Scenes endScene(Raylib &lib) noexcept final;
     };
 }
 

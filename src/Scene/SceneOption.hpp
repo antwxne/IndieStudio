@@ -43,7 +43,7 @@ namespace option {
             SceneOption(Setting &settings);
             ~SceneOption();
             void eventScene(Raylib &lib) final;
-            Scenes endScene(Scenes const &prevScene) noexcept final;
+            Scenes endScene(Raylib &lib) noexcept final;
             void changeAudio(const std::string &name);
     };
 

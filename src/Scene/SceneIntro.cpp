@@ -12,7 +12,7 @@ SceneIntro::~SceneIntro() noexcept
 {
 }
 
-Scenes SceneIntro::run(Raylib &lib, const Scenes &prevScene)
+Scenes SceneIntro::run(Raylib &lib)
 {
     while (lib.gameLoop()) {
     }

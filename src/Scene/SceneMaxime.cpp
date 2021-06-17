@@ -32,7 +32,7 @@ const std::vector<std::string> SceneMaxime::_assetsPath {
     "asset/bonus/arrow.obj"
 };
 
-SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false)
+SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false), _isPause(false), _scenePause(settings)
 {
 /////////////////////////////START CEMENT//////////////////////:
 
@@ -83,6 +83,9 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false)
     setInputFunction(Raylib::ENTER, [&]() {
         _enter = !_enter;
     });
+    setInputFunction(Raylib::A, [&]() {
+        _isPause = !_isPause;
+    });
 
     setInputFunction(Raylib::SPACE, [&]() {
         _pressed = true;
@@ -124,44 +127,50 @@ void SceneMaxime::manageHeart(const std::string &name, const int life)
     }
 }
 
-Scenes SceneMaxime::run(Raylib &lib, Scenes const &prevScene)
+Scenes SceneMaxime::run(Raylib &lib)
 {
     bool isLock = false;
 
     while (lib.gameLoop()) {
-        for (auto &tmp : _objects) {
-            if (tmp->getTypeField().isTank) {
-                auto test = std::dynamic_pointer_cast<Tank>(tmp);
-                manageHeart(test->getName(), test->getLife());
-            }
-        }
-        if (_iterator.size() != 0) {
-            for (auto &i : _iterator)
-                _objects.erase(_objects.begin() + i);
-            _iterator.clear();
+        // for (auto &tmp : _objects) {
+        //     if (tmp->getTypeField().isTank) {
+        //         auto test = std::dynamic_pointer_cast<Tank>(tmp);
+        //         manageHeart(test->getName(), test->getLife());
+        //     }
+        // }
+        // if (_iterator.size() != 0) {
+        //     for (auto &i : _iterator)
+        //         _objects.erase(_objects.begin() + i);
+        //     _iterator.clear();
+        // }
+        lib.printObjects(_objects);
+        if (_isPause) {
+            auto newScene = _scenePause.run(lib);
+            if (newScene != Scenes::GAME)
+                return (newScene);
+            _isPause = false;
         }
         triggerInputActions(lib);
-        lib.printObjects(_objects);
-        if (_pressed && !isLock) {
-            _pressed = false;
-            isLock = true;
-            for (auto it = _objects.begin(); it != _objects.end(); ) {
-                if (it->get()->getTypeField().isDestructible == true) {
-                    _objects.emplace_back(std::make_shared<PowerUps>(coords(it->get()->getPosition().first,it->get()->getPosition().second + 1.0f, it->get()->getPosition().third), std::make_pair(0, 0), std::pair<std::string, std::string>("", _assetsPath.at(2))));
-                    _objects.emplace_back(std::make_shared<Particles>(coords(it->get()->getPosition().first,it->get()->getPosition().second + 1.0f, it->get()->getPosition().third), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(218, 165, 32), RGB()), 10, coords(0, 0.2f, 0)));
-                    it = _objects.erase(it);
-                    break;
-                } else
-                    ++it;
-            }
-        }
-        for (auto &it: _objects)
-            if (it->getTypeField().isParticule == true) {
-                std::dynamic_pointer_cast<Particles>(it)->update();
-            }
-            else if (it->getTypeField().isPowerUps == true) {
-                std::dynamic_pointer_cast<PowerUps>(it)->rotate(0.5f);
-            }
+        // if (_pressed && !isLock) {
+        //     _pressed = false;
+        //     isLock = true;
+        //     for (auto it = _objects.begin(); it != _objects.end(); ) {
+        //         if (it->get()->getTypeField().isDestructible == true) {
+        //             _objects.emplace_back(std::make_shared<PowerUps>(coords(it->get()->getPosition().first,it->get()->getPosition().second + 1.0f, it->get()->getPosition().third), std::make_pair(0, 0), std::pair<std::string, std::string>("", _assetsPath.at(2))));
+        //             _objects.emplace_back(std::make_shared<Particles>(coords(it->get()->getPosition().first,it->get()->getPosition().second + 1.0f, it->get()->getPosition().third), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(218, 165, 32), RGB()), 10, coords(0, 0.2f, 0)));
+        //             it = _objects.erase(it);
+        //             break;
+        //         } else
+        //             ++it;
+        //     }
+        // }
+        // for (auto &it: _objects)
+        //     if (it->getTypeField().isParticule == true) {
+        //         std::dynamic_pointer_cast<Particles>(it)->update();
+        //     }
+        //     else if (it->getTypeField().isPowerUps == true) {
+        //         std::dynamic_pointer_cast<PowerUps>(it)->rotate(0.5f);
+        //     }
     }
     return (Scenes::QUIT);
 }

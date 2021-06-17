@@ -7,21 +7,25 @@
 
 #pragma once
 #include "AScene.hpp"
+#include "ScenePause.hpp"
 #include <vector>
 
 class SceneMaxime : public AScene {
     public:
         SceneMaxime(Setting &settings);
         ~SceneMaxime();
-        Scenes run(Raylib &lib, Scenes const &prevScene) final;
+        Scenes run(Raylib &lib) final;
         void manageHeart(const std::string &name, const int life);
 
     private:
         std::vector<int> _iterator;
         static const std::vector<std::array<std::pair<float, float>, 2>> _menuPos;
         static const std::vector<std::string> _assetsPath;
+        pause::ScenePause _scenePause;
         bool _pressed;
         bool _enter;
+        bool _isPause;
+        bool _state;
 };
 
 static const std::vector<std::pair<float, float>> _playerPos {

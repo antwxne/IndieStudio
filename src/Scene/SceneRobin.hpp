@@ -16,7 +16,7 @@ class SceneRobin : public AScene {
         SceneRobin(Setting &settings);
         ~SceneRobin();
 
-        Scenes run(Raylib &lib, Scenes const &prevScene) override;
+        Scenes run(Raylib &lib) override;
 };
 
 #endif /* !SCENEROBIN_HPP_ */

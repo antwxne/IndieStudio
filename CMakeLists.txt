@@ -103,6 +103,7 @@ set(SCENE_SRCS
         ${SCENE_PATH}/SceneMenu.cpp
         ${SCENE_PATH}/SceneNewGame.cpp
         ${SCENE_PATH}/SceneOption.cpp
+        ${SCENE_PATH}/ScenePause.cpp
         ${SCENE_PATH}/SceneRobin.cpp
         ${SCENE_PATH}/SceneIntro.cpp
         )

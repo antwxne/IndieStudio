@@ -313,12 +313,6 @@ void Raylib::drawModel(const std::string &modelPath, const std::string &textureP
     DrawModelEx(it->second, {pos.first, pos.second, pos.third}, {axis.first, axis.second, axis.third}, angle, {scale, scale, scale}, {tint.r, tint.g, tint.b, tint.a});
 }
 
-void drawSlider(Vector2 pos, Vector2 size, float slider, const std::string name)
-{
-    DrawText(name.c_str(), pos.x - size.x, pos.y - size.y, 20, GRAY);
-    DrawRectangle(pos.x, pos.y, size.x, size.y, GRAY);
-}
-
 void Raylib::drawTexture(const std::string &path, Vector2 pos, float rotation, float scale, RGB tint)
 {
     auto it = _textures.find(path);
