@@ -37,9 +37,9 @@ SceneRobin::SceneRobin(Setting &settings) : AScene(settings)
     for (auto const &block : map->_objectDestructibleList)
         _objects.emplace_back(std::make_shared<DestructibleWall>(block));
     _objects.emplace_back(std::make_shared<Tank>("grosTankSaMere", coords(0,0,0), std::make_pair(10, 10), std::make_pair(Tank::sandCamo, Tank::body), std::make_pair(Tank::greenCamo, Tank::turret)));
-    setInputsFirstTank(_settings._keysPlayerOne);
+    setInputsTank(_settings._keysPlayerOne, _objects.back());
     _objects.emplace_back(std::make_shared<Tank>("petitTankMignon", coords(6,0,0), std::make_pair(10, 10), std::make_pair(Tank::sandCamo, Tank::body), std::make_pair(Tank::greenCamo, Tank::turret)));
-    setInputsSecondTank(_settings._keysPlayerTwo);
+    setInputsTank(_settings._keysPlayerTwo, _objects.back());
 }
 
 SceneRobin::~SceneRobin()
