@@ -109,7 +109,6 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
         if (i->getTypeField().is3D) {
             BeginMode3D(_camera);
             if (i->getTypeField().isTank) {
-                //i know it's uggly right? :c
                 auto const &tank = std::dynamic_pointer_cast<Tank>(i);
                 auto const &cannon = tank->getCannon();
                 auto const &bullets = cannon.getBullets();
