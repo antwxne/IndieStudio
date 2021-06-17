@@ -11,24 +11,21 @@
 Cannon::Cannon(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path)
     : MovableObject(pos, size, path)
 {
+    const int _nbBullets = 1;
     _typeField.isCannon = true;
     _scale = 0.2f;
     _rotationAxis = coords(0.0f, 1.0f, 0.0f);
-    _bullets.reserve(10);
-    for (int i = 0; i < 10; ++i) {
-        _bullets.emplace_back(Bullet({-10000, 0, 0}, std::make_pair(1, 1)));
-    }
+    _bullets.reserve(_nbBullets);
+    for (int i = 0; i < _nbBullets; ++i)
+        _bullets.emplace_back(Bullet({-12, 0, -7}, _rotationAngle));
 }
 
 void Cannon::fire()
 {
-    std::cout << "fire" << std::endl;
-    float angle = _rotationAngle * 180 / M_PI;
-
-    coords dir = {std::sin(angle), 0, std::cos(angle)};
-    for (auto &i : _bullets) {
-        if (i.getPosition().first != -10000) {
-            i.move(dir);
+    for (auto &bullet : _bullets) {
+        if (bullet.getPosition().first == -12) {
+            bullet.setPosition(coords(0, 0, -5));
+            bullet.setRotationAngle(_rotationAngle);
             break;
         }
     }

@@ -11,12 +11,15 @@
 #include "Bullet.hpp"
 
 const std::string Bullet::modelPath = "asset/Tank/bullet.obj";
-const std::string Bullet::texturePath = "asset/Tank/sand_camo.png";
+const std::string Bullet::texturePath = "asset/Tank/sable.png";
 
-Bullet::Bullet(const coords &pos, const std::pair<int, int> &size) : MovableObject(pos, size, {Bullet::modelPath, Bullet::texturePath})
+Bullet::Bullet(const coords &pos, float angle) : MovableObject(pos, std::make_pair(1,1), std::make_pair(Bullet::texturePath, Bullet::modelPath))
 {
+    _scale = 0.2f;
     _typeField.isBullet = true;
-    _life = 3;
+    _life = 1;
+    _rotationAngle = angle;
+    _rotationAxis = coords(0.0f, 1.0f, 0.0f);
 }
 void Bullet::constant_move() noexcept
 {

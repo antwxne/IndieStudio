@@ -62,8 +62,8 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false)
         auto tmp = _objects.emplace_back(
             std::make_shared<Tank>(_settings._players.at(i).name,
                 coords(_posTank[i].first, _posTank[i].second), std::make_pair(10, 10),
-                std::make_pair(Tank::sandCamo, Tank::body),
-                std::make_pair(Tank::greenCamo, Tank::turret)));
+                std::make_pair(Tank::sable, Tank::body),
+                std::make_pair(Tank::darkGreen, Tank::turret)));
         auto tank = std::dynamic_pointer_cast<Tank>(_objects.back());
         for (int y = 0; y != tank->getLife(); y++) {
             _objects.emplace_back(std::make_shared<LifeGame>(tank->getName(),
