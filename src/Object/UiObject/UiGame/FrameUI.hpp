@@ -10,8 +10,10 @@ class FrameUI {
     FrameUI();
     ~FrameUI() = default;
 
-    public:
+    private:
     std::vector<BorderPlayer> _border;
+    public:
+    const std::vector<BorderPlayer> &getBorder() const;
 };
 
 static const std::vector<std::pair<float, float>> _uiGameSize{

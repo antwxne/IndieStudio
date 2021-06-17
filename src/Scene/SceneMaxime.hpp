@@ -20,6 +20,7 @@ class SceneMaxime : public AScene {
         std::vector<int> _iterator;
         static const std::vector<std::array<std::pair<float, float>, 2>> _menuPos;
         static const std::vector<std::string> _assetsPath;
+        bool _pressed;
         bool _enter;
 };
 
@@ -31,10 +32,10 @@ static const std::vector<std::pair<float, float>> _playerPos {
 };
 
 static const std::vector<std::pair<float, float>> _scorePos {
-    {std::make_pair(270.0f, 975.0f)},
-    {std::make_pair(770.0f, 975.0f)},
-    {std::make_pair(1270.0f, 975.0f)},
-    {std::make_pair(1770.0f, 975.0f)},
+    {std::make_pair(280.0f, 990.0f)},
+    {std::make_pair(780.0f, 990.0f)},
+    {std::make_pair(1280.0f, 990.0f)},
+    {std::make_pair(1780.0f, 990.0f)},
 };
 
 static const std::vector<std::pair<float, float>> _uiLifePosPlayer{
@@ -45,8 +46,8 @@ static const std::vector<std::pair<float, float>> _uiLifePosPlayer{
 };
 
 static const std::vector<std::pair<float, float>> _posTank {
-    std::make_pair(1, 1),
-    std::make_pair(0, 0),
-    std::make_pair(600, 100),
-    std::make_pair(800, 700)
+    std::make_pair(-1, -2),
+    std::make_pair(1, 2),
+    std::make_pair(-2, 1),
+    std::make_pair(1,-2)
 };

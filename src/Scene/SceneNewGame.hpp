@@ -9,7 +9,7 @@
 #define SCENENEWGAME_HPP_
 
 #include "Raylib.hpp"
-#include "AScene.hpp"
+#include "UiScene.hpp"
 
 namespace newGame {
 
@@ -44,18 +44,17 @@ namespace newGame {
 
     static const std::string _bgPath = "asset/background_asset/Background_02.png";
 
-    class SceneNewGame : public AScene
+    class SceneNewGame : public UiScene
     {
         public:
             SceneNewGame(Setting & settings);
             ~SceneNewGame();
-            Scenes run(Raylib &lib, Scenes const &prevScene) final;
+            void eventScene(Raylib &lib) final;
+            Scenes endScene(Scenes const &prevScene) noexcept final;
+
         private:
             void fillAi();
             void fillName();
-            std::pair<float, float> _mousePos;
-            int _select;
-            bool _pressed;
     };
 
 }

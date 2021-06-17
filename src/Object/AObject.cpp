@@ -8,12 +8,12 @@
 #include "Object/AObject.hpp"
 
 AObject::AObject(const coords &pos, const std::pair<int, int> &size, float scale, const std::pair<RGB, RGB> &colors)
-    : _pos(pos), _size(size), _rotation(0), _scale(scale), _color(colors)
+    : _pos(pos), _size(size), _rotationAngle(0.0f), _rotationAxis(coords(0, 0, 0)), _scale(scale), _color(colors)
 {
 }
 
 AObject::AObject(const coords &pos, const std::pair<int, int> &size, float scale)
-    : _pos(pos), _size(size), _rotation(0), _scale(scale), _color(std::make_pair(RGB(), RGB()))
+    : _pos(pos), _size(size), _rotationAngle(0.0f), _rotationAxis(coords(0, 0, 0)), _scale(scale), _color(std::make_pair(RGB(), RGB()))
 {
 }
 
@@ -62,9 +62,18 @@ const std::pair<RGB, RGB> &AObject::getColors() const noexcept
     return _color;
 }
 
-float AObject::getRotation() const
+const float AObject::getRotationAngle() const noexcept
 {
-    return _rotation;
+    return _rotationAngle;
+}
+void AObject::setPos(const coords &pos)
+{
+    _pos = pos;
+}
+
+const coords &AObject::getRotationAxis() const noexcept
+{
+    return _rotationAxis;
 }
 
 void AObject::setColor(const std::pair<RGB, RGB> &color)

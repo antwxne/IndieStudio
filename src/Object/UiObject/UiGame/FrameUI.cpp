@@ -12,3 +12,8 @@ FrameUI::FrameUI()
         std::make_pair(RGB(150, 150,150), RGB()), 5);
     }
 }
+
+const std::vector<BorderPlayer> &FrameUI::getBorder() const
+{
+    return _border;
+}

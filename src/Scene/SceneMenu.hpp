@@ -9,7 +9,7 @@
 #define SCENEMENU_HPP_
 
 #include <array>
-#include "Scene/AScene.hpp"
+#include "Scene/UiScene.hpp"
 
 namespace menu {
 
@@ -54,8 +54,6 @@ namespace menu {
 
     static const std::string _bgPath = "asset/background_asset/Background_01.png";
 
-    static const std::string _soundsPath = "asset/sound_effects/tud.wav";
-
     static const std::unordered_map<menu_e, Scenes> _returnScene {
         {menu_e::START,         Scenes::NEW_GAME},
         {menu_e::LOAD,          Scenes::GAME},
@@ -64,19 +62,13 @@ namespace menu {
         {menu_e::QUIT,          Scenes::QUIT}
     };
 
-    static const std::string _musicPath = "asset/music/053 - Tanks - Variation 1.mp3";
-
-    class SceneMenu : public AScene
+    class SceneMenu : public UiScene
     {
         public:
             SceneMenu(Setting &settings);
             ~SceneMenu();
-            Scenes run(Raylib &lib, Scenes const &prevScene) final;
-
-        private:
-            std::pair<float, float> _mousePos;
-            int _select;
-            bool _pressed;
+            void eventScene(Raylib &lib) final;
+            Scenes endScene(Scenes const &prevScene) noexcept final;
     };
 }
 

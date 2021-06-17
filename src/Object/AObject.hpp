@@ -95,11 +95,22 @@ public:
      */
     void setScale(float scale) noexcept final;
     /**
-     * @brief Get the Rotation object
-     *
-     * @return float
+     * @brief set a new position
+     * @param pos new position
      */
-    float getRotation() const;
+    void setPos(const coords &pos);
+    /**
+     * @brief Get the Rotation Angle object
+     * 
+     * @return const float 
+     */
+    [[nodiscard]] const float getRotationAngle() const noexcept;
+    /**
+     * @brief Get the Rotation Axis object
+     * 
+     * @return const coords& 
+     */
+    [[nodiscard]] const coords &getRotationAxis() const noexcept;
 
     protected:
     coords _pos;
@@ -110,6 +121,8 @@ public:
 
     protected:
     float _rotation;
+    float _rotationAngle;
+    coords _rotationAxis;
     typeField _typeField;
     float _scale;
 };

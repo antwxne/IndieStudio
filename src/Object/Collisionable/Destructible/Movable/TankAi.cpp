@@ -48,8 +48,8 @@ void TankAI::move(const coords &direction) noexcept
 }
 void TankAI::rotate(float angle) noexcept
 {
-    _rotation = angle;
-    _cannon.rotate(angle - _cannon.getRotation());
+    _rotationAngle = angle;
+    _cannon.rotate(angle - _cannon.getRotationAngle());
 }
 
 void TankAI::setBlocked(bool blocked)

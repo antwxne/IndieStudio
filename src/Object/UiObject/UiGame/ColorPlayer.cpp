@@ -10,3 +10,8 @@ ColorPlayer::ColorPlayer()
         _posColorSquare.emplace_back(coords(_posColor[i].first,_posColor[i].second), std::make_pair(50,30), 1, _colorPlayer[i]);
     }
 }
+
+const std::vector<FullSquare> &ColorPlayer::getPosColorSquare() const
+{
+    return _posColorSquare;
+}

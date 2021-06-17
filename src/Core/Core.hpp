@@ -22,12 +22,16 @@
 
 namespace core {
 
+    static const std::string _musicPath = "asset/music/053 - Tanks - Variation 1.mp3";
+
+    static const std::string _soundsPath = "asset/sound_effects/tud.wav";
+
     static const std::unordered_map<Scenes, std::function<std::unique_ptr<IScene>(Setting &settings)>> _enumToConstructor {
         {Scenes::NEW_GAME,      [](Setting &settings){return std::make_unique<newGame::SceneNewGame>(settings);}},
         {Scenes::MENU,          [](Setting &settings){return std::make_unique<menu::SceneMenu>(settings);}},
         {Scenes::GAME,          [](Setting &settings){return std::make_unique<SceneMaxime>(settings);}},
+        {Scenes::OPTION,        [](Setting &settings){return std::make_unique<option::SceneOption>(settings);}},
         // {Scenes::LOAD,          [](const Setting & &settings){return std::make_unique<SceneRobin>(settings);}},
-        // {Scenes::OPTION,        [](const Setting & &settings){return std::make_unique<SceneOption>(settings);}},
         // {Scenes::LEADERBOARD,   [](const Setting & &settings){return std::make_unique<SceneBoard>(settings);}}
     };
     /**

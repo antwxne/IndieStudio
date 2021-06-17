@@ -14,5 +14,6 @@ DestructibleWall::DestructibleWall(const coords &pos,
 {
     _life = 3;
     _typeField.isWall = true;
-    // changer le sprite
+    _rotationAngle = 90.0f;
+    _rotationAxis = {0, 1, 0};
 }

@@ -6,6 +6,7 @@
 */
 
 #include "Tank.hpp"
+#include "Raylib.hpp"
 #include <functional>
 
 const std::string Tank::sandCamo = "asset/Tank/sand_camo.png";
@@ -14,23 +15,14 @@ const std::string Tank::body = "asset/Tank/tankBodyNEW.obj";
 const std::string Tank::turret = "asset/Tank/turretWithCannonNEW.obj";
 
 Tank::Tank(const std::string &name, const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path, const std::pair<std::string, std::string> &cannonPath)
-    : MovableObject(pos, size, path), _cannon(coords{pos.first, pos.second + 0.2, pos.third}, size, cannonPath), _name(name), _score(0)
+    : MovableObject(pos, size, path), _cannon(coords{pos.first, pos.second + 0.1f, pos.third}, size, cannonPath), _name(name), _score(0)
 {
     _typeField.isTank = true;
-    _life = 3;
-    _speed = 5;
     _scale = 0.2f;
-    _score = 0;
-}
-
-Tank::Tank(const Tank &to_copy)
-    : MovableObject(to_copy._pos, to_copy._size, to_copy._path), _cannon(to_copy._cannon)
-{
-    _typeField.isTank = true;
     _life = 10;
-    _speed = 5;
     _scale = 0.2f;
-    _score = 0;
+    _rotationAngle = 270.0f;
+    _rotationAxis = coords(0.0f, 1.0f, 0.0f);
 }
 
 void Tank::fire()
@@ -38,6 +30,18 @@ void Tank::fire()
     _cannon.fire();
 }
 
+void Tank::move(const coords &direction) noexcept
+{
+    auto tmp = direction;
+    tmp *= _speed * Raylib::getDeltaTime();
+    _pos += tmp;
+    _cannon.move(direction);
+}
+
+void Tank::rotateCannon(float angle)
+{
+    _cannon.rotate(angle);
+}
 
 Cannon const &Tank::getCannon() const
 {

@@ -11,7 +11,11 @@ class ColorPlayer {
     public:
     ColorPlayer();
     ~ColorPlayer() = default;
+
+    private:
     std::vector<FullSquare> _posColorSquare;
+    public:
+    const std::vector<FullSquare> &getPosColorSquare() const;
 };
 
 static const std::vector<std::pair<float, float>>_posColor {
