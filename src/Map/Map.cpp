@@ -11,8 +11,8 @@
 
 Map::Map()
 {
-    _pos.push_back(std::make_pair(6, 4));
-    _pos.push_back(std::make_pair(6, 4));
+    _pos.push_back(std::make_pair(12, 6));
+    _pos.push_back(std::make_pair(12, 6));
 }
 
 void Map::createDestructibleMap(std::pair<int, int> const &pos_left, std::pair<int, int> const &pos_down_right)
