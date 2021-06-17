@@ -8,6 +8,7 @@
 
 #include "MovableObject.hpp"
 #include "Bullet.hpp"
+#include <chrono>
 
 #ifndef INDIESTUDIO_CANNON_HPP
 #define INDIESTUDIO_CANNON_HPP
@@ -42,14 +43,56 @@ public:
      * @return vector of bullet
      */
     const std::vector<Bullet> &getBullets() const;
+
+    /**
+     * @brief to_call in game loop, it updates the moving bullets.
+     * 
+     */
+    void moveBullets() noexcept;
+
+    /**
+     * @brief increases by one the damage of the bullets
+     * 
+     */
     void increaseDamage() noexcept;
+
+    /**
+     * @brief Set the Fire Cool Down object
+     * 
+     */
+    void setFireCoolDown(int) noexcept;
+
+    /**
+     * @brief Get the Fire Cool Down object
+     * 
+     * @return int 
+     */
+    int getFireCoolDown() const noexcept;
+
 private:
     /**
      * @var bullet's vector
      * @brief vector containing bullets
      */
-    static const int _nbBullets;
+    static const std::size_t _nbBullets;
+
+    /**
+     * @brief vector of all the bullets that this tank can have.
+     *          --> we create before all bullets and move them when fired
+     */
     std::vector<Bullet> _bullets;
+    
+    /**
+     * @brief timeStamp used as a reference for fire cooldown
+     * 
+     */
+    std::chrono::_V2::system_clock::time_point _fireTimeStamp;
+
+    /**
+     * @brief cool down for firing ability
+     * 
+     */
+    int _fireCoolDown;
 };
 
 #endif //INDIESTUDIO_CANNON_HPP

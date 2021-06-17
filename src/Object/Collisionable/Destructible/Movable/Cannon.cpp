@@ -9,22 +9,28 @@
 #include <cmath>
 
 Cannon::Cannon(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path)
-    : MovableObject(pos, size, path)
+    : MovableObject(pos, size, path), _fireTimeStamp(std::chrono::high_resolution_clock::now()), _fireCoolDown(1500)
 {
-    const int _nbBullets = 1;
     _typeField.isCannon = true;
     _scale = 0.2f;
     _rotationAxis = coords(0.0f, 1.0f, 0.0f);
+
+    const std::size_t _nbBullets = 5;
     _bullets.reserve(_nbBullets);
     for (int i = 0; i < _nbBullets; ++i)
-        _bullets.emplace_back(Bullet({-12, 0, -7}, _rotationAngle));
+        _bullets.emplace_back(Bullet({Bullet::waitPosition, 0.3, -7}, _rotationAngle));
 }
 
 void Cannon::fire()
 {
+    auto now = std::chrono::high_resolution_clock::now();
+
+    if (std::chrono::duration_cast<std::chrono::milliseconds>(now - _fireTimeStamp) < std::chrono::milliseconds(_fireCoolDown))
+        return;
+    _fireTimeStamp = std::chrono::high_resolution_clock::now();
     for (auto &bullet : _bullets) {
-        if (bullet.getPosition().first == -12) {
-            bullet.setPosition(coords(0, 0, -5));
+        if (bullet.getPosition().first == Bullet::waitPosition) {
+            bullet.setPosition(coords(_pos.first, bullet.getPosition().second, _pos.third));
             bullet.setRotationAngle(_rotationAngle);
             break;
         }
@@ -38,4 +44,11 @@ void Cannon::increaseDamage() noexcept
 {
     for (auto &it : _bullets)
         it.setDamage(it.getDamage() + 1);
+}
+
+void Cannon::moveBullets() noexcept
+{
+    for (auto &bullet : _bullets)
+        if (bullet.getPosition().first != Bullet::waitPosition)
+            bullet.move(coords(std::sin(M_PI *  bullet.getRotationAngle() / 180), 0, std::cos(M_PI * bullet.getRotationAngle() / 180)));
 }
