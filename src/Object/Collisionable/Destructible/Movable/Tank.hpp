@@ -33,7 +33,7 @@ public:
      * @param size 
      * @param cannon 
      */
-    Tank(const std::string &name, const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path, const std::pair<std::string, std::string> &cannonPath);
+    Tank(const std::string &name, const coords &pos, const coords &size, const std::pair<std::string, std::string> &path, const std::pair<std::string, std::string> &cannonPath);
     /**
      * @brief Destroy the Tank object
      * 

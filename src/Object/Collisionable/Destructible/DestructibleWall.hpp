@@ -25,13 +25,13 @@ public:
      * @param size
      * @param path
      */
-    DestructibleWall(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path);
+    DestructibleWall(const coords &pos, const coords &size, const std::pair<std::string, std::string> &path);
     /**
      * @brief Construct a new Destructible Wall object
      *
      * @param object to copy
      */
-    DestructibleWall(const DestructibleWall &e) : DestructibleWall(e._pos, e._size, std::pair<std::string, std::string>{"asset/OBJFormat/Textures/truck_alien.png", "asset/OBJFormat/truck_green.obj"}) {}
+    DestructibleWall(const DestructibleWall &e) : DestructibleWall(e._pos, e._3DSize, std::pair<std::string, std::string>{"asset/OBJFormat/Textures/truck_alien.png", "asset/OBJFormat/truck_green.obj"}) {}
     /**
      *
      * @brief Destroy the Destructible Wall object

@@ -10,11 +10,12 @@
 #include "Object/Collisionable/Destructible/Movable/PowerUps/PowerUps.hpp"
 
 CollisionableObject::CollisionableObject(const coords &pos,
-    const std::pair<int, int> &size, const std::pair<std::string, std::string> &path
-) : AObject(pos, size, 1), _path(path)
+    const coords &size, const std::pair<std::string, std::string> &path
+) : AObject(pos, std::make_pair(size.first, size.second), 1), _path(path)
 {
     _typeField.is3D = true;
     _typeField.isCollisionable = true;
+    _3DSize = size;
 }
 
 CollisionableObject::CollisionableObject(CollisionableObject const &object) : AObject(object._pos, object._size, object._scale), _path(object._path)

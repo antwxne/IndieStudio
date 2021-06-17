@@ -30,8 +30,8 @@ const std::vector<std::string> _assetsPath {
 class PowerUps : public MovableObject
 {
     public:
-        PowerUps(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path, const Power &powerUps);
-        PowerUps(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path);
+        PowerUps(const coords &pos,const coords &size, const std::pair<std::string, std::string> &path, const Power &powerUps);
+        PowerUps(const coords &pos, const coords &size, const std::pair<std::string, std::string> &path);
         ~PowerUps();
 
         [[nodiscard]] const Power &getPowerUps() const noexcept;

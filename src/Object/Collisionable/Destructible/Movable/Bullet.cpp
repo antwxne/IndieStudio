@@ -13,7 +13,7 @@
 static const std::string bulletModelPath = "";
 static const std::string bulletTexturePath = "";
 
-Bullet::Bullet(const coords &pos, const std::pair<int, int> &size) : MovableObject(pos, size, {bulletModelPath, bulletTexturePath})
+Bullet::Bullet(const coords &pos, const coords &size) : MovableObject(pos, size, {bulletModelPath, bulletTexturePath})
 {
     _typeField.isBullet = true;
     _life = 3;

@@ -26,7 +26,7 @@ public:
      * @param size
      * @param bullet
      */
-    Cannon(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path);
+    Cannon(const coords &pos, const coords &size, const std::pair<std::string, std::string> &path);
     /**
      * @brief copy constructor
      * @param cannon object to copy

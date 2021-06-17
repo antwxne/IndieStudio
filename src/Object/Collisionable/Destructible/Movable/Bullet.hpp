@@ -23,7 +23,7 @@ public:
      * @param pos
      * @param size
      */
-    Bullet(const coords &pos, const std::pair<int, int> &size);
+    Bullet(const coords &pos, const coords &size = {1, 1, 1});
 
     /**
      * @brief once bullet was shot, it follows a vector and being updated by this

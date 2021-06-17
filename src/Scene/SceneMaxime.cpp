@@ -42,7 +42,7 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false)
     for (unsigned int i = 0; i != _posTank.size(); i++) {
         auto tmp = _objects.emplace_back(
             std::make_shared<Tank>(_settings._players.at(i).name,
-                coords(_posTank[i].first, 0, _posTank[i].second), std::make_pair(10, 10),
+                coords(_posTank[i].first, 0, _posTank[i].second), coords(10, 10, 10),
                 std::make_pair(Tank::sandCamo, Tank::body),
                 std::make_pair(Tank::greenCamo, Tank::turret)));
         auto tank = std::dynamic_pointer_cast<Tank>(_objects.back());
@@ -141,7 +141,7 @@ Scenes SceneMaxime::run(Raylib &lib, Scenes const &prevScene)
             isLock = true;
             for (auto it = _objects.begin(); it != _objects.end(); ) {
                 if (it->get()->getTypeField().isDestructible == true) {
-                    _objects.emplace_back(std::make_shared<PowerUps>(coords(it->get()->getPosition().first,it->get()->getPosition().second + 1.0f, it->get()->getPosition().third), std::make_pair(0, 0), std::pair<std::string, std::string>("", _assetsPath.at(2))));
+                    _objects.emplace_back(std::make_shared<PowerUps>(coords(it->get()->getPosition().first,it->get()->getPosition().second + 1.0f, it->get()->getPosition().third), coords(1, 1, 1), std::pair<std::string, std::string>("", _assetsPath.at(2))));
                     _objects.emplace_back(std::make_shared<Particles>(_objects.back()->getPosition(), std::make_pair(1.f, 1), 1.1f, 0.05f, std::make_pair(RGB(218, 165, 32), RGB()), 25, coords(.0f, .001f, .0f)));
                     it = _objects.erase(it);
                     break;
