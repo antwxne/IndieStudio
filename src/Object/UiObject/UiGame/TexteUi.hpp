@@ -16,6 +16,7 @@ class TexteUI : public UiObject{
     void setText(const std::string &text);
     void setTextSize(int textSize);
     void setTextPos(const coords &textPos);
+    void upTextSize(int up, int limit, const coords &pos);
 
     protected:
     std::string _text;

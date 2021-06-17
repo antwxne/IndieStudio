@@ -19,6 +19,7 @@
 #include "SceneNewGame.hpp"
 #include "SceneOption.hpp"
 #include "SceneBoard.hpp"
+#include "SceneIntro.hpp"
 
 namespace core {
 
@@ -27,6 +28,7 @@ namespace core {
     static const std::string _soundsPath = "asset/sound_effects/tud.wav";
 
     static const std::unordered_map<Scenes, std::function<std::unique_ptr<IScene>(Setting &settings)>> _enumToConstructor {
+        {Scenes::INTRODUCTION,      [](Setting &settings){return std::make_unique<SceneIntro>(settings);}},
         {Scenes::NEW_GAME,      [](Setting &settings){return std::make_unique<newGame::SceneNewGame>(settings);}},
         {Scenes::MENU,          [](Setting &settings){return std::make_unique<menu::SceneMenu>(settings);}},
         {Scenes::GAME,          [](Setting &settings){return std::make_unique<SceneMaxime>(settings);}},

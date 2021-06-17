@@ -7,7 +7,6 @@
 
 #include "SceneMaxime.hpp"
 #include "Core.hpp"
-#include "raylib.h"
 #include "Map/Map.hpp"
 #include <bits/stdc++.h>
 

@@ -40,6 +40,14 @@ void TexteUI::setTextSize(int textSize)
     _textSize = textSize;
 }
 
+void TexteUI::upTextSize(int up, int limit, const coords &pos)
+{
+    if (_textSize < limit) {
+        _textPos += pos;
+        _textSize += up;
+    }
+}
+
 void TexteUI::setTextPos(const coords &textPos)
 {
     _textPos = textPos;
