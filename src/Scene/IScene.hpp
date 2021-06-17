@@ -17,7 +17,8 @@ enum Scenes {
     GAME,
     LOAD,
     OPTION,
-    LEADERBOARD
+    LEADERBOARD,
+    INTRODUCTION
 };
 
 class IScene {
