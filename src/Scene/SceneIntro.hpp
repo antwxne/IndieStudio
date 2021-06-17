@@ -5,6 +5,13 @@
 #pragma once
 #include "AScene.hpp"
 
+enum Direction {
+    NEUTRAL,
+    UP,
+    DOWN,
+};
+
+
 class SceneIntro : public AScene {
 public:
     SceneIntro(Setting &settings);
