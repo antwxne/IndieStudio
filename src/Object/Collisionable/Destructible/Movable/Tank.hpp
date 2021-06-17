@@ -55,11 +55,24 @@ public:
     const coords &getPreviousPos() const noexcept;
     void setPos(const coords &pos) noexcept override;
     void increaseDamage() noexcept;
-protected:
+    struct tank_t {
+        float x;
+        float y;
+        float life;
+        std::size_t score;
+        char name[50];
+    };
+
+    const tank_t &getTankStructSave() noexcept;
+    static void writeTankList(std::vector<Tank> _tankList) noexcept;
+    static std::vector<Tank> readTank() noexcept;
+
+    protected:
     Cannon _cannon;
     std::string _name;
     std::vector<int> _iterator;
     std::size_t _score;
+    tank_t _save;
     coords _previousPos;
 };
 

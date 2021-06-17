@@ -7,6 +7,8 @@
 
 #include "Tank.hpp"
 #include "Raylib.hpp"
+#include <iostream>
+#include <fstream>
 #include <functional>
 
 const std::string Tank::sandCamo = "asset/Tank/sand_camo.png";
@@ -76,3 +78,54 @@ void Tank::increaseDamage() noexcept
 {
     _cannon.increaseDamage();
 }
+
+const Tank::tank_t &Tank::getTankStructSave() noexcept
+{
+    _save.x = _pos.first;
+    _save.y = _pos.second;
+    _save.life = _life;
+    _save.score = _score;
+    std::strcpy(_save.name, _name.c_str());
+    return _save;
+}
+
+void Tank::writeTankList(std::vector<Tank> _tankList) noexcept
+{
+    unsigned long size = _tankList.size();
+    Tank::tank_t dest;
+    std::ofstream file("tank.txt",
+        std::ios::out | std::ofstream::binary);
+    file.write(reinterpret_cast<const char *>(&size), sizeof(unsigned long));
+    for (auto &i : _tankList) {
+        dest = i.getTankStructSave();
+        std::cout << "name == " <<dest.name << " pos.x == " << dest.x << " pos.y == " << dest.y << "_life == " << dest.life << " _score == " << dest.score << std::endl;
+        file.write(reinterpret_cast<const char *>(&dest),
+            sizeof(Tank::tank_t));
+    }
+    file.close();
+}
+
+std::vector<Tank> Tank::readTank() noexcept
+{
+    std::vector<Tank> tmp;
+    unsigned long size = 0;
+    Tank::tank_t dest;
+    std::ifstream file("tank.txt",
+        std::ios::in | std::ifstream::binary);
+    file.read(reinterpret_cast<char *>(&size), sizeof(unsigned long));
+    for (int i = 0; i != size; i++) {
+        file.read(reinterpret_cast<char *>(&dest),
+            sizeof(Tank::tank_t));
+        std::cout << "----------------------------" << std::endl;
+        std::cout << "name == " << dest.name << " pos.x == " << dest.x << " pos.y == " << dest.y << "_life == " << dest.life << " _score == " << dest.score << std::endl;
+        auto tank = tmp.emplace_back(dest.name,
+            coords(static_cast<float>(dest.x), 0, static_cast<float>(dest.y)),
+            std::make_pair(10, 10), std::make_pair(Tank::sandCamo, Tank::body), std::make_pair(Tank::greenCamo, Tank::turret));
+        tank.setScore(dest.score);
+        tank.setLife(dest.life);
+    }
+    file.close();
+    return tmp;
+}
+
+
