@@ -68,7 +68,6 @@ void Particles::update() noexcept
             i.a.second += i.a.second > 0 ? tmpRand : -tmpRand;
         }
     }
-
 }
 void Particles::changeColor(const RGB &color) noexcept
 {

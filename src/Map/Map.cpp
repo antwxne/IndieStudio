@@ -7,41 +7,76 @@
 #include <fstream>
 #include <array>
 #include <iostream>
+#include <random>
+#include <iomanip>
+#include <string>
+#include <map>
+#include <cmath>
+
 #include "Map.hpp"
 
-Map::Map()
-{
-    _pos.push_back(std::make_pair(12, 6));
-    _pos.push_back(std::make_pair(12, 6));
-}
+Map::Map(const std::vector<std::pair<int, int>> &posTank) : _posTank(posTank)
+{}
 
 void Map::createDestructibleMap(std::pair<int, int> const &pos_left, std::pair<int, int> const &pos_down_right)
 {
-    std::srand(std::time(nullptr));
     int tmp = 0;
     bool findPos = true;
+    std::cout << "la pos left = " << pos_left.first << " second = " << pos_left.second << "\n";
+    std::cout << "pos_down_right = " << pos_down_right.first << " second = " << pos_down_right.second << "\n";
+    // std::random_device r;
+    // std::random_device t;
+    // std::default_random_engine el(r());
+    // std::default_random_engine al(t());
 
-    for (std::pair<int, int> tmpMap; tmp != 3;) {
-        findPos = true;
-        tmpMap.first = std::rand() % pos_down_right.first + pos_left.second;
-        tmpMap.second = std::rand() % pos_down_right.second + pos_left.first;
-        for (const auto &the_pos : _pos)
-            if (the_pos == tmpMap) {
-                findPos = false;
-                break;
-            }
-        if (findPos == true)
-            for (const auto &dest : _objectDestructibleList)
-                if (dest.getPosition().first == tmpMap.first && dest.getPosition().second == tmpMap.second) {
-                    findPos = false;
-                    break;
-                }
-        if (findPos == true) {
-            tmp += 1;
-            _objectDestructibleList.emplace_back(
-                coords(static_cast<float>(tmpMap.first), 0, static_cast<float>(tmpMap.second)), std::make_pair(0, 0), std::make_pair("", ""));
-        }
-    }
+    // std::cout << "random device" << "\n";
+    // std::random_device r;
+    // std::cout << "random seed" << "\n";
+    // std::seed_seq seed{r(), r(), r(), r(), r(), r(), r(), r()};
+    // std::cout << "mt19937" << "\n";
+    // std::mt19937 eng(seed);
+
+    // std::cout << "random device" << "\n";
+    // std::random_device a;
+    // std::cout << "random seed" << "\n";
+    // std::seed_seq seed2{a(), a(), a(), a(), a(), a(), a(), a()};
+    // std::cout << "mt19937" << "\n";
+    // std::mt19937 eng2(seed2);
+
+    // std::cout << "uniform_int_distribution" << "\n";
+    // std::uniform_int_distribution<> distFirst(pos_left.first, pos_down_right.first - 1);
+    // std::cout << "uniform_int_distribution" << "\n";
+    // std::uniform_int_distribution<> distSecond(pos_down_right.second, pos_left.second - 1);
+
+
+    //for (std::pair<int, int> tmpMap; tmp != 3;) {
+        // findPos = true;
+        // std::cout << "first distFirst" << "\n";
+        // tmpMap.first = distFirst(eng);
+        // std::cout << "second distFirst" << "\n";
+        // tmpMap.second = distSecond(eng2);
+        // std::cout << "print value" << "\n";
+        // std::cout << "x:" << tmpMap.first << " y:" << tmpMap.second << "\n\n";
+
+    //     for (const auto &the_pos : _posTank)
+    //         if (the_pos == tmpMap) {
+    //             findPos = false;
+    //             break;
+    //         }
+    //     if (findPos == true)
+    //         for (const auto &dest : _objectDestructibleList)
+    //             if (dest.getPosition().first == tmpMap.first && dest.getPosition().third == tmpMap.second) {
+    //                 findPos = false;
+    //                 break;
+    //             }
+    //     if (findPos == true) {
+    //         std::cout << "[MAP] JE PASSE\n";
+    //         tmp += 1;
+    //         _objectDestructibleList.emplace_back(
+    //             coords(static_cast<float>(tmpMap.first), 0, static_cast<float>(tmpMap.second)), std::make_pair(0, 0), std::make_pair("", ""));
+    //     }
+    //}
+    std::cout << "[MAP] JE SORS\n";
 }
 
 void Map::createContourMap(std::pair<int, int> const &xAxis, std::pair<int, int> const &yAxis) noexcept

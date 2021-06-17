@@ -75,3 +75,8 @@ const coords &AObject::getRotationAxis() const noexcept
 {
     return _rotationAxis;
 }
+
+void AObject::setColor(const std::pair<RGB, RGB> &color)
+{
+    _color = color;
+}

@@ -27,7 +27,15 @@ const std::vector<std::string> _assetsPath {
 
 SceneRobin::SceneRobin(Setting &settings) : AScene(settings)
 {
-    auto const &map = std::make_unique<Map>();
+    std::vector<std::pair<int, int>> size;
+    _objects.emplace_back(std::make_shared<Tank>("grosTankSaMere", coords(0,0,0), std::make_pair(10, 10), std::make_pair(Tank::sandCamo, Tank::body), std::make_pair(Tank::greenCamo, Tank::turret)));
+
+    for (auto &i : _objects)
+        if (i->getTypeField().isTank) {
+            size.push_back(std::make_pair(i->getPosition().first, i->getPosition().third));
+        }
+    auto const &map = std::make_unique<Map>(size);
+
     map->createDestructibleMap(std::make_pair(-5, -5), std::make_pair(5, 5));
     map->createContourMap(std::make_pair(-10, 10), std::make_pair(-8, 8));
 
@@ -36,7 +44,6 @@ SceneRobin::SceneRobin(Setting &settings) : AScene(settings)
         _objects.emplace_back(std::make_shared<Wall>(block));
     for (auto const &block : map->_objectDestructibleList)
         _objects.emplace_back(std::make_shared<DestructibleWall>(block));
-    _objects.emplace_back(std::make_shared<Tank>("grosTankSaMere", coords(0,0,0), std::make_pair(10, 10), std::make_pair(Tank::sandCamo, Tank::body), std::make_pair(Tank::greenCamo, Tank::turret)));
     setInputsNewTank();
 }
 
@@ -50,6 +57,7 @@ Scenes SceneRobin::run(Raylib &lib, Scenes const &prevScene)
     while (lib.gameLoop()) {
         triggerInputActions(lib);
         lib.printObjects(_objects);
+        std::cout << "BITE\n";
     }
     return (Scenes::QUIT);
 }

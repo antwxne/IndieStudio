@@ -18,6 +18,7 @@ Tank::Tank(const std::string &name, const coords &pos, const std::pair<int, int>
     : MovableObject(pos, size, path), _cannon(coords{pos.first, pos.second + 0.1f, pos.third}, size, cannonPath), _name(name), _score(0)
 {
     _typeField.isTank = true;
+    _scale = 0.2f;
     _life = 10;
     _scale = 0.2f;
     _rotationAngle = 270.0f;
