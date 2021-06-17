@@ -89,7 +89,7 @@ public:
     std::string textForSubText(std::string const &text, int &pos, int &frameCounter) const noexcept;
     int getKeyPressed() const noexcept;
     std::vector<int> getKeysDown() noexcept;
-    const std::pair<float, float> getMousePosition() const noexcept; 
+    const std::pair<float, float> getMousePosition() const noexcept;
     void drawRectangleLines(int const &posX, int const &posY, int const &width, int const &height, RGB color) const noexcept;
     void drawRectangle(int const &posX, int const &posY, int const &width, int const &height, RGB color) const noexcept;
     void updateMusic(const std::string &path);

@@ -11,6 +11,13 @@
 #include "AScene.hpp"
 #include "UiObject/Button/Button.hpp"
 
+// const std::vector<std::string> SceneMaxime::_assetsPath{
+//     "asset/Animation/idle/idle.iqm",
+//     "asset/Animation/idle/idleAnimation.iqm",
+//     "asset/Animation/dance/Dance.iqm,"
+//     "asset/Animation/dance/DanceAnim.iqm"
+//     };
+
 class UiScene : public AScene
 {
     public:
@@ -24,7 +31,8 @@ class UiScene : public AScene
         std::pair<float, float> _mousePos;
         int _state;
         bool _pressed;
-
+    private:
+        bool _isDancing;
 };
 
 #endif /* !UISCENE_HPP_ */

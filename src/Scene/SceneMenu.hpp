@@ -57,6 +57,8 @@ namespace menu {
             ~SceneMenu();
             void eventScene(Raylib &lib) final;
             Scenes endScene(Raylib &lib) noexcept final;
+        private:
+            bool _isDancing;
     };
 }
 

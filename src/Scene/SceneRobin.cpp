@@ -27,12 +27,12 @@ const std::vector<std::string> _assetsPath {
 
 SceneRobin::SceneRobin(Setting &settings) : AScene(settings)
 {
-    std::vector<std::pair<int, int>> size;
-    _objects.emplace_back(std::make_shared<Tank>("grosTankSaMere", coords(0,0,0), coords(10, 10, 10), std::make_pair(Tank::sandCamo, Tank::body), std::make_pair(Tank::greenCamo, Tank::turret)));
-    setInputsFirstTank(_settings._keysPlayerOne);
-    _objects.emplace_back(std::make_shared<Tank>("petitTankMignon", coords(6,0,0), coords(10, 10, 10), std::make_pair(Tank::sandCamo, Tank::body), std::make_pair(Tank::greenCamo, Tank::turret)));
-    setInputsSecondTank(_settings._keysPlayerTwo);
+    _objects.emplace_back(std::make_shared<Tank>("grosTankSaMere", coords(0,0,0), coords(10, 10, 10), std::make_pair(Tank::sable, Tank::body), std::make_pair(Tank::darkGreen, Tank::turret)));
+    setInputsTank(_settings._keysPlayerOne, _objects.back());
+    _objects.emplace_back(std::make_shared<Tank>("petitTankMignon", coords(6,0,0), coords(10, 10, 10), std::make_pair(Tank::sable, Tank::body), std::make_pair(Tank::darkGreen, Tank::turret)));
+    setInputsTank(_settings._keysPlayerTwo, _objects.back());
 
+    std::vector<std::pair<int, int>> size;
     for (auto &i : _objects)
         if (i->getTypeField().isTank) {
             size.push_back(std::make_pair(i->getPosition().first, i->getPosition().third));

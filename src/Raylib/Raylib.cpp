@@ -113,15 +113,19 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
                 auto tankCollider = dynamic_cast<CollisionableObject &>(*i);
                 auto tank = std::dynamic_pointer_cast<Tank>(i);
                 auto &cannon = const_cast<Cannon &>(tank->getCannon());
+                auto const &bullets = cannon.getBullets();
 
                 findCollision(tankCollider, objects);
                 findCollision(cannon, objects);
 
+                
+                for (auto const &bullet : bullets)
+                    drawModel(bullet.getModel(), bullet.getTexture(), bullet.getPosition(), bullet.getScale(), bullet.getColors().first, bullet.getRotationAxis(), bullet.getRotationAngle());
                 drawModel(tank->getModel(), tank->getTexture(), tank->getPosition(), tank->getScale(), tank->getColors().first, tank->getRotationAxis(), tank->getRotationAngle());
                 drawModel(cannon.getModel(), cannon.getTexture(), cannon.getPosition(), cannon.getScale(), cannon.getColors().first, cannon.getRotationAxis() ,cannon.getRotationAngle());
             } else if (i->getTypeField().isCollisionable) {
-            auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
-            drawModel(derived->getModel(), derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first, i->getRotationAxis(), i->getRotationAngle());
+                auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
+                drawModel(derived->getModel(), derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first, i->getRotationAxis(), i->getRotationAngle());
             }
             else if (i->getTypeField().isGround) {
                 auto const &derived = std::dynamic_pointer_cast<Ground>(i);
@@ -370,46 +374,38 @@ void Raylib::findCollision(CollisionableObject &obj,
     const std::vector<std::shared_ptr<AObject>> &allObjs
 ) noexcept
 {
-    std::cout << "obj pos " << obj.getPosition().first << " " <<  obj.getPosition().second << " " << obj.getPosition().third << std::endl;
-    auto plouf = _models.find(obj.getModel());
-    if (plouf == _models.cend())
+    auto toFind = _models.find(obj.getModel());
+    if (toFind == _models.cend())
         return;
-//    auto boundCurrent = GetMeshBoundingBox(plouf->second.meshes[0]);
     auto positionCurrent = obj.getPosition();
     auto sizeCurrent = obj.get3DSize();
-    //std::cout << "Bound max == (" << boundCurrent.max.x << ", " << boundCurrent.max.y << ", " << boundCurrent.max.z << ")\n";
-
-    BoundingBox boundCurrent = (BoundingBox) {(Vector3){positionCurrent.first - sizeCurrent.first / 2,
-        positionCurrent.second - sizeCurrent.second / 2,
-        positionCurrent.third - sizeCurrent.third / 2},
-        (Vector3){positionCurrent.first + sizeCurrent.first / 2,
-            positionCurrent.second + sizeCurrent.second / 2,
-            positionCurrent.third + sizeCurrent.third / 2}};
-    std::cout << "Bound max == (" << boundCurrent.max.x << ", " << boundCurrent.max.y << ", " << boundCurrent.max.z << ")\n";
-
-    //    boundCurrent.max.x += positionCurrent.first;
-//    boundCurrent.max.y += positionCurrent.second;
-//    boundCurrent.max.z += positionCurrent.third;
-//    boundCurrent.min.x = positionCurrent.first - boundCurrent.min.x;
-//    boundCurrent.min.y = positionCurrent.second - boundCurrent.min.y;
-//    boundCurrent.min.z = positionCurrent.third - boundCurrent.min.z;
-
+    float currentScale = obj.getScale();
+    BoundingBox boundCurrent = (BoundingBox) {(Vector3){positionCurrent.first - (sizeCurrent.first / 2 * currentScale / 2),
+        positionCurrent.second - (sizeCurrent.second / 2 * currentScale / 2),
+        positionCurrent.third - (sizeCurrent.third / 2 * currentScale / 2)},
+        (Vector3){positionCurrent.first + (sizeCurrent.first / 2 * currentScale / 2),
+            positionCurrent.second + (sizeCurrent.second / 2 * currentScale / 2),
+            positionCurrent.third + (sizeCurrent.third * currentScale / 2) / 2}};
 
     for (auto &it : allObjs) {
-        if (it->getTypeField().isCollisionable) {
+        if (it->getTypeField().isCollisionable && it->getPosition() != obj.getPosition()) {
             auto tmp = dynamic_cast<const CollisionableObject &>(*it);
-            auto positionOther = tmp.getPosition();
-            auto boundOther = GetMeshBoundingBox(_models.find(tmp.getModel())->second.meshes[0]);
-            boundOther.max.x += positionOther.first;
-            boundOther.max.y += positionOther.second;
-            boundOther.max.z += positionOther.third;
-            boundOther.min.x = positionOther.first - boundOther.min.x;
-            boundOther.min.y = positionOther.second - boundOther.min.y;
-            boundOther.min.z = positionOther.third - boundOther.min.z;
-
+            auto positionOther = it->getPosition();
+            float scaleOther = it->getScale();
+            auto sizeOther = tmp.get3DSize();
+            BoundingBox boundOther = (BoundingBox) {
+                (Vector3){
+                    positionOther.first - (sizeOther.first / 2) ,
+                    positionOther.second - (sizeOther.second / 2),
+                    positionOther.third - (sizeOther.third / 2)},
+                (Vector3){
+                    positionOther.first + (sizeOther.first / 2) ,
+                    positionOther.second + (sizeOther.second / 2),
+                    positionOther.third + (sizeOther.third / 2)}};
+            std::cout << "size other x == " << sizeOther.first << std::endl;
+            DrawBoundingBox(boundOther, RED);
+            DrawBoundingBox(boundCurrent, BLUE);
             if (CheckCollisionBoxes(boundCurrent, boundOther)) {
-                std::cout << "pos tank " << obj.getPosition().first << ", " << obj.getPosition().second<< ", " << obj.getPosition().third << ", "<< std::endl;
-
                 obj.hit(tmp);
             }
         }

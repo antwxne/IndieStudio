@@ -23,7 +23,7 @@ public:
      * @param pos
      * @param size
      */
-    Bullet(const coords &pos, const coords &size = {1, 1, 1});
+    Bullet(const coords &pos, float angle);
 
     /**
      * @brief once bullet was shot, it follows a vector and being updated by this
@@ -45,6 +45,8 @@ public:
     float getDamage() const noexcept;
     void setDamage(float damage) noexcept;
 
+    static const std::string modelPath;
+    static const std::string texturePath;
 private:
     coords _direction;
     coords _prevPos;

@@ -61,6 +61,15 @@ struct coords
         return *this;
     }
 
+    bool operator==(const coords &b) const
+    {
+        return first == b.first && second == b.second && third == b.third;
+    }
+    bool operator!=(const coords &b) const
+    {
+        return first != b.first || second != b.second || third != b.third;
+    }
+
     coords &operator*=(float val) {
         first *= val;
         second *= val;
