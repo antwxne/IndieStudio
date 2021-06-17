@@ -32,7 +32,7 @@ void Map::createDestructibleMap(std::pair<int, int> const &pos_left, std::pair<i
             }
         if (findPos == true)
             for (const auto &dest : _objectDestructibleList)
-                if (dest.getPosition().first == tmpMap.first && dest.getPosition().second == tmpMap.second) {
+                if (dest.getPosition().first == tmpMap.first && dest.getPosition().third == tmpMap.second) {
                     findPos = false;
                     break;
                 }
