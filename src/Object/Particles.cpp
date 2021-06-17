@@ -9,6 +9,7 @@
 #include <algorithm>
 
 #include "Particles.hpp"
+#include "Raylib/Raylib.hpp"
 
 Particles::Particles(const coords &pos, const std::pair<int, int> &size, float maxSize,
     float scale, const std::pair<RGB, RGB> &colors, std::size_t nParticles, const coords &accelleration
@@ -52,8 +53,8 @@ void Particles::update() noexcept
 
     for (auto &i : _particles) {
         r = gen() % 10 <= 3;
-        i.v += i.a;
-        i.position += (i.v / 2);
+        i.v += i.a * Raylib::getDeltaTime();
+        i.position += i.v;
         i.radius += static_cast<float>(r);
         if (i.radius > _maxSize) {
             i.position = _objPos;
