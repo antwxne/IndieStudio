@@ -50,7 +50,7 @@ SceneIntro::~SceneIntro() noexcept
     _objects.clear();
 }
 
-Scenes SceneIntro::run(Raylib &lib, const Scenes &prevScene)
+Scenes SceneIntro::run(Raylib &lib)
 {
     std::vector<Direction> direction {NEUTRAL, NEUTRAL};
 

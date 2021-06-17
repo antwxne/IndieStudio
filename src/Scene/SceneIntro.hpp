@@ -16,7 +16,7 @@ class SceneIntro : public AScene {
 public:
     SceneIntro(Setting &settings);
     ~SceneIntro() noexcept;
-    Scenes run(Raylib &lib, Scenes const &prevScene) final;
+    Scenes run(Raylib &lib) final;
 private:
     bool _enter;
     static const std::vector<std::string> _assetsPath;

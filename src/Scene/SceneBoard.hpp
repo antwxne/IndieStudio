@@ -16,7 +16,7 @@ class SceneBoard : public AScene
     public:
         SceneBoard(Setting &settings);
         ~SceneBoard();
-        Scenes run(Raylib &lib, Scenes const &prevScene) final;
+        Scenes run(Raylib &lib) final;
 };
 
 #endif /* !SCENEBOARD_HPP_ */

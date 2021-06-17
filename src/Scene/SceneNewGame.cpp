@@ -82,12 +82,12 @@ namespace newGame {
         });
     }
 
-    Scenes SceneNewGame::endScene(Scenes const &prevScene) noexcept
+    Scenes SceneNewGame::endScene(Raylib &lib) noexcept
     {
         fillAi();
         fillName();
         if (!_state)
-            return (prevScene);
+            return (Scenes::MENU);
         return (Scenes::GAME);
     }
 
