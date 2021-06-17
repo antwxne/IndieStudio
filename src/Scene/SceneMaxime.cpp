@@ -19,7 +19,6 @@
 #include "Object/UiObject/UiGame/FrameUI.hpp"
 #include "Object/UiObject/UiGame/LifeGame.hpp"
 #include "Object/UiObject/Button/Button.hpp"
-#include "Object/Collisionable/Destructible/Movable/Tank.hpp"
 #include "Object/UiObject/UiGame/ColorPlayer.hpp"
 #include "Object/UiObject/UiGame/TexteUi.hpp"
 #include "Object/Collisionable/Wall/Wall.hpp"
@@ -31,7 +30,7 @@ const std::vector<std::string> SceneMaxime::_assetsPath {
     "asset/bonus/arrow.obj"
 };
 
-SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false)
+SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false), _isPause(false), _scenePause(settings)
 {
 /////////////////////////////START CEMENT//////////////////////:
 
@@ -75,13 +74,19 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false)
         }
     auto const &map = std::make_unique<Map>(size);
 
-    map->createDestructibleMap(std::make_pair(-5, -5), std::make_pair(0, 0));
-    map->createDestructibleMap(std::make_pair(1, 1), std::make_pair(4, 0));
+    map->createDestructibleMap(std::make_pair(-8, -5), std::make_pair(1, 1));
+    map->createDestructibleMap(std::make_pair(-8, -1), std::make_pair(-1, -5));
+    map->createDestructibleMap(std::make_pair(1, -1), std::make_pair(5, -5));
+    map->createDestructibleMap(std::make_pair(1, 5), std::make_pair(5, 1));
+
     //map->createDestructibleMap(std::make_pair(1, 5), std::make_pair(5, 1));
     map->createContourMap(std::make_pair(-10, 10), std::make_pair(-8, 8));
 
     setInputFunction(Raylib::ENTER, [&]() {
         _enter = !_enter;
+    });
+    setInputFunction(Raylib::ESCAPE, [&]() {
+        _isPause = !_isPause;
     });
 
     setInputFunction(Raylib::SPACE, [&]() {
@@ -129,7 +134,7 @@ void SceneMaxime::checkHeart() noexcept
     }
 }
 
-Scenes SceneMaxime::run(Raylib &lib, Scenes const &prevScene)
+Scenes SceneMaxime::run(Raylib &lib)
 {
     bool isLock = false;
 
@@ -148,6 +153,12 @@ Scenes SceneMaxime::run(Raylib &lib, Scenes const &prevScene)
                 } else
                     ++it;
             }
+        }
+        if (_isPause) {
+            auto newScene = _scenePause.run(lib);
+            if (newScene != Scenes::GAME)
+                return (newScene);
+            _isPause = false;
         }
         for (auto &it: _objects) {
             if (it->getTypeField().isTank) {

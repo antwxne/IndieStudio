@@ -16,9 +16,9 @@ class UiScene : public AScene
     public:
         UiScene(Setting &settings);
         ~UiScene();
-        Scenes run(Raylib &lib, Scenes const &prevScene) final;
+        Scenes run(Raylib &lib) final;
         virtual void eventScene(Raylib &lib) = 0;
-        virtual Scenes endScene(Scenes const &prevScene) noexcept = 0;
+        virtual Scenes endScene(Raylib &lib) noexcept = 0;
 
     protected:
         std::pair<float, float> _mousePos;
