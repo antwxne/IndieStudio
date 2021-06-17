@@ -10,10 +10,10 @@
 
 #include "Bullet.hpp"
 
-static const std::string bulletModelPath = "";
-static const std::string bulletTexturePath = "";
+const std::string Bullet::modelPath = "asset/Tank/bullet.obj";
+const std::string Bullet::texturePath = "asset/Tank/sand_camo.png";
 
-Bullet::Bullet(const coords &pos, const std::pair<int, int> &size) : MovableObject(pos, size, {bulletModelPath, bulletTexturePath})
+Bullet::Bullet(const coords &pos, const std::pair<int, int> &size) : MovableObject(pos, size, {Bullet::modelPath, Bullet::texturePath})
 {
     _typeField.isBullet = true;
     _life = 3;

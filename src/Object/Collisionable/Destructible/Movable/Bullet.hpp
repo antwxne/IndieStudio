@@ -43,6 +43,8 @@ public:
      */
     void bounce() noexcept;
 
+    static const std::string modelPath;
+    static const std::string texturePath;
 private:
     coords _direction;
     coords _prevPos;

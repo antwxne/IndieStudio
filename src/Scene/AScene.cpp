@@ -59,4 +59,5 @@ void AScene::setInputsTank(const std::array<Raylib::Inputs, 7> &controls, std::s
     setInputFunction(controls[3], [tank](){ tank->rotate(-0.8f); });
     setInputFunction(controls[4], [tank](){ tank->rotateCannon(1.2f); });
     setInputFunction(controls[5], [tank](){ tank->rotateCannon(-1.2f); });
+    setInputFunction(controls[6], [tank](){ tank->fire(); });
 }

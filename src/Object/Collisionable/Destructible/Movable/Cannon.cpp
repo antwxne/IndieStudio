@@ -5,9 +5,8 @@
 ** Created by antoine,
 */
 
-#include <raymath.h>
-
 #include "Cannon.hpp"
+#include <cmath>
 
 Cannon::Cannon(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path)
     : MovableObject(pos, size, path)
@@ -23,9 +22,10 @@ Cannon::Cannon(const coords &pos, const std::pair<int, int> &size, const std::pa
 
 void Cannon::fire()
 {
-    float angle = _rotationAngle * 180 / PI;
+    std::cout << "fire" << std::endl;
+    float angle = _rotationAngle * 180 / M_PI;
 
-    coords dir = {cos(angle), sin(angle), 0};
+    coords dir = {std::sin(angle), 0, std::cos(angle)};
     for (auto &i : _bullets) {
         if (i.getPosition().first != -10000) {
             i.move(dir);
