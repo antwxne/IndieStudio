@@ -75,8 +75,11 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false)
         }
     auto const &map = std::make_unique<Map>(size);
 
-    map->createDestructibleMap(std::make_pair(-5, -5), std::make_pair(0, 0));
-    map->createDestructibleMap(std::make_pair(1, 1), std::make_pair(4, 0));
+    map->createDestructibleMap(std::make_pair(-8, -5), std::make_pair(1, 1));
+    map->createDestructibleMap(std::make_pair(-8, -1), std::make_pair(-1, -5));
+    map->createDestructibleMap(std::make_pair(1, -1), std::make_pair(5, -5));
+    map->createDestructibleMap(std::make_pair(1, 5), std::make_pair(5, 1));
+
     //map->createDestructibleMap(std::make_pair(1, 5), std::make_pair(5, 1));
     map->createContourMap(std::make_pair(-10, 10), std::make_pair(-8, 8));
 
