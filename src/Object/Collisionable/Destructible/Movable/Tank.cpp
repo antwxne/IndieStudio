@@ -97,6 +97,7 @@ void Tank::writeTankList(std::vector<Tank> _tankList) noexcept
 {
     unsigned long size = _tankList.size();
     Tank::tank_t dest;
+    std::remove("tank.txt");
     std::ofstream file("tank.txt",
         std::ios::out | std::ofstream::binary | std::ofstream::trunc);
     file.write(reinterpret_cast<const char *>(&size), sizeof(unsigned long));
@@ -105,7 +106,6 @@ void Tank::writeTankList(std::vector<Tank> _tankList) noexcept
         file.write(reinterpret_cast<const char *>(&dest),
             sizeof(Tank::tank_t));
     }
-    file.close();
 }
 
 std::vector<Tank> Tank::readTank()
@@ -121,14 +121,11 @@ std::vector<Tank> Tank::readTank()
     for (int i = 0; i != size; i++) {
         file.read(reinterpret_cast<char *>(&dest),
             sizeof(Tank::tank_t));
-        //std::cout << "----------------------------" << std::endl;
-        std::cout << "name == " << dest.name << " pos.x == " << dest.x << " pos.y == " << dest.y << "_life == " << dest.life << " _score == " << dest.score << std::endl;
         auto tank = tmp.emplace_back(dest.name,
             coords(static_cast<float>(dest.x), static_cast<float>(dest.z), static_cast<float>(dest.y)),
             std::make_pair(10, 10), std::make_pair(Tank::sandCamo, Tank::body), std::make_pair(Tank::greenCamo, Tank::turret));
         tank.setScore(dest.score);
         tank.setLife(dest.life);
     }
-    file.close();
     return tmp;
 }

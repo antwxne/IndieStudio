@@ -101,6 +101,7 @@ void Map::writeDestructibleList() noexcept
 {
     unsigned long size = _objectDestructibleList.size();
     DestructibleObject::destructible_t dest;
+    std::remove("destructibleList.txt");
     std::ofstream file("destructibleList.txt",
         std::ios::out | std::ofstream::binary | std::ofstream::trunc);
     file.write(reinterpret_cast<const char *>(&size), sizeof(unsigned long));
@@ -109,7 +110,6 @@ void Map::writeDestructibleList() noexcept
         file.write(reinterpret_cast<const char *>(&dest),
             sizeof(DestructibleObject::destructible_t));
     }
-    file.close();
 }
 
 void Map::readDestructibleList()
@@ -128,5 +128,4 @@ void Map::readDestructibleList()
             coords(static_cast<float>(dest.x), 0, static_cast<float>(dest.y)),
             std::make_pair(0, 0), std::make_pair("", "")).setLife(dest.life);
     }
-    file.close();
 }

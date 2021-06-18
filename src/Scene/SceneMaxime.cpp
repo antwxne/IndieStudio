@@ -129,7 +129,7 @@ void SceneMaxime::manageHeart(const std::string &name, const int life)
             auto heart = std::dynamic_pointer_cast<LifeGame>(_objects[i]);
             if (heart->getName() == name) {
                 if (idx == life) {
-                    _listPosHeart.push_back(i);
+                    heart->setTransparancy(true);
                 } else
                     ++idx;
             }
@@ -187,7 +187,6 @@ Scenes SceneMaxime::run(Raylib &lib)
                 std::dynamic_pointer_cast<PowerUps>(it)->rotate(0.5f);
             }
         }
-        checkHeart();
     }
     return (Scenes::QUIT);
 }
