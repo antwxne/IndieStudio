@@ -8,6 +8,7 @@
 #include "Core.hpp"
 #include "SceneOption.hpp"
 #include "UiObject/Button/Button.hpp"
+#include "TexteUi.hpp"
 
 namespace option {
 
@@ -29,6 +30,7 @@ namespace option {
         for (size_t i = 0; i != _configAudio.size(); ++i) {
             _objects.emplace_back(std::make_shared<button::Button>(_posAudio[i], button::_buttonSize, button::_buttonNavigPath, _configAudio[i], 20, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
         }
+        _objects.emplace_back(std::make_shared<TexteUI>(coords(670, 100), std::make_pair(0, 0), "Option", 90, 1, std::make_pair(RGB(0, 0, 0), RGB())));
     }
 
     SceneOption::~SceneOption()

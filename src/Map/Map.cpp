@@ -101,23 +101,26 @@ void Map::writeDestructibleList() noexcept
 {
     unsigned long size = _objectDestructibleList.size();
     DestructibleObject::destructible_t dest;
+    std::remove("destructibleList.txt");
     std::ofstream file("destructibleList.txt",
-        std::ios::out | std::ofstream::binary);
+        std::ios::out | std::ofstream::binary | std::ofstream::trunc);
     file.write(reinterpret_cast<const char *>(&size), sizeof(unsigned long));
     for (auto &i : _objectDestructibleList) {
         dest = i.getStructSave();
         file.write(reinterpret_cast<const char *>(&dest),
             sizeof(DestructibleObject::destructible_t));
     }
-    file.close();
 }
 
-void Map::readDestructibleList() noexcept
+void Map::readDestructibleList()
 {
     unsigned long size = 0;
     DestructibleObject::destructible_t dest;
     std::ifstream file("destructibleList.txt",
         std::ios::in | std::ifstream::binary);
+    if (file.is_open() == false)
+        throw std::runtime_error("No Save File");
+    std::cout << size << std::endl;
     file.read(reinterpret_cast<char *>(&size), sizeof(unsigned long));
     for (int i = 0; i != size; i++) {
         file.read(reinterpret_cast<char *>(&dest),
@@ -126,5 +129,5 @@ void Map::readDestructibleList() noexcept
             coords(static_cast<float>(dest.x), 0, static_cast<float>(dest.y)),
             coords(1, 1, 1), std::make_pair("", "")).setLife(dest.life);
     }
-    file.close();
+    std::cout << "finish map" << std::endl;
 }

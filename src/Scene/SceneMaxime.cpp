@@ -7,7 +7,6 @@
 
 #include "SceneMaxime.hpp"
 #include "Core.hpp"
-#include "Map/Map.hpp"
 #include <bits/stdc++.h>
 
 #include "Object/UiObject/UiObject.hpp"
@@ -38,30 +37,45 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false),
     auto const &carre = std::make_unique<FrameUI>();
     for (auto const &carr : carre->getBorder())
         _objects.emplace_back(std::make_shared<BorderPlayer>(carr));
-    // for (unsigned int i = 0; i != _posTank.size(); i++)
-    // {
-    //     _objects.emplace_back(std::make_shared<Tank>( _settings._playersSettings.at(i).name, coords(_posTank[i].first, 0, _posTank[i].second), coords(10, 10, 10), 8, std::make_pair(Tank::bodyTexture, Tank::bodyModel), std::make_pair(Tank::darkGreen, Tank::cannonModel)));
-    //     auto tmp = _objects.back();
-    //     if (i == 0)
-    //         setInputsTank(_settings._keysPlayerOne, _objects.back());
-    //     else if (i == i) {
-    //         setInputsTank(_settings._keysPlayerTwo, _objects.back());
-    //     }
-    //     auto tank = std::dynamic_pointer_cast<Tank>(_objects.back());
-    //     for (int y = 0; y != tank->getLife(); y++)
-    //         _objects.emplace_back(std::make_shared<LifeGame>(
-    //             tank->getName(), coords(_uiLifePosPlayer[i].first + (30 * y), _uiLifePosPlayer[i].second)));
-    //     _objects.emplace_back(std::make_shared<TexteUI>(
-    //         coords(_playerPos[i].first, _playerPos[i].second),
-    //         std::make_pair(50, 50), dynamic_cast<Tank &>(*tmp).getName(), 20,
-    //         1, std::make_pair(RGB(150), RGB())));
-    //     _objects.emplace_back(std::make_shared<TexteUI>(
-    //         coords(_scorePos[i].first, _scorePos[i].second),
-    //         std::make_pair(50, 50),
-    //         std::to_string(dynamic_cast<Tank &>(*tmp).getScore()), 20, 1,
-    //         std::make_pair(RGB(150), RGB())));
-    // }
-    // initTanks();
+    for (unsigned int i = 0; i != _posTank.size(); i++) {
+        auto lastTank = _objects.back();
+        if (settings.load == true) {
+            auto tanks = Tank::readTank();
+            lastTank = _objects.emplace_back(std::make_shared<Tank>(tanks[i].getName(), coords(tanks[i].getPosition().first, 0, tanks[i].getPosition().third), coords(10,10,10),8,
+                std::make_pair(Tank::bodyTexture, Tank::bodyModel), std::make_pair(Tank::darkGreen, Tank::cannonModel)));
+        } else {
+            lastTank = _objects.emplace_back(
+                std::make_shared<Tank>(_settings._playersSettings.at(i).name,
+                    coords(_posTank[i].first, 0, _posTank[i].second),
+                    coords(10, 10, 10), 8,
+                    std::make_pair(Tank::bodyTexture, Tank::bodyModel),
+                    std::make_pair(Tank::darkGreen, Tank::cannonModel)));
+        }
+        if (i == 0)
+            setInputsTank(_settings._keysPlayerOne, lastTank);
+        else if (i == i) {
+            setInputsTank(_settings._keysPlayerTwo, lastTank);
+        }
+        auto tank = std::dynamic_pointer_cast<Tank>(lastTank);
+        std::cout << tank->getName() << std::endl;
+        for (int y = 0; y != tank->getLife(); y++) {
+            _objects.emplace_back(std::make_shared<LifeGame>(tank->getName(),
+                coords(_uiLifePosPlayer[i].first + (30 * y),
+                    _uiLifePosPlayer[i].second)));
+        }
+        for (int y = 0; y != tank->getLife(); y++)
+            _objects.emplace_back(std::make_shared<LifeGame>(
+                tank->getName(), coords(_uiLifePosPlayer[i].first + (30 * y), _uiLifePosPlayer[i].second)));
+        _objects.emplace_back(std::make_shared<TexteUI>(
+            coords(_namePlayerPos[i].first, _namePlayerPos[i].second),
+            std::make_pair(50, 50), dynamic_cast<Tank &>(*lastTank).getName(), 20,
+            1, std::make_pair(RGB(150), RGB())));
+        _objects.emplace_back(std::make_shared<TexteUI>(
+            coords(_scorePos[i].first, _scorePos[i].second),
+            std::make_pair(50, 50),
+            std::to_string(dynamic_cast<Tank &>(*lastTank).getScore()), 20, 1,
+            std::make_pair(RGB(150), RGB())));
+    }
     auto const &colorPlayer = std::make_unique<ColorPlayer>();
     for (auto &color : colorPlayer->getPosColorSquare())
     {
@@ -74,30 +88,39 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false),
     for (auto &i : _objects)
         if (i->getTypeField().isTank)
             size.push_back(std::make_pair(static_cast<int>(i->getPosition().first), static_cast<int>(i->getPosition().third)));
-    auto const &map = std::make_unique<Map>(size);
+    _map = std::make_unique<Map>(size);
 
-    map->createDestructibleMap(std::make_pair(-6, -7), std::make_pair(0, 0));
-    map->createDestructibleMap(std::make_pair(-6, 1), std::make_pair(-1, -7));
-    map->createDestructibleMap(std::make_pair(0, 0), std::make_pair(6, 7));
-    map->createDestructibleMap(std::make_pair(0, -7), std::make_pair(6, 0));
-
-    map->createContourMap(std::make_pair(-10, 10), std::make_pair(-8, 8));
-
+    std::cout << "CA MARCHE LALALLAL0\n";
+    if (settings.load == false) {
+    _map->createDestructibleMap(std::make_pair(-6, -7), std::make_pair(0, 0));
+    _map->createDestructibleMap(std::make_pair(-6, 1), std::make_pair(-1, -7));
+    _map->createDestructibleMap(std::make_pair(0, 0), std::make_pair(6, 7));
+    _map->createDestructibleMap(std::make_pair(0, -7), std::make_pair(6, 0));
+    } else
+        _map->readDestructibleList();
+    _map->createContourMap(std::make_pair(-10, 10), std::make_pair(-8, 8));
     setInputFunction(Raylib::ENTER, [&]() {
         _enter = !_enter;
     });
     setInputFunction(Raylib::ESCAPE, [&]() {
         _isPaused = !_isPaused;
     });
-
     setInputFunction(Raylib::SPACE, [&]() {
         _pressed = true;
     });
-    for (auto const &block : map->_objectNoDestructibleList)
+    std::cout << "CA MARCHE BITEPis\n";
+    std::cout << "Size == " << std::endl;
+    std::cout << _map->_objectNoDestructibleList.size()  << std::endl;
+    for (auto const &block : _map->_objectNoDestructibleList) {
+        std::cout << " PREMIERE TAILLE == " << block.getSize().first << std::endl;
         _objects.emplace_back(std::make_shared<Wall>(block));
-    for (auto const &block : map->_objectDestructibleList)
+    }
+    std::cout << "CA MARCHE LOLOLO\n";
+    for (auto const &block : _map->_objectDestructibleList) {
         _objects.emplace_back(std::make_shared<DestructibleWall>(block));
-
+    }
+    _settings.load = false;
+    std::cout << "CA MARCHE BITE\n";
     /////////////////////////////END MAXIME//////////////////////:
 }
 
@@ -116,29 +139,34 @@ void SceneMaxime::manageHeart(const std::string &name, const int life)
         if (_objects[i]->getTypeField().isLife)
         {
             auto heart = std::dynamic_pointer_cast<LifeGame>(_objects[i]);
-            if (heart->getName() == name)
-            {
-                if (idx == life)
-                {
-                    _listPosHeart.push_back(i);
+            if (heart->getName() == name) {
+                tmp.push_back(i);
+                ++idx;
                 }
-                else
-                    ++idx;
+        }
+    }
+    if (idx != life) {
+        for (auto &p : tmp) {
+            idx--;
+            auto heart = std::dynamic_pointer_cast<LifeGame>(_objects[p]);
+            heart->setTransparancy(true);
+            if (idx == life) {
+                break;
             }
         }
     }
 }
 
-void SceneMaxime::checkHeart() noexcept
+void SceneMaxime::saveTanks() noexcept
 {
-    if (_listPosHeart.size() != 0)
-    {
-        for (auto &i : _listPosHeart)
-        {
-            _objects.erase(_objects.begin() + i);
+    std::vector<Tank> ki;
+    for (auto &it: _objects) {
+        if (it->getTypeField().isTank) {
+            auto tank = std::dynamic_pointer_cast<Tank>(it);
+            ki.push_back(dynamic_cast<Tank &>(*tank));
         }
-        _listPosHeart.clear();
     }
+    Tank::writeTankList(ki);
 }
 
 Scenes SceneMaxime::run(Raylib &lib)
@@ -147,6 +175,7 @@ Scenes SceneMaxime::run(Raylib &lib)
 
     while (lib.gameLoop())
     {
+        lib.displayMusic(core::_gameMusic, _settings._musicVol);
         triggerInputActions(lib);
         lib.printObjects(_objects);
         if (_pressed && !isLock) {
@@ -164,7 +193,10 @@ Scenes SceneMaxime::run(Raylib &lib)
         }
         if (_isPaused) {
             auto newScene = _scenePause.run(lib);
-            if (newScene != Scenes::GAME)
+            if (newScene == Scenes::SAVE) {
+                SceneMaxime::saveTanks();
+                _map->writeDestructibleList();
+            } else if (newScene != Scenes::GAME)
                 return (newScene);
             _isPaused = false;
         }
@@ -193,7 +225,6 @@ Scenes SceneMaxime::run(Raylib &lib)
             else if (it->getTypeField().isPowerUps == true)
                 std::dynamic_pointer_cast<PowerUps>(it)->rotate(0.5f);
         }
-        checkHeart();
     }
     return (Scenes::QUIT);
 }

@@ -13,6 +13,14 @@
 
 namespace menu {
 
+    const std::vector<std::string> assetsPath {
+        "asset/Animation/idle/idle.iqm",
+        "asset/Animation/idle/idleAnimation.iqm",
+        "asset/Animation/dance/DanceAnim.iqm",
+        "asset/Animation/textures/Soldier_Body_diffuse.png"
+    };
+
+
     enum menu_e {
         START,
         LOAD,
@@ -49,7 +57,7 @@ namespace menu {
         {menu_e::OPTION,        Scenes::OPTION},
         {menu_e::QUIT,          Scenes::QUIT}
     };
-
+ 
     class SceneMenu : public UiScene
     {
         public:
@@ -57,8 +65,10 @@ namespace menu {
             ~SceneMenu();
             void eventScene(Raylib &lib) final;
             Scenes endScene(Raylib &lib) noexcept final;
+            bool canOpen();
         private:
             bool _isDancing;
+            bool _isLock;
     };
 }
 

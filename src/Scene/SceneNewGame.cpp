@@ -8,6 +8,7 @@
 #include "UiObject/Button/Button.hpp"
 #include "InputBox.hpp"
 #include "Core.hpp"
+#include "TexteUi.hpp"
 #include "SceneNewGame.hpp"
 
 namespace newGame {
@@ -33,7 +34,8 @@ namespace newGame {
         for (auto &it : _playerPos)
             _objects.emplace_back(std::make_shared<button::Button>(it, button::_buttonSize, button::_buttonPlayerPath, _playerIA[0], 20, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
         for (auto &it : _inputPos)
-            _objects.emplace_back(std::make_shared<InputBox>(it, button::_buttonSize, button::_buttonNavigPath, 20, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
+            _objects.emplace_back(std::make_shared<InputBox>(it, button::_buttonSize, button::_buttonNavigPath, 20, 15, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
+        _objects.emplace_back(std::make_shared<TexteUI>(coords(670, 100), std::make_pair(0, 0), "New Game", 90, 1, std::make_pair(RGB(0, 0, 0), RGB())));
     }
 
     SceneNewGame::~SceneNewGame()
@@ -61,7 +63,8 @@ namespace newGame {
             if (!it->getTypeField().isInputBox)
                 continue;
             auto button = std::dynamic_pointer_cast<button::Button>(it);
-            _settings._playersSettings[fillStruct].name = button->getText();
+            if (!button->getText().empty())
+                _settings._playersSettings[fillStruct].name.assign(button->getText());
             ++fillStruct;
         }
     }
@@ -86,7 +89,6 @@ namespace newGame {
         fillName();
         if (!_state)
             return (Scenes::MENU);
-        fadeBlack(lib);
         return (Scenes::GAME);
     }
 

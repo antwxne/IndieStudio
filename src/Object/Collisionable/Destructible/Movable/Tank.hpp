@@ -72,6 +72,7 @@ public:
      * @brief Destroy the Tank object
      * 
      */
+     //Tank(Tank &tank);
     ~Tank() = default;
 
     /**
@@ -140,6 +141,20 @@ public:
      * @return const coords& 
      */
     const coords &getPreviousPos() const noexcept;
+    std::pair<std::string, std::string> getPathTank() noexcept;
+    struct tank_t {
+        float x;
+        float z;
+        float y;
+        float life;
+        std::size_t score;
+        char name[50];
+    };
+
+    const tank_t &getTankStructSave() noexcept;
+    static void writeTankList(std::vector<Tank> _tankList) noexcept;
+    static std::vector<Tank> readTank();
+
 
     /**
      * @brief Set the Pos object
@@ -166,6 +181,7 @@ protected:
      * 
      */
     std::size_t _score;
+    tank_t _save;
 
     /**
      * @brief previous frame tank's position

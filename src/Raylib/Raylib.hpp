@@ -27,6 +27,7 @@
 
 #include "Object/IObject.hpp"
 #include "Object/UiObject/UiGame/BorderPlayer.hpp"
+#include "Object/Collisionable/Destructible/Movable/Animator/Animator.hpp"
 #include "Object/AObject.hpp"
 #include "Object/Collisionable/CollisionableObject.hpp"
 
@@ -65,7 +66,7 @@ public:
     void drawMesh(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint, const std::pair<int, int> &size);
     void drawSphere(const coords &pos, const RGB tint, const float radius);
 
-//    void drawTexture(const std::string &path, int posX, int posY, RGB tint);
+    void drawAnimation(const std::string &modelPath, const std::string &texturePath, const std::string &animationPath, const coords pos, int frameCount, float scale);
     void drawTexture(const std::string &path, Vector2 pos, float rotation, float scale, RGB tint);
 
     void drawText(const std::string &text, coords pos, float scale, RGB tint);
@@ -94,6 +95,7 @@ public:
     void drawRectangle(int const &posX, int const &posY, int const &width, int const &height, RGB color) const noexcept;
     void updateMusic(const std::string &path);
 
+    int getFrameMax(const std::string &path);
     static float getDeltaTime() noexcept;
     void freeResources();
     void drawRectangleLinesEx(const float &posX, const float &posY, const float &width,
@@ -108,6 +110,7 @@ private:
     Camera _camera;
     std::unordered_map<std::string, Model> _models;
     std::unordered_map<std::string, Texture2D> _textures;
+    std::unordered_map<std::string, ModelAnimation *> _animation;
     std::unordered_map<std::string, std::pair<Music, bool>> _music;
     std::unordered_map<std::string, Sound> _sound;
     std::vector<int> _inputSave;

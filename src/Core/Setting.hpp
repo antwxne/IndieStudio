@@ -63,6 +63,8 @@ struct Setting {
         {std::make_pair(-8.0f, -5.0f)}, {std::make_pair(-8.0f, -5.0f)}, {std::make_pair(-8.0f, -5.0f)}, {std::make_pair(-8.0f, -5.0f)}
     };
     static const std::array<tanksCoords, 5> _tanksPosNbPlayers;
+    bool load = false;
+    bool _statementLoad = false;
 };
 
 #endif /* !SETTINGS_HPP_ */
