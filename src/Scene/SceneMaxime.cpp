@@ -40,7 +40,7 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false),
         _objects.emplace_back(std::make_shared<BorderPlayer>(carr));
     for (unsigned int i = 0; i != _posTank.size(); i++)
     {
-        auto tmp = _objects.emplace_back(std::make_shared<Tank>( _settings._players.at(i).name, coords(_posTank[i].first, 0, _posTank[i].second), coords(10, 10, 10), 8, std::make_pair(Tank::sable, Tank::body), std::make_pair(Tank::darkGreen, Tank::cannon)));
+        auto tmp = _objects.emplace_back(std::make_shared<Tank>( _settings._players.at(i).name, coords(_posTank[i].first, 0, _posTank[i].second), coords(10, 10, 10), 8, std::make_pair(Tank::bodyTexture, Tank::bodyModel), std::make_pair(Tank::darkGreen, Tank::cannonModel)));
         if (i == 0)
             setInputsTank(_settings._keysPlayerOne, _objects.back());
         else if (i == i) {

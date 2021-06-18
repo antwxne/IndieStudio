@@ -10,7 +10,6 @@
 #include "Raylib/Raylib.hpp"
 #include "Cannon.hpp"
 
-
 Cannon::Cannon(const coords &pos, const coords &size, const int maxBullets, const std::pair<std::string, std::string> &path)
     : MovableObject(pos, size, path), _fireTimeStamp(std::chrono::high_resolution_clock::now()), _fireCoolDown(1500), _prevPos(pos)
 {
