@@ -7,6 +7,8 @@
 
 #include <algorithm>
 #include <iostream>
+#include <cmath>
+
 #include "Raylib.hpp"
 #include "RaylibError.hpp"
 #include "Object/Collisionable/CollisionableObject.hpp"
@@ -373,16 +375,17 @@ void Raylib::findCollision(std::shared_ptr<CollisionableObject> obj,
     if (toFind == _models.cend())
         return;
     auto positionCurrent = obj->getPosition();
-    auto sizeCurrent = obj->get3DSize();
     float currentScale = obj->getScale();
     auto tmpBoundCurrent = GetMeshBoundingBox(toFind->second.meshes[0]);
+    float maxCurrent = tmpBoundCurrent.max.z > tmpBoundCurrent.max.x ? tmpBoundCurrent.max.z : tmpBoundCurrent.max.x;
     BoundingBox boundCurrent = (BoundingBox) {(Vector3){
-        positionCurrent.first - (tmpBoundCurrent.max.x * currentScale),
-        positionCurrent.second - (tmpBoundCurrent.max.y * currentScale),
-        positionCurrent.third - (tmpBoundCurrent.max.z * currentScale)},
-        (Vector3){positionCurrent.first + (tmpBoundCurrent.max.x * currentScale),
-            positionCurrent.second + (tmpBoundCurrent.max.y * currentScale),
-            positionCurrent.third + (tmpBoundCurrent.max.z * currentScale)}};
+        positionCurrent.first - (maxCurrent * currentScale),
+        positionCurrent.second - (tmpBoundCurrent.min.y),
+        positionCurrent.third - (maxCurrent * currentScale)},
+        (Vector3){
+            positionCurrent.first + (maxCurrent * currentScale),
+            positionCurrent.second + (tmpBoundCurrent.max.y),
+            positionCurrent.third + (maxCurrent * currentScale)}};
 
     for (auto &it : allObjs) {
         if (it->getTypeField().isCollisionable && it->getPosition() != obj->getPosition()) {
@@ -392,18 +395,19 @@ void Raylib::findCollision(std::shared_ptr<CollisionableObject> obj,
                 return;
             auto positionOther = it->getPosition();
             float scaleOther = it->getScale();
+            float otherRotaton = std::abs(it->getRotationAngle());
             auto tmpBoundOther = GetMeshBoundingBox(toFindOther->second.meshes[0]);
             BoundingBox boundOther = (BoundingBox) {
                 (Vector3){
-                    positionOther.first - tmpBoundOther.max.x * scaleOther,
-                    positionOther.second - tmpBoundOther.max.y * scaleOther,
-                    positionOther.third - tmpBoundOther.max.z * scaleOther},
+                    positionOther.first - (otherRotaton <= 110 && otherRotaton >= 70 || otherRotaton <= 290 && otherRotaton >= 250 ? tmpBoundOther.max.z : tmpBoundOther.max.x) * scaleOther,
+                    positionOther.second - tmpBoundOther.max.y,
+                    positionOther.third - (otherRotaton <= 110 && otherRotaton >= 70 || otherRotaton <= 290 && otherRotaton >= 250 ? tmpBoundOther.max.x : tmpBoundOther.max.z) * scaleOther},
                 (Vector3){
-                    positionOther.first + tmpBoundOther.max.x * scaleOther,
-                    positionOther.second + tmpBoundOther.max.y * scaleOther,
-                    positionOther.third + tmpBoundOther.max.z * scaleOther}};
-            DrawBoundingBox(boundOther, RED);
-            DrawBoundingBox(boundCurrent, BLUE);
+                    positionOther.first + (otherRotaton <= 110 && otherRotaton >= 70 || otherRotaton <= 290 && otherRotaton >= 250 ? tmpBoundOther.max.z : tmpBoundOther.max.x) * scaleOther,
+                    positionOther.second + tmpBoundOther.max.y,
+                    positionOther.third + (otherRotaton <= 110 && otherRotaton >= 70 || otherRotaton <= 290 && otherRotaton >= 250 ? tmpBoundOther.max.x : tmpBoundOther.max.z) * scaleOther}};
+//            DrawBoundingBox(boundOther, RED);
+//            DrawBoundingBox(boundCurrent, BLUE);
             if (CheckCollisionBoxes(boundCurrent, boundOther)) {
                 obj->hit(tmp);
             }
