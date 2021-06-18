@@ -64,7 +64,7 @@ namespace menu {
             } else {
                 _settings._statementLoad = true;
             }
-        }            fadeBlack(lib);
+        }
         return (_returnScene.at(static_cast<menu_e>(_state)));
     }
 }

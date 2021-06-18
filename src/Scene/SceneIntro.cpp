@@ -83,6 +83,6 @@ Scenes SceneIntro::run(Raylib &lib)
             }
         lib.printObjects(_objects);
     }
-    fadeBlack(lib);
+    fadeBlack(lib, false);
     return (Scenes::MENU);
 }
