@@ -29,6 +29,7 @@
 #include "Object/UiObject/UiGame/BorderPlayer.hpp"
 #include "Object/Collisionable/Destructible/Movable/Animator/Animator.hpp"
 #include "Object/AObject.hpp"
+#include "Object/Collisionable/CollisionableObject.hpp"
 
 class Raylib
 {
@@ -101,7 +102,9 @@ public:
         const float &height, RGB color, int const &lineThick) noexcept;
     void draw(const BorderPlayer &i);
 
-    protected:
+private:
+    void findCollision(std::shared_ptr<CollisionableObject> obj, const std::vector<std::shared_ptr<AObject>> &allObjs) noexcept;
+
 private:
     std::pair<int, int> _screenSize;
     Camera _camera;

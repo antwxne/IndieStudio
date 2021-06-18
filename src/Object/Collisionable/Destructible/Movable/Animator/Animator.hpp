@@ -13,7 +13,7 @@
 class Animator : public MovableObject
 {
     public:
-        Animator(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path, const std::string &animePath);
+        Animator(const coords &pos, const coords &size, const std::pair<std::string, std::string> &path, const std::string &animePath);
         Animator(Animator &ToCopy);
         ~Animator();
         void addFrameCount(const int up) noexcept;

@@ -6,8 +6,10 @@
 */
 
 #include "AScene.hpp"
+#include "FullSquare.hpp"
 #include "MovableObject.hpp"
 #include "Tank.hpp"
+#include "Core.hpp"
 #include <cmath>
 
 AScene::AScene(Setting &settings) : _settings(settings)
@@ -55,9 +57,22 @@ void AScene::setInputsTank(const std::array<Raylib::Inputs, 7> &controls, std::s
         auto newAngle = (static_cast<int>(tank->getRotationAngle()) + 180) % 360;
         tank->move(coords(std::sin(M_PI *  newAngle / 180), 0, std::cos(M_PI * newAngle / 180)));
     });
-    setInputFunction(controls[2], [tank](){ tank->rotate(0.8f); });
-    setInputFunction(controls[3], [tank](){ tank->rotate(-0.8f); });
-    setInputFunction(controls[4], [tank](){ tank->rotateCannon(1.2f); });
-    setInputFunction(controls[5], [tank](){ tank->rotateCannon(-1.2f); });
+    setInputFunction(controls[2], [tank](){ tank->rotate(1.0f); });
+    setInputFunction(controls[3], [tank](){ tank->rotate(-1.0f); });
+    setInputFunction(controls[4], [tank](){ tank->rotateCannon(1.5f); });
+    setInputFunction(controls[5], [tank](){ tank->rotateCannon(-1.5f); });
     setInputFunction(controls[6], [tank](){ tank->fire(); });
+}
+
+void AScene::fadeBlack(Raylib &lib, bool out)
+{
+    _objects.emplace_back(std::make_shared<FullSquare>(coords(), std::make_pair(1920, 1080), 1, std::make_pair(RGB(0.0f, 0.0f, 0.0f, 0.0f + 255 * out), RGB())));
+    for (std::size_t i = 0; i != 255 / 10; ++i) {
+        auto color = _objects.back()->getColors();
+        color.first.a += out ? -10 : 10;
+        _objects.back()->setColor(color);
+        lib.printObjects(_objects);
+        lib.displayMusic(core::_menuMusic, _settings._musicVol);
+    }
+    _objects.pop_back();
 }

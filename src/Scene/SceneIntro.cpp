@@ -33,17 +33,16 @@ SceneIntro::SceneIntro(Setting &settings) : AScene(settings)
     _objects.emplace_back(std::make_shared<Ground>(coords(0, 0, 0), std::make_pair(40, 22), std::pair<std::string, std::string>(_assetsPath.at(0), _assetsPath.at(1))));
     for (auto const &block : map->_objectNoDestructibleList)
         _objects.emplace_back(std::make_shared<Wall>(block));
-    _objects.emplace_back(std::make_shared<Tank>("tankRight", coords(-8,0,7), std::make_pair(10, 10), std::make_pair(Tank::sable, Tank::body), std::make_pair(Tank::darkGreen, Tank::turret)));
-    std::dynamic_pointer_cast<Tank>(_objects.back())->rotateCannon(90);
-    setInputsTank(_settings._keysPlayerOne, _objects.back());
 
-    _objects.emplace_back(std::make_shared<Tank>("tankLeft", coords(8,0,1), std::make_pair(10, 10), std::make_pair(Tank::sable, Tank::body), std::make_pair(Tank::darkGreen, Tank::turret)));
+    _objects.emplace_back(std::make_shared<Tank>("tankRight", coords(-8,0,7), coords(10, 10, 10), 8, std::make_pair(Tank::bodyTexture, Tank::bodyModel), std::make_pair(Tank::darkGreen, Tank::cannonModel)));
+    std::dynamic_pointer_cast<Tank>(_objects.back())->rotateCannon(90);
+
+    _objects.emplace_back(std::make_shared<Tank>("tankLeft", coords(8,0, -7), coords(10, 10, 10), 8, std::make_pair(Tank::bodyTexture, Tank::bodyModel), std::make_pair(Tank::darkGreen, Tank::cannonModel)));
     std::dynamic_pointer_cast<Tank>(_objects.back())->rotateCannon(270);
-    setInputsTank(_settings._keysPlayerTwo, _objects.back());
 
     _objects.emplace_back(std::make_shared<TexteUI>(coords(((settings._widthScreen / 2) - 50), ((settings._heightScreen / 4))), std::make_pair(100, 100), "Our Tank", 20, 1, std::make_pair(RGB(221, 131, 68), RGB())));
-    _objects.emplace_back(std::make_shared<TexteUI>(coords(((settings._widthScreen / 2) - 110), ((settings._heightScreen / 1.1))), std::make_pair(50, 50), "press enter to start", 20, 1, std::make_pair(RGB(177, 129, 78), RGB())));
-    setInputFunction(Raylib::ENTER, [&]() {
+    _objects.emplace_back(std::make_shared<TexteUI>(coords(((settings._widthScreen / 2) - 110), ((settings._heightScreen / 1.1))), std::make_pair(50, 50), "press space to start", 20, 1, std::make_pair(RGB(177, 129, 78), RGB())));
+    setInputFunction(Raylib::SPACE, [&]() {
         _enter = !_enter;
     });
 }
@@ -62,9 +61,9 @@ Scenes SceneIntro::run(Raylib &lib)
         triggerInputActions(lib);
             for (auto &i : _objects) {
                 if (i->getTypeField().isTank) {
-                    if (std::dynamic_pointer_cast<Tank>(i)->getPosition().third >= 7)
+                    if (std::dynamic_pointer_cast<Tank>(i)->getPosition().third >= 6)
                         direction.at(dir) = UP;
-                    else if (std::dynamic_pointer_cast<Tank>(i)->getPosition().third <= -7)
+                    else if (std::dynamic_pointer_cast<Tank>(i)->getPosition().third <= -6)
                         direction.at(dir) = DOWN;
                     if (direction.at(dir) == UP)
                         std::dynamic_pointer_cast<Tank>(i)->move(coords(0, 0, -1));
@@ -81,5 +80,6 @@ Scenes SceneIntro::run(Raylib &lib)
             }
         lib.printObjects(_objects);
     }
+    fadeBlack(lib, false);
     return (Scenes::MENU);
 }

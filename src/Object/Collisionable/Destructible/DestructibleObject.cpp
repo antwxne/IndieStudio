@@ -8,7 +8,7 @@
 #include "DestructibleObject.hpp"
 
 DestructibleObject::DestructibleObject(const coords &pos,
-    const std::pair<int, int> &size, const std::pair<std::string, std::string> &path)
+    const coords &size, const std::pair<std::string, std::string> &path)
     : CollisionableObject(pos, size, path), _life(0)
 {
     _typeField.isDestructible = true;
@@ -34,7 +34,7 @@ bool DestructibleObject::isDestroyed() const
 const DestructibleObject::destructible_t &DestructibleObject::getStructSave() noexcept
 {
     _save.x = _pos.first;
-    _save.y = _pos.second;
+    _save.y = _pos.third;
     _save.life = _life;
     return _save;
 }

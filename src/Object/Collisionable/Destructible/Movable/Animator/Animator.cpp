@@ -7,14 +7,14 @@
 
 #include "Animator.hpp"
 
-Animator::Animator(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path, const std::string &animePath)
+Animator::Animator(const coords &pos, const coords &size, const std::pair<std::string, std::string> &path, const std::string &animePath)
     : MovableObject(pos, size, path), _frameCount(0), _animePath(animePath)
 {
     _typeField.isAnimator = true;
 }
 
 Animator::Animator(Animator &toCopy)
-    : MovableObject(toCopy._pos, toCopy._size, toCopy._path), _frameCount(toCopy._frameCount), _animePath(toCopy._animePath)
+    : MovableObject(toCopy._pos, coords(1, 1, 1), toCopy._path), _frameCount(toCopy._frameCount), _animePath(toCopy._animePath)
 {
     _typeField.isAnimator = true;
 }

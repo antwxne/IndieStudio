@@ -8,6 +8,7 @@
 #include "UiObject/Button/Button.hpp"
 #include "InputBox.hpp"
 #include "Core.hpp"
+#include "TexteUi.hpp"
 #include "SceneNewGame.hpp"
 
 namespace newGame {
@@ -24,7 +25,7 @@ namespace newGame {
                         return;
                     }
                     if (std::find(_playerIA.begin(), _playerIA.end(), button->getText()) != _playerIA.end() && button->isInside(_mousePos))
-                        button->setText(button->getText(    ) == _playerIA[0] ? _playerIA[1] : _playerIA[0]);
+                        button->setText(_playerIA.at((std::find(_playerIA.begin(), _playerIA.end(), button->getText()) - _playerIA.begin() + 1) % _playerIA.size()));     //(button->getText() == _playerIA[0] ? _playerIA[1] : _playerIA[0]);
                 }
         });
         _objects.emplace_back(std::make_shared<UiObject>(coords(), std::make_pair(0, 0), _bgPath, 1.0f));
@@ -33,7 +34,8 @@ namespace newGame {
         for (auto &it : _playerPos)
             _objects.emplace_back(std::make_shared<button::Button>(it, button::_buttonSize, button::_buttonPlayerPath, _playerIA[0], 20, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
         for (auto &it : _inputPos)
-            _objects.emplace_back(std::make_shared<InputBox>(it, button::_buttonSize, button::_buttonNavigPath, 20, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
+            _objects.emplace_back(std::make_shared<InputBox>(it, button::_buttonSize, button::_buttonNavigPath, 20, 15, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
+        _objects.emplace_back(std::make_shared<TexteUI>(coords(670, 100), std::make_pair(0, 0), "New Game", 90, 1, std::make_pair(RGB(0, 0, 0), RGB())));
     }
 
     SceneNewGame::~SceneNewGame()
@@ -48,7 +50,7 @@ namespace newGame {
             if (!it->getTypeField().isButton || it->getTypeField().isInputBox)
                 continue;
             auto button = std::dynamic_pointer_cast<button::Button>(it);
-            _settings._players[fillStruct].ai = button->getText() == _playerIA[0];
+            _settings._players[fillStruct].type = static_cast<playerType>(std::find(_playerIA.begin(), _playerIA.end(), button->getText()) - _playerIA.begin());
             ++fillStruct;
         }
     }
@@ -61,7 +63,8 @@ namespace newGame {
             if (!it->getTypeField().isInputBox)
                 continue;
             auto button = std::dynamic_pointer_cast<button::Button>(it);
-            _settings._players[fillStruct].name.assign(button->getText());
+            if (!button->getText().empty())
+                _settings._players[fillStruct].name.assign(button->getText());
             ++fillStruct;
         }
     }
@@ -70,9 +73,7 @@ namespace newGame {
     {
         char input;
 
-        lib.displayMusic(core::_musicPath, _settings._musicVol);
-        if (lib.isMousePressed())
-            lib.displaySound(core::_soundsPath, _settings._soundVol);
+        lib.displayMusic(core::_menuMusic, _settings._musicVol);
         input = lib.getPressedCharacter();
         std::for_each(_objects.begin(), _objects.end(), [&, input](auto &it){
             if (it->getTypeField().isInputBox) {

@@ -61,6 +61,15 @@ struct coords
         return *this;
     }
 
+    bool operator==(const coords &b) const
+    {
+        return first == b.first && second == b.second && third == b.third;
+    }
+    bool operator!=(const coords &b) const
+    {
+        return first != b.first || second != b.second || third != b.third;
+    }
+
     coords &operator*=(float val) {
         first *= val;
         second *= val;
@@ -172,7 +181,7 @@ public:
      *
      * @param position
      */
-    virtual void setPosition(coords position) noexcept = 0;
+    virtual void setPosition(const coords &position) noexcept = 0;
 };
 
 #endif //INDIESTUDIO_IOBJECT_HPP

@@ -26,30 +26,73 @@ public:
     Bullet(const coords &pos, float angle);
 
     /**
-     * @brief once bullet was shot, it follows a vector and being updated by this
-     * method
-     *
-     */
-    void constant_move() noexcept;
-    /**
      * @brief set a new dir
      *
      * @param direction
      */
     void move(const coords &direction) noexcept override;
+
     /**
      * @brief bounce when hit surface
      *
      */
     void bounce() noexcept;
+
+    /**
+     * @brief Get the Damage object
+     * 
+     * @return float 
+     */
     float getDamage() const noexcept;
+
+    /**
+     * @brief Set the Damage object
+     * 
+     * @param damage 
+     */
     void setDamage(float damage) noexcept;
 
+    /**
+     * @brief when a bullet should be destroyed resets it to waitPosition
+     * 
+     */
+    void resetBullet() noexcept;
+
+    /**
+     * @brief path to model asset
+     * 
+     */
     static const std::string modelPath;
+
+    /**
+     * @brief path to texture asset
+     * 
+     */
     static const std::string texturePath;
+
+    /**
+     * @brief position where the bullets stay when not fired and not moving
+     * 
+     */
+    static const float waitPosition;
 private:
+
+    /**
+     * @brief direction of the bullet
+     * 
+     */
     coords _direction;
+
+    /**
+     * @brief ???
+     * 
+     */
     coords _prevPos;
+
+    /**
+     * @brief if bullets collides with X, X's life is subtracted _damage 
+     * 
+     */
     float _damage;
 };
 

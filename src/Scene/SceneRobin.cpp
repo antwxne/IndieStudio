@@ -27,10 +27,10 @@ const std::vector<std::string> _assetsPath {
 
 SceneRobin::SceneRobin(Setting &settings) : AScene(settings)
 {
-    _objects.emplace_back(std::make_shared<Tank>("grosTankSaMere", coords(0,0,0), std::make_pair(10, 10), std::make_pair(Tank::sable, Tank::body), std::make_pair(Tank::darkGreen, Tank::turret)));
+    _objects.emplace_back(std::make_shared<Tank>("grosTankSaMere", coords(0,0,0), coords(10, 10, 10), 8, std::make_pair(Tank::bodyTexture, Tank::bodyModel), std::make_pair(Tank::darkGreen, Tank::cannonModel)));
     setInputsTank(_settings._keysPlayerOne, _objects.back());
-    _objects.emplace_back(std::make_shared<Tank>("petitTankMignon", coords(6,0,0), std::make_pair(10, 10), std::make_pair(Tank::sable, Tank::body), std::make_pair(Tank::darkGreen, Tank::turret)));
-    setInputsTank(_settings._keysPlayerTwo, _objects.back());
+    // _objects.emplace_back(std::make_shared<Tank>("petitTankMignon", coords(6,0,0), coords(10, 10, 10), 8, std::make_pair(Tank::bodyTexture, Tank::bodyModel), std::make_pair(Tank::darkGreen, Tank::cannonModel)));
+    // setInputsTank(_settings._keysPlayerTwo, _objects.back());
 
     std::vector<std::pair<int, int>> size;
     for (auto &i : _objects)
@@ -59,6 +59,12 @@ Scenes SceneRobin::run(Raylib &lib)
     while (lib.gameLoop()) {
         triggerInputActions(lib);
         lib.printObjects(_objects);
+        for (auto &object : _objects) {
+            if (object->getTypeField().isTank) {
+                auto tank = std::dynamic_pointer_cast<Tank>(object);
+                tank->moveBullets();
+            }
+        }
     }
     return (Scenes::QUIT);
 }

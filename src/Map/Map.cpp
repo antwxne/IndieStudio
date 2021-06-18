@@ -63,7 +63,7 @@ void Map::createDestructibleMap(std::pair<int, int> const &pos_left,
             nbrPos += 1;
             _objectDestructibleList.emplace_back(
                 coords(static_cast<float>(tmpMap.first), 0,
-                    static_cast<float>(tmpMap.second)), std::make_pair(0, 0),
+                    static_cast<float>(tmpMap.second)), coords(1, 1, 1),
                 std::make_pair("", ""));
         }
     }
@@ -76,24 +76,24 @@ void Map::createContourMap(std::pair<int, int> const &xAxis,
     for (int x = xAxis.first, y = yAxis.first; x != xAxis.second; ++x) {
         _objectNoDestructibleList.emplace_back(
             coords(static_cast<float>(x), 0, static_cast<float>(y)),
-            std::make_pair(0, 0), std::make_pair("", ""));
+           coords(1, 1, 1), std::make_pair("", ""));
     }
 
     for (int x = xAxis.first, y = yAxis.second; x != xAxis.second; ++x) {
         _objectNoDestructibleList.emplace_back(
             coords(static_cast<float>(x), 0, static_cast<float>(y)),
-            std::make_pair(0, 0), std::make_pair("", ""));
+            coords(1, 1, 1), std::make_pair("", ""));
     }
 
     for (int x = xAxis.first, y = yAxis.first; y != yAxis.second; ++y) {
         _objectNoDestructibleList.emplace_back(
             coords(static_cast<float>(x), 0, static_cast<float>(y)),
-            std::make_pair(0, 0), std::make_pair("", ""));
+            coords(1, 1, 1), std::make_pair("", ""));
     }
     for (int x = xAxis.second, y = yAxis.first; y != yAxis.second; ++y) {
         _objectNoDestructibleList.emplace_back(
             coords(static_cast<float>(x), 0, static_cast<float>(y)),
-            std::make_pair(0, 0), std::make_pair("", ""));
+            coords(1, 1, 1), std::make_pair("", ""));
     }
 }
 
@@ -101,30 +101,33 @@ void Map::writeDestructibleList() noexcept
 {
     unsigned long size = _objectDestructibleList.size();
     DestructibleObject::destructible_t dest;
+    std::remove("destructibleList.txt");
     std::ofstream file("destructibleList.txt",
-        std::ios::out | std::ofstream::binary);
+        std::ios::out | std::ofstream::binary | std::ofstream::trunc);
     file.write(reinterpret_cast<const char *>(&size), sizeof(unsigned long));
     for (auto &i : _objectDestructibleList) {
         dest = i.getStructSave();
         file.write(reinterpret_cast<const char *>(&dest),
             sizeof(DestructibleObject::destructible_t));
     }
-    file.close();
 }
 
-void Map::readDestructibleList() noexcept
+void Map::readDestructibleList()
 {
     unsigned long size = 0;
     DestructibleObject::destructible_t dest;
     std::ifstream file("destructibleList.txt",
         std::ios::in | std::ifstream::binary);
+    if (file.is_open() == false)
+        throw std::runtime_error("No Save File");
+    std::cout << size << std::endl;
     file.read(reinterpret_cast<char *>(&size), sizeof(unsigned long));
     for (int i = 0; i != size; i++) {
         file.read(reinterpret_cast<char *>(&dest),
             sizeof(DestructibleObject::destructible_t));
         _objectDestructibleList.emplace_back(
             coords(static_cast<float>(dest.x), 0, static_cast<float>(dest.y)),
-            std::make_pair(0, 0), std::make_pair("", "")).setLife(dest.life);
+            coords(1, 1, 1), std::make_pair("", "")).setLife(dest.life);
     }
-    file.close();
+    std::cout << "finish map" << std::endl;
 }

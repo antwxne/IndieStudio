@@ -6,6 +6,7 @@
 */
 
 #include "UiScene.hpp"
+#include "Core.hpp"
 
 UiScene::UiScene(Setting &settings) : AScene(settings), _pressed(false), _state(-1)
 {
@@ -21,10 +22,13 @@ UiScene::~UiScene()
 
 Scenes UiScene::run(Raylib &lib)
 {
+    fadeBlack(lib, true);
     while (_state == -1) {
         _mousePos = lib.getMousePosition();
         triggerInputActions(lib);
-        std::for_each(_objects.begin(), _objects.end(), [&](auto &it) {
+        if (lib.isMousePressed())
+            lib.displaySound(core::_mouseClick, _settings._soundVol);
+        std::for_each(_objects.begin(), _objects.end(), [&](auto &it){
             if (it->getTypeField().isButton) {
                 auto button = std::dynamic_pointer_cast<button::Button>(it);
                 button->setState(_mousePos, _pressed);
@@ -33,5 +37,6 @@ Scenes UiScene::run(Raylib &lib)
         eventScene(lib);
         lib.printObjects(_objects);
     }
+    fadeBlack(lib, false);
     return (endScene(lib));
 }

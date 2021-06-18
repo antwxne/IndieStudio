@@ -12,17 +12,18 @@
 #include "TankAi.hpp"
 #include "Raylib/Raylib.hpp"
 
-TankAI::TankAI(const std::string &name, const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path, const std::pair<std::string, std::string> &cannonPath)
-    : Tank(name, pos, size, path, cannonPath)
+TankAI::TankAI(const std::string &name, const coords &pos, const coords &size, const int maxBullets, const std::pair<std::string, std::string> &path, const std::pair<std::string, std::string> &cannonPath)
+    : Tank(name, pos, size, maxBullets, path, cannonPath)
 {
     _typeField.isIa = true;
     _stopDistance = size.first * 2;
-    _speed = 5;
 }
+
 void TankAI::target(const coords &pos) noexcept
 {
     _targetPos = pos;
 }
+
 void TankAI::autoMove() noexcept
 {
     double distance = TankAI::distance(_targetPos);
@@ -33,10 +34,12 @@ void TankAI::autoMove() noexcept
         move(_targetPos);
     }
 }
+
 double TankAI::distance(const coords &otherPos) const noexcept
 {
     return sqrt(pow((_pos.first - otherPos.first),2) + pow((_pos.second - otherPos.second),2));
 }
+
 void TankAI::move(const coords &direction) noexcept
 {
     coords dir = {0, 0, 0};

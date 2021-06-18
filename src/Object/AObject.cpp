@@ -22,7 +22,7 @@ const coords &AObject::getPosition() const noexcept
     return _pos;
 }
 
-void AObject::setPosition(coords position) noexcept
+void AObject::setPosition(const coords &position) noexcept
 {
     _pos = position;
 }
@@ -65,10 +65,6 @@ const std::pair<RGB, RGB> &AObject::getColors() const noexcept
 const float AObject::getRotationAngle() const noexcept
 {
     return _rotationAngle;
-}
-void AObject::setPos(const coords &pos)
-{
-    _pos = pos;
 }
 
 const coords &AObject::getRotationAxis() const noexcept

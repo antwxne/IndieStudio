@@ -7,8 +7,8 @@
 
 #include "InputBox.hpp"
 
-InputBox::InputBox(const coords &pos, const std::pair<int, int> &size, const std::array<std::string, 3> &path, int sizeText, float scale, std::pair<RGB, RGB> color)
-    : button::Button(pos, size, path, "", sizeText, scale, color)
+InputBox::InputBox(const coords &pos, const std::pair<int, int> &size, const std::array<std::string, 3> &path, int sizeText, int maxString, float scale, std::pair<RGB, RGB> color)
+    : button::Button(pos, size, path, "", sizeText, scale, color), _maxText(maxString)
 {
     _typeField.isInputBox = true;
 }
@@ -19,7 +19,7 @@ InputBox::~InputBox()
 
 void InputBox::changeText(char input, const std::pair<float, float> &pos)
 {
-    if (!isInside(pos) || !input || (_text.size() == 15 && input != -1))
+    if (!isInside(pos) || !input || (_text.size() == _maxText && input != -1))
         return;
     if (input != -1)
         _text.push_back(input);

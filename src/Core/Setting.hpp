@@ -13,10 +13,17 @@
 #include <cstddef>
 #include "Raylib.hpp"
 
+enum playerType {
+    IA,
+    PLAYER,
+    NONE
+};
+
 struct Players {
-    Players() : ai(true), name("BOT" + std::to_string(std::rand() % 10)) {}
-    bool ai;
+    Players() : type(IA), name("BOT" + std::to_string(std::rand() % 10)) {}
+    playerType type;
     std::string name;
+    bool isWin;
 };
 
 // to-do: tableau associatif inputs --> char pour pouvoir les custom depuis les settings
@@ -36,6 +43,8 @@ struct Setting {
     int _widthScreen;
     int _heightScreen;
     int _fps;
+    bool load = false;
+    bool _statementLoad = false;
 };
 
 #endif /* !SETTINGS_HPP_ */

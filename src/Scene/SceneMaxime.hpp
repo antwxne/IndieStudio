@@ -8,6 +8,7 @@
 #pragma once
 #include "AScene.hpp"
 #include "ScenePause.hpp"
+#include "Map/Map.hpp"
 #include "Object/Collisionable/Destructible/Movable/Tank.hpp"
 #include <vector>
 
@@ -17,7 +18,6 @@ class SceneMaxime : public AScene {
         ~SceneMaxime();
         Scenes run(Raylib &lib) final;
         void manageHeart(const std::string &name, const int life);
-        void checkHeart() noexcept;
     private:
         std::vector<int> _listPosHeart;
         static const std::vector<std::array<std::pair<float, float>, 2>> _menuPos;
@@ -26,11 +26,13 @@ class SceneMaxime : public AScene {
         std::shared_ptr<Tank> _tanks;
         bool _pressed;
         bool _enter;
-        bool _isPause;
+        bool _isPaused;
         bool _state;
+        void saveTanks() noexcept;
+        std::unique_ptr<Map> _map;
 };
 
-static const std::vector<std::pair<float, float>> _playerPos {
+static const std::vector<std::pair<float, float>> _namePlayerPos {
     {std::make_pair(170.0f, 1035.0f)},
     {std::make_pair(670.0f, 1035.0f)},
     {std::make_pair(1170.0f, 1035.0f)},
