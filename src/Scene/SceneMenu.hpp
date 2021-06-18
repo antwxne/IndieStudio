@@ -35,10 +35,10 @@ namespace menu {
     };
 
     static const std::vector<struct coords> _menuPos {
-        {coords(860.0f, 500.0f, 0.0f)},
-        {coords(860.0f, 600.0f, 0.0f)},
-        {coords(860.0f, 700.0f, 0.0f)},
-        {coords(860.0f, 800.0f, 0.0f)},
+        {coords(800.0f, 300.0f, 0.0f)},
+        {coords(800.0f, 450.0f, 0.0f)},
+        {coords(800.0f, 600.0f, 0.0f)},
+        {coords(800.0f, 750.0f, 0.0f)},
     };
 
     static const std::string _bgPath = "asset/background_asset/Background_01.png";

@@ -6,6 +6,7 @@
 */
 
 #include "AScene.hpp"
+#include "FullSquare.hpp"
 #include "MovableObject.hpp"
 #include "Tank.hpp"
 #include <cmath>
@@ -116,4 +117,15 @@ void AScene::setInputsSecondTank(const std::array<Raylib::Inputs, 7> &controls)
         auto tank = std::dynamic_pointer_cast<Tank>(getNthTank(2));
         tank->rotateCannon(-1.2f);
     });
+}
+
+void AScene::fadeBlack(Raylib &lib)
+{
+    _objects.emplace_back(std::make_shared<FullSquare>(coords(), std::make_pair(1920, 1080), 1, std::make_pair(RGB(0.0f, 0.0f, 0.0f, 0.0f), RGB())));
+    for (std::size_t i = 0; i != 85; ++i) {
+        auto color = _objects.back()->getColors();
+        color.first.a += 3;
+        _objects.back()->setColor(color);
+        lib.printObjects(_objects);
+    }
 }

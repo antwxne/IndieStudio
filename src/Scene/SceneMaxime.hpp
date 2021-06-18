@@ -26,7 +26,7 @@ class SceneMaxime : public AScene {
         std::shared_ptr<Tank> _tanks;
         bool _pressed;
         bool _enter;
-        bool _isPause;
+        bool _isPaused;
         bool _state;
 };
 

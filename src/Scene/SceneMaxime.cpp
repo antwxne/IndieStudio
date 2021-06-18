@@ -30,7 +30,7 @@ const std::vector<std::string> SceneMaxime::_assetsPath {
     "asset/bonus/arrow.obj"
 };
 
-SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false), _isPause(false), _scenePause(settings)
+SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false), _isPaused(false), _scenePause(settings)
 {
 /////////////////////////////START CEMENT//////////////////////:
 
@@ -86,7 +86,7 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false),
         _enter = !_enter;
     });
     setInputFunction(Raylib::ESCAPE, [&]() {
-        _isPause = !_isPause;
+        _isPaused = !_isPaused;
     });
 
     setInputFunction(Raylib::SPACE, [&]() {
@@ -141,11 +141,11 @@ Scenes SceneMaxime::run(Raylib &lib)
     while (lib.gameLoop()) {
         triggerInputActions(lib);
         lib.printObjects(_objects);
-        if (_isPause) {
+        if (_isPaused) {
             auto newScene = _scenePause.run(lib);
             if (newScene != Scenes::GAME)
                 return (newScene);
-            _isPause = false;
+            _isPaused = false;
         }
         for (auto &it: _objects) {
             if (it->getTypeField().isTank) {

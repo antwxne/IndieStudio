@@ -24,7 +24,7 @@ namespace newGame {
                         return;
                     }
                     if (std::find(_playerIA.begin(), _playerIA.end(), button->getText()) != _playerIA.end() && button->isInside(_mousePos))
-                        button->setText(button->getText() == _playerIA[0] ? _playerIA[1] : _playerIA[0]);
+                        button->setText(_playerIA.at((std::find(_playerIA.begin(), _playerIA.end(), button->getText()) - _playerIA.begin() + 1) % _playerIA.size()));     //(button->getText() == _playerIA[0] ? _playerIA[1] : _playerIA[0]);
                 }
         });
         _objects.emplace_back(std::make_shared<UiObject>(coords(), std::make_pair(0, 0), _bgPath, 1.0f));
@@ -48,7 +48,7 @@ namespace newGame {
             if (!it->getTypeField().isButton || it->getTypeField().isInputBox)
                 continue;
             auto button = std::dynamic_pointer_cast<button::Button>(it);
-            _settings._players[fillStruct].ai = button->getText() == _playerIA[0];
+            _settings._players[fillStruct].type = static_cast<playerType>(std::find(_playerIA.begin(), _playerIA.end(), button->getText()) - _playerIA.begin());
             ++fillStruct;
         }
     }
@@ -70,9 +70,7 @@ namespace newGame {
     {
         char input;
 
-        lib.displayMusic(core::_musicPath, _settings._musicVol);
-        if (lib.isMousePressed())
-            lib.displaySound(core::_soundsPath, _settings._soundVol);
+        lib.displayMusic(core::_menuMusic, _settings._musicVol);
         input = lib.getPressedCharacter();
         std::for_each(_objects.begin(), _objects.end(), [&, input](auto &it){
             if (it->getTypeField().isInputBox) {
@@ -88,6 +86,7 @@ namespace newGame {
         fillName();
         if (!_state)
             return (Scenes::MENU);
+        fadeBlack(lib);
         return (Scenes::GAME);
     }
 

@@ -43,9 +43,6 @@ namespace pause {
             option.run(lib);
             _state = -1;
         }
-        lib.displayMusic(core::_musicPath, _settings._musicVol);
-        if (lib.isMousePressed())
-            lib.displaySound(core::_soundsPath, _settings._soundVol);
     }
 
     Scenes ScenePause::endScene(Raylib &lib) noexcept

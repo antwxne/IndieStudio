@@ -45,9 +45,7 @@ namespace option {
 
     void SceneOption::eventScene(Raylib &lib)
     {
-        lib.displayMusic(core::_musicPath, _settings._musicVol);
-        if (lib.isMousePressed())
-            lib.displaySound(core::_soundsPath, _settings._soundVol);
+        lib.displayMusic(core::_menuMusic, _settings._musicVol);
     }
 
     Scenes SceneOption::endScene(Raylib &lib) noexcept

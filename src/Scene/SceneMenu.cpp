@@ -9,6 +9,7 @@
 #include "Core.hpp"
 #include "Raylib.hpp"
 #include "SceneMenu.hpp"
+#include "UiGame/TexteUi.hpp"
 #include "Button/Button.hpp"
 
 namespace menu {
@@ -31,7 +32,8 @@ namespace menu {
         });
         _objects.emplace_back(std::make_shared<UiObject>(coords(), std::make_pair(0, 0), _bgPath, 1.0f));
         for (std::size_t i = 0; i != QUIT + 1; ++i)
-            _objects.emplace_back(std::make_shared<button::Button>(_menuPos.at(i), button::_buttonSize, button::_buttonNavigPath, _menuText[i], 20, 1, std::make_pair(RGB(), RGB(0, 0, 0))));
+            _objects.emplace_back(std::make_shared<button::Button>(_menuPos.at(i), button::_buttonSize, button::_buttonNavigPath, _menuText[i], 20, 2, std::make_pair(RGB(), RGB(0, 0, 0))));
+        _objects.emplace_back(std::make_shared<TexteUI>(coords(670, 100), std::make_pair(0, 0), "DOOM TANK", 90, 1, std::make_pair(RGB(0, 0, 0), RGB())));
     }
 
     SceneMenu::~SceneMenu()
@@ -41,13 +43,13 @@ namespace menu {
 
     void SceneMenu::eventScene(Raylib &lib)
     {
-        lib.displayMusic(core::_musicPath, _settings._musicVol);
-        if (lib.isMousePressed())
-            lib.displaySound(core::_soundsPath, _settings._soundVol);
+        lib.displayMusic(core::_menuMusic, _settings._musicVol);
     }
 
     Scenes SceneMenu::endScene(Raylib &lib) noexcept
     {
+        if (_state == 1)
+            fadeBlack(lib);
         return (_returnScene.at(static_cast<menu_e>(_state)));
     }
 

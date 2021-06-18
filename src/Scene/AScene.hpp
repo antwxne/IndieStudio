@@ -24,6 +24,7 @@ public:
 
 protected:
     void triggerInputActions(Raylib &lib);
+    void fadeBlack(Raylib &lib);
     void setInputsFirstTank(const std::array<Raylib::Inputs, 7> &controls);
     void setInputsSecondTank(const std::array<Raylib::Inputs, 7> &controls);
     void setInputFunction(Raylib::Inputs, std::function<void()> function);

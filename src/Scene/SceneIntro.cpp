@@ -78,5 +78,6 @@ Scenes SceneIntro::run(Raylib &lib)
             }
         lib.printObjects(_objects);
     }
+    fadeBlack(lib);
     return (Scenes::MENU);
 }
