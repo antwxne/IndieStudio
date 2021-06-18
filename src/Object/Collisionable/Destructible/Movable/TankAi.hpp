@@ -5,10 +5,12 @@
 ** Created by antoine,
 */
 
-#ifndef INDIESTUDIO_TANKAI_HPP
-#define INDIESTUDIO_TANKAI_HPP
+#include <chrono>
 
 #include "Object/Collisionable/Destructible/Movable/Tank.hpp"
+
+#ifndef INDIESTUDIO_TANKAI_HPP
+#define INDIESTUDIO_TANKAI_HPP
 
 /**
  * @class TankAi
@@ -55,12 +57,6 @@ public:
      */
     void rotate(float angle) noexcept override;
     /**
-     * @brief Set the Blocked object
-     *
-     * @param blocked
-     */
-    void setBlocked(bool blocked);
-    /**
      * @brief fire with the cannon every 5 seconds
      *
      */
@@ -78,7 +74,6 @@ private:
 protected:
     coords _targetPos;
     double _stopDistance;
-    bool _blocked;
 };
 
 #endif //INDIESTUDIO_TANKAI_HPP
