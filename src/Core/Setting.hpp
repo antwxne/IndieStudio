@@ -20,10 +20,11 @@ enum playerType {
 };
 
 struct PlayerSettings {
-    PlayerSettings() : type(IA), name("BOT" + std::to_string(std::rand() % 10)) {}
+    PlayerSettings() : type(IA), name("BOT" + std::to_string(std::rand() % 10)), score(0), isWinner(false) {}
     playerType type;
     std::string name;
-    bool isWin;
+    int score;
+    bool isWinner;
 };
 
 
