@@ -44,3 +44,18 @@ public:
     std::vector<std::pair<int, int>> _posTank;
     std::vector<Wall> _objectNoDestructibleList;
 };
+
+static const std::vector<std::pair<int, int>> _basePositionObject {
+        std::make_pair(-6, -5),
+        std::make_pair(-7, -4),
+        std::make_pair(-7, 4),
+        std::make_pair(7, -4),
+        std::make_pair(7, 4),
+        std::make_pair(-8, 3),
+        std::make_pair(-8, -3),
+        std::make_pair(8, 3),
+        std::make_pair(8, -3),
+        std::make_pair(-6, 5),
+        std::make_pair(6, 5),
+        std::make_pair(6,-5)
+};
