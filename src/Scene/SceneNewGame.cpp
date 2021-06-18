@@ -7,7 +7,6 @@
 
 #include "UiObject/Button/Button.hpp"
 #include "InputBox.hpp"
-#include "Core.hpp"
 #include "TexteUi.hpp"
 #include "SceneNewGame.hpp"
 
@@ -34,7 +33,7 @@ namespace newGame {
         for (auto &it : _playerPos)
             _objects.emplace_back(std::make_shared<button::Button>(it, button::_buttonSize, button::_buttonPlayerPath, _playerIA[0], 20, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
         for (auto &it : _inputPos)
-            _objects.emplace_back(std::make_shared<InputBox>(it, button::_buttonSize, button::_buttonNavigPath, 20, 15, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
+            _objects.emplace_back(std::make_shared<button::InputBox>(it, button::_buttonSize, button::_buttonNavigPath, 20, 15, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
         _objects.emplace_back(std::make_shared<TexteUI>(coords(670, 100), std::make_pair(0, 0), "New Game", 90, 1, std::make_pair(RGB(0, 0, 0), RGB())));
     }
 
@@ -50,6 +49,8 @@ namespace newGame {
             if (!it->getTypeField().isButton || it->getTypeField().isInputBox)
                 continue;
             auto button = std::dynamic_pointer_cast<button::Button>(it);
+            if (std::find(_playerIA.begin(), _playerIA.end(), button->getText()) == _playerIA.end())
+                continue;
             _settings._players[fillStruct].type = static_cast<playerType>(std::find(_playerIA.begin(), _playerIA.end(), button->getText()) - _playerIA.begin());
             ++fillStruct;
         }
@@ -73,11 +74,11 @@ namespace newGame {
     {
         char input;
 
-        lib.displayMusic(core::_menuMusic, _settings._musicVol);
+        lib.displayMusic(_menuMusic, _settings._musicVol);
         input = lib.getPressedCharacter();
         std::for_each(_objects.begin(), _objects.end(), [&, input](auto &it){
             if (it->getTypeField().isInputBox) {
-                auto button = std::dynamic_pointer_cast<InputBox>(it);
+                auto button = std::dynamic_pointer_cast<button::InputBox>(it);
                 button->changeText(input, _mousePos);
             }
         });
@@ -85,10 +86,10 @@ namespace newGame {
 
     Scenes SceneNewGame::endScene(Raylib &lib) noexcept
     {
-        fillAi();
-        fillName();
         if (!_state)
             return (Scenes::MENU);
+        fillAi();
+        fillName();
         return (Scenes::GAME);
     }
 

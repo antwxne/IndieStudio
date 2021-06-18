@@ -6,7 +6,6 @@
 */
 
 #include <chrono>
-#include "Core.hpp"
 #include "Raylib.hpp"
 #include <fstream>
 #include "SceneMenu.hpp"
@@ -58,9 +57,9 @@ namespace menu {
 
     void SceneMenu::eventScene(Raylib &lib)
     {
-        lib.displayMusic(core::_menuMusic, _settings._musicVol);
+        lib.displayMusic(_menuMusic, _settings._musicVol);
         if (lib.isMousePressed())
-            lib.displaySound(core::_mouseClick, _settings._soundVol);
+            lib.displaySound(_mouseClick, _settings._soundVol);
 
         for (auto it = _objects.begin(); it != _objects.end();) {
             if (it->get()->getTypeField().isAnimator) {

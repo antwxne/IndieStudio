@@ -143,13 +143,13 @@ private:
         KEY_J,
         KEY_K,
         KEY_L,
+        KEY_M,
         KEY_Z,
         KEY_X,
         KEY_C,
         KEY_V,
         KEY_B,
         KEY_N,
-        KEY_M,
     };
 };
 

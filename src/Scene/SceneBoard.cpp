@@ -5,7 +5,6 @@
 ** SceneBoard
 */
 
-#include "Core.hpp"
 #include "SceneBoard.hpp"
 
 SceneBoard::SceneBoard(Setting &settings) : AScene(settings)

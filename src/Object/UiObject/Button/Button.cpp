@@ -54,4 +54,9 @@ namespace button {
         return (_textPos);
     }
 
+    void Button::clearText()
+    {
+        _text.clear();
+    }
+
 }

@@ -31,7 +31,15 @@ namespace button {
         "asset/menu_asset/Button_beige_pressed.png"
     };
 
+    static const std::array<std::string, 3> _buttonSettingPath {
+        "asset/menu_asset/Button_brown.png",
+        "asset/menu_asset/Button_brown.png",
+        "asset/menu_asset/Button_brown.png"
+    };
+
     static const std::pair<float, float> _buttonSize = std::make_pair(200, 50);
+
+    static const std::pair<float, float> _buttonSettingSize = std::make_pair(50, 50);
 
     class Button : public UiObject
     {
@@ -44,6 +52,7 @@ namespace button {
             const int getTextSize() const noexcept;
             bool isInside(const std::pair<float, float> &pos) const;
             void setState(const std::pair<float, float> &pos, bool clicked);
+            void clearText();
 
         protected:
             std::array<std::string, 3> _texturePath;
