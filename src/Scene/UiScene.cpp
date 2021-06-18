@@ -13,6 +13,9 @@ UiScene::UiScene(Setting &settings) : AScene(settings), _pressed(false), _state(
     setInputFunction(Raylib::PRESSED, [&]() {
         _pressed = true;
     });
+    setInputFunction(Raylib::SPACE, [&]() {
+        _isDancing = true;
+    });
 }
 
 UiScene::~UiScene()

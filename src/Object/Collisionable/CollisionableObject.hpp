@@ -24,7 +24,7 @@ public:
      * @param size
      * @param path
      */
-    CollisionableObject(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path);
+    CollisionableObject(const coords &pos, const coords &size, const std::pair<std::string, std::string> &path);
     /**
      * @brief Construct a new Collisionable Object object
      *
@@ -72,9 +72,11 @@ public:
 
     void setRotationAngle(const float angle) noexcept;
     void setRotationAxis(const coords &axis) noexcept;
+    const coords &get3DSize() const noexcept {return  _3DSize;};
 
 protected:
     std::pair<std::string, std::string> _path;
+    coords _3DSize;
 };
 
 #endif //INDIESTUDIO_COLLISIONABLEOBJECT_HPP

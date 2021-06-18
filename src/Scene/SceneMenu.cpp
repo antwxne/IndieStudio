@@ -14,7 +14,7 @@
 
 namespace menu {
 
-    SceneMenu::SceneMenu(Setting &settings) : UiScene(settings)
+    SceneMenu::SceneMenu(Setting &settings) : UiScene(settings), _isDancing(false)
     {
         setInputFunction(Raylib::PRESSED, [&]() {
             _pressed = true;

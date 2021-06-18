@@ -23,7 +23,7 @@ public:
      * @param pos
      * @param size
      */
-    MovableObject(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path);
+    MovableObject(const coords &pos, const coords &size, const std::pair<std::string, std::string> &path);
 
     /**
      * @brief move object

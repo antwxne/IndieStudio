@@ -110,13 +110,21 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
             BeginMode3D(_camera);
             if (i->getTypeField().isTank) {
                 //i know it's uggly right? :c
-                auto const &tank = std::dynamic_pointer_cast<Tank>(i);
-                auto const &cannon = tank->getCannon();
+                auto tankCollider = std::dynamic_pointer_cast<CollisionableObject>(i);
+                auto tank = std::dynamic_pointer_cast<Tank>(i);
+                auto &cannon = const_cast<Cannon &>(tank->getCannon());
+                auto const &bullets = cannon.getBullets();
+                findCollision(tankCollider, objects);
+                for (auto &bullet : bullets) {
+                    auto bulletsCollider = std::make_shared<CollisionableObject>(bullet);
+                    findCollision(bulletsCollider, objects);
+                    drawModel(bullet.getModel(), bullet.getTexture(), bullet.getPosition(), bullet.getScale(), bullet.getColors().first, bullet.getRotationAxis(), bullet.getRotationAngle());
+                }
                 drawModel(tank->getModel(), tank->getTexture(), tank->getPosition(), tank->getScale(), tank->getColors().first, tank->getRotationAxis(), tank->getRotationAngle());
                 drawModel(cannon.getModel(), cannon.getTexture(), cannon.getPosition(), cannon.getScale(), cannon.getColors().first, cannon.getRotationAxis() ,cannon.getRotationAngle());
             } else if (i->getTypeField().isCollisionable) {
-            auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
-            drawModel(derived->getModel(), derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first, i->getRotationAxis(), i->getRotationAngle());
+                auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
+                drawModel(derived->getModel(), derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first, i->getRotationAxis(), i->getRotationAngle());
             }
             else if (i->getTypeField().isGround) {
                 auto const &derived = std::dynamic_pointer_cast<Ground>(i);
@@ -273,10 +281,6 @@ void Raylib::displaySound(const std::string &path, float volume)
 
 void Raylib::drawSphere(const coords &pos, const RGB tint, const float radius)
 {
-    // std::cout << "[RAYLIB] pos x: " << pos.first <<"\n";
-    // std::cout << "[RAYLIB] pos Y: " << pos.second <<"\n";
-    // std::cout << "[RAYLIB] pos z: " << pos.third <<"\n";
-    // std::cout << "[RAYLIB] radius: " << radius <<"\n";
     DrawSphere({pos.first, pos.second, pos.third}, radius, {tint.r, tint.g, tint.b, tint.a});
 }
 
@@ -360,4 +364,49 @@ void Raylib::drawRectangle(const int &posX, const int &posY, const int &width,
 ) const noexcept
 {
     DrawRectangle(posX, posY, width, height, {color.r, color.g, color.b, color.a});
+}
+void Raylib::findCollision(std::shared_ptr<CollisionableObject> obj,
+    const std::vector<std::shared_ptr<AObject>> &allObjs
+) noexcept
+{
+    auto toFind = _models.find(obj->getModel());
+    if (toFind == _models.cend())
+        return;
+    auto positionCurrent = obj->getPosition();
+    auto sizeCurrent = obj->get3DSize();
+    float currentScale = obj->getScale();
+    auto tmpBoundCurrent = GetMeshBoundingBox(toFind->second.meshes[0]);
+    BoundingBox boundCurrent = (BoundingBox) {(Vector3){
+        positionCurrent.first - (tmpBoundCurrent.max.x * currentScale),
+        positionCurrent.second - (tmpBoundCurrent.max.y * currentScale),
+        positionCurrent.third - (tmpBoundCurrent.max.z * currentScale)},
+        (Vector3){positionCurrent.first + (tmpBoundCurrent.max.x * currentScale),
+            positionCurrent.second + (tmpBoundCurrent.max.y * currentScale),
+            positionCurrent.third + (tmpBoundCurrent.max.z * currentScale)}};
+
+    for (auto &it : allObjs) {
+        if (it->getTypeField().isCollisionable && it->getPosition() != obj->getPosition()) {
+            auto tmp = dynamic_cast<const CollisionableObject &>(*it);
+            auto toFindOther = _models.find(tmp.getModel());
+            if (toFindOther == _models.cend())
+                return;
+            auto positionOther = it->getPosition();
+            float scaleOther = it->getScale();
+            auto tmpBoundOther = GetMeshBoundingBox(toFindOther->second.meshes[0]);
+            BoundingBox boundOther = (BoundingBox) {
+                (Vector3){
+                    positionOther.first - tmpBoundOther.max.x * scaleOther,
+                    positionOther.second - tmpBoundOther.max.y * scaleOther,
+                    positionOther.third - tmpBoundOther.max.z * scaleOther},
+                (Vector3){
+                    positionOther.first + tmpBoundOther.max.x * scaleOther,
+                    positionOther.second + tmpBoundOther.max.y * scaleOther,
+                    positionOther.third + tmpBoundOther.max.z * scaleOther}};
+            DrawBoundingBox(boundOther, RED);
+            DrawBoundingBox(boundCurrent, BLUE);
+            if (CheckCollisionBoxes(boundCurrent, boundOther)) {
+                obj->hit(tmp);
+            }
+        }
+    }
 }

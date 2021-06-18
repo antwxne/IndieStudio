@@ -7,8 +7,9 @@
 
 #include "Wall.hpp"
 
-Wall::Wall(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path)
+Wall::Wall(const coords &pos, const coords &size, const std::pair<std::string, std::string> &path)
     : CollisionableObject(pos, size, path)
 {
     _typeField.isWall = true;
+    _3DSize = coords(100, 100, 100);
 }

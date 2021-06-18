@@ -7,7 +7,7 @@
 
 #include "PowerUps.hpp"
 
-PowerUps::PowerUps(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path, const Power &powerUps)
+PowerUps::PowerUps(const coords &pos, const coords &size, const std::pair<std::string, std::string> &path, const Power &powerUps)
     : MovableObject(pos, size, path), _powerUps(powerUps)
 {
     _typeField.isPowerUps = true;
@@ -15,7 +15,7 @@ PowerUps::PowerUps(const coords &pos, const std::pair<int, int> &size, const std
     _rotationAxis = {0, 1, 0};
 }
 
-PowerUps::PowerUps(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path)
+PowerUps::PowerUps(const coords &pos, const coords &size, const std::pair<std::string, std::string> &path)
     : MovableObject(pos, size, path), _powerUps()
 {
     _typeField.isPowerUps = true;

@@ -26,7 +26,7 @@ public:
      * @param path
      */
     DestructibleObject(const coords &pos,
-        const std::pair<int, int> &size, const std::pair<std::string, std::string> &path);
+        const coords &size, const std::pair<std::string, std::string> &path);
     /**
      * @brief Destroy the Destructible Object object
      *

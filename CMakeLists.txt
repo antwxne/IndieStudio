@@ -117,7 +117,7 @@ set(UIGAME_SRCS
         ${UIGAME_PATH}/FrameUI.cpp
         ${UIGAME_PATH}/FullSquare.cpp
         ${UIGAME_PATH}/ColorPlayer.cpp
-        ${UIGAME_PATH}/TexteUi.cpp 
+        ${UIGAME_PATH}/TexteUi.cpp
         )
 
 set(INDIE_SRCS
