@@ -21,7 +21,7 @@ Cannon::Cannon(const coords &pos, const coords &size, const int maxBullets, cons
     const std::size_t _maxBullets = maxBullets;
     _bullets.reserve(_maxBullets);
     for (int i = 0; i < _maxBullets; ++i)
-        _bullets.emplace_back(coords({Bullet::waitPosition, 0.3, -7}), _rotationAngle);
+        _bullets.emplace_back(coords({Bullet::waitPosition, 0.3, -100}), _rotationAngle);
 }
 
 void Cannon::fire()
