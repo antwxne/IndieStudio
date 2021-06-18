@@ -5,6 +5,7 @@
 ** SceneNewGame
 */
 
+#include <memory>
 #include "UiObject/Button/Button.hpp"
 #include "InputBox.hpp"
 #include "Core.hpp"
@@ -50,8 +51,10 @@ namespace newGame {
             if (!it->getTypeField().isButton || it->getTypeField().isInputBox)
                 continue;
             auto button = std::dynamic_pointer_cast<button::Button>(it);
-            _settings._playersSettings[fillStruct].type = static_cast<playerType>(std::find(_playerIA.begin(), _playerIA.end(), button->getText()) - _playerIA.begin());
-            ++fillStruct;
+            if (std::find(_playerIA.begin(), _playerIA.end(), button->getText()) == _playerIA.end())
+                continue;
+            _settings._playersSettings.emplace_back();
+            _settings._playersSettings.back().type = static_cast<playerType>(std::find(_playerIA.begin(), _playerIA.end(), button->getText()) - _playerIA.begin());
         }
     }
 
@@ -63,8 +66,10 @@ namespace newGame {
             if (!it->getTypeField().isInputBox)
                 continue;
             auto button = std::dynamic_pointer_cast<button::Button>(it);
-            if (!button->getText().empty())
-                _settings._playersSettings[fillStruct].name.assign(button->getText());
+            if (!button->getText().empty()) {
+                _settings._playersSettings.emplace_back();
+                _settings._playersSettings.back().name = button->getText();
+            }
             ++fillStruct;
         }
     }

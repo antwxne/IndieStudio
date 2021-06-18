@@ -34,7 +34,6 @@ struct PlayerSettings {
  */
 struct Setting {
     using inputsPlayer = std::array<Raylib::Inputs, 7>;
-    using tanksCoords = std::vector<std::pair<float, float>>;
 
     Setting(int widthScreen = 1920, int heightScreen = 1080, const std::size_t &fps = 60, float musicVol = 1.0f, float soundVol = 1.0f);
     Setting(const Setting &settings);
@@ -48,27 +47,8 @@ struct Setting {
     int _widthScreen;
     int _heightScreen;
     int _fps;
-
-    const tanksCoords _zeroTankPos = {};
-    const tanksCoords _oneTankPos = {
-        {std::make_pair(-8.0f, -5.0f)}
-    };
-    const tanksCoords _twoTanksPos = {
-        {std::make_pair(-8.0f, -5.0f)}, {std::make_pair(-8.0f, -5.0f)}
-    };
-    const tanksCoords _threeTanksPos = {
-        {std::make_pair(-8.0f, -5.0f)}, {std::make_pair(-8.0f, -5.0f)}, {std::make_pair(-8.0f, -5.0f)}
-    };
-    const tanksCoords _fourTanksPos = {
-        {std::make_pair(-8.0f, -5.0f)}, {std::make_pair(-8.0f, -5.0f)}, {std::make_pair(-8.0f, -5.0f)}, {std::make_pair(-8.0f, -5.0f)}
-    };
-    const std::array<tanksCoords, 5> _tanksPosNbPlayers = {
-        _zeroTankPos,
-        _oneTankPos,
-        _twoTanksPos,
-        _threeTanksPos,
-        _fourTanksPos
-    };
+    bool load = false;
+    bool _statementLoad = false;
 };
 
 #endif /* !SETTINGS_HPP_ */

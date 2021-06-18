@@ -14,15 +14,17 @@
 
 class SceneGame : public AScene {
     public:
+        using tanksCoords = std::vector<std::pair<float, float>>;
+
         SceneGame(Setting &settings);
         ~SceneGame();
 
         Scenes run(Raylib &lib) final;
     protected:
-        void initTanks(const Setting::tanksCoords &coords);
+        void initTanks(const tanksCoords &coords);
         void initTankUi(int tankCounter, std::shared_ptr<Tank> tank, PlayerSettings &settings);
         void initColors();
-        void initMap(const Setting::tanksCoords &tanksCoords);
+        void initMap(const tanksCoords &tanksCoords);
 
         void manageHeart(const std::string &name, const int life);
 
@@ -39,6 +41,27 @@ class SceneGame : public AScene {
         bool _isPaused;
         pause::ScenePause _scenePause;
 
+
+    const tanksCoords _zeroTankPos = {};
+    const tanksCoords _oneTankPos = {
+        {std::make_pair(-8.0f, -5.0f)}
+    };
+    const tanksCoords _twoTanksPos = {
+        {std::make_pair(-8.0f, -5.0f)}, {std::make_pair(8.0f, -5.0f)}
+    };
+    const tanksCoords _threeTanksPos = {
+        {std::make_pair(-8.0f, -5.0f)}, {std::make_pair(8.0f, -5.0f)}, {std::make_pair(-8.0f, 5.0f)}
+    };
+    const tanksCoords _fourTanksPos = {
+        {std::make_pair(-8.0f, -5.0f)}, {std::make_pair(8.0f, -5.0f)}, {std::make_pair(-8.0f, 5.0f)}, {std::make_pair(8.0f, 5.0f)}
+    };
+    const std::array<tanksCoords, 5> _tanksPosNbPlayers = {
+        _zeroTankPos,
+        _oneTankPos,
+        _twoTanksPos,
+        _threeTanksPos,
+        _fourTanksPos
+    };
 };
 
 #endif /* !SCENEGAME_HPP_ */

@@ -47,7 +47,7 @@ const std::vector<std::pair<float, float>> SceneGame::_uiLifePosPlayer = {
 
 SceneGame::SceneGame(Setting &settings) : AScene(settings), _isPaused(false), _scenePause(settings)
 {
-    Setting::tanksCoords tanksCoords = Setting::_tanksPosNbPlayers.at(_settings._playersSettings.size());
+    tanksCoords tanksCoords = _tanksPosNbPlayers.at(_settings._playersSettings.size());
 
     _objects.emplace_back(std::make_shared<Ground>(
         coords(0, 0, 0), std::make_pair(40, 22), std::pair<std::string, std::string>(_assetsPaths.at(0), _assetsPaths.at(1))));
@@ -63,7 +63,7 @@ SceneGame::~SceneGame()
 {
 }
 
-void SceneGame::initTanks(const Setting::tanksCoords &tanksCoords)
+void SceneGame::initTanks(const tanksCoords &tanksCoords)
 {
     int tankCounter = 0;
     std::size_t setOfKeyInputs = 0;
@@ -82,33 +82,36 @@ void SceneGame::initTanks(const Setting::tanksCoords &tanksCoords)
             );
             setInputsTank(_settings._keysPlayers[setOfKeyInputs], _objects.back());
             setOfKeyInputs++;
+            initTankUi(tankCounter, std::dynamic_pointer_cast<Tank>(_objects.back()), playerSettings);
         } else if (playerSettings.type == IA) {
             // _objects.emplace_back(std::make_shared<TankIA>("grosTankSaMere", coords(0,0,0), coords(10, 10, 10), 8, std::make_pair(Tank::bodyTexture, Tank::bodyModel), std::make_pair(Tank::darkGreen, Tank::cannonModel)));
         }
-        initTankUi(tankCounter, std::dynamic_pointer_cast<Tank>(_objects.back()), playerSettings);
+        // initTankUi(tankCounter, std::dynamic_pointer_cast<Tank>(_objects.back()), playerSettings);
         tankCounter++;
     }
 }
 
 void SceneGame::initTankUi(int tankCounter, std::shared_ptr<Tank> tank, PlayerSettings &settings)
 {
-    for (int y = 0; y != tank->getLife(); y++)
+    for (int y = 0; y != tank->getLife(); y++) {
         _objects.emplace_back(std::make_shared<LifeGame>(
             tank->getName(), coords(_uiLifePosPlayer[tankCounter].first + (30 * y), _uiLifePosPlayer[tankCounter].second)));
-    _objects.emplace_back(std::make_shared<TexteUI>(
-        coords(_playerPos[tankCounter].first, _playerPos[tankCounter].second),
-        std::make_pair(50, 50), settings.name,
-        20,
-        1,
-        std::make_pair(RGB(150), RGB())));
-    _objects.emplace_back(std::make_shared<TexteUI>(
-        coords(_scorePos[tankCounter].first, _scorePos[tankCounter].second),
-        std::make_pair(50, 50),
-        std::to_string(tank->getScore()),
-        20,
-        1,
-        std::make_pair(RGB(150), RGB()))
-    );
+        _objects.emplace_back(std::make_shared<TexteUI>(
+            coords(_playerPos[tankCounter].first, _playerPos[tankCounter].second),
+            std::make_pair(50, 50), settings.name,
+            20,
+            1,
+            std::make_pair(RGB(150), RGB())));
+        _objects.emplace_back(std::make_shared<TexteUI>(
+            coords(_scorePos[tankCounter].first, _scorePos[tankCounter].second),
+            std::make_pair(50, 50),
+            std::to_string(tank->getScore()),
+            20,
+            1,
+            std::make_pair(RGB(150), RGB()))
+        );
+    }
+    std::cout << std::endl;
 }
 
 void SceneGame::initColors()
@@ -118,7 +121,7 @@ void SceneGame::initColors()
         _objects.emplace_back(std::make_shared<UiObject>(color));
 }
 
-void SceneGame::initMap(const Setting::tanksCoords &tanksCoords)
+void SceneGame::initMap(const tanksCoords &tanksCoords)
 {
     _map = std::make_unique<Map>(tanksCoords);
     if (_settings.load == false) {
@@ -196,15 +199,16 @@ Scenes SceneGame::run(Raylib &lib)
                 return (newScene);
             _isPaused = false;
         }
-        for (auto &it : _objects) {
-            if (it->getTypeField().isTank) {
-                auto tank = std::dynamic_pointer_cast<Tank>(it);
+        for (auto it = _objects.begin(); it != _objects.end(); ++it) {
+            if ((*it)->getTypeField().isTank) {
+                auto tank = std::dynamic_pointer_cast<Tank>(*it);
                 manageHeart(tank->getName(), tank->getLife());
+                tank->moveBullets();
             }
-            if (it->getTypeField().isParticule == true)
-                std::dynamic_pointer_cast<Particles>(it)->update();
-            else if (it->getTypeField().isPowerUps == true)
-                std::dynamic_pointer_cast<PowerUps>(it)->rotate(0.5f);
+            if ((*it)->getTypeField().isParticule == true)
+                std::dynamic_pointer_cast<Particles>(*it)->update();
+            else if ((*it)->getTypeField().isPowerUps == true)
+                std::dynamic_pointer_cast<PowerUps>(*it)->rotate(0.5f);
         }
     }
     return (Scenes::QUIT);
