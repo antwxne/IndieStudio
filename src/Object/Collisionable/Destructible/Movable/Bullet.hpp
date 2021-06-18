@@ -75,6 +75,9 @@ public:
      * 
      */
     static const float waitPosition;
+
+    const coords &getDirection() const;
+    void setDirection(const coords &direction);
 private:
 
     /**
@@ -82,7 +85,6 @@ private:
      * 
      */
     coords _direction;
-
     /**
      * @brief ???
      * 

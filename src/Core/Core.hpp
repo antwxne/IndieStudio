@@ -20,6 +20,7 @@
 #include "SceneOption.hpp"
 #include "SceneBoard.hpp"
 #include "SceneIntro.hpp"
+#include "SceneSplash.hpp"
 #include "SceneWin.hpp"
 #include "SceneGame.hpp"
 
@@ -36,6 +37,7 @@ namespace core {
     static const std::string _mouseOver = "asset/sound_effects/over.wav";
 
     static const std::unordered_map<Scenes, std::function<std::unique_ptr<IScene>(Setting &settings)>> _enumToConstructor {
+        {Scenes::SPLASHSCREEN,      [](Setting &settings){return std::make_unique<SceneSplash>(settings);}},
         {Scenes::INTRODUCTION,      [](Setting &settings){return std::make_unique<SceneIntro>(settings);}},
         {Scenes::NEW_GAME,      [](Setting &settings){return std::make_unique<newGame::SceneNewGame>(settings);}},
         {Scenes::MENU,          [](Setting &settings){return std::make_unique<menu::SceneMenu>(settings);}},

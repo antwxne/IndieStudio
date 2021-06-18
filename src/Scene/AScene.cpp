@@ -67,7 +67,7 @@ void AScene::setInputsTank(const std::array<Raylib::Inputs, 7> &controls, std::s
 void AScene::fadeBlack(Raylib &lib, bool out)
 {
     _objects.emplace_back(std::make_shared<FullSquare>(coords(), std::make_pair(1920, 1080), 1, std::make_pair(RGB(0.0f, 0.0f, 0.0f, 0.0f + 255 * out), RGB())));
-    for (std::size_t i = 0; i != 255 / 10; ++i) {
+    for (std::size_t i = 0; i != _frameFade; ++i) {
         auto color = _objects.back()->getColors();
         color.first.a += out ? -10 : 10;
         _objects.back()->setColor(color);

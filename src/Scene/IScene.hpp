@@ -18,7 +18,8 @@ enum Scenes {
     LOAD,
     OPTION,
     SAVE,
-    INTRODUCTION
+    INTRODUCTION,
+    SPLASHSCREEN
 };
 
 class IScene {

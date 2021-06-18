@@ -48,11 +48,12 @@ struct coords
         return *this;
     }
 
-    coords &operator-(coords const &rhs) {
-        first -= rhs.first;
-        second -= rhs.second;
-        third -= rhs.third;
-        return *this;
+    coords operator-(coords const &b) const {
+        coords dest;
+        dest.first = first - b.first;
+        dest.second = second - b.second;
+        dest.third = third - b.third;
+        return dest;
     }
     coords &operator*(float n) {
         first *= n;

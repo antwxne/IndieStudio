@@ -42,7 +42,7 @@ public:
      * @brief get all the bullets
      * @return vector of bullet
      */
-    const std::vector<Bullet> &getBullets() const;
+    std::vector<std::shared_ptr<Bullet>> &getBullets();
 
     /**
      * @brief to_call in game loop, it updates the moving bullets.
@@ -75,6 +75,7 @@ public:
      */
     void move(const coords &direction) noexcept override;
 
+    const coords &getPrevPos() const;
 private:
     /**
      * @var bullet's vector
@@ -86,7 +87,7 @@ private:
      * @brief vector of all the bullets that this tank can have.
      *          --> we create before all bullets and move them when fired
      */
-    std::vector<Bullet> _bullets;
+    std::vector<std::shared_ptr<Bullet>> _bullets;
     
     /**
      * @brief timeStamp used as a reference for fire cooldown
@@ -103,8 +104,6 @@ private:
      * @brief previous position
      */
     coords _prevPos;
-public:
-    const coords &getPrevPos() const;
 };
 
 #endif //INDIESTUDIO_CANNON_HPP

@@ -109,6 +109,7 @@ set(SCENE_SRCS
         ${SCENE_PATH}/ScenePause.cpp
         ${SCENE_PATH}/SceneRobin.cpp
         ${SCENE_PATH}/SceneIntro.cpp
+        ${SCENE_PATH}/SceneSplash.cpp
         ${SCENE_PATH}/SceneWin.cpp
         ${SCENE_PATH}/SceneGame.cpp
         )
