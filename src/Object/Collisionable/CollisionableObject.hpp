@@ -43,7 +43,7 @@ public:
      * @return true
      * @return false
      */
-    bool hit(const CollisionableObject &) noexcept;
+    bool hit(std::shared_ptr<CollisionableObject> obj) noexcept;
     /**
      * @brief Get the Texture object
      *
