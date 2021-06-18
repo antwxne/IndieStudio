@@ -48,7 +48,7 @@ void Tank::rotateCannon(float angle)
     _cannon.rotate(angle);
 }
 
-Cannon const &Tank::getCannon() const noexcept
+const Cannon &Tank::getCannon() const noexcept
 {
     return _cannon;
 }
@@ -71,11 +71,10 @@ const coords &Tank::getPreviousPos() const noexcept
 {
     return _previousPos;
 }
-void Tank::setPos(const coords &pos) noexcept
+void Tank::setPosition(const coords &pos) noexcept
 {
-    std::cout << "set pos\n";
     _pos = pos;
-    _cannon.setPosition(pos);
+    _cannon.setPosition(_cannon.getPrevPos());
 }
 void Tank::increaseDamage() noexcept
 {

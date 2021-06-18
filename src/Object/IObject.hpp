@@ -180,7 +180,7 @@ public:
      *
      * @param position
      */
-    virtual void setPosition(coords position) noexcept = 0;
+    virtual void setPosition(const coords &position) noexcept = 0;
 };
 
 #endif //INDIESTUDIO_IOBJECT_HPP

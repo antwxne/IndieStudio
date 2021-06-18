@@ -5,11 +5,14 @@
 ** Created by antoine,
 */
 
-#include "Cannon.hpp"
 #include <cmath>
 
+#include "Raylib/Raylib.hpp"
+#include "Cannon.hpp"
+
+
 Cannon::Cannon(const coords &pos, const coords &size, const std::pair<std::string, std::string> &path)
-    : MovableObject(pos, size, path), _fireTimeStamp(std::chrono::high_resolution_clock::now()), _fireCoolDown(1500)
+    : MovableObject(pos, size, path), _fireTimeStamp(std::chrono::high_resolution_clock::now()), _fireCoolDown(1500), _prevPos(pos)
 {
     _typeField.isCannon = true;
     _scale = 0.2f;
@@ -51,4 +54,15 @@ void Cannon::moveBullets() noexcept
     for (auto &bullet : _bullets)
         if (bullet.getPosition().first != Bullet::waitPosition)
             bullet.move(coords(std::sin(M_PI *  bullet.getRotationAngle() / 180), 0, std::cos(M_PI * bullet.getRotationAngle() / 180)));
+}
+void Cannon::move(const coords &direction) noexcept
+{
+    auto tmp = direction;
+    _prevPos = _pos;
+    tmp *= _speed * Raylib::getDeltaTime();
+    _pos += tmp;
+}
+const coords &Cannon::getPrevPos() const
+{
+    return _prevPos;
 }

@@ -114,10 +114,10 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
                 auto tank = std::dynamic_pointer_cast<Tank>(i);
                 auto &cannon = const_cast<Cannon &>(tank->getCannon());
                 auto const &bullets = cannon.getBullets();
-
                 findCollision(tankCollider, objects);
-
-                for (auto const &bullet : bullets) {
+                for (auto &bullet : bullets) {
+                    auto bulletsCollider = std::make_shared<CollisionableObject>(bullet);
+                    findCollision(bulletsCollider, objects);
                     drawModel(bullet.getModel(), bullet.getTexture(), bullet.getPosition(), bullet.getScale(), bullet.getColors().first, bullet.getRotationAxis(), bullet.getRotationAngle());
                     // std::cout << "bullet drawn, ";
                 }
@@ -389,10 +389,12 @@ void Raylib::findCollision(std::shared_ptr<CollisionableObject> obj,
     for (auto &it : allObjs) {
         if (it->getTypeField().isCollisionable && it->getPosition() != obj->getPosition()) {
             auto tmp = dynamic_cast<const CollisionableObject &>(*it);
+            auto toFindOther = _models.find(tmp.getModel());
+            if (toFindOther == _models.cend())
+                return;
             auto positionOther = it->getPosition();
             float scaleOther = it->getScale();
-            auto sizeOther = tmp.get3DSize();
-            auto tmpBoundOther = GetMeshBoundingBox(_models.find(tmp.getModel())->second.meshes[0]);
+            auto tmpBoundOther = GetMeshBoundingBox(toFindOther->second.meshes[0]);
             BoundingBox boundOther = (BoundingBox) {
                 (Vector3){
                     positionOther.first - tmpBoundOther.max.x * scaleOther,

@@ -95,7 +95,7 @@ public:
      * 
      * @return Cannon const& 
      */
-    Cannon const &getCannon() const noexcept;
+    const Cannon &getCannon() const noexcept;
 
     /**
      * @brief Get the Name object
@@ -130,7 +130,7 @@ public:
      * 
      * @param pos 
      */
-    void setPos(const coords &pos) noexcept override;
+    void setPosition(const coords &pos) noexcept override;
 protected:
 
     /**

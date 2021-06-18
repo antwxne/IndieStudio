@@ -81,7 +81,7 @@ public:
      *
      * @param position
      */
-    void setPosition(coords position) noexcept final;
+    void setPosition(const coords &position) noexcept;
     /**
      * @brief Set the Size object
      *
@@ -94,11 +94,6 @@ public:
      * @param scale
      */
     void setScale(float scale) noexcept final;
-    /**
-     * @brief set a new position
-     * @param pos new position
-     */
-    virtual void setPos(const coords &pos);
     /**
      * @brief Get the Rotation Angle object
      * 

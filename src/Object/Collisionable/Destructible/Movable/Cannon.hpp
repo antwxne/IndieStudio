@@ -69,6 +69,12 @@ public:
      */
     int getFireCoolDown() const noexcept;
 
+    /**
+     * @brief move cannon and update previous pos
+     * @param direction
+     */
+    void move(const coords &direction) noexcept override;
+
 private:
     /**
      * @var bullet's vector
@@ -93,6 +99,12 @@ private:
      * 
      */
     int _fireCoolDown;
+    /**
+     * @brief previous position
+     */
+    coords _prevPos;
+public:
+    const coords &getPrevPos() const;
 };
 
 #endif //INDIESTUDIO_CANNON_HPP
