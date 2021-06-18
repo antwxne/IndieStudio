@@ -35,6 +35,7 @@ void Cannon::fire()
             bullet->setPosition(coords(_pos.first, bullet->getPosition().second, _pos.third));
             bullet->setRotationAngle(_rotationAngle);
             bullet->setDirection(coords(std::sin(M_PI *  bullet->getRotationAngle() / 180), 0, std::cos(M_PI * bullet->getRotationAngle() / 180)));
+            bullet->setShooting(true);
             break;
         }
     }
@@ -53,8 +54,10 @@ void Cannon::increaseDamage() noexcept
 void Cannon::moveBullets() noexcept
 {
     for (auto &bullet : _bullets)
-        if (bullet->getPosition().first != Bullet::waitPosition)
+        if (bullet->getPosition().first != Bullet::waitPosition) {
             bullet->move(bullet->getDirection());
+            bullet->setShooting(false);
+        }
 }
 void Cannon::move(const coords &direction) noexcept
 {

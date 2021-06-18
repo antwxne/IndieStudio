@@ -76,8 +76,9 @@ public:
      */
     static const float waitPosition;
 
-    const coords &getDirection() const;
-    void setDirection(const coords &direction);
+    const coords &getDirection() const noexcept;
+    void setDirection(const coords &direction) noexcept;
+    void setShooting(bool val) noexcept;
 private:
 
     /**
