@@ -75,10 +75,11 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false),
     /////////////////////////////START Maxime//////////////////////:
     std::vector<std::pair<int, int>> size;
 
-    for (auto &i : _objects)
+    for (auto &i : _objects) {
         if (i->getTypeField().isTank) {
             size.push_back(std::make_pair(static_cast<int>(i->getPosition().first), static_cast<int>(i->getPosition().third)));
         }
+    }
         _map = std::make_unique<Map>(size);
 
        if (settings.load == false) {
@@ -90,18 +91,16 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false),
                std::make_pair(5, -5));
            _map->createDestructibleMap(std::make_pair(1, 5),
                std::make_pair(5, 1));
-       } else
-            _map->readDestructibleList();
-    _map->createDestructibleMap(std::make_pair(1, 5), std::make_pair(5, 1));
+       } else {
+           _map->readDestructibleList();
+       }
     _map->createContourMap(std::make_pair(-10, 10), std::make_pair(-8, 8));
-
     setInputFunction(Raylib::ENTER, [&]() {
         _enter = !_enter;
     });
     setInputFunction(Raylib::ESCAPE, [&]() {
         _isPause = !_isPause;
     });
-
     setInputFunction(Raylib::SPACE, [&]() {
         _pressed = true;
     });
@@ -110,7 +109,7 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false),
     for (auto const &block : _map->_objectDestructibleList) {
         _objects.emplace_back(std::make_shared<DestructibleWall>(block));
     }
-
+    _settings.load = false;
 /////////////////////////////END MAXIME//////////////////////:
 }
 
@@ -128,22 +127,20 @@ void SceneMaxime::manageHeart(const std::string &name, const int life)
         if (_objects[i]->getTypeField().isLife) {
             auto heart = std::dynamic_pointer_cast<LifeGame>(_objects[i]);
             if (heart->getName() == name) {
-                if (idx == life) {
-                    heart->setTransparancy(true);
-                } else
-                    ++idx;
-            }
+                tmp.push_back(i);
+                ++idx;
+                }
         }
     }
-}
-
-void SceneMaxime::checkHeart() noexcept
-{
-    if (_listPosHeart.size() != 0) {
-        for (auto &i : _listPosHeart) {
-            _objects.erase(_objects.begin() + i);
+    if (idx != life) {
+        for (auto &p : tmp) {
+            idx--;
+            auto heart = std::dynamic_pointer_cast<LifeGame>(_objects[p]);
+            heart->setTransparancy(true);
+            if (idx == life) {
+                break;
+            }
         }
-        _listPosHeart.clear();
     }
 }
 

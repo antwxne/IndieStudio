@@ -33,7 +33,6 @@ namespace core {
                 _settings._statementLoad = false;
                 }
             _scenePos = _scene->run(lib);
-            std::cout << "scene pos == " << _scenePos << std::endl;
             _scene.reset();
             lib.freeResources();
         }
