@@ -19,5 +19,4 @@ public:
     Scenes run(Raylib &lib) final;
 private:
     bool _enter;
-    static const std::vector<std::string> _assetsPath;
 };

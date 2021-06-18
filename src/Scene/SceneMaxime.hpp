@@ -23,7 +23,6 @@ class SceneMaxime : public AScene {
     private:
         std::vector<int> _listPosHeart;
         static const std::vector<std::array<std::pair<float, float>, 2>> _menuPos;
-        static const std::vector<std::string> _assetsPath;
         pause::ScenePause _scenePause;
         std::shared_ptr<Tank> _tanks;
         bool _pressed;

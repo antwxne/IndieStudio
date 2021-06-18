@@ -18,12 +18,6 @@
 #include "PowerUps.hpp"
 #include "Setting.hpp"
 
-const std::vector<std::string> _assetsPaths{
-    "asset/background_asset/ground.png",
-    "asset/OBJFormat/ground.obj",
-    "asset/bonus/arrow.obj"
-};
-
 const std::vector<std::pair<float, float>> SceneGame::_playerPos = {
     {std::make_pair(170.0f, 1035.0f)},
     {std::make_pair(670.0f, 1035.0f)},
@@ -50,7 +44,7 @@ SceneGame::SceneGame(Setting &settings) : AScene(settings), _isPaused(false), _s
     tanksCoords tanksCoords = _tanksPosNbPlayers.at(_settings._playersSettings.size());
 
     _objects.emplace_back(std::make_shared<Ground>(
-        coords(0, 0, 0), std::make_pair(40, 22), std::pair<std::string, std::string>(_assetsPaths.at(0), _assetsPaths.at(1))));
+        coords(0, 0, 0), std::make_pair(40, 22), std::pair<std::string, std::string>(core::groundTexture, core::groundModel)));
     initTanks(tanksCoords);
     initColors();
     initMap(tanksCoords);
@@ -102,16 +96,15 @@ void SceneGame::initTankUi(int tankCounter, std::shared_ptr<Tank> tank, PlayerSe
             20,
             1,
             std::make_pair(RGB(150), RGB())));
-        _objects.emplace_back(std::make_shared<TexteUI>(
-            coords(_scorePos[tankCounter].first, _scorePos[tankCounter].second),
-            std::make_pair(50, 50),
-            std::to_string(tank->getScore()),
-            20,
-            1,
-            std::make_pair(RGB(150), RGB()))
-        );
     }
-    std::cout << std::endl;
+    _objects.emplace_back(std::make_shared<TexteUI>(
+        coords(_scorePos[tankCounter].first, _scorePos[tankCounter].second),
+        std::make_pair(50, 50),
+        std::to_string(tank->getScore()),
+        20,
+        1,
+        std::make_pair(RGB(150), RGB()))
+    );
 }
 
 void SceneGame::initColors()
@@ -199,21 +192,22 @@ Scenes SceneGame::run(Raylib &lib)
                 return (newScene);
             _isPaused = false;
         }
-        for (auto it = _objects.begin(); it != _objects.end(); ++it) {
-            if ((*it)->getTypeField().isTank) {
-                auto tank = std::dynamic_pointer_cast<Tank>(*it);
-                manageHeart(tank->getName(), tank->getLife());
-                tank->moveBullets();
-            }
-            if ((*it)->getTypeField().isParticule == true)
-                std::dynamic_pointer_cast<Particles>(*it)->update();
-            else if ((*it)->getTypeField().isPowerUps == true)
-                std::dynamic_pointer_cast<PowerUps>(*it)->rotate(0.5f);
-        }
+        updateObjects();
     }
     return (Scenes::QUIT);
 }
 
-void SceneGame::managePause(Raylib &lib)
+void SceneGame::updateObjects() noexcept
 {
+    for (auto it = _objects.begin(); it != _objects.end(); ++it) {
+        if ((*it)->getTypeField().isTank) {
+            auto tank = std::dynamic_pointer_cast<Tank>(*it);
+            manageHeart(tank->getName(), tank->getLife());
+            tank->moveBullets();
+        }
+        if ((*it)->getTypeField().isParticule == true)
+            std::dynamic_pointer_cast<Particles>(*it)->update();
+        else if ((*it)->getTypeField().isPowerUps == true)
+            std::dynamic_pointer_cast<PowerUps>(*it)->rotate(0.5f);
+    }
 }
