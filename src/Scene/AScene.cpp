@@ -9,6 +9,7 @@
 #include "FullSquare.hpp"
 #include "MovableObject.hpp"
 #include "Tank.hpp"
+#include "Core.hpp"
 #include <cmath>
 
 AScene::AScene(Setting &settings) : _settings(settings)
@@ -71,6 +72,7 @@ void AScene::fadeBlack(Raylib &lib, bool out)
         color.first.a += out ? -10 : 10;
         _objects.back()->setColor(color);
         lib.printObjects(_objects);
+        lib.displayMusic(core::_menuMusic, _settings._musicVol);
     }
     _objects.pop_back();
 }

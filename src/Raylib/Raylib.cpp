@@ -263,6 +263,12 @@ void Raylib::displayMusic(const std::string &path, float volume)
         PlayMusicStream(it->second.first);
         it->second.second = true;
     }
+    for (auto &stop : _music) {
+        if (stop.first != path) {
+            StopMusicStream(stop.second.first);
+            stop.second.second = false;
+        }
+    }
     SetMusicVolume(it->second.first, volume);
     UpdateMusicStream(it->second.first);
 }

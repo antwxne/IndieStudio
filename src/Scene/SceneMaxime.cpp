@@ -175,6 +175,7 @@ Scenes SceneMaxime::run(Raylib &lib)
 
     while (lib.gameLoop())
     {
+        lib.displayMusic(core::_gameMusic, _settings._musicVol);
         triggerInputActions(lib);
         lib.printObjects(_objects);
         if (_pressed && !isLock) {
