@@ -48,7 +48,7 @@ namespace newGame {
             if (!it->getTypeField().isButton || it->getTypeField().isInputBox)
                 continue;
             auto button = std::dynamic_pointer_cast<button::Button>(it);
-            _settings._players[fillStruct].type = static_cast<playerType>(std::find(_playerIA.begin(), _playerIA.end(), button->getText()) - _playerIA.begin());
+            _settings._playersSettings[fillStruct].type = static_cast<playerType>(std::find(_playerIA.begin(), _playerIA.end(), button->getText()) - _playerIA.begin());
             ++fillStruct;
         }
     }
@@ -61,7 +61,7 @@ namespace newGame {
             if (!it->getTypeField().isInputBox)
                 continue;
             auto button = std::dynamic_pointer_cast<button::Button>(it);
-            _settings._players[fillStruct].name.assign(button->getText());
+            _settings._playersSettings[fillStruct].name = button->getText();
             ++fillStruct;
         }
     }

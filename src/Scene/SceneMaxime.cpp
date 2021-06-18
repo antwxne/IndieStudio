@@ -38,28 +38,30 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false),
     auto const &carre = std::make_unique<FrameUI>();
     for (auto const &carr : carre->getBorder())
         _objects.emplace_back(std::make_shared<BorderPlayer>(carr));
-    for (unsigned int i = 0; i != _posTank.size(); i++)
-    {
-        auto tmp = _objects.emplace_back(std::make_shared<Tank>( _settings._players.at(i).name, coords(_posTank[i].first, 0, _posTank[i].second), coords(10, 10, 10), 8, std::make_pair(Tank::bodyTexture, Tank::bodyModel), std::make_pair(Tank::darkGreen, Tank::cannonModel)));
-        if (i == 0)
-            setInputsTank(_settings._keysPlayerOne, _objects.back());
-        else if (i == i) {
-            setInputsTank(_settings._keysPlayerTwo, _objects.back());
-        }
-        auto tank = std::dynamic_pointer_cast<Tank>(_objects.back());
-        for (int y = 0; y != tank->getLife(); y++)
-            _objects.emplace_back(std::make_shared<LifeGame>(
-                tank->getName(), coords(_uiLifePosPlayer[i].first + (30 * y), _uiLifePosPlayer[i].second)));
-        _objects.emplace_back(std::make_shared<TexteUI>(
-            coords(_playerPos[i].first, _playerPos[i].second),
-            std::make_pair(50, 50), dynamic_cast<Tank &>(*tmp).getName(), 20,
-            1, std::make_pair(RGB(150), RGB())));
-        _objects.emplace_back(std::make_shared<TexteUI>(
-            coords(_scorePos[i].first, _scorePos[i].second),
-            std::make_pair(50, 50),
-            std::to_string(dynamic_cast<Tank &>(*tmp).getScore()), 20, 1,
-            std::make_pair(RGB(150), RGB())));
-    }
+    // for (unsigned int i = 0; i != _posTank.size(); i++)
+    // {
+    //     _objects.emplace_back(std::make_shared<Tank>( _settings._playersSettings.at(i).name, coords(_posTank[i].first, 0, _posTank[i].second), coords(10, 10, 10), 8, std::make_pair(Tank::bodyTexture, Tank::bodyModel), std::make_pair(Tank::darkGreen, Tank::cannonModel)));
+    //     auto tmp = _objects.back();
+    //     if (i == 0)
+    //         setInputsTank(_settings._keysPlayerOne, _objects.back());
+    //     else if (i == i) {
+    //         setInputsTank(_settings._keysPlayerTwo, _objects.back());
+    //     }
+    //     auto tank = std::dynamic_pointer_cast<Tank>(_objects.back());
+    //     for (int y = 0; y != tank->getLife(); y++)
+    //         _objects.emplace_back(std::make_shared<LifeGame>(
+    //             tank->getName(), coords(_uiLifePosPlayer[i].first + (30 * y), _uiLifePosPlayer[i].second)));
+    //     _objects.emplace_back(std::make_shared<TexteUI>(
+    //         coords(_playerPos[i].first, _playerPos[i].second),
+    //         std::make_pair(50, 50), dynamic_cast<Tank &>(*tmp).getName(), 20,
+    //         1, std::make_pair(RGB(150), RGB())));
+    //     _objects.emplace_back(std::make_shared<TexteUI>(
+    //         coords(_scorePos[i].first, _scorePos[i].second),
+    //         std::make_pair(50, 50),
+    //         std::to_string(dynamic_cast<Tank &>(*tmp).getScore()), 20, 1,
+    //         std::make_pair(RGB(150), RGB())));
+    // }
+    // initTanks();
     auto const &colorPlayer = std::make_unique<ColorPlayer>();
     for (auto &color : colorPlayer->getPosColorSquare())
     {
@@ -195,3 +197,29 @@ Scenes SceneMaxime::run(Raylib &lib)
     }
     return (Scenes::QUIT);
 }
+
+
+// void SceneMaxime::initTanks()
+// {
+//     int counter = 0;
+//     std::size_t setOfKeyInputs = 0;
+//     Setting::tanksCoords tanksCoords = Setting::_tanksPosNbPlayers.at(_settings._playersSettings.size());
+
+//     for (auto &playerSettings : _settings._playersSettings) {
+//         if (playerSettings.type == PLAYER && setOfKeyInputs < 2) {
+//             _objects.emplace_back(std::make_shared<Tank>(
+//                 playerSettings.name,
+//                 coords(tanksCoords[counter].first,0,tanksCoords[counter].second),
+//                 coords(10, 10, 10),
+//                 8,
+//                 std::make_pair(Tank::bodyTexture, Tank::bodyModel),
+//                 std::make_pair(Tank::darkGreen, Tank::cannonModel))
+//             );
+//             setInputsTank(_settings._keysPlayers[setOfKeyInputs], _objects.back());
+//             setOfKeyInputs++;
+//         } else if (playerSettings.type == IA) {
+//             // _objects.emplace_back(std::make_shared<TankIA>("grosTankSaMere", coords(0,0,0), coords(10, 10, 10), 8, std::make_pair(Tank::bodyTexture, Tank::bodyModel), std::make_pair(Tank::darkGreen, Tank::cannonModel)));
+//         }
+//         counter++;
+//     }
+// }
