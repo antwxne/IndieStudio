@@ -57,8 +57,6 @@ void CollisionableObject::setRotationAxis(const coords &axis) noexcept
 
 bool CollisionableObject::hit(const CollisionableObject &obj) noexcept
 {
-    std::cout << "is bullet " << this->_typeField.isBullet << "\n";
-
     if (this->_typeField.isTank && obj._typeField.isCollisionable) {
         auto tmp = dynamic_cast<Tank *>(this);
         tmp->setPosition(tmp->getPreviousPos());
