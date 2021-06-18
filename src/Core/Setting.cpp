@@ -12,13 +12,6 @@ Setting::Setting(int widthScreen, int heightScreen, const std::size_t &fps, floa
     _keysPlayerOne({Raylib::Z, Raylib::S, Raylib::Q, Raylib::D, Raylib::R, Raylib::T, Raylib::SPACE}),
     _keysPlayerTwo({Raylib::UP, Raylib::DOWN, Raylib::LEFT, Raylib::RIGHT, Raylib::I, Raylib::O, Raylib::P})
 {
-    const std::array<tanksCoords, 5> tanksPosNbPlayers = {
-        _zeroTankPos,
-        _oneTankPos,
-        _twoTanksPos,
-        _threeTanksPos,
-        _fourTanksPos
-    };
 }
 
 Setting::Setting(const Setting &settings)

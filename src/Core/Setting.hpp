@@ -49,22 +49,26 @@ struct Setting {
     int _heightScreen;
     int _fps;
 
-    tanksCoords _zeroTankPos = {};
-    tanksCoords _oneTankPos = {
+    const tanksCoords _zeroTankPos = {};
+    const tanksCoords _oneTankPos = {
         {std::make_pair(-8.0f, -5.0f)}
     };
-    tanksCoords _twoTanksPos = {
+    const tanksCoords _twoTanksPos = {
         {std::make_pair(-8.0f, -5.0f)}, {std::make_pair(-8.0f, -5.0f)}
     };
-    tanksCoords _threeTanksPos = {
+    const tanksCoords _threeTanksPos = {
         {std::make_pair(-8.0f, -5.0f)}, {std::make_pair(-8.0f, -5.0f)}, {std::make_pair(-8.0f, -5.0f)}
     };
-    tanksCoords _fourTanksPos = {
+    const tanksCoords _fourTanksPos = {
         {std::make_pair(-8.0f, -5.0f)}, {std::make_pair(-8.0f, -5.0f)}, {std::make_pair(-8.0f, -5.0f)}, {std::make_pair(-8.0f, -5.0f)}
     };
-    static const std::array<tanksCoords, 5> _tanksPosNbPlayers;
-    bool load = false;
-    bool _statementLoad = false;
+    const std::array<tanksCoords, 5> _tanksPosNbPlayers = {
+        _zeroTankPos,
+        _oneTankPos,
+        _twoTanksPos,
+        _threeTanksPos,
+        _fourTanksPos
+    };
 };
 
 #endif /* !SETTINGS_HPP_ */

@@ -15,12 +15,12 @@
 
 #include "Map.hpp"
 
-Map::Map(const std::vector<std::pair<int, int>> &posTank) : _posTank(posTank)
+Map::Map(const std::vector<std::pair<float, float>> &posTank) : _posTank(posTank)
 {
 }
 
-void Map::createDestructibleMap(std::pair<int, int> const &pos_left,
-    std::pair<int, int> const &pos_down_right
+void Map::createDestructibleMap(std::pair<float, float> const &pos_left,
+    std::pair<float, float> const &pos_down_right
 )
 {
     bool findPos = true;
@@ -31,7 +31,7 @@ void Map::createDestructibleMap(std::pair<int, int> const &pos_left,
     std::uniform_real_distribution<> theY(pos_left.second,
         pos_down_right.second);
 
-    for (std::pair<int, int> tmpMap; nbrPos != 3;) {
+    for (std::pair<float, float> tmpMap; nbrPos != 3;) {
         findPos = true;
         tmpMap.first = std::round(theX(e2));
         tmpMap.second = std::round(theY(e2));
@@ -69,8 +69,8 @@ void Map::createDestructibleMap(std::pair<int, int> const &pos_left,
     }
 }
 
-void Map::createContourMap(std::pair<int, int> const &xAxis,
-    std::pair<int, int> const &yAxis
+void Map::createContourMap(std::pair<float, float> const &xAxis,
+    std::pair<float, float> const &yAxis
 ) noexcept
 {
     for (int x = xAxis.first, y = yAxis.first; x != xAxis.second; ++x) {

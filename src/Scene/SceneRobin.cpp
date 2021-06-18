@@ -32,7 +32,7 @@ SceneRobin::SceneRobin(Setting &settings) : AScene(settings)
     // _objects.emplace_back(std::make_shared<Tank>("petitTankMignon", coords(6,0,0), coords(10, 10, 10), 8, std::make_pair(Tank::bodyTexture, Tank::bodyModel), std::make_pair(Tank::darkGreen, Tank::cannonModel)));
     // setInputsTank(_settings._keysPlayerTwo, _objects.back());
 
-    std::vector<std::pair<int, int>> size;
+    std::vector<std::pair<float, float>> size;
     for (auto &i : _objects)
         if (i->getTypeField().isTank) {
             size.push_back(std::make_pair(i->getPosition().first, i->getPosition().third));

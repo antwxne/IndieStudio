@@ -28,9 +28,9 @@ namespace core {
         while (_scenePos != QUIT) {
                 _scene = _enumToConstructor.at(_scenePos)(_settings);
                 if (_settings._statementLoad == true) {
-                _scenePos = Scenes::NEW_GAME;
-                _scene = _enumToConstructor.at(_scenePos)(_settings);
-                _settings._statementLoad = false;
+                    _scenePos = Scenes::NEW_GAME;
+                    _scene = _enumToConstructor.at(_scenePos)(_settings);
+                    _settings._statementLoad = false;
                 }
             _scenePos = _scene->run(lib);
             _scene.reset();

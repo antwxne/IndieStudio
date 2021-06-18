@@ -83,14 +83,14 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false),
     }
     /////////////////////////////END CLEMENT//////////////////////:
     /////////////////////////////START Maxime//////////////////////:
-    std::vector<std::pair<int, int>> size;
+    std::vector<std::pair<float, float>> size;
 
     for (auto &i : _objects)
         if (i->getTypeField().isTank)
             size.push_back(std::make_pair(static_cast<int>(i->getPosition().first), static_cast<int>(i->getPosition().third)));
     _map = std::make_unique<Map>(size);
 
-    std::cout << "CA MARCHE LALALLAL0\n";
+    // std::cout << "CA MARCHE LALALLAL0\n";
     if (settings.load == false) {
     _map->createDestructibleMap(std::make_pair(-6, -7), std::make_pair(0, 0));
     _map->createDestructibleMap(std::make_pair(-6, 1), std::make_pair(-1, -7));
@@ -99,15 +99,6 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false),
     } else
         _map->readDestructibleList();
     _map->createContourMap(std::make_pair(-10, 10), std::make_pair(-8, 8));
-    setInputFunction(Raylib::ENTER, [&]() {
-        _enter = !_enter;
-    });
-    setInputFunction(Raylib::ESCAPE, [&]() {
-        _isPaused = !_isPaused;
-    });
-    setInputFunction(Raylib::SPACE, [&]() {
-        _pressed = true;
-    });
     std::cout << "CA MARCHE BITEPis\n";
     std::cout << "Size == " << std::endl;
     std::cout << _map->_objectNoDestructibleList.size()  << std::endl;
