@@ -41,8 +41,10 @@ public:
 
     public:
     std::vector<DestructibleWall> _objectDestructibleList;
+    void initTheObstacle() noexcept;
     std::vector<std::pair<float, float>> _posTank;
     std::vector<Wall> _objectNoDestructibleList;
+
 };
 
 static const std::vector<std::pair<int, int>> _basePositionObject {

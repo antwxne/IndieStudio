@@ -117,6 +117,7 @@ void SceneGame::initColors()
 void SceneGame::initMap(const tanksCoords &tanksCoords)
 {
     _map = std::make_unique<Map>(tanksCoords);
+    _map->initTheObstacle();
     if (_settings.load == false) {
         _map->createDestructibleMap(std::make_pair(-6, -7), std::make_pair(0, 0));
         _map->createDestructibleMap(std::make_pair(-6, 1), std::make_pair(-1, -7));
