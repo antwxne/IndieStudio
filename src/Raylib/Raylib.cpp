@@ -110,15 +110,13 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
             BeginMode3D(_camera);
             if (i->getTypeField().isTank) {
                 //i know it's uggly right? :c
-                auto tankCollider = dynamic_cast<CollisionableObject &>(*i);
+                auto tankCollider = std::dynamic_pointer_cast<CollisionableObject>(i);
                 auto tank = std::dynamic_pointer_cast<Tank>(i);
                 auto &cannon = const_cast<Cannon &>(tank->getCannon());
                 auto const &bullets = cannon.getBullets();
 
                 findCollision(tankCollider, objects);
-                findCollision(cannon, objects);
 
-                
                 for (auto const &bullet : bullets)
                     drawModel(bullet.getModel(), bullet.getTexture(), bullet.getPosition(), bullet.getScale(), bullet.getColors().first, bullet.getRotationAxis(), bullet.getRotationAngle());
                 drawModel(tank->getModel(), tank->getTexture(), tank->getPosition(), tank->getScale(), tank->getColors().first, tank->getRotationAxis(), tank->getRotationAngle());
@@ -282,10 +280,6 @@ void Raylib::displaySound(const std::string &path, float volume)
 
 void Raylib::drawSphere(const coords &pos, const RGB tint, const float radius)
 {
-    // std::cout << "[RAYLIB] pos x: " << pos.first <<"\n";
-    // std::cout << "[RAYLIB] pos Y: " << pos.second <<"\n";
-    // std::cout << "[RAYLIB] pos z: " << pos.third <<"\n";
-    // std::cout << "[RAYLIB] radius: " << radius <<"\n";
     DrawSphere({pos.first, pos.second, pos.third}, radius, {tint.r, tint.g, tint.b, tint.a});
 }
 
@@ -370,43 +364,45 @@ void Raylib::drawRectangle(const int &posX, const int &posY, const int &width,
 {
     DrawRectangle(posX, posY, width, height, {color.r, color.g, color.b, color.a});
 }
-void Raylib::findCollision(CollisionableObject &obj,
+void Raylib::findCollision(std::shared_ptr<CollisionableObject> obj,
     const std::vector<std::shared_ptr<AObject>> &allObjs
 ) noexcept
 {
-    auto toFind = _models.find(obj.getModel());
+    auto toFind = _models.find(obj->getModel());
     if (toFind == _models.cend())
         return;
-    auto positionCurrent = obj.getPosition();
-    auto sizeCurrent = obj.get3DSize();
-    float currentScale = obj.getScale();
-    BoundingBox boundCurrent = (BoundingBox) {(Vector3){positionCurrent.first - (sizeCurrent.first / 2 * currentScale / 2),
-        positionCurrent.second - (sizeCurrent.second / 2 * currentScale / 2),
-        positionCurrent.third - (sizeCurrent.third / 2 * currentScale / 2)},
-        (Vector3){positionCurrent.first + (sizeCurrent.first / 2 * currentScale / 2),
-            positionCurrent.second + (sizeCurrent.second / 2 * currentScale / 2),
-            positionCurrent.third + (sizeCurrent.third * currentScale / 2) / 2}};
+    auto positionCurrent = obj->getPosition();
+    auto sizeCurrent = obj->get3DSize();
+    float currentScale = obj->getScale();
+    auto tmpBoundCurrent = GetMeshBoundingBox(toFind->second.meshes[0]);
+    BoundingBox boundCurrent = (BoundingBox) {(Vector3){
+        positionCurrent.first - (tmpBoundCurrent.max.x * currentScale),
+        positionCurrent.second - (tmpBoundCurrent.max.y * currentScale),
+        positionCurrent.third - (tmpBoundCurrent.max.z * currentScale)},
+        (Vector3){positionCurrent.first + (tmpBoundCurrent.max.x * currentScale),
+            positionCurrent.second + (tmpBoundCurrent.max.y * currentScale),
+            positionCurrent.third + (tmpBoundCurrent.max.z * currentScale)}};
 
     for (auto &it : allObjs) {
-        if (it->getTypeField().isCollisionable && it->getPosition() != obj.getPosition()) {
+        if (it->getTypeField().isCollisionable && it->getPosition() != obj->getPosition()) {
             auto tmp = dynamic_cast<const CollisionableObject &>(*it);
             auto positionOther = it->getPosition();
             float scaleOther = it->getScale();
             auto sizeOther = tmp.get3DSize();
+            auto tmpBoundOther = GetMeshBoundingBox(_models.find(tmp.getModel())->second.meshes[0]);
             BoundingBox boundOther = (BoundingBox) {
                 (Vector3){
-                    positionOther.first - (sizeOther.first / 2) ,
-                    positionOther.second - (sizeOther.second / 2),
-                    positionOther.third - (sizeOther.third / 2)},
+                    positionOther.first - tmpBoundOther.max.x * scaleOther,
+                    positionOther.second - tmpBoundOther.max.y * scaleOther,
+                    positionOther.third - tmpBoundOther.max.z * scaleOther},
                 (Vector3){
-                    positionOther.first + (sizeOther.first / 2) ,
-                    positionOther.second + (sizeOther.second / 2),
-                    positionOther.third + (sizeOther.third / 2)}};
-            std::cout << "size other x == " << sizeOther.first << std::endl;
+                    positionOther.first + tmpBoundOther.max.x * scaleOther,
+                    positionOther.second + tmpBoundOther.max.y * scaleOther,
+                    positionOther.third + tmpBoundOther.max.z * scaleOther}};
             DrawBoundingBox(boundOther, RED);
             DrawBoundingBox(boundCurrent, BLUE);
             if (CheckCollisionBoxes(boundCurrent, boundOther)) {
-                obj.hit(tmp);
+                obj->hit(tmp);
             }
         }
     }

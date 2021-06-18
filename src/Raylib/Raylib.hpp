@@ -101,7 +101,7 @@ public:
     void draw(const BorderPlayer &i);
 
 private:
-    void findCollision(CollisionableObject &obj, const std::vector<std::shared_ptr<AObject>> &allObjs) noexcept;
+    void findCollision(std::shared_ptr<CollisionableObject> obj, const std::vector<std::shared_ptr<AObject>> &allObjs) noexcept;
 
 private:
     std::pair<int, int> _screenSize;

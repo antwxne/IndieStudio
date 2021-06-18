@@ -15,7 +15,7 @@ const std::string Tank::body = "asset/Tank/tankBodyNEW.obj";
 const std::string Tank::turret = "asset/Tank/turretWithCannonNEW.obj";
 
 Tank::Tank(const std::string &name, const coords &pos, const coords &size, const std::pair<std::string, std::string> &path, const std::pair<std::string, std::string> &cannonPath)
-    : MovableObject(pos, size, path), _cannon(coords{pos.first, pos.second + 0.15f, pos.third}, size, cannonPath), _name(name), _score(0), _previousPos(pos)
+    : MovableObject(pos, size, path), _cannon(coords{pos.first, pos.second + 0.15f, pos.third}, size, cannonPath), _name(name), _score(0), _previousPos(0, 0, 0)
 {
     _typeField.isTank = true;
     _life = 10;
@@ -68,7 +68,8 @@ const coords &Tank::getPreviousPos() const noexcept
 }
 void Tank::setPos(const coords &pos) noexcept
 {
-    AObject::setPos(pos);
+    std::cout << "set pos\n";
+    _pos = pos;
     _cannon.setPosition(pos);
 }
 void Tank::increaseDamage() noexcept
