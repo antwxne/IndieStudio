@@ -44,8 +44,8 @@ SceneIntro::SceneIntro(Setting &settings) : AScene(settings)
     //setInputsTank(_settings._keysPlayerTwo, _objects.back());
 
     _objects.emplace_back(std::make_shared<TexteUI>(coords(((settings._widthScreen / 2) - 50), ((settings._heightScreen / 4))), std::make_pair(100, 100), "Our Tank", 20, 1, std::make_pair(RGB(221, 131, 68), RGB())));
-    _objects.emplace_back(std::make_shared<TexteUI>(coords(((settings._widthScreen / 2) - 110), ((settings._heightScreen / 1.1))), std::make_pair(50, 50), "press enter to start", 20, 1, std::make_pair(RGB(177, 129, 78), RGB())));
-    setInputFunction(Raylib::ENTER, [&]() {
+    _objects.emplace_back(std::make_shared<TexteUI>(coords(((settings._widthScreen / 2) - 110), ((settings._heightScreen / 1.1))), std::make_pair(50, 50), "press space to start", 20, 1, std::make_pair(RGB(177, 129, 78), RGB())));
+    setInputFunction(Raylib::SPACE, [&]() {
         _enter = !_enter;
     });
 }

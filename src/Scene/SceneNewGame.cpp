@@ -34,7 +34,7 @@ namespace newGame {
         for (auto &it : _playerPos)
             _objects.emplace_back(std::make_shared<button::Button>(it, button::_buttonSize, button::_buttonPlayerPath, _playerIA[0], 20, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
         for (auto &it : _inputPos)
-            _objects.emplace_back(std::make_shared<InputBox>(it, button::_buttonSize, button::_buttonNavigPath, 20, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
+            _objects.emplace_back(std::make_shared<InputBox>(it, button::_buttonSize, button::_buttonNavigPath, 20, 15, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
         _objects.emplace_back(std::make_shared<TexteUI>(coords(670, 100), std::make_pair(0, 0), "New Game", 90, 1, std::make_pair(RGB(0, 0, 0), RGB())));
     }
 
