@@ -115,12 +115,12 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
                 auto tankCollider = std::dynamic_pointer_cast<CollisionableObject>(i);
                 auto tank = std::dynamic_pointer_cast<Tank>(i);
                 auto &cannon = const_cast<Cannon &>(tank->getCannon());
-                auto const &bullets = cannon.getBullets();
+                auto &bullets = cannon.getBullets();
                 findCollision(tankCollider, objects);
                 for (auto &bullet : bullets) {
-                    auto bulletsCollider = std::make_shared<CollisionableObject>(bullet);
+                    auto bulletsCollider = std::dynamic_pointer_cast<CollisionableObject>(bullet);
                     findCollision(bulletsCollider, objects);
-                    drawModel(bullet.getModel(), bullet.getTexture(), bullet.getPosition(), bullet.getScale(), bullet.getColors().first, bullet.getRotationAxis(), bullet.getRotationAngle());
+                    drawModel(bullet->getModel(), bullet->getTexture(), bullet->getPosition(), bullet->getScale(), bullet->getColors().first, bullet->getRotationAxis(), bullet->getRotationAngle());
                 }
                 drawModel(tank->getModel(), tank->getTexture(), tank->getPosition(), tank->getScale(), tank->getColors().first, tank->getRotationAxis(), tank->getRotationAngle());
                 drawModel(cannon.getModel(), cannon.getTexture(), cannon.getPosition(), cannon.getScale(), cannon.getColors().first, cannon.getRotationAxis() ,cannon.getRotationAngle());
@@ -450,8 +450,8 @@ void Raylib::findCollision(std::shared_ptr<CollisionableObject> obj,
                     positionOther.first + (otherRotaton <= 110 && otherRotaton >= 70 || otherRotaton <= 290 && otherRotaton >= 250 ? tmpBoundOther.max.z : tmpBoundOther.max.x) * scaleOther,
                     positionOther.second + tmpBoundOther.max.y,
                     positionOther.third + (otherRotaton <= 110 && otherRotaton >= 70 || otherRotaton <= 290 && otherRotaton >= 250 ? tmpBoundOther.max.x : tmpBoundOther.max.z) * scaleOther}};
-//            DrawBoundingBox(boundOther, RED);
-//            DrawBoundingBox(boundCurrent, BLUE);
+            DrawBoundingBox(boundOther, RED);
+            DrawBoundingBox(boundCurrent, BLUE);
             if (CheckCollisionBoxes(boundCurrent, boundOther)) {
                 obj->hit(tmp);
             }
