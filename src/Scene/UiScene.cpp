@@ -37,8 +37,8 @@ Scenes UiScene::run(Raylib &lib)
                 button->setState(_mousePos, _pressed);
             }
         });
-        eventScene(lib);
         lib.printObjects(_objects);
+        eventScene(lib);
     }
     fadeBlack(lib, false);
     return (endScene(lib));

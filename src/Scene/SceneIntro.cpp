@@ -21,7 +21,7 @@ const std::vector<std::string> SceneIntro::_assetsPath {
     "asset/OBJFormat/ground.obj",
 };
 
-SceneIntro::SceneIntro(Setting &settings) : AScene(settings)
+SceneIntro::SceneIntro(Setting &settings) : AScene(settings), _enter(false)
 {
     std::vector<std::pair<int, int>> size;
 
@@ -59,7 +59,7 @@ Scenes SceneIntro::run(Raylib &lib)
 {
     std::vector<Direction> direction {NEUTRAL, NEUTRAL};
 
-    while (lib.gameLoop() && !_enter) {
+    while (!_enter) {
         int dir = 0;
         triggerInputActions(lib);
             for (auto &i : _objects) {

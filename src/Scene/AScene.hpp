@@ -16,6 +16,8 @@
 #include "IScene.hpp"
 #include "Setting.hpp"
 
+static const std::size_t _frameFade = 25;
+
 class AScene : public IScene
 {
 public:
