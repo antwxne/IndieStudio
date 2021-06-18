@@ -29,21 +29,21 @@ SceneSplash::~SceneSplash()
 void SceneSplash::eventScene(Raylib &lib)
 {
     if (_scene == 0) {
-            _framesCounter++;
-            if (_framesCounter == 120) {
-                _scene = 1;
-                _framesCounter = 0;
-            }
+        _framesCounter++;
+        if (_framesCounter == 120) {
+            _scene = 1;
+            _framesCounter = 0;
+        }
     } else if (_scene == 1) {
         _topSideRecWidth += 4;
         _leftSideRecHeight += 4;
         if (_topSideRecWidth == 256)
-        _scene = 2;
+            _scene = 2;
     } else if (_scene == 2) {
         _bottomSideRecWidth += 4;
         _rightSideRecHeight += 4;
         if (_bottomSideRecWidth == 256)
-        _scene = 3;
+            _scene = 3;
     } else if (_scene == 3) {
         _framesCounter++;
         if (_framesCounter / 12) {

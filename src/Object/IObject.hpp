@@ -48,11 +48,12 @@ struct coords
         return *this;
     }
 
-    coords &operator-(coords const &rhs) {
-        first -= rhs.first;
-        second -= rhs.second;
-        third -= rhs.third;
-        return *this;
+    coords operator-(coords const &b) const {
+        coords dest;
+        dest.first = first - b.first;
+        dest.second = second - b.second;
+        dest.third = third - b.third;
+        return dest;
     }
     coords &operator*(float n) {
         first *= n;
@@ -95,7 +96,7 @@ struct coords
  */
 struct typeField {
     typeField() : is3D(false), isObject(false), isButton(false), isCollisionable(false), isDestructible(false), isMovable(false), isTank(false), isCannon(false), isBullet(false), isIa(false), isWall(false), isGround(false), isParticle(false), isContourRect(false), isFullSquare(false), isInputBox(false), isText(
-        false), isLife(false), isTransparent(false), isPowerUps(false), isParticule(false) {}
+        false), isLife(false), isTransparent(false), isPowerUps(false), isParticule(false), isAnimator(false) {}
     bool is3D: 1;
     bool isObject: 1;
     bool isButton: 1;
@@ -117,6 +118,7 @@ struct typeField {
     bool isTransparent: 1;
     bool isParticule: 1;
     bool isPowerUps: 1;
+    bool isAnimator: 1;
 };
 
 /**
