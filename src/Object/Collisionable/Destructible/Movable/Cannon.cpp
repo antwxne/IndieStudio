@@ -20,7 +20,7 @@ Cannon::Cannon(const coords &pos, const coords &size, const int maxBullets, cons
     const std::size_t _maxBullets = maxBullets;
     _bullets.reserve(_maxBullets);
     for (int i = 0; i < _maxBullets; ++i)
-        _bullets.emplace_back(coords({Bullet::waitPosition, 0.3, -100}), _rotationAngle);
+        _bullets.emplace_back(std::make_shared<Bullet>(coords({Bullet::waitPosition, 0.3, -100}), _rotationAngle));
 }
 
 void Cannon::fire()
@@ -31,29 +31,33 @@ void Cannon::fire()
         return;
     _fireTimeStamp = std::chrono::high_resolution_clock::now();
     for (auto &bullet : _bullets) {
-        if (bullet.getPosition().first == Bullet::waitPosition) {
-            bullet.setPosition(coords(_pos.first, bullet.getPosition().second, _pos.third));
-            bullet.setRotationAngle(_rotationAngle);
+        if (bullet->getPosition().first == Bullet::waitPosition) {
+            bullet->setPosition(coords(_pos.first, bullet->getPosition().second, _pos.third));
+            bullet->setRotationAngle(_rotationAngle);
+            bullet->setDirection(coords(std::sin(M_PI *  bullet->getRotationAngle() / 180), 0, std::cos(M_PI * bullet->getRotationAngle() / 180)));
+            bullet->setShooting(true);
             break;
         }
     }
 }
 
-const std::vector<Bullet> &Cannon::getBullets() const
+std::vector<std::shared_ptr<Bullet>> &Cannon::getBullets()
 {
     return _bullets;
 }
 void Cannon::increaseDamage() noexcept
 {
     for (auto &it : _bullets)
-        it.setDamage(it.getDamage() + 1);
+        it->setDamage(it->getDamage() + 1);
 }
 
 void Cannon::moveBullets() noexcept
 {
     for (auto &bullet : _bullets)
-        if (bullet.getPosition().first != Bullet::waitPosition)
-            bullet.move(coords(std::sin(M_PI *  bullet.getRotationAngle() / 180), 0, std::cos(M_PI * bullet.getRotationAngle() / 180)));
+        if (bullet->getPosition().first != Bullet::waitPosition) {
+            bullet->move(bullet->getDirection());
+            bullet->setShooting(false);
+        }
 }
 void Cannon::move(const coords &direction) noexcept
 {

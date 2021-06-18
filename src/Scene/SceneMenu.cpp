@@ -15,10 +15,13 @@
 
 namespace menu {
 
-    SceneMenu::SceneMenu(Setting &settings) : UiScene(settings), _isDancing(false)
+    SceneMenu::SceneMenu(Setting &settings) : UiScene(settings), _isDancing(false), _isLock(false)
     {
         setInputFunction(Raylib::PRESSED, [&]() {
             _pressed = true;
+        });
+        setInputFunction(Raylib::SPACE, [&]() {
+        _isDancing = true;
         });
         setInputFunction(Raylib::RELEASED, [&]() {
             _pressed = false;
@@ -32,6 +35,8 @@ namespace menu {
                 }
         });
         _objects.emplace_back(std::make_shared<UiObject>(coords(), std::make_pair(0, 0), _bgPath, 1.0f));
+        _objects.emplace_back(std::make_shared<Animator>(coords(5, 0, 11), coords(1, 1, 1), std::make_pair(menu::assetsPath.at(3), menu::assetsPath.at(0)), menu::assetsPath.at(1)));
+        _objects.back()->setScale(0.03f);
         for (std::size_t i = 0; i != QUIT + 1; ++i)
             _objects.emplace_back(std::make_shared<button::Button>(_menuPos.at(i), button::_buttonSize, button::_buttonNavigPath, _menuText[i], 20, 2, std::make_pair(RGB(), RGB(0, 0, 0))));
         _objects.emplace_back(std::make_shared<TexteUI>(coords(670, 100), std::make_pair(0, 0), "DOOM TANK", 90, 1, std::make_pair(RGB(0, 0, 0), RGB())));
@@ -54,6 +59,25 @@ namespace menu {
     void SceneMenu::eventScene(Raylib &lib)
     {
         lib.displayMusic(core::_menuMusic, _settings._musicVol);
+        if (lib.isMousePressed())
+            lib.displaySound(core::_mouseClick, _settings._soundVol);
+
+        for (auto it = _objects.begin(); it != _objects.end();) {
+            if (it->get()->getTypeField().isAnimator) {
+                if (_isDancing && !_isLock) {
+                    _objects.emplace_back(std::make_shared<Animator>(coords(5, 0, 11), coords(1, 1, 1), std::make_pair(menu::assetsPath.at(3), menu::assetsPath.at(0)), menu::assetsPath.at(2)));
+                    _objects.back()->setScale(0.03f);
+                    it = _objects.erase(it);
+                    _isLock = true;
+                    continue;
+                }
+                auto anim = std::dynamic_pointer_cast<Animator>(*it);
+                anim->addFrameCount(1);
+                if (anim->getFrameActual() >= lib.getFrameMax(assetsPath.at(1)))
+                    anim->setFrameCount(0);
+            }
+            it++;
+        }
     }
 
     Scenes SceneMenu::endScene(Raylib &lib) noexcept

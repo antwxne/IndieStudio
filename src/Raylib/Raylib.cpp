@@ -7,6 +7,8 @@
 
 #include <algorithm>
 #include <iostream>
+#include <cmath>
+
 #include "Raylib.hpp"
 #include "RaylibError.hpp"
 #include "Object/Collisionable/CollisionableObject.hpp"
@@ -113,16 +115,20 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
                 auto tankCollider = std::dynamic_pointer_cast<CollisionableObject>(i);
                 auto tank = std::dynamic_pointer_cast<Tank>(i);
                 auto &cannon = const_cast<Cannon &>(tank->getCannon());
-                auto const &bullets = cannon.getBullets();
+                auto &bullets = cannon.getBullets();
                 findCollision(tankCollider, objects);
                 for (auto &bullet : bullets) {
-                    auto bulletsCollider = std::make_shared<CollisionableObject>(bullet);
+                    auto bulletsCollider = std::dynamic_pointer_cast<CollisionableObject>(bullet);
                     findCollision(bulletsCollider, objects);
-                    drawModel(bullet.getModel(), bullet.getTexture(), bullet.getPosition(), bullet.getScale(), bullet.getColors().first, bullet.getRotationAxis(), bullet.getRotationAngle());
+                    drawModel(bullet->getModel(), bullet->getTexture(), bullet->getPosition(), bullet->getScale(), bullet->getColors().first, bullet->getRotationAxis(), bullet->getRotationAngle());
                 }
                 drawModel(tank->getModel(), tank->getTexture(), tank->getPosition(), tank->getScale(), tank->getColors().first, tank->getRotationAxis(), tank->getRotationAngle());
                 drawModel(cannon.getModel(), cannon.getTexture(), cannon.getPosition(), cannon.getScale(), cannon.getColors().first, cannon.getRotationAxis() ,cannon.getRotationAngle());
-            } else if (i->getTypeField().isCollisionable) {
+            } else if (i->getTypeField().isAnimator) {
+                auto const &derived = std::dynamic_pointer_cast<Animator>(i);
+                drawAnimation(derived->getModel(), derived->getTexture(), derived->getAnimPath(), derived->getPosition(), derived->getFrameActual(), derived->getScale());
+            }
+            else if (i->getTypeField().isCollisionable) {
                 auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
                 drawModel(derived->getModel(), derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first, i->getRotationAxis(), i->getRotationAngle());
             }
@@ -263,6 +269,12 @@ void Raylib::displayMusic(const std::string &path, float volume)
         PlayMusicStream(it->second.first);
         it->second.second = true;
     }
+    for (auto &stop : _music) {
+        if (stop.first != path) {
+            StopMusicStream(stop.second.first);
+            stop.second.second = false;
+        }
+    }
     SetMusicVolume(it->second.first, volume);
     UpdateMusicStream(it->second.first);
 }
@@ -329,6 +341,40 @@ void Raylib::drawTexture(const std::string &path, Vector2 pos, float rotation, f
     DrawTextureEx(it->second, pos, rotation, scale, {tint.r, tint.g, tint.b, tint.a});
 }
 
+void Raylib::drawAnimation(const std::string &modelPath, const std::string &texturePath, const std::string &animationPath, const coords pos, int frameCount, float scale)
+{
+    auto anim = _animation.find(animationPath);
+    auto model = _models.find(modelPath);
+    auto text = _textures.find(texturePath);
+
+    if (text == _textures.end()) {
+        _textures.insert({texturePath, LoadTexture(texturePath.c_str())});
+        text = _textures.find(texturePath);
+    }
+    if (model == _models.end()) {
+        _models.insert({modelPath, LoadModel(modelPath.c_str())});
+        model = _models.find(modelPath);
+        SetMaterialTexture(&model->second.materials[0], MAP_DIFFUSE, text->second);
+    }
+    if (anim == _animation.end()) {
+        int animsCount = 0;
+        _animation.insert({animationPath, LoadModelAnimations(animationPath.c_str(), &animsCount)});
+        anim = _animation.find(animationPath);
+    }
+
+    UpdateModelAnimation(model->second, anim->second[0], frameCount);
+    DrawModelEx(model->second, {pos.first, pos.second, pos.third}, (Vector3){ 1.0f, 0.0f, 0.0f }, -180.0f, (Vector3){ scale, scale, scale }, WHITE);
+}
+
+int Raylib::getFrameMax(const std::string &path) {
+    auto modeAnim = _animation.find(path);
+
+    if (modeAnim == _animation.end())
+        return 0;
+    else
+        return modeAnim->second[0].frameCount;
+}
+
 void Raylib::drawText(const std::string &text, coords pos, float scale,
     RGB tint
 )
@@ -373,37 +419,39 @@ void Raylib::findCollision(std::shared_ptr<CollisionableObject> obj,
     if (toFind == _models.cend())
         return;
     auto positionCurrent = obj->getPosition();
-    auto sizeCurrent = obj->get3DSize();
     float currentScale = obj->getScale();
     auto tmpBoundCurrent = GetMeshBoundingBox(toFind->second.meshes[0]);
+    float maxCurrent = tmpBoundCurrent.max.z > tmpBoundCurrent.max.x ? tmpBoundCurrent.max.z : tmpBoundCurrent.max.x;
     BoundingBox boundCurrent = (BoundingBox) {(Vector3){
-        positionCurrent.first - (tmpBoundCurrent.max.x * currentScale),
-        positionCurrent.second - (tmpBoundCurrent.max.y * currentScale),
-        positionCurrent.third - (tmpBoundCurrent.max.z * currentScale)},
-        (Vector3){positionCurrent.first + (tmpBoundCurrent.max.x * currentScale),
-            positionCurrent.second + (tmpBoundCurrent.max.y * currentScale),
-            positionCurrent.third + (tmpBoundCurrent.max.z * currentScale)}};
+        positionCurrent.first - (maxCurrent * currentScale),
+        positionCurrent.second - (tmpBoundCurrent.min.y),
+        positionCurrent.third - (maxCurrent * currentScale)},
+        (Vector3){
+            positionCurrent.first + (maxCurrent * currentScale),
+            positionCurrent.second + (tmpBoundCurrent.max.y),
+            positionCurrent.third + (maxCurrent * currentScale)}};
 
     for (auto &it : allObjs) {
         if (it->getTypeField().isCollisionable && it->getPosition() != obj->getPosition()) {
-            auto tmp = dynamic_cast<const CollisionableObject &>(*it);
-            auto toFindOther = _models.find(tmp.getModel());
+            auto tmp = std::dynamic_pointer_cast<CollisionableObject>(it);
+            auto toFindOther = _models.find(tmp->getModel());
             if (toFindOther == _models.cend())
                 return;
             auto positionOther = it->getPosition();
             float scaleOther = it->getScale();
+            float otherRotaton = std::abs(it->getRotationAngle());
             auto tmpBoundOther = GetMeshBoundingBox(toFindOther->second.meshes[0]);
             BoundingBox boundOther = (BoundingBox) {
                 (Vector3){
-                    positionOther.first - tmpBoundOther.max.x * scaleOther,
-                    positionOther.second - tmpBoundOther.max.y * scaleOther,
-                    positionOther.third - tmpBoundOther.max.z * scaleOther},
+                    positionOther.first - (otherRotaton <= 110 && otherRotaton >= 70 || otherRotaton <= 290 && otherRotaton >= 250 ? tmpBoundOther.max.z : tmpBoundOther.max.x) * scaleOther,
+                    positionOther.second - tmpBoundOther.max.y,
+                    positionOther.third - (otherRotaton <= 110 && otherRotaton >= 70 || otherRotaton <= 290 && otherRotaton >= 250 ? tmpBoundOther.max.x : tmpBoundOther.max.z) * scaleOther},
                 (Vector3){
-                    positionOther.first + tmpBoundOther.max.x * scaleOther,
-                    positionOther.second + tmpBoundOther.max.y * scaleOther,
-                    positionOther.third + tmpBoundOther.max.z * scaleOther}};
-            DrawBoundingBox(boundOther, RED);
-            DrawBoundingBox(boundCurrent, BLUE);
+                    positionOther.first + (otherRotaton <= 110 && otherRotaton >= 70 || otherRotaton <= 290 && otherRotaton >= 250 ? tmpBoundOther.max.z : tmpBoundOther.max.x) * scaleOther,
+                    positionOther.second + tmpBoundOther.max.y,
+                    positionOther.third + (otherRotaton <= 110 && otherRotaton >= 70 || otherRotaton <= 290 && otherRotaton >= 250 ? tmpBoundOther.max.x : tmpBoundOther.max.z) * scaleOther}};
+//            DrawBoundingBox(boundOther, RED);
+//            DrawBoundingBox(boundCurrent, BLUE);
             if (CheckCollisionBoxes(boundCurrent, boundOther)) {
                 obj->hit(tmp);
             }

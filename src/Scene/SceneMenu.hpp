@@ -13,6 +13,14 @@
 
 namespace menu {
 
+    const std::vector<std::string> assetsPath {
+        "asset/Animation/idle/idle.iqm",
+        "asset/Animation/idle/idleAnimation.iqm",
+        "asset/Animation/dance/DanceAnim.iqm",
+        "asset/Animation/textures/Soldier_Body_diffuse.png"
+    };
+
+
     enum menu_e {
         START,
         LOAD,
@@ -60,6 +68,7 @@ namespace menu {
             bool canOpen();
         private:
             bool _isDancing;
+            bool _isLock;
     };
 }
 

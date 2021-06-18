@@ -55,24 +55,27 @@ void CollisionableObject::setRotationAxis(const coords &axis) noexcept
     _rotationAxis = axis;
 }
 
-bool CollisionableObject::hit(const CollisionableObject &obj) noexcept
+bool CollisionableObject::hit(std::shared_ptr<CollisionableObject> obj) noexcept
 {
-
-    if (this->_typeField.isTank && obj._typeField.isCollisionable) {
+    if (this->_typeField.isTank && obj->_typeField.isCollisionable) {
         auto tmp = dynamic_cast<Tank *>(this);
         tmp->setPosition(tmp->getPreviousPos());
     }
-    if (this->_typeField.isDestructible && obj._typeField.isBullet) {
+    if (this->_typeField.isDestructible && obj->_typeField.isBullet) {
         auto destructObj = dynamic_cast<DestructibleObject *>(this);
-        auto bullet = dynamic_cast<const Bullet *>(&obj);
+        auto bullet = std::dynamic_pointer_cast<const Bullet>(obj);
         destructObj->updateLife(-bullet->getDamage());
     }
-    if (this->_typeField.isBullet) {
+    if (this->_typeField.isBullet && (!obj->getTypeField().isTank || !this->_typeField.isShooting)) {
         auto bullet = dynamic_cast<Bullet *>(this);
         bullet->bounce();
+        bullet->setLife(bullet->getLife() - 1);
+        if (bullet->getLife() <= 0) {
+            bullet->resetBullet();
+        }
     }
-    if (this->_typeField.isTank && obj.getTypeField().isPowerUps) {
-        auto power = dynamic_cast<const PowerUps *>(&obj);
+    if (this->_typeField.isTank && obj->getTypeField().isPowerUps) {
+        auto power = std::dynamic_pointer_cast<PowerUps>(obj);
         auto &tank = dynamic_cast<Tank &>(*this);
         power->applyPowerUps(tank);
     }

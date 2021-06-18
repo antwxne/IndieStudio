@@ -13,9 +13,6 @@ UiScene::UiScene(Setting &settings) : AScene(settings), _pressed(false), _state(
     setInputFunction(Raylib::PRESSED, [&]() {
         _pressed = true;
     });
-    setInputFunction(Raylib::SPACE, [&]() {
-        _isDancing = true;
-    });
 }
 
 UiScene::~UiScene()
@@ -37,8 +34,8 @@ Scenes UiScene::run(Raylib &lib)
                 button->setState(_mousePos, _pressed);
             }
         });
-        eventScene(lib);
         lib.printObjects(_objects);
+        eventScene(lib);
     }
     fadeBlack(lib, false);
     return (endScene(lib));
