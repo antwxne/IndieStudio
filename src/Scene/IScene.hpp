@@ -17,7 +17,7 @@ enum Scenes {
     GAME,
     LOAD,
     OPTION,
-    LEADERBOARD,
+    SAVE,
     INTRODUCTION
 };
 

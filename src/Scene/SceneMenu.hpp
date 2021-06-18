@@ -49,7 +49,7 @@ namespace menu {
         {menu_e::OPTION,        Scenes::OPTION},
         {menu_e::QUIT,          Scenes::QUIT}
     };
-
+ 
     class SceneMenu : public UiScene
     {
         public:
@@ -57,6 +57,7 @@ namespace menu {
             ~SceneMenu();
             void eventScene(Raylib &lib) final;
             Scenes endScene(Raylib &lib) noexcept final;
+            bool canOpen();
         private:
             bool _isDancing;
     };

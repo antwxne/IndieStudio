@@ -8,6 +8,7 @@
 #include <chrono>
 #include "Core.hpp"
 #include "Raylib.hpp"
+#include <fstream>
 #include "SceneMenu.hpp"
 #include "UiGame/TexteUi.hpp"
 #include "Button/Button.hpp"
@@ -41,6 +42,15 @@ namespace menu {
         _objects.clear();
     }
 
+    bool SceneMenu::canOpen()
+    {
+        std::ifstream file("tank.txt");
+        std::ifstream map("destructibleList.txt");
+        if(file.good() && map.good())
+            return true;
+        return false;
+    }
+
     void SceneMenu::eventScene(Raylib &lib)
     {
         lib.displayMusic(core::_menuMusic, _settings._musicVol);
@@ -48,7 +58,13 @@ namespace menu {
 
     Scenes SceneMenu::endScene(Raylib &lib) noexcept
     {
+        if (_state == 1) {
+            if (canOpen() == true) {
+                _settings.load = true;
+            } else {
+                _settings._statementLoad = true;
+            }
+        }
         return (_returnScene.at(static_cast<menu_e>(_state)));
     }
-
 }
