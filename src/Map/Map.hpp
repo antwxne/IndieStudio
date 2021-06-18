@@ -46,16 +46,8 @@ public:
 };
 
 static const std::vector<std::pair<int, int>> _basePositionObject {
-        std::make_pair(-6, -5),
-        std::make_pair(-7, -4),
-        std::make_pair(-7, 4),
-        std::make_pair(7, -4),
-        std::make_pair(7, 4),
-        std::make_pair(-8, 3),
-        std::make_pair(-8, -3),
-        std::make_pair(8, 3),
-        std::make_pair(8, -3),
-        std::make_pair(-6, 5),
-        std::make_pair(6, 5),
-        std::make_pair(6,-5)
+        std::make_pair(0, -5),
+        std::make_pair(-8, 0),
+        std::make_pair(8, 0),
+        std::make_pair(0, 5)
 };
