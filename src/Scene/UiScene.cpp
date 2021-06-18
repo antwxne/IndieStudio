@@ -25,6 +25,7 @@ UiScene::~UiScene()
 
 Scenes UiScene::run(Raylib &lib)
 {
+    fadeBlack(lib, true);
     while (_state == -1) {
         _mousePos = lib.getMousePosition();
         triggerInputActions(lib);
@@ -39,5 +40,6 @@ Scenes UiScene::run(Raylib &lib)
         eventScene(lib);
         lib.printObjects(_objects);
     }
+    fadeBlack(lib, false);
     return (endScene(lib));
 }

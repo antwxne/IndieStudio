@@ -13,6 +13,9 @@ namespace pause {
 
     ScenePause::ScenePause(Setting &settings) : UiScene(settings)
     {
+        setInputFunction(Raylib::ESCAPE, [&]() {
+            _state = 0;
+        });
         setInputFunction(Raylib::PRESSED, [&]() {
             _pressed = true;
         });

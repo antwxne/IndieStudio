@@ -48,8 +48,6 @@ namespace menu {
 
     Scenes SceneMenu::endScene(Raylib &lib) noexcept
     {
-        if (_state == 1)
-            fadeBlack(lib);
         return (_returnScene.at(static_cast<menu_e>(_state)));
     }
 

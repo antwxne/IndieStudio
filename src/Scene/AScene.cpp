@@ -63,13 +63,14 @@ void AScene::setInputsTank(const std::array<Raylib::Inputs, 7> &controls, std::s
     setInputFunction(controls[6], [tank](){ tank->fire(); });
 }
 
-void AScene::fadeBlack(Raylib &lib)
+void AScene::fadeBlack(Raylib &lib, bool out)
 {
-    _objects.emplace_back(std::make_shared<FullSquare>(coords(), std::make_pair(1920, 1080), 1, std::make_pair(RGB(0.0f, 0.0f, 0.0f, 0.0f), RGB())));
-    for (std::size_t i = 0; i != 85; ++i) {
+    _objects.emplace_back(std::make_shared<FullSquare>(coords(), std::make_pair(1920, 1080), 1, std::make_pair(RGB(0.0f, 0.0f, 0.0f, 0.0f + 255 * out), RGB())));
+    for (std::size_t i = 0; i != 255 / 10; ++i) {
         auto color = _objects.back()->getColors();
-        color.first.a += 3;
+        color.first.a += out ? -10 : 10;
         _objects.back()->setColor(color);
         lib.printObjects(_objects);
     }
+    _objects.pop_back();
 }
