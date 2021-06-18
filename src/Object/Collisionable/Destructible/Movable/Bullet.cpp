@@ -14,7 +14,7 @@ const std::string Bullet::modelPath = "asset/Tank/bullet.obj";
 const std::string Bullet::texturePath = "asset/Tank/sable.png";
 const float Bullet::waitPosition = -12.0;
 
-Bullet::Bullet(const coords &pos, float angle) : MovableObject(pos, coords(1,1, 1), std::make_pair(Bullet::texturePath, Bullet::modelPath))
+Bullet::Bullet(const coords &pos, float angle) : MovableObject(pos, coords(1, 1, 1), std::make_pair(Bullet::texturePath, Bullet::modelPath))
 {
     _scale = 0.15f;
     _typeField.isBullet = true;
@@ -22,6 +22,7 @@ Bullet::Bullet(const coords &pos, float angle) : MovableObject(pos, coords(1,1, 
     _rotationAngle = angle;
     _rotationAxis = coords(0.0f, 1.0f, 0.0f);
     _damage = 1;
+    _speed = 7;
 }
 
 void Bullet::move(const coords &direction) noexcept

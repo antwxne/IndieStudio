@@ -119,9 +119,7 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
                     auto bulletsCollider = std::make_shared<CollisionableObject>(bullet);
                     findCollision(bulletsCollider, objects);
                     drawModel(bullet.getModel(), bullet.getTexture(), bullet.getPosition(), bullet.getScale(), bullet.getColors().first, bullet.getRotationAxis(), bullet.getRotationAngle());
-                    // std::cout << "bullet drawn, ";
                 }
-                // std::cout << std::endl;
                 drawModel(tank->getModel(), tank->getTexture(), tank->getPosition(), tank->getScale(), tank->getColors().first, tank->getRotationAxis(), tank->getRotationAngle());
                 drawModel(cannon.getModel(), cannon.getTexture(), cannon.getPosition(), cannon.getScale(), cannon.getColors().first, cannon.getRotationAxis() ,cannon.getRotationAngle());
             } else if (i->getTypeField().isCollisionable) {

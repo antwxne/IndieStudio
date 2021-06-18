@@ -27,7 +27,7 @@ public:
      * @param size
      * @param bullet
      */
-    Cannon(const coords &pos, const coords &size, const std::pair<std::string, std::string> &path);
+    Cannon(const coords &pos, const coords &size, const int maxBullets, const std::pair<std::string, std::string> &path);
     /**
      * @brief copy constructor
      * @param cannon object to copy
@@ -80,7 +80,7 @@ private:
      * @var bullet's vector
      * @brief vector containing bullets
      */
-    static const std::size_t _nbBullets;
+    static const std::size_t _maxBullets;
 
     /**
      * @brief vector of all the bullets that this tank can have.

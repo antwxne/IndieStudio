@@ -55,9 +55,9 @@ void AScene::setInputsTank(const std::array<Raylib::Inputs, 7> &controls, std::s
         auto newAngle = (static_cast<int>(tank->getRotationAngle()) + 180) % 360;
         tank->move(coords(std::sin(M_PI *  newAngle / 180), 0, std::cos(M_PI * newAngle / 180)));
     });
-    setInputFunction(controls[2], [tank](){ tank->rotate(0.8f); });
-    setInputFunction(controls[3], [tank](){ tank->rotate(-0.8f); });
-    setInputFunction(controls[4], [tank](){ tank->rotateCannon(1.2f); });
-    setInputFunction(controls[5], [tank](){ tank->rotateCannon(-1.2f); });
+    setInputFunction(controls[2], [tank](){ tank->rotate(1.0f); });
+    setInputFunction(controls[3], [tank](){ tank->rotate(-1.0f); });
+    setInputFunction(controls[4], [tank](){ tank->rotateCannon(1.5f); });
+    setInputFunction(controls[5], [tank](){ tank->rotateCannon(-1.5f); });
     setInputFunction(controls[6], [tank](){ tank->fire(); });
 }

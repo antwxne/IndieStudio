@@ -11,17 +11,17 @@
 #include "Cannon.hpp"
 
 
-Cannon::Cannon(const coords &pos, const coords &size, const std::pair<std::string, std::string> &path)
+Cannon::Cannon(const coords &pos, const coords &size, const int maxBullets, const std::pair<std::string, std::string> &path)
     : MovableObject(pos, size, path), _fireTimeStamp(std::chrono::high_resolution_clock::now()), _fireCoolDown(1500), _prevPos(pos)
 {
     _typeField.isCannon = true;
     _scale = 0.2f;
     _rotationAxis = coords(0.0f, 1.0f, 0.0f);
 
-    const std::size_t _nbBullets = 5;
-    _bullets.reserve(_nbBullets);
-    for (int i = 0; i < _nbBullets; ++i)
-        _bullets.emplace_back(Bullet({Bullet::waitPosition, 0.3, -7}, _rotationAngle));
+    const std::size_t _maxBullets = maxBullets;
+    _bullets.reserve(_maxBullets);
+    for (int i = 0; i < _maxBullets; ++i)
+        _bullets.emplace_back(coords({Bullet::waitPosition, 0.3, -7}), _rotationAngle);
 }
 
 void Cannon::fire()
@@ -39,6 +39,7 @@ void Cannon::fire()
         }
     }
 }
+
 const std::vector<Bullet> &Cannon::getBullets() const
 {
     return _bullets;

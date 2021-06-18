@@ -34,12 +34,12 @@ SceneIntro::SceneIntro(Setting &settings) : AScene(settings)
     for (auto const &block : map->_objectNoDestructibleList)
         _objects.emplace_back(std::make_shared<Wall>(block));
 
-    _objects.emplace_back(std::make_shared<Tank>("tankRight", coords(0,0,0), coords(10, 10, 10), std::make_pair(Tank::sable, Tank::body), std::make_pair(Tank::darkGreen, Tank::cannon)));
-    //_objects.emplace_back(std::make_shared<Tank>("tankRight", coords(-8,0,7), std::make_pair(10, 10), std::make_pair(Tank::sable, Tank::body), std::make_pair(Tank::darkGreen, Tank::turret)));
+    _objects.emplace_back(std::make_shared<Tank>("tankRight", coords(0,0,0), coords(10, 10, 10), 8, std::make_pair(Tank::sable, Tank::body), std::make_pair(Tank::darkGreen, Tank::cannon)));
+    //_objects.emplace_back(std::make_shared<Tank>("tankRight", coords(-8,0,7), std::make_pair(10, 10), 8, std::make_pair(Tank::sable, Tank::body), std::make_pair(Tank::darkGreen, Tank::turret)));
     // std::dynamic_pointer_cast<Tank>(_objects.back())->rotateCannon(270);
     setInputsTank(_settings._keysPlayerOne, _objects.back());
 
-    //_objects.emplace_back(std::make_shared<Tank>("tankLeft", coords(8,0,1), std::make_pair(10, 10), std::make_pair(Tank::sable, Tank::body), std::make_pair(Tank::darkGreen, Tank::cannon)));
+    //_objects.emplace_back(std::make_shared<Tank>("tankLeft", coords(8,0,1), std::make_pair(10, 10), 8, std::make_pair(Tank::sable, Tank::body), std::make_pair(Tank::darkGreen, Tank::cannon)));
     // std::dynamic_pointer_cast<Tank>(_objects.back())->rotateCannon(270);
     //setInputsTank(_settings._keysPlayerTwo, _objects.back());
 
