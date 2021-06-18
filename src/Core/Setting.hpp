@@ -13,11 +13,16 @@
 #include <cstddef>
 #include "Raylib.hpp"
 
+enum playerType {
+    IA,
+    PLAYER,
+    NONE
+};
+
 struct Players {
-    Players() : ai(true), name("BOT" + std::to_string(std::rand() % 10)), score(0), isWin(false) {}
-    bool ai;
+    Players() : type(IA), name("BOT" + std::to_string(std::rand() % 10)) {}
+    playerType type;
     std::string name;
-    std::size_t score;
     bool isWin;
 };
 

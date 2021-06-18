@@ -24,13 +24,13 @@ public:
      * @param size
      * @param path
      */
-    Wall(const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path);
+    Wall(const coords &pos, const coords &size, const std::pair<std::string, std::string> &path);
     /**
      * @brief Construct a new Wall object
      *
      * @param wall to copy
      */
-    Wall(const Wall &w) : Wall(w._pos, w._size, std::pair<std::string, std::string> {"asset/OBJFormat/Textures/wall.png", "asset/OBJFormat/wallA.obj"}) {}
+    Wall(const Wall &w) : Wall(w._pos, w._3DSize, std::pair<std::string, std::string> {"asset/OBJFormat/Textures/wall.png", "asset/OBJFormat/wallA.obj"}) {}
 };
 
 #endif //INDIESTUDIO_WALL_HPP

@@ -20,7 +20,8 @@ namespace newGame {
 
     static const std::vector<std::string> _playerIA {
         "IA",
-        "Player"
+        "Player",
+        "None"
     };
 
     static const std::vector<struct coords> _menuPos {

@@ -11,13 +11,15 @@
 #include <fstream>
 #include <functional>
 
-const std::string Tank::sandCamo = "asset/Tank/sand_camo.png";
+const std::string Tank::bodyTexture = "asset/Tank/sandCamo.png";
+const std::string Tank::darkGreen = "asset/Tank/dark_green.png";
+const std::string Tank::darkRed = "asset/Tank/dark_red.png";
 const std::string Tank::greenCamo = "asset/Tank/green_camo.png";
-const std::string Tank::body = "asset/Tank/tankBodyNEW.obj";
-const std::string Tank::turret = "asset/Tank/turretWithCannonNEW.obj";
+const std::string Tank::bodyModel = "asset/Tank/tankBodyNEW.obj";
+const std::string Tank::cannonModel = "asset/Tank/turretWithCannonNEW.obj";
 
-Tank::Tank(const std::string &name, const coords &pos, const std::pair<int, int> &size, const std::pair<std::string, std::string> &path, const std::pair<std::string, std::string> &cannonPath)
-    : MovableObject(pos, size, path), _cannon(coords{pos.first, pos.second + 0.15f, pos.third}, size, cannonPath), _name(name), _score(0), _previousPos(pos)
+Tank::Tank(const std::string &name, const coords &pos, const coords &size, const int maxBullets, const std::pair<std::string, std::string> &path, const std::pair<std::string, std::string> &cannonPath)
+    : MovableObject(pos, size, path), _cannon(coords{pos.first, pos.second + 0.15f, pos.third}, size, maxBullets, cannonPath), _name(name), _score(0), _previousPos(0, 0, 0)
 {
     _typeField.isTank = true;
     _scale = 0.2f;
@@ -40,12 +42,17 @@ void Tank::move(const coords &direction) noexcept
     _cannon.move(direction);
 }
 
+void Tank::moveBullets() noexcept
+{
+    _cannon.moveBullets();
+}
+
 void Tank::rotateCannon(float angle)
 {
     _cannon.rotate(angle);
 }
 
-Cannon const &Tank::getCannon() const noexcept
+const Cannon &Tank::getCannon() const noexcept
 {
     return _cannon;
 }
@@ -68,10 +75,10 @@ const coords &Tank::getPreviousPos() const noexcept
 {
     return _previousPos;
 }
-void Tank::setPos(const coords &pos) noexcept
+void Tank::setPosition(const coords &pos) noexcept
 {
-    AObject::setPos(pos);
-    _cannon.setPosition(pos);
+    _pos = pos;
+    _cannon.setPosition(_cannon.getPrevPos());
 }
 void Tank::increaseDamage() noexcept
 {
@@ -122,9 +129,10 @@ std::vector<Tank> Tank::readTank()
     for (int i = 0; i != size; i++) {
         file.read(reinterpret_cast<char *>(&dest),
             sizeof(Tank::tank_t));
-        auto tank = tmp.emplace_back(dest.name,
+        tmp.emplace_back(dest.name,
             coords(static_cast<float>(dest.x), static_cast<float>(dest.z), static_cast<float>(dest.y)),
-            std::make_pair(10, 10), std::make_pair(Tank::sandCamo, Tank::body), std::make_pair(Tank::greenCamo, Tank::turret));
+            coords (10, 0, 10), 8,std::make_pair(Tank::bodyTexture, Tank::bodyModel), std::make_pair(Tank::darkGreen, Tank::cannonModel));
+        auto tank = tmp.back();
         tank.setScore(dest.score);
         tank.setLife(dest.life);
     }
