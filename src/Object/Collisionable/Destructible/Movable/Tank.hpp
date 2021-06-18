@@ -24,7 +24,15 @@ public:
      * @brief path to texture
      * 
      */
-    static const std::string sable;
+    static const std::string bodyTexture;
+
+    /**
+     * @brief path to model
+     * 
+     */
+    static const std::string bodyModel;
+
+
 
     /**
      * @brief path to texture
@@ -32,17 +40,25 @@ public:
      */
     static const std::string darkGreen;
 
+
     /**
-     * @brief path to model
+     * @brief path to texture
      * 
      */
-    static const std::string body;
+    static const std::string darkRed;
+
+    
+    /**
+     * @brief path to texture
+     * 
+     */
+    static const std::string greenCamo;
 
     /**
      * @brief path to model
      * 
      */
-    static const std::string cannon;
+    static const std::string cannonModel;
 
     /**
      * @brief Construct a new Tank object

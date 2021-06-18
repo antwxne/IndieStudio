@@ -27,9 +27,9 @@ const std::vector<std::string> _assetsPath {
 
 SceneRobin::SceneRobin(Setting &settings) : AScene(settings)
 {
-    _objects.emplace_back(std::make_shared<Tank>("grosTankSaMere", coords(0,0,0), coords(10, 10, 10), 8, std::make_pair(Tank::sable, Tank::body), std::make_pair(Tank::darkGreen, Tank::cannon)));
+    _objects.emplace_back(std::make_shared<Tank>("grosTankSaMere", coords(0,0,0), coords(10, 10, 10), 8, std::make_pair(Tank::bodyTexture, Tank::bodyModel), std::make_pair(Tank::darkGreen, Tank::cannonModel)));
     setInputsTank(_settings._keysPlayerOne, _objects.back());
-    // _objects.emplace_back(std::make_shared<Tank>("petitTankMignon", coords(6,0,0), coords(10, 10, 10), 8, std::make_pair(Tank::sable, Tank::body), std::make_pair(Tank::darkGreen, Tank::cannon)));
+    // _objects.emplace_back(std::make_shared<Tank>("petitTankMignon", coords(6,0,0), coords(10, 10, 10), 8, std::make_pair(Tank::bodyTexture, Tank::bodyModel), std::make_pair(Tank::darkGreen, Tank::cannonModel)));
     // setInputsTank(_settings._keysPlayerTwo, _objects.back());
 
     std::vector<std::pair<int, int>> size;

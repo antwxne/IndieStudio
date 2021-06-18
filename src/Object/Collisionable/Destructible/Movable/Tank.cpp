@@ -9,10 +9,12 @@
 #include "Raylib.hpp"
 #include <functional>
 
-const std::string Tank::sable = "asset/Tank/sable.png";
+const std::string Tank::bodyTexture = "asset/Tank/sandCamo.png";
 const std::string Tank::darkGreen = "asset/Tank/dark_green.png";
-const std::string Tank::body = "asset/Tank/tankBodyNEW.obj";
-const std::string Tank::cannon = "asset/Tank/turretWithCannonNEW.obj";
+const std::string Tank::darkRed = "asset/Tank/dark_red.png";
+const std::string Tank::greenCamo = "asset/Tank/green_camo.png";
+const std::string Tank::bodyModel = "asset/Tank/tankBodyNEW.obj";
+const std::string Tank::cannonModel = "asset/Tank/turretWithCannonNEW.obj";
 
 Tank::Tank(const std::string &name, const coords &pos, const coords &size, const int maxBullets, const std::pair<std::string, std::string> &path, const std::pair<std::string, std::string> &cannonPath)
     : MovableObject(pos, size, path), _cannon(coords{pos.first, pos.second + 0.15f, pos.third}, size, maxBullets, cannonPath), _name(name), _score(0), _previousPos(0, 0, 0)
