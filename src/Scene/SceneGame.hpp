@@ -32,6 +32,8 @@ class SceneGame : public AScene {
 
         void updateObjects() noexcept;
 
+        void applyBonuses() noexcept;
+
         static const std::vector<std::pair<float, float>> _playerPos;
         static const std::vector<std::pair<float, float>> _scorePos;
         static const std::vector<std::pair<float, float>> _uiLifePosPlayer;

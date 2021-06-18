@@ -26,7 +26,17 @@ struct PlayerSettings {
     bool isWin;
 };
 
-// to-do: tableau associatif inputs --> char pour pouvoir les custom depuis les settings
+
+// dépend completement des bonus choisis
+// a voir selon les combinaisons si le jeu les supporte
+// il faut que toutes les combinaisons soient viables --> peut etre que trois au final?
+struct GameBonuses {
+    GameBonuses() : firstBonus(false), secondBonus(false), thirdBonus(false), fourthBonus(false) {}
+    bool firstBonus;
+    bool secondBonus;
+    bool thirdBonus;
+    bool fourthBonus;
+};
 
 /**
  * @struct setting
@@ -38,10 +48,14 @@ struct Setting {
     Setting(int widthScreen = 1920, int heightScreen = 1080, const std::size_t &fps = 60, float musicVol = 1.0f, float soundVol = 1.0f);
     Setting(const Setting &settings);
 
+    GameBonuses bonuses;
+
     std::vector<PlayerSettings> _playersSettings;
+
     inputsPlayer _keysPlayerOne;
     inputsPlayer _keysPlayerTwo;
     std::array<inputsPlayer, 2> _keysPlayers;
+
     float _musicVol;
     float _soundVol;
     int _widthScreen;
