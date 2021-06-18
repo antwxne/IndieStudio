@@ -39,6 +39,36 @@ namespace option {
         coords(800, 500)
     };
 
+    static const std::vector<coords> _posBindingP1 {
+        coords(1500, 300),
+        coords(1500, 380),
+        coords(1500, 460),
+        coords(1500, 540),
+        coords(1500, 620),
+        coords(1500, 700),
+        coords(1500, 780)
+    };
+
+    static const std::vector<coords> _posBindingP2 {
+        coords(1600, 300),
+        coords(1600, 380),
+        coords(1600, 460),
+        coords(1600, 540),
+        coords(1600, 620),
+        coords(1600, 700),
+        coords(1600, 780)
+    };
+
+    static const std::vector<std::string> _textBinding {
+        "Forward",
+        "Backward",
+        "Left",
+        "Right",
+        "Canon left",
+        "Canon right",
+        "Fire"
+    };
+
     static const std::vector<std::pair<Raylib::Inputs, std::string>> _inputToText {
         {Raylib::Inputs::A,     "A"},
         {Raylib::Inputs::B,     "B"},

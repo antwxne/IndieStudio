@@ -10,6 +10,7 @@
 #include <fstream>
 #include "SceneMenu.hpp"
 #include "UiGame/TexteUi.hpp"
+#include "Core.hpp"
 #include "Button/Button.hpp"
 
 namespace menu {
@@ -57,9 +58,9 @@ namespace menu {
 
     void SceneMenu::eventScene(Raylib &lib)
     {
-        lib.displayMusic(_menuMusic, _settings._musicVol);
+        lib.displayMusic(core::_menuMusic, _settings._musicVol);
         if (lib.isMousePressed())
-            lib.displaySound(_mouseClick, _settings._soundVol);
+            lib.displaySound(core::_mouseClick, _settings._soundVol);
 
         for (auto it = _objects.begin(); it != _objects.end();) {
             if (it->get()->getTypeField().isAnimator) {

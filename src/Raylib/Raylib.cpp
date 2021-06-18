@@ -433,8 +433,8 @@ void Raylib::findCollision(std::shared_ptr<CollisionableObject> obj,
 
     for (auto &it : allObjs) {
         if (it->getTypeField().isCollisionable && it->getPosition() != obj->getPosition()) {
-            auto tmp = dynamic_cast<const CollisionableObject &>(*it);
-            auto toFindOther = _models.find(tmp.getModel());
+            auto tmp = std::dynamic_pointer_cast<CollisionableObject>(it);
+            auto toFindOther = _models.find(tmp->getModel());
             if (toFindOther == _models.cend())
                 return;
             auto positionOther = it->getPosition();
@@ -450,11 +450,26 @@ void Raylib::findCollision(std::shared_ptr<CollisionableObject> obj,
                     positionOther.first + (otherRotaton <= 110 && otherRotaton >= 70 || otherRotaton <= 290 && otherRotaton >= 250 ? tmpBoundOther.max.z : tmpBoundOther.max.x) * scaleOther,
                     positionOther.second + tmpBoundOther.max.y,
                     positionOther.third + (otherRotaton <= 110 && otherRotaton >= 70 || otherRotaton <= 290 && otherRotaton >= 250 ? tmpBoundOther.max.x : tmpBoundOther.max.z) * scaleOther}};
-            DrawBoundingBox(boundOther, RED);
-            DrawBoundingBox(boundCurrent, BLUE);
+//            DrawBoundingBox(boundOther, RED);
+//            DrawBoundingBox(boundCurrent, BLUE);
             if (CheckCollisionBoxes(boundCurrent, boundOther)) {
                 obj->hit(tmp);
             }
         }
     }
 }
+bool Raylib::collabsWall(std::pair<int, int> firstItem, coords firstItemSize,std::pair<int, int> scdItem, coords scdItemSize)
+{
+    if (CheckCollisionBoxes((BoundingBox){(Vector3){static_cast<float>(firstItem.first) - static_cast<float>(firstItemSize.first)/2,
+            0 - firstItemSize.second/2,static_cast<float>(firstItem.second) - static_cast<float>(firstItemSize.third)/2},
+            (Vector3){static_cast<float>(firstItem.first) + static_cast<float>(firstItemSize.first)/2,
+            0 + firstItemSize.second/2, static_cast<float>(firstItem.second) + static_cast<float>(firstItemSize.third)/2}},
+        (BoundingBox){(Vector3){static_cast<float>(scdItem.first) - static_cast<float>(scdItemSize.first)/2,
+            0 - scdItemSize.second/2,static_cast<float>(scdItem.second) - static_cast<float>(scdItemSize.third)/2},
+            (Vector3){static_cast<float>(scdItem.first) + static_cast<float>(scdItemSize.first)/2,
+                0 + scdItemSize.second/2, static_cast<float>(scdItem.second) + static_cast<float>(scdItemSize.third)/2}}) ==
+        true)
+        return true;
+    return false;
+}
+

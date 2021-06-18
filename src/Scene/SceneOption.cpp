@@ -8,38 +8,9 @@
 #include "SceneOption.hpp"
 #include "UiObject/Button/Button.hpp"
 #include "TexteUi.hpp"
+#include "Core.hpp"
 
 namespace option {
-
-    static const std::vector<coords> _posBindingP1 {
-        coords(1500, 300),
-        coords(1500, 380),
-        coords(1500, 460),
-        coords(1500, 540),
-        coords(1500, 620),
-        coords(1500, 700),
-        coords(1500, 780)
-    };
-
-    static const std::vector<coords> _posBindingP2 {
-        coords(1600, 300),
-        coords(1600, 380),
-        coords(1600, 460),
-        coords(1600, 540),
-        coords(1600, 620),
-        coords(1600, 700),
-        coords(1600, 780)
-    };
-
-    static const std::vector<std::string> _textBinding {
-        "Forward",
-        "Backward",
-        "Left",
-        "Right",
-        "Canon left",
-        "Canon right",
-        "Fire"
-    };
 
     SceneOption::SceneOption(Setting &settings) : UiScene(settings)
     {
@@ -89,7 +60,7 @@ namespace option {
     {
         auto in = 0;
 
-        lib.displayMusic(_menuMusic, _settings._musicVol);
+        lib.displayMusic(core::_menuMusic, _settings._musicVol);
         in = lib.getKeyPressed();
         for (auto &it : _buttons) {
             if (it->isInside(_mousePos)) {

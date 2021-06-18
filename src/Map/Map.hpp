@@ -12,7 +12,7 @@
 
 class Map {
 public:
-    Map(const std::vector<std::pair<int, int>> &posTank);
+    Map(const std::vector<std::pair<float, float>> &posTank);
     ~Map() = default;
     /**
      * @brief Create a Destructible Map object
@@ -20,14 +20,14 @@ public:
      * @param pos_left
      * @param pos_down_right
      */
-    void createDestructibleMap(std::pair<int, int> const &pos_left, std::pair<int, int> const &pos_down_right);
+    void createDestructibleMap(std::pair<float, float> const &pos_left, std::pair<float, float> const &pos_down_right);
     /**
      * @brief Create a Contour Map object
      *
      * @param xAxis
      * @param yAxis
      */
-    void createContourMap(std::pair<int, int> const &xAxis,std::pair<int, int> const &yAxis) noexcept;
+    void createContourMap(std::pair<float, float> const &xAxis,std::pair<float, float> const &yAxis) noexcept;
     /**
      * @brief write object in save file
      *
@@ -41,6 +41,13 @@ public:
 
     public:
     std::vector<DestructibleWall> _objectDestructibleList;
-    std::vector<std::pair<int, int>> _posTank;
+    std::vector<std::pair<float, float>> _posTank;
     std::vector<Wall> _objectNoDestructibleList;
+};
+
+static const std::vector<std::pair<int, int>> _basePositionObject {
+        std::make_pair(0, -5),
+        std::make_pair(-8, 0),
+        std::make_pair(8, 0),
+        std::make_pair(0, 5)
 };

@@ -18,10 +18,11 @@ class SceneMaxime : public AScene {
         ~SceneMaxime();
         Scenes run(Raylib &lib) final;
         void manageHeart(const std::string &name, const int life);
+        void checkHeart() noexcept;
+        void initTanks();
     private:
         std::vector<int> _listPosHeart;
         static const std::vector<std::array<std::pair<float, float>, 2>> _menuPos;
-        static const std::vector<std::string> _assetsPath;
         pause::ScenePause _scenePause;
         std::shared_ptr<Tank> _tanks;
         bool _pressed;

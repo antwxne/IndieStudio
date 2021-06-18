@@ -12,15 +12,20 @@
 #include <string>
 #include <map>
 #include <cmath>
-
+#include "Raylib.hpp"
 #include "Map.hpp"
 
-Map::Map(const std::vector<std::pair<int, int>> &posTank) : _posTank(posTank)
+Map::Map(const std::vector<std::pair<float, float>> &posTank) : _posTank(posTank)
 {
+    for(auto const &j : _basePositionObject) {
+        _objectNoDestructibleList.emplace_back(
+            coords(static_cast<float>(j.first), 0, static_cast<float>(j.second)),
+            coords(1, 1, 1), std::make_pair("", ""));
+    }
 }
 
-void Map::createDestructibleMap(std::pair<int, int> const &pos_left,
-    std::pair<int, int> const &pos_down_right
+void Map::createDestructibleMap(std::pair<float, float> const &pos_left,
+    std::pair<float, float> const &pos_down_right
 )
 {
     bool findPos = true;
@@ -31,34 +36,25 @@ void Map::createDestructibleMap(std::pair<int, int> const &pos_left,
     std::uniform_real_distribution<> theY(pos_left.second,
         pos_down_right.second);
 
-    for (std::pair<int, int> tmpMap; nbrPos != 3;) {
+    for (std::pair<float, float> tmpMap; nbrPos != 3;) {
         findPos = true;
         tmpMap.first = std::round(theX(e2));
         tmpMap.second = std::round(theY(e2));
 
-        for (const auto &thePos : _posTank)
-            if (thePos == tmpMap || ((thePos.first + 1) == tmpMap.first &&
-                thePos.second == tmpMap.second) ||
-                ((thePos.first - 1) == tmpMap.first &&
-                    thePos.second == tmpMap.second) ||
-                (thePos.first == tmpMap.first &&
-                    (thePos.second + 1) == tmpMap.second) ||
-                (thePos.first == tmpMap.first &&
-                    (thePos.second - 1) == tmpMap.second)) {
-                findPos = false;
-                break;
-            }
-        if (findPos == true)
-            for (const auto &dest : _objectDestructibleList)
-                if (dest.getPosition().first == tmpMap.first &&
-                    dest.getPosition().third == tmpMap.second || (dest.getPosition().first + 1) == tmpMap.first &&
-                    dest.getPosition().third == tmpMap.second || (dest.getPosition().first - 1) == tmpMap.first &&
-                    dest.getPosition().third == tmpMap.second || dest.getPosition().first == tmpMap.first &&
-                    (dest.getPosition().third + 1) == tmpMap.second || dest.getPosition().first == tmpMap.first &&
-                    (dest.getPosition().third - 1) == tmpMap.second) {
+        if (findPos == true) {
+            for (const auto &dest : _objectDestructibleList) {
+                if (Raylib::collabsWall(std::make_pair(dest.getPosition().first,dest.getPosition().third),coords(1,1,1) , tmpMap,coords(1,1,1)) == true) {
                     findPos = false;
                     break;
                 }
+            }
+            for (const auto &dest : _objectNoDestructibleList) {
+                if (Raylib::collabsWall(std::make_pair(dest.getPosition().first,dest.getPosition().third),coords(1,1,1) , tmpMap,coords(1,1,1)) == true) {
+                    findPos = false;
+                    break;
+                }
+            }
+        }
         if (findPos == true) {
             nbrPos += 1;
             _objectDestructibleList.emplace_back(
@@ -69,8 +65,8 @@ void Map::createDestructibleMap(std::pair<int, int> const &pos_left,
     }
 }
 
-void Map::createContourMap(std::pair<int, int> const &xAxis,
-    std::pair<int, int> const &yAxis
+void Map::createContourMap(std::pair<float, float> const &xAxis,
+    std::pair<float, float> const &yAxis
 ) noexcept
 {
     for (int x = xAxis.first, y = yAxis.first; x != xAxis.second; ++x) {

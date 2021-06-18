@@ -7,6 +7,7 @@
 
 #include "ScenePause.hpp"
 #include "SceneOption.hpp"
+#include "Core.hpp"
 #include "Object/UiObject/Button/Button.hpp"
 
 namespace pause {
@@ -41,7 +42,7 @@ namespace pause {
 
     void ScenePause::eventScene(Raylib &lib)
     {
-        lib.displayMusic(_menuMusic, _settings._musicVol);
+        lib.displayMusic(core::_menuMusic, _settings._musicVol);
         if (_state != -1 && _returnScene[_state] == Scenes::OPTION) {
             option::SceneOption option(_settings);
             option.run(lib);

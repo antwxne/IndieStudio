@@ -20,11 +20,6 @@
 #include "Object/UiObject/UiObject.hpp"
 #include "Object/Collisionable/Wall/Wall.hpp"
 
-const std::vector<std::string> _assetsPath {
-    "asset/background_asset/ground.png",
-    "asset/OBJFormat/ground.obj",
-};
-
 SceneRobin::SceneRobin(Setting &settings) : AScene(settings)
 {
     _objects.emplace_back(std::make_shared<Tank>("grosTankSaMere", coords(0,0,0), coords(10, 10, 10), 8, std::make_pair(Tank::bodyTexture, Tank::bodyModel), std::make_pair(Tank::darkGreen, Tank::cannonModel)));
@@ -32,7 +27,7 @@ SceneRobin::SceneRobin(Setting &settings) : AScene(settings)
     // _objects.emplace_back(std::make_shared<Tank>("petitTankMignon", coords(6,0,0), coords(10, 10, 10), 8, std::make_pair(Tank::bodyTexture, Tank::bodyModel), std::make_pair(Tank::darkGreen, Tank::cannonModel)));
     // setInputsTank(_settings._keysPlayerTwo, _objects.back());
 
-    std::vector<std::pair<int, int>> size;
+    std::vector<std::pair<float, float>> size;
     for (auto &i : _objects)
         if (i->getTypeField().isTank) {
             size.push_back(std::make_pair(i->getPosition().first, i->getPosition().third));
@@ -42,7 +37,7 @@ SceneRobin::SceneRobin(Setting &settings) : AScene(settings)
     map->createDestructibleMap(std::make_pair(-5, -5), std::make_pair(5, 5));
     map->createContourMap(std::make_pair(-10, 10), std::make_pair(-8, 8));
 
-    _objects.emplace_back(std::make_shared<Ground>(coords(0, 0, 0), std::make_pair(40, 22), std::pair<std::string, std::string>(_assetsPath.at(0), _assetsPath.at(1))));
+    _objects.emplace_back(std::make_shared<Ground>(coords(0, 0, 0), std::make_pair(40, 22), std::pair<std::string, std::string>(core::groundTexture, core::groundModel)));
     for (auto const &block : map->_objectNoDestructibleList)
         _objects.emplace_back(std::make_shared<Wall>(block));
     for (auto const &block : map->_objectDestructibleList)

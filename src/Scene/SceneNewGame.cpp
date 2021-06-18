@@ -5,9 +5,11 @@
 ** SceneNewGame
 */
 
+#include <memory>
 #include "UiObject/Button/Button.hpp"
 #include "InputBox.hpp"
 #include "TexteUi.hpp"
+#include "Core.hpp"
 #include "SceneNewGame.hpp"
 
 namespace newGame {
@@ -43,30 +45,27 @@ namespace newGame {
 
     void SceneNewGame::fillAi()
     {
-        std::size_t fillStruct = 0;
-
         for (auto &it : _objects) {
             if (!it->getTypeField().isButton || it->getTypeField().isInputBox)
                 continue;
             auto button = std::dynamic_pointer_cast<button::Button>(it);
             if (std::find(_playerIA.begin(), _playerIA.end(), button->getText()) == _playerIA.end())
                 continue;
-            _settings._players[fillStruct].type = static_cast<playerType>(std::find(_playerIA.begin(), _playerIA.end(), button->getText()) - _playerIA.begin());
-            ++fillStruct;
+            _settings._playersSettings.emplace_back();
+            _settings._playersSettings.back().type = static_cast<playerType>(std::find(_playerIA.begin(), _playerIA.end(), button->getText()) - _playerIA.begin());
         }
     }
 
     void SceneNewGame::fillName()
     {
-        std::size_t fillStruct = 0;
-
         for (auto &it : _objects) {
             if (!it->getTypeField().isInputBox)
                 continue;
             auto button = std::dynamic_pointer_cast<button::Button>(it);
-            if (!button->getText().empty())
-                _settings._players[fillStruct].name.assign(button->getText());
-            ++fillStruct;
+            if (!button->getText().empty()) {
+                _settings._playersSettings.emplace_back();
+                _settings._playersSettings.back().name = button->getText();
+            }
         }
     }
 
@@ -74,7 +73,7 @@ namespace newGame {
     {
         char input;
 
-        lib.displayMusic(_menuMusic, _settings._musicVol);
+        lib.displayMusic(core::_menuMusic, _settings._musicVol);
         input = lib.getPressedCharacter();
         std::for_each(_objects.begin(), _objects.end(), [&, input](auto &it){
             if (it->getTypeField().isInputBox) {
