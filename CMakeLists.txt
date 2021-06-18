@@ -31,7 +31,7 @@ set(WALL_PATH ${COLLIS_PATH}/Wall)
 
 # Include directories
 include_directories(src)
-include_directories(${MAP_PAT})
+include_directories(${MAP_PATH})
 include_directories(${RAYLIB_PATH})
 include_directories(${ERROR_PATH})
 include_directories(${UIOBJECT_PATH})
@@ -111,6 +111,7 @@ set(SCENE_SRCS
         ${SCENE_PATH}/SceneIntro.cpp
         ${SCENE_PATH}/SceneSplash.cpp
         ${SCENE_PATH}/SceneWin.cpp
+        ${SCENE_PATH}/SceneGame.cpp
         )
 set(GROUND_SRCS
         ${GROUND_PATH}/Ground.cpp)

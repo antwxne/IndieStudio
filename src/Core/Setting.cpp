@@ -12,6 +12,8 @@ Setting::Setting(int widthScreen, int heightScreen, const std::size_t &fps, floa
     _keysPlayerOne({Raylib::Z, Raylib::S, Raylib::Q, Raylib::D, Raylib::R, Raylib::T, Raylib::SPACE}),
     _keysPlayerTwo({Raylib::UP, Raylib::DOWN, Raylib::LEFT, Raylib::RIGHT, Raylib::I, Raylib::O, Raylib::P})
 {
+    _keysPlayers[0] = _keysPlayerOne;
+    _keysPlayers[1] = _keysPlayerTwo;
 }
 
 Setting::Setting(const Setting &settings)

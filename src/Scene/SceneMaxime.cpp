@@ -45,7 +45,7 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false),
                 std::make_pair(Tank::bodyTexture, Tank::bodyModel), std::make_pair(Tank::darkGreen, Tank::cannonModel)));
         } else {
             lastTank = _objects.emplace_back(
-                std::make_shared<Tank>(_settings._players.at(i).name,
+                std::make_shared<Tank>(_settings._playersSettings.at(i).name,
                     coords(_posTank[i].first, 0, _posTank[i].second),
                     coords(10, 10, 10), 8,
                     std::make_pair(Tank::bodyTexture, Tank::bodyModel),
@@ -83,14 +83,14 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false),
     }
     /////////////////////////////END CLEMENT//////////////////////:
     /////////////////////////////START Maxime//////////////////////:
-    std::vector<std::pair<int, int>> size;
+    std::vector<std::pair<float, float>> size;
 
     for (auto &i : _objects)
         if (i->getTypeField().isTank)
             size.push_back(std::make_pair(static_cast<int>(i->getPosition().first), static_cast<int>(i->getPosition().third)));
     _map = std::make_unique<Map>(size);
 
-    std::cout << "CA MARCHE LALALLAL0\n";
+    // std::cout << "CA MARCHE LALALLAL0\n";
     if (settings.load == false) {
     _map->createDestructibleMap(std::make_pair(-6, -7), std::make_pair(0, 0));
     _map->createDestructibleMap(std::make_pair(-6, 1), std::make_pair(-1, -7));
@@ -99,15 +99,6 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false),
     } else
         _map->readDestructibleList();
     _map->createContourMap(std::make_pair(-10, 10), std::make_pair(-8, 8));
-    setInputFunction(Raylib::ENTER, [&]() {
-        _enter = !_enter;
-    });
-    setInputFunction(Raylib::ESCAPE, [&]() {
-        _isPaused = !_isPaused;
-    });
-    setInputFunction(Raylib::SPACE, [&]() {
-        _pressed = true;
-    });
     std::cout << "CA MARCHE BITEPis\n";
     std::cout << "Size == " << std::endl;
     std::cout << _map->_objectNoDestructibleList.size()  << std::endl;
@@ -228,3 +219,29 @@ Scenes SceneMaxime::run(Raylib &lib)
     }
     return (Scenes::QUIT);
 }
+
+
+// void SceneMaxime::initTanks()
+// {
+//     int counter = 0;
+//     std::size_t setOfKeyInputs = 0;
+//     Setting::tanksCoords tanksCoords = Setting::_tanksPosNbPlayers.at(_settings._playersSettings.size());
+
+//     for (auto &playerSettings : _settings._playersSettings) {
+//         if (playerSettings.type == PLAYER && setOfKeyInputs < 2) {
+//             _objects.emplace_back(std::make_shared<Tank>(
+//                 playerSettings.name,
+//                 coords(tanksCoords[counter].first,0,tanksCoords[counter].second),
+//                 coords(10, 10, 10),
+//                 8,
+//                 std::make_pair(Tank::bodyTexture, Tank::bodyModel),
+//                 std::make_pair(Tank::darkGreen, Tank::cannonModel))
+//             );
+//             setInputsTank(_settings._keysPlayers[setOfKeyInputs], _objects.back());
+//             setOfKeyInputs++;
+//         } else if (playerSettings.type == IA) {
+//             // _objects.emplace_back(std::make_shared<TankIA>("grosTankSaMere", coords(0,0,0), coords(10, 10, 10), 8, std::make_pair(Tank::bodyTexture, Tank::bodyModel), std::make_pair(Tank::darkGreen, Tank::cannonModel)));
+//         }
+//         counter++;
+//     }
+// }

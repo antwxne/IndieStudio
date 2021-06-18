@@ -22,6 +22,7 @@
 #include "SceneIntro.hpp"
 #include "SceneSplash.hpp"
 #include "SceneWin.hpp"
+#include "SceneGame.hpp"
 
 namespace core {
 
@@ -40,7 +41,7 @@ namespace core {
         {Scenes::INTRODUCTION,      [](Setting &settings){return std::make_unique<SceneIntro>(settings);}},
         {Scenes::NEW_GAME,      [](Setting &settings){return std::make_unique<newGame::SceneNewGame>(settings);}},
         {Scenes::MENU,          [](Setting &settings){return std::make_unique<menu::SceneMenu>(settings);}},
-        {Scenes::GAME,          [](Setting &settings){return std::make_unique<SceneMaxime>(settings);}},
+        {Scenes::GAME,          [](Setting &settings){return std::make_unique<SceneGame>(settings);}},
         {Scenes::OPTION,        [](Setting &settings){return std::make_unique<option::SceneOption>(settings);}},
         // {Scenes::LOAD,          [](const Setting & &settings){return std::make_unique<SceneRobin>(settings);}},
         // {Scenes::LEADERBOARD,   [](const Setting & &settings){return std::make_unique<SceneBoard>(settings);}}

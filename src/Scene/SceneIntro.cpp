@@ -23,7 +23,7 @@ const std::vector<std::string> SceneIntro::_assetsPath {
 
 SceneIntro::SceneIntro(Setting &settings) : AScene(settings), _enter(false)
 {
-    std::vector<std::pair<int, int>> size;
+    std::vector<std::pair<float, float>> size;
 
     for (auto &i : _objects)
         if (i->getTypeField().isTank)
