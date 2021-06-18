@@ -458,3 +458,18 @@ void Raylib::findCollision(std::shared_ptr<CollisionableObject> obj,
         }
     }
 }
+bool Raylib::collabsWall(std::pair<int, int> firstItem, coords firstItemSize,std::pair<int, int> scdItem, coords scdItemSize)
+{
+    if (CheckCollisionBoxes((BoundingBox){(Vector3){static_cast<float>(firstItem.first) - static_cast<float>(firstItemSize.first)/2,
+            0 - firstItemSize.second/2,static_cast<float>(firstItem.second) - static_cast<float>(firstItemSize.third)/2},
+            (Vector3){static_cast<float>(firstItem.first) + static_cast<float>(firstItemSize.first)/2,
+            0 + firstItemSize.second/2, static_cast<float>(firstItem.second) + static_cast<float>(firstItemSize.third)/2}},
+        (BoundingBox){(Vector3){static_cast<float>(scdItem.first) - static_cast<float>(scdItemSize.first)/2,
+            0 - scdItemSize.second/2,static_cast<float>(scdItem.second) - static_cast<float>(scdItemSize.third)/2},
+            (Vector3){static_cast<float>(scdItem.first) + static_cast<float>(scdItemSize.first)/2,
+                0 + scdItemSize.second/2, static_cast<float>(scdItem.second) + static_cast<float>(scdItemSize.third)/2}}) ==
+        true)
+        return true;
+    return false;
+}
+
