@@ -24,7 +24,7 @@ namespace newGame {
                         return;
                     }
                     if (std::find(_playerIA.begin(), _playerIA.end(), button->getText()) != _playerIA.end() && button->isInside(_mousePos))
-                        button->setText(button->getText() == _playerIA[0] ? _playerIA[1] : _playerIA[0]);
+                        button->setText(button->getText(    ) == _playerIA[0] ? _playerIA[1] : _playerIA[0]);
                 }
         });
         _objects.emplace_back(std::make_shared<UiObject>(coords(), std::make_pair(0, 0), _bgPath, 1.0f));

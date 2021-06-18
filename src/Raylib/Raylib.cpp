@@ -116,7 +116,11 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
                     drawModel(bullet.getModel(), bullet.getTexture(), bullet.getPosition(), bullet.getScale(), bullet.getColors().first, bullet.getRotationAxis(), bullet.getRotationAngle());
                 drawModel(tank->getModel(), tank->getTexture(), tank->getPosition(), tank->getScale(), tank->getColors().first, tank->getRotationAxis(), tank->getRotationAngle());
                 drawModel(cannon.getModel(), cannon.getTexture(), cannon.getPosition(), cannon.getScale(), cannon.getColors().first, cannon.getRotationAxis() ,cannon.getRotationAngle());
-            } else if (i->getTypeField().isCollisionable) {
+            } else if (i->getTypeField().isAnimator) {
+                auto const &derived = std::dynamic_pointer_cast<Animator>(i);
+                drawAnimation(derived->getModel(), derived->getTexture(), derived->getAnimPath(), derived->getPosition(), derived->getFrameActual(), derived->getScale());
+            }
+            else if (i->getTypeField().isCollisionable) {
                 auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
                 drawModel(derived->getModel(), derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first, i->getRotationAxis(), i->getRotationAngle());
             }
@@ -275,10 +279,6 @@ void Raylib::displaySound(const std::string &path, float volume)
 
 void Raylib::drawSphere(const coords &pos, const RGB tint, const float radius)
 {
-    // std::cout << "[RAYLIB] pos x: " << pos.first <<"\n";
-    // std::cout << "[RAYLIB] pos Y: " << pos.second <<"\n";
-    // std::cout << "[RAYLIB] pos z: " << pos.third <<"\n";
-    // std::cout << "[RAYLIB] radius: " << radius <<"\n";
     DrawSphere({pos.first, pos.second, pos.third}, radius, {tint.r, tint.g, tint.b, tint.a});
 }
 
@@ -325,6 +325,40 @@ void Raylib::drawTexture(const std::string &path, Vector2 pos, float rotation, f
         it = _textures.find(path);
     }
     DrawTextureEx(it->second, pos, rotation, scale, {tint.r, tint.g, tint.b, tint.a});
+}
+
+void Raylib::drawAnimation(const std::string &modelPath, const std::string &texturePath, const std::string &animationPath, const coords pos, int frameCount, float scale)
+{
+    auto anim = _animation.find(animationPath);
+    auto model = _models.find(modelPath);
+    auto text = _textures.find(texturePath);
+
+    if (text == _textures.end()) {
+        _textures.insert({texturePath, LoadTexture(texturePath.c_str())});
+        text = _textures.find(texturePath);
+    }
+    if (model == _models.end()) {
+        _models.insert({modelPath, LoadModel(modelPath.c_str())});
+        model = _models.find(modelPath);
+        SetMaterialTexture(&model->second.materials[0], MAP_DIFFUSE, text->second);
+    }
+    if (anim == _animation.end()) {
+        int animsCount = 0;
+        _animation.insert({animationPath, LoadModelAnimations(animationPath.c_str(), &animsCount)});
+        anim = _animation.find(animationPath);
+    }
+
+    UpdateModelAnimation(model->second, anim->second[0], frameCount);
+    DrawModelEx(model->second, {pos.first, pos.second, pos.third}, (Vector3){ 1.0f, 0.0f, 0.0f }, -180.0f, (Vector3){ scale, scale, scale }, WHITE);
+}
+
+int Raylib::getFrameMax(const std::string &path) {
+    auto modeAnim = _animation.find(path);
+
+    if (modeAnim == _animation.end())
+        return 0;
+    else
+        return modeAnim->second[0].frameCount;
 }
 
 void Raylib::drawText(const std::string &text, coords pos, float scale,

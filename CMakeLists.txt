@@ -26,6 +26,7 @@ set(GROUND_PATH src/Object/Ground)
 set(UIGAME_PATH src/Object/UiObject/UiGame)
 set(PLAYER_PATH src/Player)
 set(POWERUPS_PATH ${MOVABLE_PATH}/PowerUps)
+set(ANIMATOR_PATH ${MOVABLE_PATH}/Animator)
 set(WALL_PATH ${COLLIS_PATH}/Wall)
 
 # Include directories
@@ -47,6 +48,7 @@ include_directories(${UIGAME_PATH})
 include_directories(${POWERUPS_PATH})
 include_directories(${WALL_PATH})
 include_directories(${PLAYER_PATH})
+include_directories(${ANIMATOR_PATH})
 
 # Source files
 set(RAYLIB_SRCS
@@ -93,6 +95,7 @@ set(OBJECTS_SRCS
         ${MOVABLE_PATH}/TankAi.cpp
         ${MOVABLE_PATH}/TankAi.hpp
         ${POWERUPS_PATH}/PowerUps.cpp
+        ${ANIMATOR_PATH}/Animator.cpp
         )
 
 set(SCENE_SRCS
