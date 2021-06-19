@@ -110,6 +110,7 @@ void SceneGame::initSaveTanks()
         auto tk = std::dynamic_pointer_cast<Tank>(_objects.back());
         tk->setSpeed(tank.getSpeed());
         tk->setLife(tank.getLife());
+        tk->setScore(tank.getScore());
         _settings._playersSettings.emplace_back(PLAYER, tk->getName(), tk->getScore());
         setInputsTank(_settings._keysPlayers[setOfKeyInputs], _objects.back());
         setOfKeyInputs++;

@@ -69,7 +69,6 @@ std::size_t &Tank::getScore() noexcept
 
 void Tank::setScore(const std::size_t &score) noexcept
 {
-    std::cout << "plouf\n";
     _score = score;
 }
 const coords &Tank::getPreviousPos() const noexcept
@@ -94,8 +93,8 @@ const Tank::tank_t &Tank::getTankStructSave() noexcept
 {
     _save.x = _pos.first;
     _save.y = _pos.third;
-    _save.life = getLife();
-    _save.score = getScore();
+    _save.life = _life;
+    _save.score = _score;
     _save.z = _pos.second;
     _save.speed = _speed;
     std::strcpy(_save.name, _name.c_str());
