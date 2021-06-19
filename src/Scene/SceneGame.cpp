@@ -10,10 +10,8 @@
 #include <random>
 #include <algorithm>
 
-#include "Object/Collisionable/Destructible/Movable/TankAi.hpp"
 #include "Core.hpp"
 #include "SceneGame.hpp"
-#include "Object/Collisionable/Destructible/Movable/Tank.hpp"
 #include "Ground.hpp"
 #include "LifeGame.hpp"
 #include "TexteUi.hpp"
@@ -293,8 +291,8 @@ void SceneGame::updateObjects(Raylib &lib) noexcept
                 object = _objects.erase(object);
                 isSupr = true;
             }
-            else if (tank->getPosition() != tank->getPreviousPos())
-                _objects.emplace_back(std::make_shared<Particles>(coords(tank->getPreviousPos().first, tank->getPreviousPos().second, tank->getPreviousPos().third), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(128,128,128), RGB()), 50, coords(0.002f, 0, 0), 100.0f));
+            //else if (tank->getPosition() != tank->getPreviousPos())
+                //_objects.emplace_back(std::make_shared<Particles>(coords((tank->getCannon().getPosition().first - tank->getCannon().getPrevPos().first) * -1, 1.0f, (tank->getCannon().getPosition().third - tank->getCannon().getPrevPos().third) * -1), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(128,128,128), RGB()), 50, coords(0.002f, 0, 0), 100.0f));
         }
         if ((*object)->getTypeField().isParticule == true) {
             if (std::dynamic_pointer_cast<Particles>(*object)->update() == true) {
@@ -320,8 +318,8 @@ void SceneGame::updateObjects(Raylib &lib) noexcept
         if (!isSupr)
             ++object;
     }
-    if (VictoryCond == 1)
-        std::cout << "You Win\n";
+    // if (VictoryCond == 1)
+    //     std::cout << "You Win\n";
 }
 
 void SceneGame::applyBonuses() noexcept

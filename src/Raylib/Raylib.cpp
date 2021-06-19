@@ -465,8 +465,6 @@ void Raylib::findCollision(std::shared_ptr<CollisionableObject> obj,
                     positionOther.first + (otherRotaton <= 110 && otherRotaton >= 70 || otherRotaton <= 290 && otherRotaton >= 250 ? tmpBoundOther.max.z : tmpBoundOther.max.x) * scaleOther,
                     positionOther.second + tmpBoundOther.max.y,
                     positionOther.third + (otherRotaton <= 110 && otherRotaton >= 70 || otherRotaton <= 290 && otherRotaton >= 250 ? tmpBoundOther.max.x : tmpBoundOther.max.z) * scaleOther}};
-//            DrawBoundingBox(boundOther, RED);
-//            DrawBoundingBox(boundCurrent, BLUE);
             if (CheckCollisionBoxes(boundCurrent, boundOther)) {
                 obj->hit(tmp);
             }
@@ -487,4 +485,3 @@ bool Raylib::collabsWall(std::pair<int, int> firstItem, coords firstItemSize,std
         return true;
     return false;
 }
-

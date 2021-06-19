@@ -11,6 +11,8 @@
 #include "AScene.hpp"
 #include "Map.hpp"
 #include "ScenePause.hpp"
+#include "Object/Collisionable/Destructible/Movable/TankAi.hpp"
+#include "Object/Collisionable/Destructible/Movable/Tank.hpp"
 
 class SceneGame : public AScene {
     public:

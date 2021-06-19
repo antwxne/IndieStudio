@@ -15,6 +15,16 @@
  *
  * @brief base class for objects with collision
  */
+
+enum collisionableSound {
+    NONE_SOUND,
+    TRUCK_EXPLOSION,
+    TANK_COLLISION,
+    BULLET_HIT_TANK,
+    BULLET_COLLISION,
+    TANK_EXPLOSION,
+    TANK_HIT_UP
+};
 class CollisionableObject: public AObject {
 public:
     /**
@@ -43,7 +53,7 @@ public:
      * @return true
      * @return false
      */
-    bool hit(std::shared_ptr<CollisionableObject> obj) noexcept;
+    collisionableSound hit(std::shared_ptr<CollisionableObject> obj) noexcept;
     /**
      * @brief Get the Texture object
      *

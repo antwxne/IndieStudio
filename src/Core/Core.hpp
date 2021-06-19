@@ -13,8 +13,6 @@
 #include "Setting.hpp"
 #include <memory>
 #include <unordered_map>
-#include "SceneMaxime.hpp"
-#include "SceneRobin.hpp"
 #include "SceneMenu.hpp"
 #include "SceneNewGame.hpp"
 #include "SceneOption.hpp"
