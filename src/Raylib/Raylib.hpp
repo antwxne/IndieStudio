@@ -489,4 +489,14 @@ private:
     };
 };
 
+static const std::unordered_map<collisionableSound, std::string> MAP_SONG = {
+    {NONE_SOUND, ""},
+    {TRUCK_EXPLOSION, "asset/sound_effects/truck_explosion.wav"},
+    {TANK_COLLISION, ""},
+    {BULLET_HIT_TANK, ""},
+    {BULLET_COLLISION, ""},
+    {TANK_EXPLOSION, ""},
+    {TANK_HIT_UP, "asset/sound_effects/power_up.wav"}
+};
+
 #endif /* !RAYLIBENCAPSULATION_HPP_ */

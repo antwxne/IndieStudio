@@ -67,8 +67,7 @@ collisionableSound CollisionableObject::hit(std::shared_ptr<CollisionableObject>
         auto bullet = dynamic_cast<Bullet *>(this);
         auto dest = std::dynamic_pointer_cast<DestructibleObject>(obj);
         dest->setLife(-bullet->getDamage());
-        bullet->bounce();
-        bullet->setLife(bullet->getLife() - 1);
+        bullet->setLife(-1);
         if (bullet->getLife() <= 0)
             bullet->resetBullet();
         return TRUCK_EXPLOSION;
@@ -81,7 +80,7 @@ collisionableSound CollisionableObject::hit(std::shared_ptr<CollisionableObject>
         if (bullet->getLife() <= 0)
             bullet->resetBullet();
         if (destructible->getLife() <= 0)
-            return TRUCK_EXPLOSION;
+            return TANK_EXPLOSION;
         return BULLET_HIT_TANK;
     }
     if (this->_typeField.isBullet && (!obj->getTypeField().isTank || !this->_typeField.isShooting) && !this->_typeField.isPowerUps) {
