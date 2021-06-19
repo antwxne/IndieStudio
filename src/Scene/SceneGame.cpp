@@ -183,7 +183,6 @@ Scenes SceneGame::run(Raylib &lib)
     {
         lib.displayMusic(core::_gameMusic, _settings._musicVol);
         triggerInputActions(lib);
-        lib.printObjects(_objects);
         if (_isPaused) {
             auto newScene = _scenePause.run(lib);
             if (newScene == Scenes::SAVE) {
@@ -194,21 +193,33 @@ Scenes SceneGame::run(Raylib &lib)
             _isPaused = false;
         }
         updateObjects();
+        lib.printObjects(_objects);
     }
     return (Scenes::QUIT);
 }
 
 void SceneGame::updateObjects() noexcept
 {
-    for (auto it = _objects.begin(); it != _objects.end(); ++it) {
-        if ((*it)->getTypeField().isTank) {
-            auto tank = std::dynamic_pointer_cast<Tank>(*it);
+    for (auto object = _objects.begin(); object != _objects.end(); ++object) {
+        if ((*object)->getTypeField().isTank) {
+            auto tank = std::dynamic_pointer_cast<Tank>(*object);
             manageHeart(tank->getName(), tank->getLife());
             tank->moveBullets();
         }
-        if ((*it)->getTypeField().isParticule == true)
-            std::dynamic_pointer_cast<Particles>(*it)->update();
-        else if ((*it)->getTypeField().isPowerUps == true)
-            std::dynamic_pointer_cast<PowerUps>(*it)->rotate(0.5f);
+        if ((*object)->getTypeField().isParticule == true) {
+            std::dynamic_pointer_cast<Particles>(*object)->update();
+        }
+        else if ((*object)->getTypeField().isPowerUps == true) {
+            std::dynamic_pointer_cast<PowerUps>(*object)->rotate(0.5f);
+        }
+        if (object->get()->getTypeField().isDestructibleWall && std::dynamic_pointer_cast<DestructibleWall>(*object)->getLife() <= 0) {
+            _objects.emplace_back(std::make_shared<PowerUps>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), coords(1, 1, 1), std::pair<std::string, std::string>("", "")));
+            object = _objects.erase(object);
+            continue;
+        }
+        if (object->get()->getTypeField().isPowerUps && std::dynamic_pointer_cast<PowerUps>(*object)->getLife() <= 0) {
+            object = _objects.erase(object);
+            continue;
+        }
     }
 }

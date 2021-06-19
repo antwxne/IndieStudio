@@ -21,10 +21,22 @@ struct Power
     bool isDamageUp;
 };
 
-const std::vector<std::string> _assetsPath {
+static const int damageUp = 1;
+
+static const int speedUp = 1;
+
+static const int lifeUp = 1;
+
+static const std::vector<std::string> _texturePath {
     "asset/bonus/Arrows-Blue.png",
     "asset/bonus/Arrows-Green.png",
     "asset/bonus/Arrows-Red.png",
+};
+
+static const std::vector<std::string> _modelPath {
+    "asset/bonus/arrow.obj",
+    "asset/bonus/arrow1.obj",
+    "asset/bonus/arrow2.obj",
 };
 
 class PowerUps : public MovableObject
