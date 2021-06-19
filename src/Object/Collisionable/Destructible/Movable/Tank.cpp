@@ -126,7 +126,6 @@ std::vector<Tank> Tank::readTank()
         std::ios::in | std::ifstream::binary);
     if (file.is_open() == false)
         throw std::runtime_error("Can not open");
-    std::cout << size << std::endl;
     file.read(reinterpret_cast<char *>(&size), sizeof(unsigned long));
     for (int i = 0; i != size; i++) {
         file.read(reinterpret_cast<char *>(&dest),

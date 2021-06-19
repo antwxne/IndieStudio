@@ -52,7 +52,6 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false),
             setInputsTank(_settings._keysPlayerTwo, lastTank);
         }
         auto tank = std::dynamic_pointer_cast<Tank>(lastTank);
-        std::cout << tank->getName() << std::endl;
         for (int y = 0; y != tank->getLife(); y++) {
             _objects.emplace_back(std::make_shared<LifeGame>(tank->getName(),
                 coords(_uiLifePosPlayer[i].first + (30 * y),
@@ -85,7 +84,6 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false),
             size.push_back(std::make_pair(static_cast<int>(i->getPosition().first), static_cast<int>(i->getPosition().third)));
     _map = std::make_unique<Map>(size);
 
-    // std::cout << "CA MARCHE LALALLAL0\n";
     if (settings.load == false) {
     _map->createDestructibleMap(std::make_pair(-6, -7), std::make_pair(0, 0));
     _map->createDestructibleMap(std::make_pair(-6, 1), std::make_pair(-1, -7));
@@ -94,19 +92,12 @@ SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false),
     } else
         _map->readDestructibleList();
     _map->createContourMap(std::make_pair(-10, 10), std::make_pair(-8, 8));
-    std::cout << "CA MARCHE BITEPis\n";
-    std::cout << "Size == " << std::endl;
     std::cout << _map->_objectNoDestructibleList.size()  << std::endl;
-    for (auto const &block : _map->_objectNoDestructibleList) {
-        std::cout << " PREMIERE TAILLE == " << block.getSize().first << std::endl;
+    for (auto const &block : _map->_objectNoDestructibleList)
         _objects.emplace_back(std::make_shared<Wall>(block));
-    }
-    std::cout << "CA MARCHE LOLOLO\n";
-    for (auto const &block : _map->_objectDestructibleList) {
+    for (auto const &block : _map->_objectDestructibleList)
         _objects.emplace_back(std::make_shared<DestructibleWall>(block));
-    }
     _settings.load = false;
-    std::cout << "CA MARCHE BITE\n";
     /////////////////////////////END MAXIME//////////////////////:
 }
 

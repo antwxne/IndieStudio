@@ -20,11 +20,11 @@ enum playerType {
 };
 
 struct PlayerSettings {
-    PlayerSettings() : type(IA), name("BOT" + std::to_string(std::rand() % 10)), score(0), isWinner(false) {}
+    PlayerSettings() : type(IA), name("BOT" + std::to_string(std::rand() % 10)), score(0), isLooser(true) {}
     playerType type;
     std::string name;
     int score;
-    bool isWinner;
+    bool isLooser;
 };
 
 
@@ -54,7 +54,8 @@ struct Setting {
 
     inputsPlayer _keysPlayerOne;
     inputsPlayer _keysPlayerTwo;
-    std::array<inputsPlayer, 2> _keysPlayers;
+    inputsPlayer _keysPlayerThree;
+    std::array<inputsPlayer, 3> _keysPlayers;
 
     float _musicVol;
     float _soundVol;
