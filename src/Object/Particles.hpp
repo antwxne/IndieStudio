@@ -102,6 +102,7 @@ private:
     std::chrono::_V2::system_clock::time_point _stop;
     std::chrono::_V2::system_clock::time_point _start;
     std::chrono::_V2::high_resolution_clock _time;
+    std::chrono::_V2::high_resolution_clock::time_point _updateTime;
 };
 
 #endif //INDIESTUDIO_PARTICLES_HPP
