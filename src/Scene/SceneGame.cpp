@@ -201,7 +201,7 @@ Scenes SceneGame::run(Raylib &lib)
 
 void SceneGame::updateObjects() noexcept
 {
-    for (auto object = _objects.begin(); object != _objects.end(); ++object) {
+    for (auto object = _objects.begin(); object != _objects.end();) {
         if ((*object)->getTypeField().isTank) {
             auto tank = std::dynamic_pointer_cast<Tank>(*object);
             manageHeart(tank->getName(), tank->getLife());
@@ -222,6 +222,7 @@ void SceneGame::updateObjects() noexcept
             object = _objects.erase(object);
             continue;
         }
+        ++object;
     }
 }
 
