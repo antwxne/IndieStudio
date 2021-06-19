@@ -495,7 +495,7 @@ static const std::unordered_map<collisionableSound, std::string> MAP_SONG = {
     {TANK_COLLISION, ""},
     {BULLET_HIT_TANK, ""},
     {BULLET_COLLISION, ""},
-    {TANK_EXPLOSION, ""},
+    {TANK_EXPLOSION, "asset/sound_effects/tank_explosion.wav"},
     {TANK_HIT_UP, "asset/sound_effects/power_up.wav"}
 };
 
