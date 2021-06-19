@@ -36,9 +36,8 @@ const std::vector<std::pair<float, float>> SceneGame::_uiLifePosPlayer = {
     std::make_pair(1265, 1050), std::make_pair(1765, 1050)};
 
 SceneGame::SceneGame(Setting &settings) : AScene(settings), _isPaused(false),
-    _scenePause(settings)
+    _scenePause(settings), _endGame(false)
 {
-    std::cout << "size: " << _settings._playersSettings.size() << std::endl;
     tanksCoords tanksCoords = _tanksPosNbPlayers[_settings._playersSettings.size()];
     _objects.emplace_back(std::make_shared<Ground>(
         coords(0, 0, 0), std::make_pair(40, 22), std::pair<std::string, std::string>(core::groundTexture, core::groundModel)));
@@ -107,9 +106,7 @@ void SceneGame::initSaveTanks()
     std::size_t setOfKeyInputs = 0;
     int tankCounter = 0;
 
-    std::cout << "GROS LOLOLO\n";
     for (auto &tank : tanks) {
-        std::cout << "GROS LOLOLO 01\n";
         _objects.emplace_back(std::make_shared<Tank>(
                 tank.getName(),
                 coords(tank.getPosition().first,0, tank.getPosition().third),
@@ -117,19 +114,12 @@ void SceneGame::initSaveTanks()
                 8,
                 std::make_pair(Tank::bodyTexture, Tank::bodyModel),
                 std::make_pair(Tank::darkGreen, Tank::cannonModel)));
-        std::cout << "GROS LOLOLO 02\n";
         auto tk = std::dynamic_pointer_cast<Tank>(_objects.back());
-        std::cout << "GROS LOLOLO 03\n";
         tk->setSpeed(tank.getSpeed());
-        std::cout << "GROS LOLOLO 04\n";
         tk->setLife(tank.getLife());
-        std::cout << "GROS LOLOLO 05\n";
         setInputsTank(_settings._keysPlayers[setOfKeyInputs], _objects.back());
-        std::cout << "GROS LOLOLO 06\n";
         setOfKeyInputs++;
-        std::cout << "GROS LOLOLO 07\n";
         initTankUi(tankCounter, std::dynamic_pointer_cast<Tank>(_objects.back()), _settings._playersSettings[tankCounter]);
-        std::cout << "GROS LOLOLO 08\n";
         tankCounter++;
     }
         /*} else if (playerSettings.type == IA) {
@@ -255,7 +245,9 @@ Scenes SceneGame::run(Raylib &lib)
             AIs.emplace_back(std::dynamic_pointer_cast<TankAI>(it));
         }
     }
-    while (lib.gameLoop()) {
+    while (!_endGame) {
+        if (!lib.gameLoop())
+            return (Scenes::QUIT);
         auto nAI = 0;
         end = std::chrono::steady_clock::now();
         endFire = std::chrono::steady_clock::now();
@@ -286,7 +278,7 @@ Scenes SceneGame::run(Raylib &lib)
         updateObjects(lib);
         lib.printObjects(_objects);
     }
-    return (Scenes::QUIT);
+    return (Scenes::ENDGAME);
 }
 
 void SceneGame::updateObjects(Raylib &lib) noexcept
@@ -304,12 +296,15 @@ void SceneGame::updateObjects(Raylib &lib) noexcept
                 for (auto &it :_settings._playersSettings)
                     if (it.name.compare(tank->getName()) == 0)
                         it.isLooser = true;
-                _objects.emplace_back(std::make_shared<Particles>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(20, 12, 9), RGB()), 100, coords(0, 0.002f, 0), 2000.0f));
+                _objects.emplace_back(std::make_shared<Particles>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), std::make_pair(1, 1), 1.0f, 0.2f, std::make_pair(RGB(20, 12, 9), RGB()), 100, coords(0, 0.02f, 0), 2000.0f));
+                _objects.emplace_back(std::make_shared<Particles>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), std::make_pair(1, 1), 1.0f, 0.1f, std::make_pair(RGB(240, 70, 70), RGB()), 150, coords(0, 0.02f, 0), 2000.0f));
                 object = _objects.erase(object);
                 isSupr = true;
             }
-            //else if (tank->getPosition() != tank->getPreviousPos())
-                //_objects.emplace_back(std::make_shared<Particles>(coords((tank->getCannon().getPosition().first - tank->getCannon().getPrevPos().first) * -1, 1.0f, (tank->getCannon().getPosition().third - tank->getCannon().getPrevPos().third) * -1), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(128,128,128), RGB()), 50, coords(0.002f, 0, 0), 100.0f));
+            else if (tank->getPosition() != tank->getPreviousPos() && _settings._playersSettings.size() <= 2) {
+                auto newAngle = (static_cast<int>(tank->getRotationAngle()) + 180) % 360;
+                _objects.emplace_back(std::make_shared<Particles>(coords(tank->getPosition().first + (std::sin(M_PI *  newAngle / 180)), 0, tank->getPosition().third + std::cos(M_PI * newAngle / 180)), std::make_pair(1, 1), 1.0f, 0.1f, std::make_pair(RGB(128,128,128), RGB()), 10, coords(0, 0.02f, 0), 100.0f));
+            }
         }
         if ((*object)->getTypeField().isParticule == true) {
             if (std::dynamic_pointer_cast<Particles>(*object)->update() == true) {
@@ -335,8 +330,8 @@ void SceneGame::updateObjects(Raylib &lib) noexcept
         if (!isSupr)
             ++object;
     }
-    // if (VictoryCond == 1)
-    //     std::cout << "You Win\n";
+    if (VictoryCond == 1)
+        _endGame = true;
 }
 
 void SceneGame::applyBonuses(std::shared_ptr<Tank> tank) noexcept

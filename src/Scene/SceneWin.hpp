@@ -34,6 +34,7 @@ namespace win {
      * 
      */
     static const std::string _bgPath = "asset/background_asset/Background_01.png";
+
     /**
      * @brief text position
      * 

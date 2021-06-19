@@ -59,7 +59,7 @@ void Raylib::createWindow(int &screenWidth, int &screenHeight,
     _screenSize.second = screenHeight;
     InitWindow(screenWidth, screenHeight, title.c_str());
     InitAudioDevice();
-    SetExitKey(KEY_DELETE);
+    SetExitKey(KEY_NULL);
     SetTargetFPS(fps);
 }
 

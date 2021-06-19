@@ -126,6 +126,7 @@ class SceneGame : public AScene {
          * 
          */
         bool _isPaused;
+        bool _endGame;
         /**
          * @brief pause scene for pause menu
          * 
@@ -150,7 +151,7 @@ class SceneGame : public AScene {
      * 
      */
     const tanksCoords _twoTanksPos = {
-        {std::make_pair(-8.0f, -5.0f)}, {std::make_pair(8.0f, -5.0f)}
+        {std::make_pair(-8.0f, -5.0f)}, {std::make_pair(8.0f, 5.0f)}
     };
     /**
      * @brief default position for 3 tanks

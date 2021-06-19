@@ -24,6 +24,8 @@ Scenes UiScene::run(Raylib &lib)
 {
     fadeBlack(lib, true);
     while (_state == -1) {
+        if (!lib.gameLoop())
+            return (Scenes::QUIT);
         _mousePos = lib.getMousePosition();
         triggerInputActions(lib);
         if (lib.isMousePressed())
