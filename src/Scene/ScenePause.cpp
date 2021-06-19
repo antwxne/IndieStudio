@@ -6,6 +6,7 @@
 */
 
 #include "ScenePause.hpp"
+#include "SceneOption.hpp"
 #include "Core.hpp"
 #include "Object/UiObject/Button/Button.hpp"
 

@@ -80,9 +80,9 @@ void Tank::setPosition(const coords &pos) noexcept
     _pos = pos;
     _cannon.setPosition(_cannon.getPrevPos());
 }
-void Tank::increaseDamage() noexcept
+void Tank::increaseDamage(int dmgUp) noexcept
 {
-    _cannon.increaseDamage();
+    _cannon.increaseDamage(dmgUp);
 }
 
 std::pair<std::string, std::string > Tank::getPathTank() noexcept {

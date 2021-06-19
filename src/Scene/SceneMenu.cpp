@@ -6,11 +6,11 @@
 */
 
 #include <chrono>
-#include "Core.hpp"
 #include "Raylib.hpp"
 #include <fstream>
 #include "SceneMenu.hpp"
 #include "UiGame/TexteUi.hpp"
+#include "Core.hpp"
 #include "Button/Button.hpp"
 
 namespace menu {

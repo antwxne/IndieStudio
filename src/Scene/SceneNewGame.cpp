@@ -8,8 +8,8 @@
 #include <memory>
 #include "UiObject/Button/Button.hpp"
 #include "InputBox.hpp"
-#include "Core.hpp"
 #include "TexteUi.hpp"
+#include "Core.hpp"
 #include "SceneNewGame.hpp"
 
 namespace newGame {
@@ -35,7 +35,7 @@ namespace newGame {
         for (auto &it : _playerPos)
             _objects.emplace_back(std::make_shared<button::Button>(it, button::_buttonSize, button::_buttonPlayerPath, _playerIA[0], 20, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
         for (auto &it : _inputPos)
-            _objects.emplace_back(std::make_shared<InputBox>(it, button::_buttonSize, button::_buttonNavigPath, 20, 15, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
+            _objects.emplace_back(std::make_shared<button::InputBox>(it, button::_buttonSize, button::_buttonNavigPath, 20, 15, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
         _objects.emplace_back(std::make_shared<TexteUI>(coords(670, 100), std::make_pair(0, 0), "New Game", 90, 1, std::make_pair(RGB(0, 0, 0), RGB())));
     }
 
@@ -45,8 +45,6 @@ namespace newGame {
 
     void SceneNewGame::fillAi()
     {
-        std::size_t fillStruct = 0;
-
         for (auto &it : _objects) {
             if (!it->getTypeField().isButton || it->getTypeField().isInputBox)
                 continue;
@@ -60,17 +58,16 @@ namespace newGame {
 
     void SceneNewGame::fillName()
     {
-        std::size_t fillStruct = 0;
+        std::size_t fillSetting = 0;
 
         for (auto &it : _objects) {
-            if (!it->getTypeField().isInputBox)
+            if (!it->getTypeField().isInputBox || fillSetting == _settings._playersSettings.size())
                 continue;
-            auto button = std::dynamic_pointer_cast<button::Button>(it);
+            auto button = std::dynamic_pointer_cast<button::InputBox>(it);
             if (!button->getText().empty()) {
-                _settings._playersSettings.emplace_back();
-                _settings._playersSettings.back().name = button->getText();
+                _settings._playersSettings[fillSetting].name = button->getText();
+                ++fillSetting;
             }
-            ++fillStruct;
         }
     }
 
@@ -82,7 +79,7 @@ namespace newGame {
         input = lib.getPressedCharacter();
         std::for_each(_objects.begin(), _objects.end(), [&, input](auto &it){
             if (it->getTypeField().isInputBox) {
-                auto button = std::dynamic_pointer_cast<InputBox>(it);
+                auto button = std::dynamic_pointer_cast<button::InputBox>(it);
                 button->changeText(input, _mousePos);
             }
         });
@@ -90,10 +87,11 @@ namespace newGame {
 
     Scenes SceneNewGame::endScene(Raylib &lib) noexcept
     {
-        fillAi();
-        fillName();
         if (!_state)
             return (Scenes::MENU);
+        _settings._playersSettings.clear();
+        fillAi();
+        fillName();
         return (Scenes::GAME);
     }
 

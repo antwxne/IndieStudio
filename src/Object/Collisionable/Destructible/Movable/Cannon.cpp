@@ -45,10 +45,10 @@ std::vector<std::shared_ptr<Bullet>> &Cannon::getBullets()
 {
     return _bullets;
 }
-void Cannon::increaseDamage() noexcept
+void Cannon::increaseDamage(const int dmgUp) noexcept
 {
     for (auto &it : _bullets)
-        it->setDamage(it->getDamage() + 1);
+        it->setDamage(it->getDamage() + dmgUp);
 }
 
 void Cannon::moveBullets() noexcept

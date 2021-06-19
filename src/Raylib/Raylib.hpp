@@ -101,6 +101,7 @@ public:
     void drawRectangleLinesEx(const float &posX, const float &posY, const float &width,
         const float &height, RGB color, int const &lineThick) noexcept;
     void draw(const BorderPlayer &i);
+    static bool collabsWall(std::pair<int, int> firstItem, coords firstItemSize,std::pair<int, int> scdItem, coords scdItemSize);
 
 private:
     void findCollision(std::shared_ptr<CollisionableObject> obj, const std::vector<std::shared_ptr<AObject>> &allObjs) noexcept;
@@ -143,13 +144,13 @@ private:
         KEY_J,
         KEY_K,
         KEY_L,
+        KEY_M,
         KEY_Z,
         KEY_X,
         KEY_C,
         KEY_V,
         KEY_B,
         KEY_N,
-        KEY_M,
     };
 };
 

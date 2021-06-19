@@ -6,9 +6,9 @@
 */
 
 #include "SceneMaxime.hpp"
-#include "Core.hpp"
 #include <bits/stdc++.h>
 
+#include "Core.hpp"
 #include "Object/UiObject/UiObject.hpp"
 #include "Raylib/Raylib.hpp"
 #include "Object/AObject.hpp"
@@ -23,17 +23,12 @@
 #include "Object/Collisionable/Wall/Wall.hpp"
 #include "Object/Collisionable/Destructible/Movable/PowerUps/PowerUps.hpp"
 
-const std::vector<std::string> SceneMaxime::_assetsPath{
-    "asset/background_asset/ground.png",
-    "asset/OBJFormat/ground.obj",
-    "asset/bonus/arrow.obj"};
-
 SceneMaxime::SceneMaxime(Setting &settings) : AScene(settings), _pressed(false), _isPaused(false), _scenePause(settings)
 {
     /////////////////////////////START CEMENT//////////////////////:
 
     _objects.emplace_back(std::make_shared<Ground>(
-        coords(0, 0, 0), std::make_pair(40, 22), std::pair<std::string, std::string>(_assetsPath.at(0), _assetsPath.at(1))));
+        coords(0, 0, 0), std::make_pair(40, 22), std::pair<std::string, std::string>(core::groundTexture, core::groundModel)));
     auto const &carre = std::make_unique<FrameUI>();
     for (auto const &carr : carre->getBorder())
         _objects.emplace_back(std::make_shared<BorderPlayer>(carr));
@@ -174,7 +169,7 @@ Scenes SceneMaxime::run(Raylib &lib)
             isLock = true;
             for (auto it = _objects.begin(); it != _objects.end(); ) {
                 if (it->get()->getTypeField().isDestructible == true) {
-                    _objects.emplace_back(std::make_shared<PowerUps>(coords(it->get()->getPosition().first,it->get()->getPosition().second + 1.0f, it->get()->getPosition().third), coords(1, 1, 1), std::pair<std::string, std::string>("", _assetsPath.at(2))));
+                    _objects.emplace_back(std::make_shared<PowerUps>(coords(it->get()->getPosition().first,it->get()->getPosition().second + 1.0f, it->get()->getPosition().third), coords(1, 1, 1), std::pair<std::string, std::string>("", core::powerUpModel)));
                     _objects.emplace_back(std::make_shared<Particles>(_objects.back()->getPosition(), std::make_pair(1.f, 1), 1.1f, 0.05f, std::make_pair(RGB(218, 165, 32), RGB()), 25, coords(.0f, .001f, .0f)));
                     it = _objects.erase(it);
                     break;
@@ -197,7 +192,7 @@ Scenes SceneMaxime::run(Raylib &lib)
             for (auto it = _objects.begin(); it != _objects.end();) {
                 if (it->get()->getTypeField().isDestructible == true)
                 {
-                    _objects.emplace_back(std::make_shared<PowerUps>(coords(it->get()->getPosition().first, it->get()->getPosition().second + 1.0f, it->get()->getPosition().third), coords(0, 0, 0), std::pair<std::string, std::string>("", _assetsPath.at(2))));
+                    _objects.emplace_back(std::make_shared<PowerUps>(coords(it->get()->getPosition().first, it->get()->getPosition().second + 1.0f, it->get()->getPosition().third), coords(0, 0, 0), std::pair<std::string, std::string>("", core::powerUpModel)));
                     _objects.emplace_back(std::make_shared<Particles>(coords(it->get()->getPosition().first, it->get()->getPosition().second + 1.0f, it->get()->getPosition().third), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(218, 165, 32), RGB()), 10, coords(0, 0.2f, 0)));
                     it = _objects.erase(it);
                     break;

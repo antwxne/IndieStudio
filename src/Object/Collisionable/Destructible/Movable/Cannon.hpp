@@ -54,7 +54,7 @@ public:
      * @brief increases by one the damage of the bullets
      * 
      */
-    void increaseDamage() noexcept;
+    void increaseDamage(const int dmgUp) noexcept;
 
     /**
      * @brief Set the Fire Cool Down object

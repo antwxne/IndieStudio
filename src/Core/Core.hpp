@@ -27,14 +27,14 @@
 namespace core {
 
     static const std::string _menuMusic = "asset/music/menu_music.mp3";
-
     static const std::string _gameMusic = "asset/music/game_music.mp3";
-
     static const std::string _winMusic = "asset/music/win_music.mp3";
-
     static const std::string _mouseClick = "asset/sound_effects/click.wav";
-
     static const std::string _mouseOver = "asset/sound_effects/over.wav";
+
+    static const std::string groundTexture = "asset/background_asset/ground.png";
+    static const std::string groundModel = "asset/OBJFormat/ground.obj";
+    static const std::string powerUpModel = "asset/bonus/arrow.obj";
 
     static const std::unordered_map<Scenes, std::function<std::unique_ptr<IScene>(Setting &settings)>> _enumToConstructor {
         {Scenes::SPLASHSCREEN,      [](Setting &settings){return std::make_unique<newGame::SceneNewGame>(settings);}},

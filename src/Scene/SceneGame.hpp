@@ -27,10 +27,12 @@ class SceneGame : public AScene {
         void initMap(const tanksCoords &tanksCoords);
 
         void manageHeart(const std::string &name, const int life);
-
-        void managePause(Raylib &lib);
         
         void saveTanks() noexcept;
+
+        void updateObjects() noexcept;
+
+        void applyBonuses() noexcept;
 
         static const std::vector<std::pair<float, float>> _playerPos;
         static const std::vector<std::pair<float, float>> _scorePos;

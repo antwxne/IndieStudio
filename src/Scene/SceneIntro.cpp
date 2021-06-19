@@ -5,6 +5,7 @@
 ** SceneIntro
 */
 
+#include "Core.hpp"
 #include "Object/Collisionable/Wall/Wall.hpp"
 #include "Object/Ground/Ground.hpp"
 #include "Map/Map.hpp"
@@ -16,11 +17,6 @@
 #include <string>
 #include <iostream>
 
-const std::vector<std::string> SceneIntro::_assetsPath {
-    "asset/background_asset/ground.png",
-    "asset/OBJFormat/ground.obj",
-};
-
 SceneIntro::SceneIntro(Setting &settings) : AScene(settings), _enter(false)
 {
     std::vector<std::pair<float, float>> size;
@@ -30,7 +26,7 @@ SceneIntro::SceneIntro(Setting &settings) : AScene(settings), _enter(false)
             size.push_back(std::make_pair(static_cast<int>(i->getPosition().first), static_cast<int>(i->getPosition().third)));
     auto const &map = std::make_unique<Map>(size);
     map->createContourMap(std::make_pair(-10, 10), std::make_pair(-8, 8));
-    _objects.emplace_back(std::make_shared<Ground>(coords(0, 0, 0), std::make_pair(40, 22), std::pair<std::string, std::string>(_assetsPath.at(0), _assetsPath.at(1))));
+    _objects.emplace_back(std::make_shared<Ground>(coords(0, 0, 0), std::make_pair(40, 22), std::pair<std::string, std::string>(core::groundTexture, core::groundModel)));
     for (auto const &block : map->_objectNoDestructibleList)
         _objects.emplace_back(std::make_shared<Wall>(block));
 

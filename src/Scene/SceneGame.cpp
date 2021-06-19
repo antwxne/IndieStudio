@@ -53,6 +53,7 @@ SceneGame::SceneGame(Setting &settings) : AScene(settings), _isPaused(false),
     setInputFunction(Raylib::ESCAPE, [&]() {
         _isPaused = !_isPaused;
     });
+    applyBonuses();
 }
 
 SceneGame::~SceneGame()
@@ -108,7 +109,14 @@ void SceneGame::initTankUi(int tankCounter, std::shared_ptr<Tank> tank,
             std::make_pair(50, 50), std::to_string(tank->getScore()), 20, 1,
             std::make_pair(RGB(150), RGB())));
     }
-    std::cout << std::endl;
+    _objects.emplace_back(std::make_shared<TexteUI>(
+        coords(_scorePos[tankCounter].first, _scorePos[tankCounter].second),
+        std::make_pair(50, 50),
+        std::to_string(tank->getScore()),
+        20,
+        1,
+        std::make_pair(RGB(150), RGB()))
+    );
 }
 
 void SceneGame::initColors()
@@ -121,6 +129,7 @@ void SceneGame::initColors()
 void SceneGame::initMap(const tanksCoords &tanksCoords)
 {
     _map = std::make_unique<Map>(tanksCoords);
+    _map->initTheObstacle();
     if (_settings.load == false) {
         _map->createDestructibleMap(std::make_pair(-6, -7),
             std::make_pair(0, 0));
@@ -202,7 +211,6 @@ Scenes SceneGame::run(Raylib &lib)
         end = std::chrono::steady_clock::now();
         lib.displayMusic(core::_gameMusic, _settings._musicVol);
         triggerInputActions(lib);
-        lib.printObjects(_objects);
         if (_isPaused) {
             auto newScene = _scenePause.run(lib);
             if (newScene == Scenes::SAVE) {
@@ -211,18 +219,6 @@ Scenes SceneGame::run(Raylib &lib)
             } else if (newScene != Scenes::GAME)
                 return (newScene);
             _isPaused = false;
-        }
-        for (auto it = _objects.begin(); it != _objects.end(); ++it) {
-            if ((*it)->getTypeField().isTank) {
-                auto tank = std::dynamic_pointer_cast<Tank>(*it);
-                manageHeart(tank->getName(), tank->getLife());
-                tank->moveBullets();
-            }
-            if ((*it)->getTypeField().isParticule == true) {
-                std::dynamic_pointer_cast<Particles>(*it)->update();
-            } else if ((*it)->getTypeField().isPowerUps == true) {
-                std::dynamic_pointer_cast<PowerUps>(*it)->rotate(0.5f);
-            }
         }
         for (auto &AI : AIs) {
             AI->target(tanks[nAI]->getPosition());
@@ -236,10 +232,49 @@ Scenes SceneGame::run(Raylib &lib)
             std::shuffle(tanks.begin(), tanks.end(), rng);
         }
         started = false;
+        updateObjects();
+        lib.printObjects(_objects);
     }
     return (Scenes::QUIT);
 }
 
-void SceneGame::managePause(Raylib &lib)
+void SceneGame::updateObjects() noexcept
 {
+    for (auto object = _objects.begin(); object != _objects.end();) {
+        if ((*object)->getTypeField().isTank) {
+            auto tank = std::dynamic_pointer_cast<Tank>(*object);
+            manageHeart(tank->getName(), tank->getLife());
+            tank->moveBullets();
+        }
+        if ((*object)->getTypeField().isParticule == true) {
+            std::dynamic_pointer_cast<Particles>(*object)->update();
+        }
+        else if ((*object)->getTypeField().isPowerUps == true) {
+            std::dynamic_pointer_cast<PowerUps>(*object)->rotate(0.5f);
+        }
+        if (object->get()->getTypeField().isDestructibleWall && std::dynamic_pointer_cast<DestructibleWall>(*object)->getLife() <= 0) {
+            _objects.emplace_back(std::make_shared<PowerUps>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), coords(1, 1, 1), std::pair<std::string, std::string>("", "")));
+            object = _objects.erase(object);
+            continue;
+        }
+        if (object->get()->getTypeField().isPowerUps && std::dynamic_pointer_cast<PowerUps>(*object)->getLife() <= 0) {
+            object = _objects.erase(object);
+            continue;
+        }
+        ++object;
+    }
+}
+
+void SceneGame::applyBonuses() noexcept
+{
+    // selon les bonus choisis cette fonction sera utile ou non
+    // peut etre mieux de le faire directement a l'instanciation pour les tanks par exemple
+    if (_settings.bonuses.firstBonus) {
+    }
+    if (_settings.bonuses.secondBonus) {
+    }
+    if (_settings.bonuses.thirdBonus) {
+    }
+    if (_settings.bonuses.fourthBonus) {
+    }
 }

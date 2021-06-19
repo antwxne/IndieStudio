@@ -105,7 +105,7 @@ public:
      * @brief calls cannon.increaseDamage() to add one to _bullets.damage
      * 
      */
-    void increaseDamage() noexcept;
+    void increaseDamage(const int dmgUp) noexcept;
 
     /**
      * @brief Get the Cannon object
