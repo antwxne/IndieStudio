@@ -10,10 +10,8 @@
 #include <random>
 #include <algorithm>
 
-#include "Object/Collisionable/Destructible/Movable/TankAi.hpp"
 #include "Core.hpp"
 #include "SceneGame.hpp"
-#include "Object/Collisionable/Destructible/Movable/Tank.hpp"
 #include "Ground.hpp"
 #include "LifeGame.hpp"
 #include "TexteUi.hpp"
@@ -276,7 +274,7 @@ Scenes SceneGame::run(Raylib &lib)
             AI->target(tanks[nAI]->getPosition());
             ++nAI;
             AI->autoMove();
-            if (std::chrono::duration_cast<std::chrono::seconds>(end - start) >= std::chrono::seconds(3)) {
+            if (std::chrono::duration_cast<std::chrono::seconds>(endFire - startFire) >= std::chrono::seconds(5)) {
                 AI->fire();
                 startFire = std::chrono::steady_clock::now();
             }
@@ -311,8 +309,8 @@ void SceneGame::updateObjects(Raylib &lib) noexcept
                 object = _objects.erase(object);
                 isSupr = true;
             }
-            else if (tank->getPosition() != tank->getPreviousPos())
-                _objects.emplace_back(std::make_shared<Particles>(coords(tank->getPreviousPos().first, tank->getPreviousPos().second, tank->getPreviousPos().third), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(128,128,128), RGB()), 50, coords(0.002f, 0, 0), 100.0f));
+            //else if (tank->getPosition() != tank->getPreviousPos())
+                //_objects.emplace_back(std::make_shared<Particles>(coords((tank->getCannon().getPosition().first - tank->getCannon().getPrevPos().first) * -1, 1.0f, (tank->getCannon().getPosition().third - tank->getCannon().getPrevPos().third) * -1), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(128,128,128), RGB()), 50, coords(0.002f, 0, 0), 100.0f));
         }
         if ((*object)->getTypeField().isParticule == true) {
             if (std::dynamic_pointer_cast<Particles>(*object)->update() == true) {
@@ -324,7 +322,7 @@ void SceneGame::updateObjects(Raylib &lib) noexcept
             std::dynamic_pointer_cast<PowerUps>(*object)->rotate(0.5f);
         if (object->get()->getTypeField().isDestructibleWall && std::dynamic_pointer_cast<DestructibleWall>(*object)->getLife() <= 0) {
             _objects.emplace_back(std::make_shared<PowerUps>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), coords(1, 1, 1), std::pair<std::string, std::string>("", "")));
-            _objects.emplace_back(std::make_shared<Particles>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(218, 165, 32), RGB()), 100, coords(0, 0.2f, 0), 10000.0f));
+            _objects.emplace_back(std::make_shared<Particles>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(218, 165, 32), RGB()), 100, coords(0, 0.2f, 0), 3000.0f));
             object = _objects.erase(object);
             isSupr = true;
         }

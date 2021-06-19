@@ -10,6 +10,11 @@
 
 #include "Raylib/Raylib.hpp"
 
+/**
+ * @brief all scenes
+ * @enum Scenes
+ * 
+ */
 enum Scenes {
     QUIT = -1,
     MENU,
@@ -23,9 +28,24 @@ enum Scenes {
     ENDGAME
 };
 
+/**
+ * @brief Interface for Scenes
+ * @class IScene
+ * 
+ */
 class IScene {
     public:
+        /**
+         * @brief Destroy the IScene object
+         * 
+         */
         virtual ~IScene() {};
+        /**
+         * @brief run the scene
+         * 
+         * @param lib 
+         * @return Scenes 
+         */
         virtual Scenes run(Raylib &lib) = 0;
 };
 

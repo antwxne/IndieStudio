@@ -15,6 +15,16 @@
  *
  * @brief base class for objects with collision
  */
+
+enum collisionableSound {
+    NONE_SOUND,
+    TRUCK_EXPLOSION,
+    TANK_COLLISION,
+    BULLET_HIT_TANK,
+    BULLET_COLLISION,
+    TANK_EXPLOSION,
+    TANK_HIT_UP
+};
 class CollisionableObject: public AObject {
 public:
     /**
@@ -43,7 +53,7 @@ public:
      * @return true
      * @return false
      */
-    bool hit(std::shared_ptr<CollisionableObject> obj) noexcept;
+    collisionableSound hit(std::shared_ptr<CollisionableObject> obj) noexcept;
     /**
      * @brief Get the Texture object
      *
@@ -69,13 +79,35 @@ public:
      * @param texture
      */
     void setModel(const std::string &texture) noexcept;
-
+    /**
+     * @brief Set the Rotation Angle object
+     * 
+     * @param angle 
+     */
     void setRotationAngle(const float angle) noexcept;
+    /**
+     * @brief Set the Rotation Axis object
+     * 
+     * @param axis 
+     */
     void setRotationAxis(const coords &axis) noexcept;
+    /**
+     * @brief 
+     * 
+     * @return const coords& 
+     */
     const coords &get3DSize() const noexcept {return  _3DSize;};
 
 protected:
+    /**
+     * @brief path to model
+     * 
+     */
     std::pair<std::string, std::string> _path;
+    /**
+     * @brief 3D size of object
+     * 
+     */
     coords _3DSize;
 };
 

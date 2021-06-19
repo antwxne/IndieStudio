@@ -106,19 +106,53 @@ public:
      * @return const coords& 
      */
     [[nodiscard]] const coords &getRotationAxis() const noexcept;
-
-    protected:
-    coords _pos;
-    std::pair<int, int> _size;
-    std::pair<RGB, RGB> _color;
-    public:
+    /**
+     * @brief Set the Color object
+     * 
+     * @param color 
+     */
     void setColor(const std::pair<RGB, RGB> &color);
 
     protected:
+    /**
+     * @brief position
+     * 
+     */
+    coords _pos;
+    /**
+     * @brief size
+     * 
+     */
+    std::pair<int, int> _size;
+    /**
+     * @brief color
+     * 
+     */
+    std::pair<RGB, RGB> _color;
+    /**
+     * @brief rotation
+     * 
+     */
     float _rotation;
+    /**
+     * @brief rotation angle
+     * 
+     */
     float _rotationAngle;
+    /**
+     * @brief rotation axis
+     * 
+     */
     coords _rotationAxis;
+    /**
+     * @brief typefields
+     * 
+     */
     typeField _typeField;
+    /**
+     * @brief scale
+     * 
+     */
     float _scale;
 };
 

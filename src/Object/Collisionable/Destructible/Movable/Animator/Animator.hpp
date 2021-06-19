@@ -13,16 +13,61 @@
 class Animator : public MovableObject
 {
     public:
+        /**
+         * @brief Construct a new Animator object
+         * 
+         * @param pos 
+         * @param size 
+         * @param path 
+         * @param animePath 
+         */
         Animator(const coords &pos, const coords &size, const std::pair<std::string, std::string> &path, const std::string &animePath);
+        /**
+         * @brief Construct a new Animator object
+         * 
+         * @param ToCopy 
+         */
         Animator(Animator &ToCopy);
+        /**
+         * @brief Destroy the Animator object
+         * 
+         */
         ~Animator();
+        /**
+         * @brief 
+         * 
+         * @param up 
+         */
         void addFrameCount(const int up) noexcept;
+        /**
+         * @brief Get the Frame Actual object
+         * 
+         * @return int 
+         */
         int getFrameActual() noexcept;
+        /**
+         * @brief Set the Frame Count object
+         * 
+         * @param frame 
+         */
         void setFrameCount(const int frame) noexcept;
+        /**
+         * @brief Get the Anim Path object
+         * 
+         * @return std::string 
+         */
         std::string getAnimPath() const noexcept;
 
     private:
+        /**
+         * @brief n frames
+         * 
+         */
         int _frameCount;
+        /**
+         * @brief path to animated object
+         * 
+         */
         std::string _animePath;
 };
 

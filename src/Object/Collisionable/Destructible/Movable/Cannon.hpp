@@ -63,24 +63,35 @@ public:
      */
 
     void increaseBounce(const int dmgUp) noexcept;
-
-    void setFireCoolDown(int) noexcept;
-
+    /**
+     * @brief Set the Fire Cool Down object
+     * 
+     * @param time time
+     * 
+     */
+    void setFireCoolDown(int time) noexcept;
+    /**
+     * @brief Set the Damage object
+     * 
+     * @param damage 
+     */
     void setDamage(float const &damage) noexcept;
-
     /**
      * @brief Get the Fire Cool Down object
      * 
      * @return int 
      */
     int getFireCoolDown() const noexcept;
-
     /**
      * @brief move cannon and update previous pos
      * @param direction
      */
     void move(const coords &direction) noexcept override;
-
+    /**
+     * @brief Get the Prev Pos object
+     * 
+     * @return const coords& 
+     */
     const coords &getPrevPos() const;
 private:
     /**
