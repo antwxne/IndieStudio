@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <iostream>
 #include <cmath>
+#include <fstream>
 
 #include "Raylib.hpp"
 #include "RaylibError.hpp"
@@ -20,6 +21,7 @@
 #include "Button.hpp"
 #include "Tank.hpp"
 #include "Cannon.hpp"
+#include "Error/Error.hpp"
 
 Raylib::Raylib() : _camera(
     {{0.0f, 20.0f, 15.0f}, { 0.0f, 0.0f, 2.0f}, {0.0f, 1.0f, 0.0f}, 40.0f, 0})
@@ -297,8 +299,11 @@ void Raylib::displayMusic(const std::string &path, float volume)
 void Raylib::displaySound(const std::string &path, float volume)
 {
     auto it = _sound.find(path);
+    std::ifstream checkexist(path.c_str());
 
-    if (it == _sound.end()) {
+    if (checkexist.is_open() == false)
+        throw Error("file: \"" + path + "\" doesn't exist", "Raylib::displaySound");
+    if (it == _sound.cend()) {
         _sound.insert({path, LoadSound(path.c_str())});
         it = _sound.find(path);
     }
@@ -467,9 +472,13 @@ void Raylib::findCollision(std::shared_ptr<CollisionableObject> obj,
                     positionOther.third + (otherRotaton <= 110 && otherRotaton >= 70 || otherRotaton <= 290 && otherRotaton >= 250 ? tmpBoundOther.max.x : tmpBoundOther.max.z) * scaleOther}};
             if (CheckCollisionBoxes(boundCurrent, boundOther)) {
                 auto sound = obj->hit(tmp);
-                // if (sound != NONE_SOUND)
-                //    displaySound(MAP_SONG.at(sound), 1.f);
-                    //fonction son charlie;
+                 if (sound != NONE_SOUND) {
+                     try {
+                         displaySound(MAP_SONG.at(sound), 1.f);
+                     } catch (const Error &error) {
+                         std::cerr << error.what() << ", " << error.where() << std::endl;
+                     }
+                 }
             }
         }
     }

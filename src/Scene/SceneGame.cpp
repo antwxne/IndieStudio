@@ -77,10 +77,6 @@ void SceneGame::initTanks(const tanksCoords &tanksCoords)
             setInputsTank(_settings._keysPlayers[setOfKeyInputs],
                 _objects.back());
             setOfKeyInputs++;
-            applyBonuses(std::dynamic_pointer_cast<Tank>(_objects.back()));
-            initTankUi(tankCounter,
-                std::dynamic_pointer_cast<Tank>(_objects.back()),
-                playerSettings);
         } else if (playerSettings.type == IA) {
             _objects.emplace_back(std::make_shared<TankAI>(playerSettings.name,
                 coords(tanksCoords[tankCounter].first, 0,
@@ -88,7 +84,9 @@ void SceneGame::initTanks(const tanksCoords &tanksCoords)
                 std::make_pair(Tank::bodyTexture, Tank::bodyModel),
                 std::make_pair(Tank::darkGreen, Tank::cannonModel)));
         }
-        // initTankUi(tankCounter, std::dynamic_pointer_cast<Tank>(_objects.back()), playerSettings);
+        auto newTank = std::dynamic_pointer_cast<Tank>(_objects.back());
+        applyBonuses(newTank);
+        initTankUi(tankCounter, newTank, playerSettings);
         tankCounter++;
     }
 }

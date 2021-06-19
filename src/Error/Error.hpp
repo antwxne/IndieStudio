@@ -17,12 +17,14 @@
  */
 class Error : public std::exception {
     public:
-        Error(const std::string &desc) noexcept;
+        Error(const std::string &descn, const std::string &where = "") noexcept;
         ~Error() = default;
 
         const char *what() const noexcept override;
+        const char *where() const noexcept;
     protected:
         std::string _desc;
+        std::string _where;
 };
 
 #endif /* !ERROR_HPP_ */
