@@ -15,6 +15,7 @@
 #include "SceneGame.hpp"
 #include "Object/Collisionable/Destructible/Movable/Tank.hpp"
 #include "Ground.hpp"
+#include "Score.hpp"
 #include "LifeGame.hpp"
 #include "TexteUi.hpp"
 #include "ColorPlayer.hpp"
@@ -40,7 +41,6 @@ const std::vector<std::pair<float, float>> SceneGame::_uiLifePosPlayer = {
 SceneGame::SceneGame(Setting &settings) : AScene(settings), _isPaused(false),
     _scenePause(settings)
 {
-    std::cout << "PROBLEME EST ICI SUREMENT OU PAS\n";
     tanksCoords tanksCoords = _tanksPosNbPlayers.at(
         _settings._playersSettings.size());
 
@@ -53,7 +53,6 @@ SceneGame::SceneGame(Setting &settings) : AScene(settings), _isPaused(false),
         initSaveTanks();
     }
     initColors();
-    createRect();
     initMap(tanksCoords);
     setInputFunction(Raylib::ESCAPE, [&]() {
         _isPaused = !_isPaused;
@@ -63,13 +62,6 @@ SceneGame::SceneGame(Setting &settings) : AScene(settings), _isPaused(false),
 
 SceneGame::~SceneGame()
 {
-}
-
-void SceneGame::createRect() noexcept
-{
-    auto const &carre = std::make_unique<FrameUI>();
-    for (auto const &carr : carre->getBorder())
-        _objects.emplace_back(std::make_shared<BorderPlayer>(carr));
 }
 
 void SceneGame::initTanks(const tanksCoords &tanksCoords)
@@ -110,9 +102,7 @@ void SceneGame::initSaveTanks()
     std::size_t setOfKeyInputs = 0;
     int tankCounter = 0;
 
-    std::cout << "GROS LOLOLO\n";
     for (auto &tank : tanks) {
-        std::cout << "GROS LOLOLO 01\n";
         _objects.emplace_back(std::make_shared<Tank>(
                 tank.getName(),
                 coords(tank.getPosition().first,0, tank.getPosition().third),
@@ -120,19 +110,12 @@ void SceneGame::initSaveTanks()
                 8,
                 std::make_pair(Tank::bodyTexture, Tank::bodyModel),
                 std::make_pair(Tank::darkGreen, Tank::cannonModel)));
-        std::cout << "GROS LOLOLO 02\n";
         auto tk = std::dynamic_pointer_cast<Tank>(_objects.back());
-        std::cout << "GROS LOLOLO 03\n";
         tk->setSpeed(tank.getSpeed());
-        std::cout << "GROS LOLOLO 04\n";
         tk->setLife(tank.getLife());
-        std::cout << "GROS LOLOLO 05\n";
         setInputsTank(_settings._keysPlayers[setOfKeyInputs], _objects.back());
-        std::cout << "GROS LOLOLO 06\n";
         setOfKeyInputs++;
-        std::cout << "GROS LOLOLO 07\n";
         initTankUi(tankCounter, std::dynamic_pointer_cast<Tank>(_objects.back()), _settings._playersSettings[tankCounter]);
-        std::cout << "GROS LOLOLO 08\n";
         tankCounter++;
     }
         /*} else if (playerSettings.type == IA) {
@@ -151,19 +134,15 @@ void SceneGame::initTankUi(int tankCounter, std::shared_ptr<Tank> tank, PlayerSe
             coords(_playerPos[tankCounter].first,
                 _playerPos[tankCounter].second), std::make_pair(50, 50),
             tank->getName(), 20, 1, std::make_pair(RGB(150), RGB())));
-        _objects.emplace_back(std::make_shared<TexteUI>(
+      /*  _objects.emplace_back(std::make_shared<Score>(tank->getName(),
             coords(_scorePos[tankCounter].first, _scorePos[tankCounter].second),
             std::make_pair(50, 50), std::to_string(tank->getScore()), 20, 1,
-            std::make_pair(RGB(150), RGB())));
+            std::make_pair(RGB(150), RGB())));*/
     }
-    _objects.emplace_back(std::make_shared<TexteUI>(
+    _objects.emplace_back(std::make_shared<Score>(tank->getName(),
         coords(_scorePos[tankCounter].first, _scorePos[tankCounter].second),
-        std::make_pair(50, 50),
-        std::to_string(tank->getScore()),
-        20,
-        1,
-        std::make_pair(RGB(150), RGB()))
-    );
+        std::make_pair(50, 50), tank->getScore(), 20, 1,
+        std::make_pair(RGB(150), RGB())));
 }
 
 void SceneGame::initColors()
@@ -292,6 +271,32 @@ Scenes SceneGame::run(Raylib &lib)
     return (Scenes::QUIT);
 }
 
+void SceneGame::timeIncrementScore(std::shared_ptr<Tank> &tank)
+{
+    static auto start = std::chrono::steady_clock::now();
+    auto end = std::chrono::steady_clock::now();
+
+    if (std::chrono::duration_cast<std::chrono::milliseconds>(end - start) >= std::chrono::milliseconds(1000)) {
+        tank->setScore(tank->getScore() + 1);
+    }
+}
+
+void SceneGame::updateScore(std::string const &name, std::size_t &scoreTank) noexcept
+{
+    for (auto &k : _objects) {
+        if (k->getTypeField().isScore) {
+            auto score = std::dynamic_pointer_cast<Score>(k);
+            score->updateDisplay();
+
+//            if (score->getName() == name) {
+                std::cout <<" Score Avant === " << score->getScore() << std::endl;
+                //score->updateDisplay();
+                std::cout <<" Score Après === " << score->getScore() << std::endl;
+            //}
+        }
+    }
+}
+
 void SceneGame::updateObjects(Raylib &lib) noexcept
 {
     int VictoryCond = 0;
@@ -301,6 +306,9 @@ void SceneGame::updateObjects(Raylib &lib) noexcept
         isSupr = false;
         if ((*object)->getTypeField().isTank) {
             auto tank = std::dynamic_pointer_cast<Tank>(*object);
+           // timeIncrementScore(tank);
+          //  updateScore(tank->getName(), tank->getScore());
+            std::cout << "GETSCORE ==== " << tank->getScore() << std::endl;
             manageHeart(tank->getName(), tank->getLife());
             tank->moveBullets();
             if (tank->getLife() <= 0) {

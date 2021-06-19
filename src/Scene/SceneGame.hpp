@@ -31,11 +31,13 @@ class SceneGame : public AScene {
 
         void saveAll() noexcept;
 
+        void updateScore(std::string const &name, std::size_t &scoreTank) noexcept;
+
         void updateObjects(Raylib &lib) noexcept;
 
-        void createRect() noexcept;
-
         void initSaveTanks();
+
+        void timeIncrementScore(std::shared_ptr<Tank> &tank);
 
         void applyBonuses() noexcept;
 
