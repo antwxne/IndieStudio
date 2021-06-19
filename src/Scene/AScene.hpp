@@ -16,25 +16,91 @@
 #include "IScene.hpp"
 #include "Setting.hpp"
 
+/**
+ * @brief time to fade between scene
+ * 
+ */
 static const std::size_t _frameFade = 25;
 
+/**
+ * @brief base class for scenes
+ * @class AScene
+ * 
+ */
 class AScene : public IScene
 {
 public:
+    /**
+     * @brief Construct a new AScene object
+     * 
+     * @param settings 
+     */
     AScene(Setting &settings);
+    /**
+     * @brief Destroy the AScene object
+     * 
+     */
     virtual ~AScene() = default;
 
 protected:
+    /**
+     * @brief do action with input
+     * 
+     * @param lib 
+     */
     void triggerInputActions(Raylib &lib);
+    /**
+     * @brief fade between scene
+     * 
+     * @param lib 
+     * @param out 
+     */
     void fadeBlack(Raylib &lib, bool out);
+    /**
+     * @brief Set the Inputs First Tank object
+     * 
+     * @param controls 
+     */
     void setInputsFirstTank(const std::array<Raylib::Inputs, 7> &controls);
+    /**
+     * @brief Set the Inputs Second Tank object
+     * 
+     * @param controls 
+     */
     void setInputsSecondTank(const std::array<Raylib::Inputs, 7> &controls);
+    /**
+     * @brief Set the Inputs Tank object
+     * 
+     * @param controls 
+     * @param tank 
+     */
     void setInputsTank(const std::array<Raylib::Inputs, 7> &controls, std::shared_ptr<AObject> tank);
+    /**
+     * @brief Set the Input Function object
+     * 
+     * @param function 
+     */
     void setInputFunction(Raylib::Inputs, std::function<void()> function);
 
+    /**
+     * @brief scene's settings
+     * 
+     */
     Setting &_settings;
+    /**
+     * @brief save inputs
+     * 
+     */
     std::vector<int> _inputSave;
+    /**
+     * @brief all objects in scene
+     * 
+     */
     std::vector<std::shared_ptr<AObject>> _objects;
+    /**
+     * @brief associate key to function
+     * 
+     */
     std::unordered_map<int,std::function<void()>> _keys = {
         {Raylib::NULL_KEY, [](){}},
         {Raylib::ENTER, [](){}},
