@@ -93,6 +93,7 @@ public:
      * @return const coords& 
      */
     const coords &getPrevPos() const;
+
 private:
     /**
      * @var bullet's vector

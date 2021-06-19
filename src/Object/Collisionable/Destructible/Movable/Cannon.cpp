@@ -41,24 +41,6 @@ void Cannon::fire()
     }
 }
 
-// coord Cannon::getfirePosition()
-// {
-//     auto now = std::chrono::high_resolution_clock::now();
-
-//     if (std::chrono::duration_cast<std::chrono::milliseconds>(now - _fireTimeStamp) < std::chrono::milliseconds(_fireCoolDown))
-//         return;
-//     _fireTimeStamp = std::chrono::high_resolution_clock::now();
-//     for (auto &bullet : _bullets) {
-//         if (bullet->getPosition().first == Bullet::waitPosition) {
-//             bullet->setPosition(coords(_pos.first, bullet->getPosition().second, _pos.third));
-//             bullet->setRotationAngle(_rotationAngle);
-//             bullet->setDirection(coords(std::sin(M_PI *  bullet->getRotationAngle() / 180), 0, std::cos(M_PI * bullet->getRotationAngle() / 180)));
-//             bullet->setShooting(true);
-//             break;
-//         }
-//     }
-// }
-
 std::vector<std::shared_ptr<Bullet>> &Cannon::getBullets()
 {
     return _bullets;
@@ -84,6 +66,7 @@ void Cannon::moveBullets() noexcept
             bullet->setShooting(false);
         }
 }
+
 void Cannon::move(const coords &direction) noexcept
 {
     auto tmp = direction;
