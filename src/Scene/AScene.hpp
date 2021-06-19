@@ -140,5 +140,12 @@ protected:
         {Raylib::X, [](){}},
         {Raylib::Y, [](){}},
         {Raylib::Z, [](){}},
+        {Raylib::JLL, [](){}},
+        {Raylib::JLR, [](){}},
+        {Raylib::JRL, [](){}},
+        {Raylib::JRR, [](){}},
+        {Raylib::JRU, [](){}},
+        {Raylib::JRD, [](){}},
+        {Raylib::JA, [](){}},
     };
 };

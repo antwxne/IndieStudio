@@ -210,6 +210,19 @@ bool Raylib::isControllerValid(int const &idx, std::string const &ControllerName
     return false;
 }
 
+std::vector<int> Raylib::getControllerInput(int idx)
+{
+    std::array<int, 4> joystick = {GetGamepadAxisMovement(0, 0), GetGamepadAxisMovement(0, 2), GetGamepadAxisMovement(0, 3), GetGamepadButtonPressed()};
+    std::vector<int> joystickToInput;
+
+    for (std::size_t i = 0; i != 3; ++i)
+        if (joystick[i])
+            joystickToInput.emplace_back(JLL + i * 2 + (1 * (joystick[i] > 0)));
+    if (joystick[3] == 6)
+        joystickToInput.emplace_back(JA);
+    return (joystickToInput);
+}
+
 bool Raylib::checkCollision(std::pair<float, float> pos, float width, float height, float posX, float posY)
 {
     Rectangle rect = {posX, posY, width, height};
@@ -241,7 +254,6 @@ std::vector<int> Raylib::getKeysDown() noexcept
 {
     int input;
     std::vector<int> keysDown = {};
-    std::unordered_map<int,std::function<void()>>::iterator itKey;
 
     while ((input = getKeyPressed()) != Raylib::NULL_KEY) {
         _inputSave.emplace_back(input);
@@ -254,6 +266,8 @@ std::vector<int> Raylib::getKeysDown() noexcept
         keysDown.emplace_back(*it);
         it++;
     }
+    auto controllerInputs = getControllerInput(0);
+    keysDown.insert(keysDown.end(), controllerInputs.begin(), controllerInputs.end());
     return keysDown;
 }
 
@@ -451,8 +465,6 @@ void Raylib::findCollision(std::shared_ptr<CollisionableObject> obj,
                     positionOther.first + (otherRotaton <= 110 && otherRotaton >= 70 || otherRotaton <= 290 && otherRotaton >= 250 ? tmpBoundOther.max.z : tmpBoundOther.max.x) * scaleOther,
                     positionOther.second + tmpBoundOther.max.y,
                     positionOther.third + (otherRotaton <= 110 && otherRotaton >= 70 || otherRotaton <= 290 && otherRotaton >= 250 ? tmpBoundOther.max.x : tmpBoundOther.max.z) * scaleOther}};
-//            DrawBoundingBox(boundOther, RED);
-//            DrawBoundingBox(boundCurrent, BLUE);
             if (CheckCollisionBoxes(boundCurrent, boundOther)) {
                 obj->hit(tmp);
             }
@@ -473,4 +485,3 @@ bool Raylib::collabsWall(std::pair<int, int> firstItem, coords firstItemSize,std
         return true;
     return false;
 }
-

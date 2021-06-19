@@ -10,7 +10,10 @@
 
 #include "AScene.hpp"
 #include "Map.hpp"
+#include "FrameUI.hpp"
 #include "ScenePause.hpp"
+#include "Object/Collisionable/Destructible/Movable/TankAi.hpp"
+#include "Object/Collisionable/Destructible/Movable/Tank.hpp"
 
 /**
  * @brief game scene
@@ -83,6 +86,11 @@ class SceneGame : public AScene {
          * @param lib 
          */
         void updateObjects(Raylib &lib) noexcept;
+        /**
+         * @brief Create a Rect object
+         * 
+         */
+        void createRect() noexcept;
         /**
          * @brief init save
          * 

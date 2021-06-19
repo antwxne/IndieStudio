@@ -78,7 +78,6 @@ bool Particles::update() noexcept
 
     _stop = _time.now();
     if (std::chrono::duration_cast<std::chrono::duration<float, std::milli>>(_stop - _start).count() > _maxTime) {
-        std::cout << "[PARTICULE] ON RM La Particule\n";
         _start = _time.now();
         return (true);
     }

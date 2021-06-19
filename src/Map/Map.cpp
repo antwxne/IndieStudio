@@ -120,7 +120,6 @@ void Map::readDestructibleList()
         std::ios::in | std::ifstream::binary);
     if (file.is_open() == false)
         throw std::runtime_error("No Save File");
-    std::cout << size << std::endl;
     file.read(reinterpret_cast<char *>(&size), sizeof(unsigned long));
     for (int i = 0; i != size; i++) {
         file.read(reinterpret_cast<char *>(&dest),
@@ -129,5 +128,4 @@ void Map::readDestructibleList()
             coords(static_cast<float>(dest.x), 0, static_cast<float>(dest.y)),
             coords(1, 1, 1), std::make_pair("", "")).setLife(dest.life);
     }
-    std::cout << "finish map" << std::endl;
 }

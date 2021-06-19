@@ -58,12 +58,16 @@ public:
         RIGHT,
         LEFT,
         A, Z, E, R, T, Y, U, O, I, P, Q, S, D, F, G, H, J, K, L, M, W, X, C, V, B, N,
+        JLL,
+        JLR,
+        JRL,
+        JRR,
+        JRU,
+        JRD,
+        JA,
         PRESSED,
         RELEASED
     };
-
-    // std::pair<GamepadButton, Inputs> _gamepadToInput {
-    // };
     /**
      * @brief Construct a new Raylib object
      * 
@@ -252,6 +256,13 @@ public:
      * @return std::string 
      */
     std::string getControllerName(int const &idx) const noexcept;
+    /**
+     * @brief Get the Controller Input object
+     * 
+     * @param idx 
+     * @return std::vector<int> 
+     */
+    std::vector<int> getControllerInput(int idx);
     /**
      * @brief Get the Pressed Character object
      * 

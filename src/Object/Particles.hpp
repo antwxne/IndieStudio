@@ -92,7 +92,7 @@ private:
      * @var coord reference
      * @brief reference to object position
      */
-    const coords &_objPos;
+    const coords _objPos;
     /**
      * @brief acceleration base
      */
