@@ -24,7 +24,7 @@
 #include "Error/Error.hpp"
 
 Raylib::Raylib() : _camera(
-    {{0.0f, 20.0f, 15.0f}, { 0.0f, 0.0f, 2.0f}, {0.0f, 1.0f, 0.0f}, 40.0f, 0})
+    {{0.0f, 20.0f, 15.0f}, {0.0f, 0.0f, 2.0f}, {0.0f, 1.0f, 0.0f}, 40.0f, 0})
 {
 }
 
@@ -97,8 +97,9 @@ const std::pair<float, float> Raylib::getMousePosition() const noexcept
     return (std::make_pair(vecPos.x, vecPos.y));
 }
 
-void Raylib::drawRectangleLinesEx(const float &posX, const float &posY, const float &width,
-    const float &height, RGB color, int const &lineThick) noexcept
+void Raylib::drawRectangleLinesEx(const float &posX, const float &posY,
+    const float &width, const float &height, RGB color, int const &lineThick
+) noexcept
 {
     Rectangle rec = {posX, posY, width, height};
     DrawRectangleLinesEx(rec, lineThick, {color.r, color.g, color.b, color.a});
@@ -118,14 +119,12 @@ void Raylib::draw3DObjects(Raylib::uAObject &it, Raylib::vectorObject &objects)
                     findCollision(bullet, objects);
                 drawModel(bullet->getModel(), bullet->getTexture(),
                     bullet->getPosition(), bullet->getScale(),
-                    bullet->getColors().first,
-                    bullet->getRotationAxis(),
+                    bullet->getColors().first, bullet->getRotationAxis(),
                     bullet->getRotationAngle());
             }
-            drawModel(tank->getModel(), tank->getTexture(),
-                tank->getPosition(), tank->getScale(),
-                tank->getColors().first, tank->getRotationAxis(),
-                tank->getRotationAngle());
+            drawModel(tank->getModel(), tank->getTexture(), tank->getPosition(),
+                tank->getScale(), tank->getColors().first,
+                tank->getRotationAxis(), tank->getRotationAngle());
             drawModel(cannon.getModel(), cannon.getTexture(),
                 cannon.getPosition(), cannon.getScale(),
                 cannon.getColors().first, cannon.getRotationAxis(),
@@ -133,35 +132,68 @@ void Raylib::draw3DObjects(Raylib::uAObject &it, Raylib::vectorObject &objects)
         }
     } else if (it->getTypeField().isAnimator) {
         auto const &derived = std::dynamic_pointer_cast<Animator>(it);
-        drawAnimation(derived->getModel(), derived->getTexture(), derived->getAnimPath(), derived->getPosition(), derived->getFrameActual(), derived->getScale());
+        try {
+            drawAnimation(derived->getModel(), derived->getTexture(),
+                derived->getAnimPath(), derived->getPosition(),
+                derived->getFrameActual(), derived->getScale());
+        } catch (const Error &error) {
+            std::cerr << error.what() << ", " << error.where() << std::endl;
+        }
     } else if (it->getTypeField().isCollisionable) {
-        auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(it);
-        drawModel(derived->getModel(), derived->getTexture(), it->getPosition(), it->getScale(), it->getColors().first, it->getRotationAxis(), it->getRotationAngle());
+        auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(
+            it);
+        try {
+            drawModel(derived->getModel(), derived->getTexture(),
+                it->getPosition(), it->getScale(), it->getColors().first,
+                it->getRotationAxis(), it->getRotationAngle());
+        } catch (const Error &error) {
+            std::cerr << error.what() << ", " << error.where() << std::endl;
+        }
     } else if (it->getTypeField().isGround) {
         auto const &derived = std::dynamic_pointer_cast<Ground>(it);
-        drawMesh(derived->getModel(), derived->getTexture(), it->getPosition(), it->getScale(), it->getColors().first, it->getSize());
+        try {
+            drawMesh(derived->getModel(), derived->getTexture(),
+                it->getPosition(), it->getScale(), it->getColors().first,
+                it->getSize());
+        } catch (const Error &error) {
+            std::cerr << error.what() << ", " << error.where() << std::endl;
+        }
     } else if (it->getTypeField().isParticule) {
-        auto const derived = std::dynamic_pointer_cast<Particles>(it)->getParticles();
+        auto const derived = std::dynamic_pointer_cast<Particles>(
+            it)->getParticles();
         for (auto const &i: derived)
-            drawSphere(i.position, i.color, (i.radius  * i.scale));
+            drawSphere(i.position, i.color, (i.radius * i.scale));
     }
 }
 
 void Raylib::draw2DObjects(Raylib::uAObject &it)
 {
     if (!it->getTypeField().is3D && it->getTypeField().isTransparent == false) {
-        drawTexture(std::dynamic_pointer_cast<UiObject>(it)->getTexture(), {it->getPosition().first, it->getPosition().second}, it->getRotationAngle(), it->getScale(), it->getColors().first);
+        try {
+            drawTexture(std::dynamic_pointer_cast<UiObject>(it)->getTexture(),
+                {it->getPosition().first, it->getPosition().second},
+                it->getRotationAngle(), it->getScale(), it->getColors().first);
+        } catch (const Error &error) {
+            std::cerr << error.what() << ", " << error.where() << std::endl;
+        }
         if (it->getTypeField().isButton) {
-            auto const &derivedButton = std::dynamic_pointer_cast<button::Button>(it);
-            drawText(derivedButton->getText(), derivedButton->getTextPos(), derivedButton->getTextSize(), it->getColors().second);
+            auto const &derivedButton = std::dynamic_pointer_cast<button::Button>(
+                it);
+            drawText(derivedButton->getText(), derivedButton->getTextPos(),
+                derivedButton->getTextSize(), it->getColors().second);
         }
         if (it->getTypeField().isContourRect)
-            drawRectangleLinesEx(it->getPosition().first, it->getPosition().second, it->getSize().first, it->getSize().second, it->getColors().first, it->getScale());
+            drawRectangleLinesEx(it->getPosition().first,
+                it->getPosition().second, it->getSize().first,
+                it->getSize().second, it->getColors().first, it->getScale());
         if (it->getTypeField().isFullSquare)
-            drawRectangle(it->getPosition().first, it->getPosition().second, it->getSize().first, it->getSize().second, it->getColors().first);
+            drawRectangle(it->getPosition().first, it->getPosition().second,
+                it->getSize().first, it->getSize().second,
+                it->getColors().first);
         if (it->getTypeField().isText) {
             auto const &text = std::dynamic_pointer_cast<TexteUI>(it);
-            drawText(text->getText(), text->getTextPos(), text->getTextSize(), it->getColors().first);
+            drawText(text->getText(), text->getTextPos(), text->getTextSize(),
+                it->getColors().first);
         }
     }
 }
@@ -173,7 +205,11 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
     for (auto &i : objects) {
         if (i->getTypeField().is3D) {
             BeginMode3D(_camera);
-            draw3DObjects(i, objects);
+            try {
+                draw3DObjects(i, objects);
+            } catch (const Error &error) {
+                std::cerr << error.what() << ", " << error.where() << std::endl;
+            }
             EndMode3D();
         }
         draw2DObjects(i);
@@ -214,7 +250,11 @@ bool Raylib::isControllerValid(int const &idx, std::string const &ControllerName
 
 std::vector<int> Raylib::getControllerInput(int idx)
 {
-    std::array<int, 4> joystick = {static_cast<int>(GetGamepadAxisMovement(0, 0)), static_cast<int>(GetGamepadAxisMovement(0, 2)), static_cast<int>(GetGamepadAxisMovement(0, 3)), GetGamepadButtonPressed()};
+    std::array<int, 4> joystick = {
+        static_cast<int>(GetGamepadAxisMovement(0, 0)),
+        static_cast<int>(GetGamepadAxisMovement(0, 2)),
+        static_cast<int>(GetGamepadAxisMovement(0, 3)),
+        GetGamepadButtonPressed()};
     std::vector<int> joystickToInput;
 
     for (std::size_t i = 0; i != 3; ++i)
@@ -225,7 +265,9 @@ std::vector<int> Raylib::getControllerInput(int idx)
     return (joystickToInput);
 }
 
-bool Raylib::checkCollision(std::pair<float, float> pos, float width, float height, float posX, float posY)
+bool Raylib::checkCollision(std::pair<float, float> pos, float width,
+    float height, float posX, float posY
+)
 {
     Rectangle rect = {posX, posY, width, height};
     Vector2 vec = {pos.first, pos.second};
@@ -269,13 +311,19 @@ std::vector<int> Raylib::getKeysDown() noexcept
         it++;
     }
     auto controllerInputs = getControllerInput(0);
-    keysDown.insert(keysDown.end(), controllerInputs.begin(), controllerInputs.end());
+    keysDown.insert(keysDown.end(), controllerInputs.begin(),
+        controllerInputs.end());
     return keysDown;
 }
 
 void Raylib::displayMusic(const std::string &path, float volume)
 {
     auto it = _music.find(path);
+    std::ifstream checkexist(path.c_str());
+
+    if (checkexist.is_open() == false)
+        throw Error("file: \"" + path + "\" doesn't exist",
+            "Raylib::displayMusic");
 
     if (it == _music.end()) {
         _music.insert({path, {LoadMusicStream(path.c_str()), false}});
@@ -302,7 +350,8 @@ void Raylib::displaySound(const std::string &path, float volume)
     std::ifstream checkexist(path.c_str());
 
     if (checkexist.is_open() == false)
-        throw Error("file: \"" + path + "\" doesn't exist", "Raylib::displaySound");
+        throw Error("file: \"" + path + "\" doesn't exist",
+            "Raylib::displaySound");
     if (it == _sound.cend()) {
         _sound.insert({path, LoadSound(path.c_str())});
         it = _sound.find(path);
@@ -313,32 +362,53 @@ void Raylib::displaySound(const std::string &path, float volume)
 
 void Raylib::drawSphere(const coords &pos, const RGB tint, const float radius)
 {
-    DrawSphere({pos.first, pos.second, pos.third}, radius, {tint.r, tint.g, tint.b, tint.a});
+    DrawSphere({pos.first, pos.second, pos.third}, radius,
+        {tint.r, tint.g, tint.b, tint.a});
 }
 
-void Raylib::drawMesh(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint, const std::pair<int, int> &size)
+void Raylib::drawMesh(const std::string &modelPath,
+    const std::string &texturePath, coords pos, float scale, RGB tint,
+    const std::pair<int, int> &size
+)
 {
     auto it = _models.find(modelPath);
     auto at = _textures.find(texturePath);
+    std::ifstream checkexistTextures(texturePath.c_str());
+    std::ifstream checkexistModel(modelPath.c_str());
 
+    if (checkexistTextures.is_open() == false)
+        throw Error("file: \"" + texturePath + "\" doesn't exist",
+            "Raylib::drawMesh");
+    if (checkexistModel.is_open() == false)
+        throw Error("file: \"" + modelPath + "\" doesn't exist",
+            "Raylib::drawMesh");
     if (at == _textures.end()) {
         _textures.insert({texturePath, LoadTexture(texturePath.c_str())});
         at = _textures.find(texturePath);
     }
     if (it == _models.end()) {
-        _models.insert({modelPath, LoadModelFromMesh(GenMeshPlane(size.first, size.second, 5, 5))});
+        _models.insert({modelPath,
+            LoadModelFromMesh(GenMeshPlane(size.first, size.second, 5, 5))});
         it = _models.find(modelPath);
         SetMaterialTexture(&it->second.materials[0], MAP_DIFFUSE, at->second);
     }
-    DrawModel(it->second, {pos.first, pos.second, pos.third}, scale, {tint.r, tint.g, tint.b, tint.a});
+    DrawModel(it->second, {pos.first, pos.second, pos.third}, scale,
+        {tint.r, tint.g, tint.b, tint.a});
 }
 
-void Raylib::drawModel(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint, coords axis, float angle)
+void Raylib::drawModel(const std::string &modelPath,
+    const std::string &texturePath, coords pos, float scale, RGB tint,
+    coords axis, float angle
+)
 {
     auto it = _models.find(modelPath);
     auto at = _textures.find(texturePath);
+    std::ifstream checkexistModel(modelPath.c_str());
 
-    if (at == _textures.end()) {
+    if (checkexistModel.is_open() == false)
+        throw Error("file: \"" + modelPath + "\" doesn't exist",
+            "Raylib::drawModel");
+     if (at == _textures.end()) {
         _textures.insert({texturePath, LoadTexture(texturePath.c_str())});
         at = _textures.find(texturePath);
     }
@@ -347,26 +417,51 @@ void Raylib::drawModel(const std::string &modelPath, const std::string &textureP
         it = _models.find(modelPath);
         SetMaterialTexture(&it->second.materials[0], MAP_DIFFUSE, at->second);
     }
-    DrawModelEx(it->second, {pos.first, pos.second, pos.third}, {axis.first, axis.second, axis.third}, angle, {scale, scale, scale}, {tint.r, tint.g, tint.b, tint.a});
+    DrawModelEx(it->second, {pos.first, pos.second, pos.third},
+        {axis.first, axis.second, axis.third}, angle, {scale, scale, scale},
+        {tint.r, tint.g, tint.b, tint.a});
 }
 
-void Raylib::drawTexture(const std::string &path, Vector2 pos, float rotation, float scale, RGB tint)
+void Raylib::drawTexture(const std::string &path, Vector2 pos, float rotation,
+    float scale, RGB tint
+)
 {
     auto it = _textures.find(path);
+    std::ifstream checkexist(path.c_str());
+
+    if (checkexist.is_open() == false)
+        throw Error("file: \"" + path + "\" doesn't exist",
+            "Raylib::drawTexture");
 
     if (it == _textures.end()) {
         _textures.insert({path, LoadTexture(path.c_str())});
         it = _textures.find(path);
     }
-    DrawTextureEx(it->second, pos, rotation, scale, {tint.r, tint.g, tint.b, tint.a});
+    DrawTextureEx(it->second, pos, rotation, scale,
+        {tint.r, tint.g, tint.b, tint.a});
 }
 
-void Raylib::drawAnimation(const std::string &modelPath, const std::string &texturePath, const std::string &animationPath, const coords pos, int frameCount, float scale)
+void Raylib::drawAnimation(const std::string &modelPath,
+    const std::string &texturePath, const std::string &animationPath,
+    const coords pos, int frameCount, float scale
+)
 {
     auto anim = _animation.find(animationPath);
     auto model = _models.find(modelPath);
     auto text = _textures.find(texturePath);
+    std::ifstream checkexistAnimation(animationPath.c_str());
+    std::ifstream checkexistModel(modelPath.c_str());
+    std::ifstream checkexistTextures(texturePath.c_str());
 
+    if (checkexistAnimation.is_open() == false)
+        throw Error("file: \"" + animationPath + "\" doesn't exist",
+            "Raylib::drawAnimation");
+    if (checkexistModel.is_open() == false)
+        throw Error("file: \"" + modelPath + "\" doesn't exist",
+            "Raylib::drawAnimation");
+    if (checkexistTextures.is_open() == false)
+        throw Error("file: \"" + texturePath + "\" doesn't exist",
+            "Raylib::drawAnimation");
     if (text == _textures.end()) {
         _textures.insert({texturePath, LoadTexture(texturePath.c_str())});
         text = _textures.find(texturePath);
@@ -374,19 +469,24 @@ void Raylib::drawAnimation(const std::string &modelPath, const std::string &text
     if (model == _models.end()) {
         _models.insert({modelPath, LoadModel(modelPath.c_str())});
         model = _models.find(modelPath);
-        SetMaterialTexture(&model->second.materials[0], MAP_DIFFUSE, text->second);
+        SetMaterialTexture(&model->second.materials[0], MAP_DIFFUSE,
+            text->second);
     }
     if (anim == _animation.end()) {
         int animsCount = 0;
-        _animation.insert({animationPath, LoadModelAnimations(animationPath.c_str(), &animsCount)});
+        _animation.insert({animationPath,
+            LoadModelAnimations(animationPath.c_str(), &animsCount)});
         anim = _animation.find(animationPath);
     }
 
     UpdateModelAnimation(model->second, anim->second[0], frameCount);
-    DrawModelEx(model->second, {pos.first, pos.second, pos.third}, (Vector3){ 1.0f, 0.0f, 0.0f }, -180.0f, (Vector3){ scale, scale, scale }, WHITE);
+    DrawModelEx(model->second, {pos.first, pos.second, pos.third},
+        (Vector3){1.0f, 0.0f, 0.0f}, -180.0f, (Vector3){scale, scale, scale},
+        WHITE);
 }
 
-int Raylib::getFrameMax(const std::string &path) {
+int Raylib::getFrameMax(const std::string &path)
+{
     auto modeAnim = _animation.find(path);
 
     if (modeAnim == _animation.end())
@@ -395,8 +495,7 @@ int Raylib::getFrameMax(const std::string &path) {
         return modeAnim->second[0].frameCount;
 }
 
-void Raylib::drawText(const std::string &text, coords pos, float scale,
-    RGB tint
+void Raylib::drawText(const std::string &text, coords pos, float scale, RGB tint
 )
 {
     DrawText(text.c_str(), pos.first, pos.second, scale,
@@ -422,14 +521,16 @@ void Raylib::drawRectangleLines(const int &posX, const int &posY,
     const int &width, const int &height, RGB color
 ) const noexcept
 {
-    DrawRectangleLines(posX, posY, width, height, {color.r, color.g, color.b, color.a});
+    DrawRectangleLines(posX, posY, width, height,
+        {color.r, color.g, color.b, color.a});
 }
 
 void Raylib::drawRectangle(const int &posX, const int &posY, const int &width,
     const int &height, RGB color
 ) const noexcept
 {
-    DrawRectangle(posX, posY, width, height, {color.r, color.g, color.b, color.a});
+    DrawRectangle(posX, posY, width, height,
+        {color.r, color.g, color.b, color.a});
 }
 void Raylib::findCollision(std::shared_ptr<CollisionableObject> obj,
     const std::vector<std::shared_ptr<AObject>> &allObjs
@@ -441,18 +542,20 @@ void Raylib::findCollision(std::shared_ptr<CollisionableObject> obj,
     auto positionCurrent = obj->getPosition();
     float currentScale = obj->getScale();
     auto tmpBoundCurrent = GetMeshBoundingBox(toFind->second.meshes[0]);
-    float maxCurrent = tmpBoundCurrent.max.z > tmpBoundCurrent.max.x ? tmpBoundCurrent.max.z : tmpBoundCurrent.max.x;
-    BoundingBox boundCurrent = (BoundingBox) {(Vector3){
-        positionCurrent.first - (maxCurrent * currentScale),
-        positionCurrent.second - (tmpBoundCurrent.min.y),
-        positionCurrent.third - (maxCurrent * currentScale)},
-        (Vector3){
-            positionCurrent.first + (maxCurrent * currentScale),
+    float maxCurrent =
+        tmpBoundCurrent.max.z > tmpBoundCurrent.max.x ? tmpBoundCurrent.max.z :
+            tmpBoundCurrent.max.x;
+    BoundingBox boundCurrent = (BoundingBox){
+        (Vector3){positionCurrent.first - (maxCurrent * currentScale),
+            positionCurrent.second - (tmpBoundCurrent.min.y),
+            positionCurrent.third - (maxCurrent * currentScale)},
+        (Vector3){positionCurrent.first + (maxCurrent * currentScale),
             positionCurrent.second + (tmpBoundCurrent.max.y),
             positionCurrent.third + (maxCurrent * currentScale)}};
 
     for (auto &it : allObjs) {
-        if (it->getTypeField().isCollisionable && it->getPosition() != obj->getPosition()) {
+        if (it->getTypeField().isCollisionable &&
+            it->getPosition() != obj->getPosition()) {
             auto tmp = std::dynamic_pointer_cast<CollisionableObject>(it);
             auto toFindOther = _models.find(tmp->getModel());
             if (toFindOther == _models.cend())
@@ -460,40 +563,63 @@ void Raylib::findCollision(std::shared_ptr<CollisionableObject> obj,
             auto positionOther = it->getPosition();
             float scaleOther = it->getScale();
             float otherRotaton = std::abs(it->getRotationAngle());
-            auto tmpBoundOther = GetMeshBoundingBox(toFindOther->second.meshes[0]);
-            BoundingBox boundOther = (BoundingBox) {
-                (Vector3){
-                    positionOther.first - (otherRotaton <= 110 && otherRotaton >= 70 || otherRotaton <= 290 && otherRotaton >= 250 ? tmpBoundOther.max.z : tmpBoundOther.max.x) * scaleOther,
-                    positionOther.second - tmpBoundOther.max.y,
-                    positionOther.third - (otherRotaton <= 110 && otherRotaton >= 70 || otherRotaton <= 290 && otherRotaton >= 250 ? tmpBoundOther.max.x : tmpBoundOther.max.z) * scaleOther},
-                (Vector3){
-                    positionOther.first + (otherRotaton <= 110 && otherRotaton >= 70 || otherRotaton <= 290 && otherRotaton >= 250 ? tmpBoundOther.max.z : tmpBoundOther.max.x) * scaleOther,
-                    positionOther.second + tmpBoundOther.max.y,
-                    positionOther.third + (otherRotaton <= 110 && otherRotaton >= 70 || otherRotaton <= 290 && otherRotaton >= 250 ? tmpBoundOther.max.x : tmpBoundOther.max.z) * scaleOther}};
+            auto tmpBoundOther = GetMeshBoundingBox(
+                toFindOther->second.meshes[0]);
+            BoundingBox boundOther = (BoundingBox){(Vector3){
+                positionOther.first -
+                    (otherRotaton <= 110 && otherRotaton >= 70 ||
+                        otherRotaton <= 290 && otherRotaton >= 250 ?
+                        tmpBoundOther.max.z : tmpBoundOther.max.x) * scaleOther,
+                positionOther.second - tmpBoundOther.max.y,
+                positionOther.third -
+                    (otherRotaton <= 110 && otherRotaton >= 70 ||
+                        otherRotaton <= 290 && otherRotaton >= 250 ?
+                        tmpBoundOther.max.x : tmpBoundOther.max.z) *
+                        scaleOther}, (Vector3){positionOther.first +
+                (otherRotaton <= 110 && otherRotaton >= 70 ||
+                    otherRotaton <= 290 && otherRotaton >= 250 ?
+                    tmpBoundOther.max.z : tmpBoundOther.max.x) * scaleOther,
+                positionOther.second + tmpBoundOther.max.y,
+                positionOther.third +
+                    (otherRotaton <= 110 && otherRotaton >= 70 ||
+                        otherRotaton <= 290 && otherRotaton >= 250 ?
+                        tmpBoundOther.max.x : tmpBoundOther.max.z) *
+                        scaleOther}};
             if (CheckCollisionBoxes(boundCurrent, boundOther)) {
                 auto sound = obj->hit(tmp);
-                 if (sound != NONE_SOUND) {
-                     try {
-                         displaySound(MAP_SONG.at(sound), 1.f);
-                     } catch (const Error &error) {
-                         std::cerr << error.what() << ", " << error.where() << std::endl;
-                     }
-                 }
+                if (sound != NONE_SOUND) {
+                    try {
+                        displaySound(MAP_SONG.at(sound), 1.f);
+                    } catch (const Error &error) {
+                        std::cerr << error.what() << ", " << error.where()
+                            << std::endl;
+                    }
+                }
             }
         }
     }
 }
-bool Raylib::collabsWall(std::pair<int, int> firstItem, coords firstItemSize,std::pair<int, int> scdItem, coords scdItemSize)
+bool Raylib::collabsWall(std::pair<int, int> firstItem, coords firstItemSize,
+    std::pair<int, int> scdItem, coords scdItemSize
+)
 {
-    if (CheckCollisionBoxes((BoundingBox){(Vector3){static_cast<float>(firstItem.first) - static_cast<float>(firstItemSize.first)/2,
-            0 - firstItemSize.second/2,static_cast<float>(firstItem.second) - static_cast<float>(firstItemSize.third)/2},
-            (Vector3){static_cast<float>(firstItem.first) + static_cast<float>(firstItemSize.first)/2,
-            0 + firstItemSize.second/2, static_cast<float>(firstItem.second) + static_cast<float>(firstItemSize.third)/2}},
-        (BoundingBox){(Vector3){static_cast<float>(scdItem.first) - static_cast<float>(scdItemSize.first)/2,
-            0 - scdItemSize.second/2,static_cast<float>(scdItem.second) - static_cast<float>(scdItemSize.third)/2},
-            (Vector3){static_cast<float>(scdItem.first) + static_cast<float>(scdItemSize.first)/2,
-                0 + scdItemSize.second/2, static_cast<float>(scdItem.second) + static_cast<float>(scdItemSize.third)/2}}) ==
-        true)
+    if (CheckCollisionBoxes((BoundingBox){(Vector3){
+        static_cast<float>(firstItem.first) -
+            static_cast<float>(firstItemSize.first) / 2,
+        0 - firstItemSize.second / 2, static_cast<float>(firstItem.second) -
+            static_cast<float>(firstItemSize.third) / 2}, (Vector3){
+        static_cast<float>(firstItem.first) +
+            static_cast<float>(firstItemSize.first) / 2,
+        0 + firstItemSize.second / 2, static_cast<float>(firstItem.second) +
+            static_cast<float>(firstItemSize.third) / 2}}, (BoundingBox){
+        (Vector3){static_cast<float>(scdItem.first) -
+            static_cast<float>(scdItemSize.first) / 2,
+            0 - scdItemSize.second / 2, static_cast<float>(scdItem.second) -
+                static_cast<float>(scdItemSize.third) / 2}, (Vector3){
+            static_cast<float>(scdItem.first) +
+                static_cast<float>(scdItemSize.first) / 2,
+            0 + scdItemSize.second / 2, static_cast<float>(scdItem.second) +
+                static_cast<float>(scdItemSize.third) / 2}}) == true)
         return true;
     return false;
 }
