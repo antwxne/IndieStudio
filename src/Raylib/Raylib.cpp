@@ -308,9 +308,7 @@ void Raylib::displaySound(const std::string &path, float volume)
 
 void Raylib::drawSphere(const coords &pos, const RGB tint, const float radius)
 {
-    std::cout << "drawSphere Start\n";
     DrawSphere({pos.first, pos.second, pos.third}, radius, {tint.r, tint.g, tint.b, tint.a});
-    std::cout << "drawSphere End\n";
 }
 
 void Raylib::drawMesh(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint, const std::pair<int, int> &size)
