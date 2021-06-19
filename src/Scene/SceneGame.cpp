@@ -288,12 +288,10 @@ void SceneGame::applyBonuses() noexcept
 {
     // selon les bonus choisis cette fonction sera utile ou non
     // peut etre mieux de le faire directement a l'instanciation pour les tanks par exemple
-    if (_settings.bonuses.firstBonus) {
+    if (_settings.bonuses.SpeedUpBonus) {
     }
-    if (_settings.bonuses.secondBonus) {
+    if (_settings.bonuses.LifeUpBonus) {
     }
-    if (_settings.bonuses.thirdBonus) {
-    }
-    if (_settings.bonuses.fourthBonus) {
+    if (_settings.bonuses.DamageUpBonus) {
     }
 }
