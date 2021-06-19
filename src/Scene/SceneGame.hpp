@@ -30,8 +30,8 @@ class SceneGame : public AScene {
         
         void saveAll() noexcept;
 
-        void updateObjects() noexcept;
-
+        void updateObjects(Raylib &lib) noexcept;
+ 
         void initSaveTanks();
 
         void applyBonuses() noexcept;

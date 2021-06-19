@@ -52,7 +52,7 @@ void Tank::rotateCannon(float angle)
     _cannon.rotate(angle);
 }
 
-const Cannon &Tank::getCannon() const noexcept
+Cannon &Tank::getCannon() noexcept
 {
     return _cannon;
 }

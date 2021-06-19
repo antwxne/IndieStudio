@@ -7,6 +7,7 @@
 
 #include "SceneSplash.hpp"
 #include "TexteUi.hpp"
+#include "Core.hpp"
 #include "FullSquare.hpp"
 
 SceneSplash::SceneSplash(Setting &settings)
@@ -28,6 +29,7 @@ SceneSplash::~SceneSplash()
 
 void SceneSplash::eventScene(Raylib &lib)
 {
+    lib.displayMusic(core::_splashMusic, _settings._musicVol);
     if (_scene == 0) {
         _framesCounter++;
         if (_framesCounter == 120) {

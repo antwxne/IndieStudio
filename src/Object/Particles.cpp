@@ -13,9 +13,11 @@
 #include "Raylib/Raylib.hpp"
 
 Particles::Particles(const coords &pos, const std::pair<float, int> &size, float maxSize,
-    float scale, const std::pair<RGB, RGB> &colors, std::size_t nParticles, const coords &accelleration
-) : AObject(pos, size, scale, colors),_particles(), _maxSize(maxSize), _objPos(pos), _acceleration(accelleration), _sizeParticle(size.first)
+    float scale, const std::pair<RGB, RGB> &colors, std::size_t nParticles, const coords &accelleration, const float maxTime
+) : AObject(pos, size, scale, colors),_particles(), _maxSize(maxSize), _objPos(pos), _acceleration(accelleration), _sizeParticle(size.first), _maxTime(maxTime)
 {
+    _start = _time.now();
+
     _typeField.isParticule = true;
     _typeField.is3D = true;
     std::random_device rd;
@@ -42,7 +44,7 @@ const std::vector<Particles::particule> &Particles::getParticles() const noexcep
 {
     return _particles;
 }
-void Particles::update() noexcept
+bool Particles::update() noexcept
 {
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -73,6 +75,14 @@ void Particles::update() noexcept
             }
         }
     }
+
+    _stop = _time.now();
+    if (std::chrono::duration_cast<std::chrono::duration<float, std::milli>>(_stop - _start).count() > _maxTime) {
+        std::cout << "[PARTICULE] ON RM La Particule\n";
+        _start = _time.now();
+        return (true);
+    }
+    return (false);
 }
 void Particles::changeColor(const RGB &color) noexcept
 {
@@ -85,6 +95,7 @@ void Particles::changeColor(const RGB &color) noexcept
         i.color.a = 100 + (dist(gen) % 155);
     }
 }
+
 void Particles::setAcceleration(const coords &acceleration)
 {
     _acceleration = acceleration;

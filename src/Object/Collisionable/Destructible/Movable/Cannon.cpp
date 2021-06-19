@@ -45,10 +45,17 @@ std::vector<std::shared_ptr<Bullet>> &Cannon::getBullets()
 {
     return _bullets;
 }
+
 void Cannon::increaseDamage(const int dmgUp) noexcept
 {
     for (auto &it : _bullets)
         it->setDamage(it->getDamage() + dmgUp);
+}
+
+void Cannon::increaseBounce(const int bounceUp) noexcept
+{
+    for (auto &it : _bullets)
+        it->updateLife(bounceUp);
 }
 
 void Cannon::moveBullets() noexcept
