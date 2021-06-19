@@ -26,8 +26,6 @@ namespace win {
 
     static const std::string _bgPath = "asset/background_asset/Background_01.png";
 
-    static const struct coords _textPos = coords(200.0f, 200.0f);
-
     static const std::vector<struct coords> _menuPos {
         {coords(200.0f,     900.0f)},
         {coords(700.0f,     900.0f)},

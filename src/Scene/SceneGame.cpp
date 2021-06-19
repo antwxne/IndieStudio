@@ -38,7 +38,7 @@ const std::vector<std::pair<float, float>> SceneGame::_uiLifePosPlayer = {
     std::make_pair(1265, 1050), std::make_pair(1765, 1050)};
 
 SceneGame::SceneGame(Setting &settings) : AScene(settings), _isPaused(false),
-    _scenePause(settings)
+    _scenePause(settings), _endGame(false)
 {
     std::cout << "PROBLEME EST ICI SUREMENT OU PAS\n";
     tanksCoords tanksCoords = _tanksPosNbPlayers.at(
@@ -258,7 +258,7 @@ Scenes SceneGame::run(Raylib &lib)
             AIs.emplace_back(std::dynamic_pointer_cast<TankAI>(it));
         }
     }
-    while (lib.gameLoop()) {
+    while (!_endGame) {
         auto nAI = 0;
         end = std::chrono::steady_clock::now();
         endFire = std::chrono::steady_clock::now();
@@ -289,7 +289,7 @@ Scenes SceneGame::run(Raylib &lib)
         updateObjects(lib);
         lib.printObjects(_objects);
     }
-    return (Scenes::QUIT);
+    return (Scenes::ENDGAME);
 }
 
 void SceneGame::updateObjects(Raylib &lib) noexcept
@@ -339,7 +339,7 @@ void SceneGame::updateObjects(Raylib &lib) noexcept
             ++object;
     }
     if (VictoryCond == 1)
-        std::cout << "You Win\n";
+        _endGame = true;
 }
 
 void SceneGame::applyBonuses() noexcept

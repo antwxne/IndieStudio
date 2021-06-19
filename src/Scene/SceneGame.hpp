@@ -46,6 +46,7 @@ class SceneGame : public AScene {
         std::unique_ptr<Map> _map;
 
         bool _isPaused;
+        bool _endGame;
         pause::ScenePause _scenePause;
 
 
