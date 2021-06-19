@@ -51,7 +51,9 @@ namespace menu {
     {
         std::ifstream file("tank.txt");
         std::ifstream map("destructibleList.txt");
-        if(file.good() && map.good())
+        std::ifstream ia("tankAi.txt");
+
+        if(file.good() && map.good() && ia.good())
             return true;
         return false;
     }

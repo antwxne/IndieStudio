@@ -94,31 +94,41 @@ void SceneGame::initTanks(const tanksCoords &tanksCoords)
 void SceneGame::initSaveTanks()
 {
     auto tanks = Tank::readTank();
+    auto iaTanks = TankAI::readAiTankList();
     std::size_t setOfKeyInputs = 0;
     int tankCounter = 0;
 
+    _settings._playersSettings.clear();
     for (auto &tank : tanks) {
-        _objects.emplace_back(std::make_shared<Tank>(
-                tank.getName(),
-                coords(tank.getPosition().first,0, tank.getPosition().third),
-                coords(10, 10, 10),
-                8,
-                std::make_pair(Tank::bodyTexture, Tank::bodyModel),
-                std::make_pair(Tank::darkGreen, Tank::cannonModel)));
+        _objects.emplace_back(std::make_shared<Tank>(tank.getName(),
+            coords(tank.getPosition().first, 0, tank.getPosition().third),
+            coords(10, 10, 10), 8,
+            std::make_pair(Tank::bodyTexture, Tank::bodyModel),
+            std::make_pair(Tank::darkGreen, Tank::cannonModel)));
         auto tk = std::dynamic_pointer_cast<Tank>(_objects.back());
         tk->setSpeed(tank.getSpeed());
         tk->setLife(tank.getLife());
         tk->setScore(tank.getScore());
-        _settings._playersSettings.emplace_back(PLAYER, tk->getName(), tk->getScore());
+        _settings._playersSettings.emplace_back(PLAYER, tk->getName(),
+            tk->getScore());
         setInputsTank(_settings._keysPlayers[setOfKeyInputs], _objects.back());
         setOfKeyInputs++;
+        initTankUi(tankCounter,
+            std::dynamic_pointer_cast<Tank>(_objects.back()),
+            _settings._playersSettings[tankCounter]);
+        tankCounter++;
+    }
+    for (auto &iaTank : iaTanks) {
+        _objects.emplace_back(std::make_shared<TankAI>(iaTank.getName(), coords(iaTank.getPosition().first,0,iaTank.getPosition().third), coords(10, 10, 10), 8, std::make_pair(Tank::bodyTexture, Tank::bodyModel), std::make_pair(Tank::darkGreen, Tank::cannonModel)));
+        auto aitk = std::dynamic_pointer_cast<TankAI>(_objects.back());
+        aitk->setSpeed(iaTank.getSpeed());
+        aitk->setLife(iaTank.getLife());
+        aitk->setScore(iaTank.getScore());
+        _settings._playersSettings.emplace_back(PLAYER, aitk->getName(),
+            aitk->getScore());
         initTankUi(tankCounter, std::dynamic_pointer_cast<Tank>(_objects.back()), _settings._playersSettings[tankCounter]);
         tankCounter++;
     }
-        /*} else if (playerSettings.type == IA) {
-            // _objects.emplace_back(std::make_shared<TankIA>("grosTankSaMere", coords(0,0,0), coords(10, 10, 10), 8, std::make_pair(Tank::bodyTexture, Tank::bodyModel), std::make_pair(Tank::darkGreen, Tank::cannonModel)));
-        }*/
-        // initTankUi(tankCounter, std::dynamic_pointer_cast<Tank>(_objects.back()), playerSettings);
 }
 
 void SceneGame::initTankUi(int tankCounter, std::shared_ptr<Tank> tank, PlayerSettings &settings)
@@ -199,6 +209,8 @@ void SceneGame::saveAll() noexcept
 {
     std::vector<Tank> tk;
     std::vector<DestructibleWall> walls;
+    std::vector<TankAI> iaTanks;
+
     for (auto &it: _objects) {
         if (it->getTypeField().isTank && it->getTypeField().isIa == false) {
             auto tank = std::dynamic_pointer_cast<Tank>(it);
@@ -208,8 +220,13 @@ void SceneGame::saveAll() noexcept
             auto wall = std::dynamic_pointer_cast<DestructibleWall>(it);
             walls.push_back(dynamic_cast<DestructibleWall &>(*wall));
         }
+        if (it->getTypeField().isTank && it->getTypeField().isIa == true) {
+            auto iaTank = std::dynamic_pointer_cast<TankAI>(it);
+            iaTanks.push_back(dynamic_cast<TankAI &>(*iaTank));
+        }
     }
     Tank::writeTankList(tk);
+    TankAI::writeIATankList(iaTanks);
     _map->writeDestructibleList(walls);
 }
 
