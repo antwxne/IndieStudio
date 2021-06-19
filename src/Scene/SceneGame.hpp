@@ -10,6 +10,7 @@
 
 #include "AScene.hpp"
 #include "Map.hpp"
+#include "FrameUI.hpp"
 #include "ScenePause.hpp"
 
 class SceneGame : public AScene {
@@ -31,7 +32,9 @@ class SceneGame : public AScene {
         void saveAll() noexcept;
 
         void updateObjects(Raylib &lib) noexcept;
- 
+
+        void createRect() noexcept;
+
         void initSaveTanks();
 
         void applyBonuses() noexcept;

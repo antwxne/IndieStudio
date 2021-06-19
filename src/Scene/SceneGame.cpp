@@ -30,8 +30,8 @@ const std::vector<std::pair<float, float>> SceneGame::_playerPos = {
     {std::make_pair(1170.0f, 1035.0f)}, {std::make_pair(1670.0f, 1035.0f)},};
 
 const std::vector<std::pair<float, float>> SceneGame::_scorePos = {
-    {std::make_pair(280.0f, 990.0f)}, {std::make_pair(780.0f, 990.0f)},
-    {std::make_pair(1280.0f, 990.0f)}, {std::make_pair(1780.0f, 990.0f)},};
+    {std::make_pair(300.0f, 990.0f)}, {std::make_pair(800.0f, 990.0f)},
+    {std::make_pair(1300.0f, 990.0f)}, {std::make_pair(1800.0f, 990.0f)},};
 
 const std::vector<std::pair<float, float>> SceneGame::_uiLifePosPlayer = {
     std::make_pair(265, 1050), std::make_pair(765, 1050),
@@ -40,6 +40,7 @@ const std::vector<std::pair<float, float>> SceneGame::_uiLifePosPlayer = {
 SceneGame::SceneGame(Setting &settings) : AScene(settings), _isPaused(false),
     _scenePause(settings)
 {
+    std::cout << "PROBLEME EST ICI SUREMENT OU PAS\n";
     tanksCoords tanksCoords = _tanksPosNbPlayers.at(
         _settings._playersSettings.size());
 
@@ -52,6 +53,7 @@ SceneGame::SceneGame(Setting &settings) : AScene(settings), _isPaused(false),
         initSaveTanks();
     }
     initColors();
+    createRect();
     initMap(tanksCoords);
     setInputFunction(Raylib::ESCAPE, [&]() {
         _isPaused = !_isPaused;
@@ -61,6 +63,13 @@ SceneGame::SceneGame(Setting &settings) : AScene(settings), _isPaused(false),
 
 SceneGame::~SceneGame()
 {
+}
+
+void SceneGame::createRect() noexcept
+{
+    auto const &carre = std::make_unique<FrameUI>();
+    for (auto const &carr : carre->getBorder())
+        _objects.emplace_back(std::make_shared<BorderPlayer>(carr));
 }
 
 void SceneGame::initTanks(const tanksCoords &tanksCoords)
@@ -101,21 +110,30 @@ void SceneGame::initSaveTanks()
     std::size_t setOfKeyInputs = 0;
     int tankCounter = 0;
 
+    std::cout << "GROS LOLOLO\n";
     for (auto &tank : tanks) {
-            _objects.emplace_back(std::make_shared<Tank>(
+        std::cout << "GROS LOLOLO 01\n";
+        _objects.emplace_back(std::make_shared<Tank>(
                 tank.getName(),
                 coords(tank.getPosition().first,0, tank.getPosition().third),
                 coords(10, 10, 10),
                 8,
                 std::make_pair(Tank::bodyTexture, Tank::bodyModel),
                 std::make_pair(Tank::darkGreen, Tank::cannonModel)));
-            auto tk = std::dynamic_pointer_cast<Tank>(_objects.back());
-            tk->setSpeed(tank.getSpeed());
-            tk->setLife(tank.getLife());
-            setInputsTank(_settings._keysPlayers[setOfKeyInputs], _objects.back());
-            setOfKeyInputs++;
-            initTankUi(tankCounter, std::dynamic_pointer_cast<Tank>(_objects.back()), _settings._playersSettings[tankCounter]);
-            tankCounter++;
+        std::cout << "GROS LOLOLO 02\n";
+        auto tk = std::dynamic_pointer_cast<Tank>(_objects.back());
+        std::cout << "GROS LOLOLO 03\n";
+        tk->setSpeed(tank.getSpeed());
+        std::cout << "GROS LOLOLO 04\n";
+        tk->setLife(tank.getLife());
+        std::cout << "GROS LOLOLO 05\n";
+        setInputsTank(_settings._keysPlayers[setOfKeyInputs], _objects.back());
+        std::cout << "GROS LOLOLO 06\n";
+        setOfKeyInputs++;
+        std::cout << "GROS LOLOLO 07\n";
+        initTankUi(tankCounter, std::dynamic_pointer_cast<Tank>(_objects.back()), _settings._playersSettings[tankCounter]);
+        std::cout << "GROS LOLOLO 08\n";
+        tankCounter++;
     }
         /*} else if (playerSettings.type == IA) {
             // _objects.emplace_back(std::make_shared<TankIA>("grosTankSaMere", coords(0,0,0), coords(10, 10, 10), 8, std::make_pair(Tank::bodyTexture, Tank::bodyModel), std::make_pair(Tank::darkGreen, Tank::cannonModel)));
@@ -132,7 +150,7 @@ void SceneGame::initTankUi(int tankCounter, std::shared_ptr<Tank> tank, PlayerSe
         _objects.emplace_back(std::make_shared<TexteUI>(
             coords(_playerPos[tankCounter].first,
                 _playerPos[tankCounter].second), std::make_pair(50, 50),
-            settings.name, 20, 1, std::make_pair(RGB(150), RGB())));
+            tank->getName(), 20, 1, std::make_pair(RGB(150), RGB())));
         _objects.emplace_back(std::make_shared<TexteUI>(
             coords(_scorePos[tankCounter].first, _scorePos[tankCounter].second),
             std::make_pair(50, 50), std::to_string(tank->getScore()), 20, 1,
@@ -183,7 +201,6 @@ void SceneGame::manageHeart(const std::string &name, const int life)
     std::size_t idx = 0;
     std::vector<int> tmp;
 
-    std::cout << "name === " << name << " life === " << life << std::endl;
     for (unsigned int i = 0; i != _objects.size(); i++) {
         if (_objects[i]->getTypeField().isLife) {
             auto heart = std::dynamic_pointer_cast<LifeGame>(_objects[i]);
