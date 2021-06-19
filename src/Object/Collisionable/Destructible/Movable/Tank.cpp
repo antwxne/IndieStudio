@@ -141,3 +141,15 @@ std::vector<Tank> Tank::readTank()
     }
     return tmp;
 }
+
+void Tank::setSpeed(float speed)
+{
+    _speed = speed;
+    _cannon.setSpeed(speed);
+}
+
+void Tank::increaseSpeed(float newSpeed)
+{
+    _speed += newSpeed;
+    _cannon.increaseSpeed(newSpeed);
+}

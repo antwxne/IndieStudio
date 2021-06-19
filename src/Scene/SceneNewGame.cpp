@@ -48,14 +48,15 @@ namespace newGame {
         for (auto &it : _inputPos)
             _objects.emplace_back(std::make_shared<button::InputBox>(it, button::_buttonSize, button::_buttonNavigPath, 20, 15, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
         for (std::size_t i = 0; i != _inputPos.size(); ++i) {
-            _objects.emplace_back(std::make_shared<button::BoolButton>(coords(_inputPos.at(i).first, _inputPos.at(i).second + 100), button::_buttonSize, button::_buttonNavigPath, _controllerText[0 + (1 * (i >= 2))], 20, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
+            _objects.emplace_back(std::make_shared<button::BoolButton>(coords(_inputPos.at(i).first, _inputPos.at(i).second + 100), button::_buttonSize, button::_soloPath, _controllerText[0 + (1 * (i >= 2))], 20, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
             _controllerButtons.emplace_back(std::dynamic_pointer_cast<button::BoolButton>(_objects.back()));
         }
         for (std::size_t i = 0; i != _bonusButton.size(); ++i) {
             _objects.emplace_back(std::make_shared<button::BoolButton>(coords(_inputPos.at(i).first + 200, _inputPos.at(i).second + 400), button::_buttonSize, button::_buttonNavigPath, _bonusButton[i], 20, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
             _bonusButtons.emplace_back(std::dynamic_pointer_cast<button::BoolButton>(_objects.back()));
         }
-        _objects.emplace_back(std::make_shared<TexteUI>(coords(670, 100), std::make_pair(0, 0), "New Game", 90, 1, std::make_pair(RGB(0, 0, 0), RGB())));
+        _objects.emplace_back(std::make_shared<TexteUI>(coords(960 - 150, 75), std::make_pair(0, 0), "New Game", 90, 1, std::make_pair(RGB(0, 0, 0), RGB())));
+        _objects.emplace_back(std::make_shared<TexteUI>(coords(960 - 300, 550), std::make_pair(0, 0), "Bonus settings", 90, 1, std::make_pair(RGB(0, 0, 0), RGB())));
     }
 
     SceneNewGame::~SceneNewGame()
@@ -68,8 +69,9 @@ namespace newGame {
             if (!it->getTypeField().isButton || it->getTypeField().isInputBox)
                 continue;
             auto button = std::dynamic_pointer_cast<button::Button>(it);
-            if (std::find(_playerIA.begin(), _playerIA.end(), button->getText()) == _playerIA.end())
+            if (std::find(_playerIA.begin(), _playerIA.end(), button->getText()) == _playerIA.end() || button->getText() == "None")
                 continue;
+            _settings._playersSettings.emplace_back();
             _settings._playersSettings.back().type = static_cast<playerType>(std::find(_playerIA.begin(), _playerIA.end(), button->getText()) - _playerIA.begin());
         }
     }

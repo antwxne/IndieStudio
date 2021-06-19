@@ -19,9 +19,21 @@ enum playerType {
     NONE
 };
 
+static const std::vector<std::string> _nameRandom {
+    "Tony",
+    "Joffrey",
+    "Romain",
+    "Remi",
+    "Antoine",
+    "Clement",
+    "Maxime",
+    "Robin",
+    "Charlie"
+};
+
 struct PlayerSettings {
-    PlayerSettings() : type(IA), name("BOT" + std::to_string(std::rand() % 10)), score(0), isLooser(true) {}
-    PlayerSettings(int type = IA, std::string name = "tkt", int score = 0) : type(static_cast<playerType>(type)), name(name), score(score), isLooser(true) {}
+    PlayerSettings() : type(IA), name(_nameRandom[std::rand() % _nameRandom.size()]), score(0), isLooser(false) {};
+    PlayerSettings(int type, std::string name, int score) : type(static_cast<playerType>(type)), name(name), score(score), isLooser(false) {};
     playerType type;
     std::string name;
     int score;
