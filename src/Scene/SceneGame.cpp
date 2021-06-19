@@ -202,16 +202,23 @@ Scenes SceneGame::run(Raylib &lib)
 void SceneGame::updateObjects() noexcept
 {
     for (auto object = _objects.begin(); object != _objects.end();) {
+        bool isSupr = false;
+
         if ((*object)->getTypeField().isTank) {
             auto tank = std::dynamic_pointer_cast<Tank>(*object);
             manageHeart(tank->getName(), tank->getLife());
             tank->moveBullets();
+            if (tank->getLife() <= 0) {
+                object = _objects.erase(object);
+                isSupr = true;
+            }
         }
         if ((*object)->getTypeField().isParticule == true) {
             if (std::dynamic_pointer_cast<Particles>(*object)->update() == true) {
                 std::cout << " [Scene Game] Je supprime la particule\n";
+                _objects.emplace_back(std::make_shared<Particles>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(20, 12, 9), RGB()), 100, coords(0, 0.2f, 0), 5000.0f));
                 object = _objects.erase(object);
-                continue;
+                isSupr = true;
             }
         }
         else if ((*object)->getTypeField().isPowerUps == true)
@@ -221,13 +228,14 @@ void SceneGame::updateObjects() noexcept
             _objects.emplace_back(std::make_shared<PowerUps>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), coords(1, 1, 1), std::pair<std::string, std::string>("", "")));
             _objects.emplace_back(std::make_shared<Particles>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(218, 165, 32), RGB()), 100, coords(0, 0.2f, 0), 5000.0f));
             object = _objects.erase(object);
-            continue;
+            isSupr = true;
         }
         if (object->get()->getTypeField().isPowerUps && std::dynamic_pointer_cast<PowerUps>(*object)->getLife() <= 0) {
             object = _objects.erase(object);
-            continue;
+            isSupr = true;
         }
-        ++object;
+        if (!isSupr)
+            ++object;
     }
 }
 
