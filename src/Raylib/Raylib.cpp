@@ -467,7 +467,8 @@ void Raylib::findCollision(std::shared_ptr<CollisionableObject> obj,
                     positionOther.third + (otherRotaton <= 110 && otherRotaton >= 70 || otherRotaton <= 290 && otherRotaton >= 250 ? tmpBoundOther.max.x : tmpBoundOther.max.z) * scaleOther}};
             if (CheckCollisionBoxes(boundCurrent, boundOther)) {
                 auto sound = obj->hit(tmp);
-                if (sound != NONE_SOUND);
+                if (sound != NONE_SOUND)
+                    displaySound(MAP_SONG.at(sound), 1.f);
                     //fonction son charlie;
             }
         }
