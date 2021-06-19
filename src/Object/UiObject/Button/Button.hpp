@@ -40,6 +40,13 @@ namespace button {
         "asset/menu_asset/Button_beige.png",
         "asset/menu_asset/Button_beige_pressed.png"
     };
+
+    static const std::array<std::string, 3> _soloPath {
+        "asset/menu_asset/Button_blue_pressed.png",
+        "asset/menu_asset/Button_blue_pressed.png",
+        "asset/menu_asset/Button_blue_pressed.png"
+    };
+
     /**
      * @brief path to buttons
      * 
@@ -49,6 +56,13 @@ namespace button {
         "asset/menu_asset/Button_brown.png",
         "asset/menu_asset/Button_brown.png"
     };
+
+    static const std::array<std::string, 3> _buttonWinnerPath {
+        "asset/menu_asset/Button_white.png",
+        "asset/menu_asset/Button_white.png",
+        "asset/menu_asset/Button_white.png"
+    };
+
     /**
      * @brief button size
      * 

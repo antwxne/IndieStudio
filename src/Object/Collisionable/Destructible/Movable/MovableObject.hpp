@@ -42,13 +42,13 @@ public:
      *
      * @param newSpeed
      */
-    void changeSpeed(float newSpeed);
+    virtual void increaseSpeed(float newSpeed);
     /**
      * @brief Set the Speed object
      * 
      * @param speed 
      */
-    void setSpeed(float speed);
+    virtual void setSpeed(float speed);
     /**
      * @brief Get the Speed object
      * 

@@ -100,7 +100,7 @@ class SceneGame : public AScene {
          * @brief apply bonuses on players
          * 
          */
-        void applyBonuses() noexcept;
+        void applyBonuses(std::shared_ptr<Tank> tank) noexcept;
         /**
          * @brief player position
          * 
@@ -126,6 +126,7 @@ class SceneGame : public AScene {
          * 
          */
         bool _isPaused;
+        bool _endGame;
         /**
          * @brief pause scene for pause menu
          * 
