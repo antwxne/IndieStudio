@@ -18,10 +18,6 @@ SceneBoard::~SceneBoard()
 
 Scenes SceneBoard::run(Raylib &lib)
 {
-    while (lib.gameLoop()) {
-
+    while (1) {
     }
-    if (lib.gameLoop())
-        return (Scenes::QUIT);
-    return (Scenes::MENU);
 }
