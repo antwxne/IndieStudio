@@ -41,7 +41,6 @@ SceneGame::SceneGame(Setting &settings) : AScene(settings), _isPaused(false),
     std::cout << "PROBLEME EST ICI SUREMENT OU PAS\n";
     tanksCoords tanksCoords = _tanksPosNbPlayers.at(
         _settings._playersSettings.size());
-
     _objects.emplace_back(std::make_shared<Ground>(
         coords(0, 0, 0), std::make_pair(40, 22), std::pair<std::string, std::string>(core::groundTexture, core::groundModel)));
     if (_settings.load == false) {
@@ -56,7 +55,6 @@ SceneGame::SceneGame(Setting &settings) : AScene(settings), _isPaused(false),
     setInputFunction(Raylib::ESCAPE, [&]() {
         _isPaused = !_isPaused;
     });
-    applyBonuses();
 }
 
 SceneGame::~SceneGame()
@@ -87,11 +85,12 @@ void SceneGame::initTanks(const tanksCoords &tanksCoords)
             setInputsTank(_settings._keysPlayers[setOfKeyInputs],
                 _objects.back());
             setOfKeyInputs++;
+            applyBonuses(std::dynamic_pointer_cast<Tank>(_objects.back()));
             initTankUi(tankCounter,
                 std::dynamic_pointer_cast<Tank>(_objects.back()),
                 playerSettings);
         } else if (playerSettings.type == IA) {
-            _objects.emplace_back(std::make_shared<TankAI>("grosTankSaMere",
+            _objects.emplace_back(std::make_shared<TankAI>(playerSettings.name,
                 coords(tanksCoords[tankCounter].first, 0,
                     tanksCoords[tankCounter].second), coords(10, 10, 10), 8,
                 std::make_pair(Tank::bodyTexture, Tank::bodyModel),
@@ -340,14 +339,12 @@ void SceneGame::updateObjects(Raylib &lib) noexcept
         _endGame = true;
 }
 
-void SceneGame::applyBonuses() noexcept
+void SceneGame::applyBonuses(std::shared_ptr<Tank> tank) noexcept
 {
-    // selon les bonus choisis cette fonction sera utile ou non
-    // peut etre mieux de le faire directement a l'instanciation pour les tanks par exemple
-    if (_settings.bonuses.SpeedUpBonus) {
-    }
-    if (_settings.bonuses.LifeUpBonus) {
-    }
-    if (_settings.bonuses.DamageUpBonus) {
-    }
+    if (_settings.bonuses.SpeedUpBonus)
+        tank->increaseSpeed(3);
+    if (_settings.bonuses.LifeUpBonus)
+        tank->setLife(5);
+    if (_settings.bonuses.DamageUpBonus)
+        tank->increaseDamage(2);
 }

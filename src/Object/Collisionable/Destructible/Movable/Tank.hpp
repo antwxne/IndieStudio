@@ -179,6 +179,10 @@ public:
      * @param pos 
      */
     void setPosition(const coords &pos) noexcept override;
+
+    void setSpeed(float speed) override;
+
+    void increaseSpeed(float speed) override;
 protected:
 
     /**

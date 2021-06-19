@@ -63,10 +63,8 @@ void PowerUps::applyPowerUps(Tank &tank) const noexcept
 {
     if (_powerUps.isLifeUp)
         tank.updateLife(lifeUp);
-    else if (_powerUps.isSpeedUp) {
-        tank.changeSpeed(speedUp);
-        tank.getCannon().changeSpeed(speedUp);
-    }
+    else if (_powerUps.isSpeedUp)
+        tank.increaseSpeed(_powerUps.isSpeedUp);
     else if (_powerUps.isDamageUp)
         tank.getCannon().increaseBounce(bounceUp);
 }

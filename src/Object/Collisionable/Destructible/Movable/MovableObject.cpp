@@ -30,7 +30,7 @@ void MovableObject::rotate(float angle) noexcept
         _rotationAngle = moduloed;
 }
 
-void MovableObject::changeSpeed(float newSpeed)
+void MovableObject::increaseSpeed(float newSpeed)
 {
     _speed += newSpeed;
 }
