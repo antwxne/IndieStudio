@@ -232,7 +232,7 @@ Scenes SceneGame::run(Raylib &lib)
                 startFire = std::chrono::steady_clock::now();
             }
         }
-        if (std::chrono::duration_cast<std::chrono::seconds>(end - start) >= std::chrono::seconds(10) || started) {
+        if (std::chrono::duration_cast<std::chrono::seconds>(end - start) >= std::chrono::seconds(3) || started) {
             start = std::chrono::steady_clock::now();
             std::shuffle(tanks.begin(), tanks.end(), rng);
         }

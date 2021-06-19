@@ -81,7 +81,7 @@ void Bullet::setShooting(bool val) noexcept
         _typeField.isShooting = true;
         start = std::chrono::steady_clock::now();
     }
-    if (std::chrono::duration_cast<std::chrono::milliseconds>(end - start) >= std::chrono::milliseconds(1000)) {
+    if (std::chrono::duration_cast<std::chrono::milliseconds>(end - start) >= std::chrono::milliseconds(500)) {
         _typeField.isShooting = false;
     }
 }

@@ -12,11 +12,26 @@
 #include "TankAi.hpp"
 #include "Raylib/Raylib.hpp"
 
+coords &operator-(coords &a)
+{
+    a.first *= -1;
+    a.second *= -1;
+    a.third *= -1;
+    return a;
+}
+
+std::ostream &operator<<(std::ostream &os, const coords &a)
+{
+    os << a.first << " " << a.second << " " << a.third;
+    return os;
+}
+
 TankAI::TankAI(const std::string &name, const coords &pos, const coords &size, const int maxBullets, const std::pair<std::string, std::string> &path, const std::pair<std::string, std::string> &cannonPath)
     : Tank(name, pos, size, maxBullets, path, cannonPath)
 {
     _typeField.isIa = true;
     _stopDistance = 2;
+    _prevRotationAngle = _rotationAngle;
 }
 
 void TankAI::target(const coords &pos) noexcept
@@ -27,17 +42,17 @@ void TankAI::target(const coords &pos) noexcept
 void TankAI::autoMove() noexcept
 {
     double distance = TankAI::distance(_targetPos);
-    coords dir = _pos - _targetPos;
+    coords dir = _targetPos - _pos;
 
     rotate(1);
-    if (distance > _stopDistance) {
+    if (distance > _stopDistance) {// && ((_prevRotationAngle - _rotationAngle) <= 1 || (_prevRotationAngle - _rotationAngle) >= -1)) {
         move(dir);
     }
 }
 
 double TankAI::distance(const coords &otherPos) const noexcept
 {
-    return sqrt(pow((_pos.first - otherPos.first),2) + pow((_pos.second - otherPos.second),2));
+    return sqrt(pow((_pos.first - otherPos.first),2) + pow((_pos.third - otherPos.third),2));
 }
 
 void TankAI::move(const coords &direction) noexcept
@@ -46,28 +61,25 @@ void TankAI::move(const coords &direction) noexcept
 
     _previousPos = _pos;
     dir.first = direction.first > 0 ? .2f : direction.first < 0 ? -.2f : 0;
-    dir.second = direction.second > 0 ? .2f : direction.second < 0 ? -.2f : 0;
+    dir.third = direction.third > 0 ? .2f : direction.third < 0 ? -.2f : 0;
     auto tmpDir = dir;
     dir *= _speed * Raylib::getDeltaTime();
     _pos += dir;
-    //std::cout << "tmp dir == " << tmpDir.first << " " << tmpDir.third << "\n";
     _cannon.move(tmpDir);
 }
 
 
 void TankAI::rotate(float angle) noexcept
 {
-    _rotationAngle += angle;
-    auto casted = static_cast<int>(_rotationAngle);
-    auto moduloed = casted % 360;
-    if (moduloed != casted)
-        _rotationAngle = moduloed;
-    //std::cout << "rotation angle == " << _rotationAngle << "\n";
-    _cannon.rotate(angle);
+    float doRotation = std::sin(_rotationAngle) * (_pos.first - _targetPos.first) + (-std::cos(_rotationAngle)) * (_pos.second - _targetPos.second);
+
+    _prevRotationAngle = _rotationAngle;
+    _rotationAngle += doRotation > 0 ? angle : -angle;
+    _rotationAngle = static_cast<int>(_rotationAngle) % 360;
+    _cannon.rotate(doRotation > 0 ? angle : -angle);
 }
 
 void TankAI::fire()
 {
-        _cannon.fire();
-
+    _cannon.fire();
 }

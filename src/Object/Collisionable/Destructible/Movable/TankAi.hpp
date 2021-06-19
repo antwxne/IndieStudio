@@ -74,6 +74,7 @@ private:
 protected:
     coords _targetPos;
     double _stopDistance;
+    float _prevRotationAngle;
 };
 
 #endif //INDIESTUDIO_TANKAI_HPP
