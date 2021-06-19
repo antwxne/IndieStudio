@@ -70,7 +70,15 @@ public:
     const destructible_t &getStructSave() noexcept;
 
 protected:
+    /**
+     * @brief object's life
+     * 
+     */
     float _life;
+    /**
+     * @brief struct to save destructible objects
+     * 
+     */
     destructible_t _save;
 };
 

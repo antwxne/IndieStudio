@@ -21,6 +21,7 @@ enum playerType {
 
 struct PlayerSettings {
     PlayerSettings() : type(IA), name("BOT" + std::to_string(std::rand() % 10)), score(0), isLooser(true) {}
+    PlayerSettings(int type = IA, std::string name = "tkt", int score = 0) : type(static_cast<playerType>(type)), name(name), score(score), isLooser(true) {}
     playerType type;
     std::string name;
     int score;

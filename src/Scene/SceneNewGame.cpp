@@ -70,7 +70,6 @@ namespace newGame {
             auto button = std::dynamic_pointer_cast<button::Button>(it);
             if (std::find(_playerIA.begin(), _playerIA.end(), button->getText()) == _playerIA.end())
                 continue;
-            _settings._playersSettings.emplace_back();
             _settings._playersSettings.back().type = static_cast<playerType>(std::find(_playerIA.begin(), _playerIA.end(), button->getText()) - _playerIA.begin());
         }
     }

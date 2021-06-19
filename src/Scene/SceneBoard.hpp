@@ -11,11 +11,31 @@
 #include "Raylib.hpp"
 #include "AScene.hpp"
 
+/**
+ * @brief Board Scene
+ * @class SceneBoard
+ * 
+ */
 class SceneBoard : public AScene
 {
     public:
+        /**
+         * @brief Construct a new Scene Board object
+         * 
+         * @param settings 
+         */
         SceneBoard(Setting &settings);
+        /**
+         * @brief Destroy the Scene Board object
+         * 
+         */
         ~SceneBoard();
+        /**
+         * @brief run scene
+         * 
+         * @param lib 
+         * @return Scenes 
+         */
         Scenes run(Raylib &lib) final;
 };
 

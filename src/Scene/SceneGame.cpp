@@ -10,10 +10,8 @@
 #include <random>
 #include <algorithm>
 
-#include "Object/Collisionable/Destructible/Movable/TankAi.hpp"
 #include "Core.hpp"
 #include "SceneGame.hpp"
-#include "Object/Collisionable/Destructible/Movable/Tank.hpp"
 #include "Ground.hpp"
 #include "Score.hpp"
 #include "LifeGame.hpp"
@@ -113,8 +111,10 @@ void SceneGame::initSaveTanks()
         auto tk = std::dynamic_pointer_cast<Tank>(_objects.back());
         tk->setSpeed(tank.getSpeed());
         tk->setLife(tank.getLife());
+        _settings._playersSettings.emplace_back(PLAYER, tk->getName(), tk->getScore());
         setInputsTank(_settings._keysPlayers[setOfKeyInputs], _objects.back());
         setOfKeyInputs++;
+        std::cout <<"ICICICI ==== " << tankCounter << std::endl;
         initTankUi(tankCounter, std::dynamic_pointer_cast<Tank>(_objects.back()), _settings._playersSettings[tankCounter]);
         tankCounter++;
     }
@@ -133,7 +133,7 @@ void SceneGame::initTankUi(int tankCounter, std::shared_ptr<Tank> tank, PlayerSe
         _objects.emplace_back(std::make_shared<TexteUI>(
             coords(_playerPos[tankCounter].first,
                 _playerPos[tankCounter].second), std::make_pair(50, 50),
-            tank->getName(), 20, 1, std::make_pair(RGB(150), RGB())));
+            settings.name, 20, 1, std::make_pair(RGB(150), RGB())));
       /*  _objects.emplace_back(std::make_shared<Score>(tank->getName(),
             coords(_scorePos[tankCounter].first, _scorePos[tankCounter].second),
             std::make_pair(50, 50), std::to_string(tank->getScore()), 20, 1,
@@ -255,7 +255,7 @@ Scenes SceneGame::run(Raylib &lib)
             AI->target(tanks[nAI]->getPosition());
             ++nAI;
             AI->autoMove();
-            if (std::chrono::duration_cast<std::chrono::seconds>(end - start) >= std::chrono::seconds(3)) {
+            if (std::chrono::duration_cast<std::chrono::seconds>(endFire - startFire) >= std::chrono::seconds(5)) {
                 AI->fire();
                 startFire = std::chrono::steady_clock::now();
             }
@@ -287,12 +287,6 @@ void SceneGame::updateScore(std::string const &name, std::size_t &scoreTank) noe
         if (k->getTypeField().isScore) {
             auto score = std::dynamic_pointer_cast<Score>(k);
             score->updateDisplay();
-
-//            if (score->getName() == name) {
-                std::cout <<" Score Avant === " << score->getScore() << std::endl;
-                //score->updateDisplay();
-                std::cout <<" Score Après === " << score->getScore() << std::endl;
-            //}
         }
     }
 }
@@ -306,9 +300,8 @@ void SceneGame::updateObjects(Raylib &lib) noexcept
         isSupr = false;
         if ((*object)->getTypeField().isTank) {
             auto tank = std::dynamic_pointer_cast<Tank>(*object);
-           // timeIncrementScore(tank);
-          //  updateScore(tank->getName(), tank->getScore());
-            std::cout << "GETSCORE ==== " << tank->getScore() << std::endl;
+            timeIncrementScore(tank);
+            updateScore(tank->getName(), tank->getScore());
             manageHeart(tank->getName(), tank->getLife());
             tank->moveBullets();
             if (tank->getLife() <= 0) {
@@ -319,8 +312,8 @@ void SceneGame::updateObjects(Raylib &lib) noexcept
                 object = _objects.erase(object);
                 isSupr = true;
             }
-            else if (tank->getPosition() != tank->getPreviousPos())
-                _objects.emplace_back(std::make_shared<Particles>(coords(tank->getPreviousPos().first, tank->getPreviousPos().second, tank->getPreviousPos().third), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(128,128,128), RGB()), 50, coords(0.002f, 0, 0), 100.0f));
+            //else if (tank->getPosition() != tank->getPreviousPos())
+                //_objects.emplace_back(std::make_shared<Particles>(coords((tank->getCannon().getPosition().first - tank->getCannon().getPrevPos().first) * -1, 1.0f, (tank->getCannon().getPosition().third - tank->getCannon().getPrevPos().third) * -1), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(128,128,128), RGB()), 50, coords(0.002f, 0, 0), 100.0f));
         }
         if ((*object)->getTypeField().isParticule == true) {
             if (std::dynamic_pointer_cast<Particles>(*object)->update() == true) {
@@ -332,7 +325,7 @@ void SceneGame::updateObjects(Raylib &lib) noexcept
             std::dynamic_pointer_cast<PowerUps>(*object)->rotate(0.5f);
         if (object->get()->getTypeField().isDestructibleWall && std::dynamic_pointer_cast<DestructibleWall>(*object)->getLife() <= 0) {
             _objects.emplace_back(std::make_shared<PowerUps>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), coords(1, 1, 1), std::pair<std::string, std::string>("", "")));
-            _objects.emplace_back(std::make_shared<Particles>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(218, 165, 32), RGB()), 100, coords(0, 0.2f, 0), 10000.0f));
+            _objects.emplace_back(std::make_shared<Particles>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(218, 165, 32), RGB()), 100, coords(0, 0.2f, 0), 3000.0f));
             object = _objects.erase(object);
             isSupr = true;
         }
@@ -346,8 +339,8 @@ void SceneGame::updateObjects(Raylib &lib) noexcept
         if (!isSupr)
             ++object;
     }
-    if (VictoryCond == 1)
-        std::cout << "You Win\n";
+    // if (VictoryCond == 1)
+    //     std::cout << "You Win\n";
 }
 
 void SceneGame::applyBonuses() noexcept

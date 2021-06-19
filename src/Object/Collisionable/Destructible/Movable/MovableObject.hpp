@@ -43,13 +43,25 @@ public:
      * @param newSpeed
      */
     void changeSpeed(float newSpeed);
+    /**
+     * @brief Set the Speed object
+     * 
+     * @param speed 
+     */
+    void setSpeed(float speed);
+    /**
+     * @brief Get the Speed object
+     * 
+     * @return float current speed
+     */
+    float getSpeed() const;
 
 protected:
+    /**
+     * @brief object's speed
+     * 
+     */
     float _speed;
-    public:
-    void setSpeed(float speed);
-
-    float getSpeed() const;
 };
 
 #endif //INDIESTUDIO_MOVABLEOBJECT_HPP

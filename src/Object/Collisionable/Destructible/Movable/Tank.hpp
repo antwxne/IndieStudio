@@ -19,47 +19,36 @@
  */
 class Tank: public MovableObject {
 public:
-
     /**
      * @brief path to texture
      * 
      */
     static const std::string bodyTexture;
-
     /**
      * @brief path to model
      * 
      */
     static const std::string bodyModel;
-
-
-
     /**
      * @brief path to texture
      * 
      */
     static const std::string darkGreen;
-
-
     /**
      * @brief path to texture
      * 
      */
     static const std::string darkRed;
-
-    
     /**
      * @brief path to texture
      * 
      */
     static const std::string greenCamo;
-
     /**
      * @brief path to model
      * 
      */
     static const std::string cannonModel;
-
     /**
      * @brief Construct a new Tank object
      * 
@@ -74,27 +63,23 @@ public:
      */
      //Tank(Tank &tank);
     ~Tank() = default;
-
     /**
      * @brief fire with the cannon
      * 
      */
     virtual void fire();
-
     /**
      * @brief overriden move to call _cannon.move
      * 
      * @param direction 
      */
     void move(const coords &direction) noexcept override;
-
     /**
      * @brief adds angle to current rotation of the cannon
      * 
      * @param angle 
      */
     void rotateCannon(float angle);
-
     /**
      * @brief calls cannon.moveBullets() to update the bullets positions
      * 
@@ -141,7 +126,25 @@ public:
      * @return const coords& 
      */
     const coords &getPreviousPos() const noexcept;
+    /**
+     * @brief Get the Path Tank object
+     * 
+     * @return std::pair<std::string, std::string> 
+     */
     std::pair<std::string, std::string> getPathTank() noexcept;
+    /**
+     * @struct tank_t
+     * @brief struct to save infos about tanks
+     * @var x pos x
+     * @var z pos z
+     * @var y pos y
+     * @var life
+     * @var score
+     * @var name
+     * @var speed
+     * @var damage
+     * 
+     */
     struct tank_t {
         float x;
         float z;
@@ -152,9 +155,23 @@ public:
         int speed;
         int damage;
     };
-
+    /**
+     * @brief Get the Tank Struct Save object
+     * 
+     * @return const tank_t& 
+     */
     const tank_t &getTankStructSave() noexcept;
+    /**
+     * @brief 
+     * 
+     * @param _tankList 
+     */
     static void writeTankList(std::vector<Tank> _tankList) noexcept;
+    /**
+     * @brief 
+     * 
+     * @return std::vector<Tank> 
+     */
     static std::vector<Tank> readTank();
     /**
      * @brief Set the Pos object
@@ -181,6 +198,10 @@ protected:
      * 
      */
     std::size_t _score;
+    /**
+     * @brief struct to save
+     * 
+     */
     tank_t _save;
 
     /**

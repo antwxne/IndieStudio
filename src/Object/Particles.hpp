@@ -92,16 +92,40 @@ private:
      * @var coord reference
      * @brief reference to object position
      */
-    const coords &_objPos;
+    const coords _objPos;
     /**
      * @brief acceleration base
      */
     coords _acceleration;
+    /**
+     * @brief particle size
+     * 
+     */
     float _sizeParticle;
+    /**
+     * @brief max time to display
+     * 
+     */
     float _maxTime;
+    /**
+     * @brief when stop display
+     * 
+     */
     std::chrono::_V2::system_clock::time_point _stop;
+    /**
+     * @brief start time
+     * 
+     */
     std::chrono::_V2::system_clock::time_point _start;
+    /**
+     * @brief time ref
+     * 
+     */
     std::chrono::_V2::high_resolution_clock _time;
+    /**
+     * @brief time to update
+     * 
+     */
     std::chrono::_V2::high_resolution_clock::time_point _updateTime;
 };
 
