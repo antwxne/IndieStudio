@@ -29,6 +29,8 @@ namespace core {
     static const std::string _menuMusic = "asset/music/menu_music.mp3";
     static const std::string _gameMusic = "asset/music/game_music.mp3";
     static const std::string _winMusic = "asset/music/win_music.mp3";
+    static const std::string _splashMusic = "asset/music/splash_music.mp3";
+    static const std::string _animMusic = "asset/music/animation_music.mp3";
     static const std::string _mouseClick = "asset/sound_effects/click.wav";
     static const std::string _mouseOver = "asset/sound_effects/over.wav";
 
