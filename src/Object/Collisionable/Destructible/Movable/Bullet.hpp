@@ -5,6 +5,8 @@
 ** Created by antoine,
 */
 
+#include <chrono>
+
 #include "MovableObject.hpp"
 
 #ifndef INDIESTUDIO_BULLET_HPP
@@ -76,9 +78,23 @@ public:
      * 
      */
     static const float waitPosition;
-
+    /**
+     * @brief Get the Direction object
+     * 
+     * @return const coords& 
+     */
     const coords &getDirection() const noexcept;
+    /**
+     * @brief Set the Direction object
+     * 
+     * @param direction 
+     */
     void setDirection(const coords &direction) noexcept;
+    /**
+     * @brief Set the Shooting object
+     * 
+     * @param val 
+     */
     void setShooting(bool val) noexcept;
 private:
 
@@ -98,6 +114,11 @@ private:
      * 
      */
     float _damage;
+    /**
+     * @brief timer to not collide with tank when shooting
+     * 
+     */
+    std::chrono::_V2::high_resolution_clock::time_point _timeShot;
 };
 
 

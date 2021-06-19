@@ -5,17 +5,44 @@
 #pragma once
 #include "BorderPlayer.hpp"
 
+/**
+ * @brief FrameUI
+ * 
+ * @class FrameUI
+ * 
+ */
 class FrameUI {
     public:
+    /**
+     * @brief Construct a new Frame U I object
+     * 
+     */
     FrameUI();
+    /**
+     * @brief Destroy the Frame U I object
+     * 
+     */
     ~FrameUI() = default;
 
     private:
+    /**
+     * @brief all players infos
+     * 
+     */
     std::vector<BorderPlayer> _border;
     public:
+    /**
+     * @brief Get the Border object
+     * 
+     * @return const std::vector<BorderPlayer>& 
+     */
     const std::vector<BorderPlayer> &getBorder() const;
 };
 
+/**
+ * @brief ui size
+ * 
+ */
 static const std::vector<std::pair<float, float>> _uiGameSize{
     {std::make_pair(80, 80)},
     {std::make_pair(80, 80)},
@@ -28,6 +55,10 @@ static const std::vector<std::pair<float, float>> _uiGameSize{
 
 };
 
+/**
+ * @brief UI pos
+ * 
+ */
 static const std::vector<std::pair<float, float>> _uiGamePos {
     {std::make_pair(150, 950)},
     {std::make_pair(650, 950)},

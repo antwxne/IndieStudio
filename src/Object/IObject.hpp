@@ -55,11 +55,12 @@ struct coords
         dest.third = third - b.third;
         return dest;
     }
-    coords &operator*(float n) {
-        first *= n;
-        second *= n;
-        third *= n;
-        return *this;
+    coords operator*(float n) const {
+        coords dest;
+        dest.first = first * n;
+        dest.second = second * n;
+        dest.third = third * n;
+        return dest;
     }
 
     bool operator==(const coords &b) const

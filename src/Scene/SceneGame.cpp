@@ -259,7 +259,7 @@ Scenes SceneGame::run(Raylib &lib)
             AI->target(tanks[nAI]->getPosition());
             ++nAI;
             AI->autoMove();
-            if (std::chrono::duration_cast<std::chrono::seconds>(end - start) >= std::chrono::seconds(3)) {
+            if (std::chrono::duration_cast<std::chrono::seconds>(endFire - startFire) >= std::chrono::seconds(5)) {
                 AI->fire();
                 startFire = std::chrono::steady_clock::now();
             }
