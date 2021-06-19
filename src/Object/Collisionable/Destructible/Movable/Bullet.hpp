@@ -22,6 +22,7 @@ public:
      *
      * @param pos
      * @param size
+     *
      */
     Bullet(const coords &pos, float angle);
 

@@ -77,3 +77,10 @@ const coords &Cannon::getPrevPos() const
 {
     return _prevPos;
 }
+
+void Cannon::setDamage(float const &damage) noexcept
+{
+    for (auto &bullet : _bullets) {
+        bullet->setDamage(damage);
+    }
+}

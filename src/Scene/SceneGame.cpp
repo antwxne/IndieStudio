@@ -96,7 +96,7 @@ void SceneGame::initSaveTanks()
     int tankCounter = 0;
 
     for (auto &tank : tanks) {
-            auto tk = _objects.emplace_back(std::make_shared<Tank>(
+            _objects.emplace_back(std::make_shared<Tank>(
                 tank.getName(),
                 coords(tank.getPosition().first,0, tank.getPosition().third),
                 coords(10, 10, 10),
@@ -104,7 +104,8 @@ void SceneGame::initSaveTanks()
                 std::make_pair(Tank::bodyTexture, Tank::bodyModel),
                 std::make_pair(Tank::darkGreen, Tank::cannonModel))
             );
-            dynamic_cast<Tank &>(*tk).setSpeed(tank.getSpeed());
+            auto tk = dynamic_cast<Tank &>(*_objects.back());
+            tk.setSpeed(tank.getSpeed());
             setInputsTank(_settings._keysPlayers[setOfKeyInputs], _objects.back());
             setOfKeyInputs++;
             initTankUi(tankCounter, std::dynamic_pointer_cast<Tank>(_objects.back()), _settings._playersSettings[tankCounter]);

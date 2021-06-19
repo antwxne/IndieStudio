@@ -98,6 +98,7 @@ const Tank::tank_t &Tank::getTankStructSave() noexcept
     _save.z = _pos.second;
     _save.speed = _speed;
     std::strcpy(_save.name, _name.c_str());
+    _save.damage = _cannon.getBullets()[0]->getDamage();
     return _save;
 }
 
@@ -136,7 +137,8 @@ std::vector<Tank> Tank::readTank()
         auto tank = tmp.back();
         tank.setScore(dest.score);
         tank.setLife(dest.life);
-        tank._speed = dest.speed;
+        tank.setSpeed(dest.speed);
+        tank._cannon.setDamage(dest.damage);
     }
     std::cout << "finish tank" << std::endl;
     return tmp;

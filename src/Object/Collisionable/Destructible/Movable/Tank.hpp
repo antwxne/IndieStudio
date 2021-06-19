@@ -150,6 +150,7 @@ public:
         std::size_t score;
         char name[50];
         int speed;
+        int damage;
     };
 
     const tank_t &getTankStructSave() noexcept;
