@@ -72,8 +72,20 @@ private:
     double distance(const coords &otherPos) const noexcept;
 
 protected:
+    /**
+     * @brief target position
+     * 
+     */
     coords _targetPos;
+    /**
+     * @brief distance to stop move before hiting the target
+     * 
+     */
     double _stopDistance;
+    /**
+     * @brief previous rotation angle
+     * 
+     */
     float _prevRotationAngle;
 };
 

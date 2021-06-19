@@ -79,13 +79,35 @@ public:
      * @param texture
      */
     void setModel(const std::string &texture) noexcept;
-
+    /**
+     * @brief Set the Rotation Angle object
+     * 
+     * @param angle 
+     */
     void setRotationAngle(const float angle) noexcept;
+    /**
+     * @brief Set the Rotation Axis object
+     * 
+     * @param axis 
+     */
     void setRotationAxis(const coords &axis) noexcept;
+    /**
+     * @brief 
+     * 
+     * @return const coords& 
+     */
     const coords &get3DSize() const noexcept {return  _3DSize;};
 
 protected:
+    /**
+     * @brief path to model
+     * 
+     */
     std::pair<std::string, std::string> _path;
+    /**
+     * @brief 3D size of object
+     * 
+     */
     coords _3DSize;
 };
 

@@ -10,7 +10,7 @@
 namespace button {
 
     Button::Button(const coords &pos, const std::pair<int, int> &size, const std::array<std::string, 3> &path, const std::string &text, int sizeText, float scale, std::pair<RGB, RGB> color)
-        : UiObject(pos, size, path[0], scale, color), _text(text), _textSize(sizeText * scale), _textPos(pos.first + size.first / (text.length() + 1), pos.second + size.second / 3), _texturePath(path)
+        : UiObject(pos, size, path[0], scale, color), _text(text), _textSize(sizeText * scale), _textPos(pos.first + (size.first * scale) / (text.length() + 1), pos.second + (size.second * scale) / 3), _texturePath(path)
     {
         _typeField.isButton = true;
     }
