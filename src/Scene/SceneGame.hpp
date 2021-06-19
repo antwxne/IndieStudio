@@ -10,6 +10,7 @@
 
 #include "AScene.hpp"
 #include "Map.hpp"
+#include "FrameUI.hpp"
 #include "ScenePause.hpp"
 #include "Object/Collisionable/Destructible/Movable/TankAi.hpp"
 #include "Object/Collisionable/Destructible/Movable/Tank.hpp"
@@ -33,6 +34,8 @@ class SceneGame : public AScene {
         void saveAll() noexcept;
 
         void updateObjects(Raylib &lib) noexcept;
+
+        void createRect() noexcept;
 
         void initSaveTanks();
 
