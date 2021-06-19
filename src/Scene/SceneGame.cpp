@@ -279,6 +279,7 @@ void SceneGame::timeIncrementScore(std::shared_ptr<Tank> &tank)
 
     if (std::chrono::duration_cast<std::chrono::milliseconds>(end - start) >= std::chrono::milliseconds(1000)) {
         tank->setScore(tank->getScore() + 1);
+        std::find_if(_settings._playersSettings.begin(), _settings._playersSettings.end(), [tank](auto &it){return it.name == tank->getName();})->score += 1;
     }
 }
 
