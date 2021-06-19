@@ -96,6 +96,7 @@ const Tank::tank_t &Tank::getTankStructSave() noexcept
     _save.life = _life;
     _save.score = _score;
     _save.z = _pos.second;
+    _save.speed = _speed;
     std::strcpy(_save.name, _name.c_str());
     return _save;
 }
@@ -135,6 +136,7 @@ std::vector<Tank> Tank::readTank()
         auto tank = tmp.back();
         tank.setScore(dest.score);
         tank.setLife(dest.life);
+        tank._speed = dest.speed;
     }
     std::cout << "finish tank" << std::endl;
     return tmp;

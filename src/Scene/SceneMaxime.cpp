@@ -181,7 +181,6 @@ Scenes SceneMaxime::run(Raylib &lib)
             auto newScene = _scenePause.run(lib);
             if (newScene == Scenes::SAVE) {
                 SceneMaxime::saveTanks();
-                _map->writeDestructibleList();
             } else if (newScene != Scenes::GAME)
                 return (newScene);
             _isPaused = false;
