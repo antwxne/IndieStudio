@@ -208,13 +208,18 @@ void SceneGame::updateObjects() noexcept
             tank->moveBullets();
         }
         if ((*object)->getTypeField().isParticule == true) {
-            std::dynamic_pointer_cast<Particles>(*object)->update();
+            if (std::dynamic_pointer_cast<Particles>(*object)->update() == true) {
+                std::cout << " [Scene Game] Je supprime la particule\n";
+                object = _objects.erase(object);
+                continue;
+            }
         }
-        else if ((*object)->getTypeField().isPowerUps == true) {
+        else if ((*object)->getTypeField().isPowerUps == true)
             std::dynamic_pointer_cast<PowerUps>(*object)->rotate(0.5f);
-        }
         if (object->get()->getTypeField().isDestructibleWall && std::dynamic_pointer_cast<DestructibleWall>(*object)->getLife() <= 0) {
+            std::cout << " [Scene Game] Je init la particule\n";
             _objects.emplace_back(std::make_shared<PowerUps>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), coords(1, 1, 1), std::pair<std::string, std::string>("", "")));
+            _objects.emplace_back(std::make_shared<Particles>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(218, 165, 32), RGB()), 100, coords(0, 0.2f, 0), 5000.0f));
             object = _objects.erase(object);
             continue;
         }

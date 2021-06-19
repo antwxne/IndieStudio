@@ -112,7 +112,7 @@ public:
      * 
      * @return Cannon const& 
      */
-    const Cannon &getCannon() const noexcept;
+    Cannon &getCannon() noexcept;
 
     /**
      * @brief Get the Name object
