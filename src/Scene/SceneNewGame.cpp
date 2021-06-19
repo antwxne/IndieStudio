@@ -89,6 +89,7 @@ namespace newGame {
     {
         if (!_state)
             return (Scenes::MENU);
+        _settings._playersSettings.clear();
         fillAi();
         fillName();
         return (Scenes::GAME);
