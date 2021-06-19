@@ -28,9 +28,11 @@ class SceneGame : public AScene {
 
         void manageHeart(const std::string &name, const int life);
         
-        void saveTanks() noexcept;
+        void saveAll() noexcept;
 
-        void updateObjects() noexcept;
+        void updateObjects(Raylib &lib) noexcept;
+ 
+        void initSaveTanks();
 
         void applyBonuses() noexcept;
 

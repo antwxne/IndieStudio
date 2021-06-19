@@ -112,7 +112,7 @@ public:
      * 
      * @return Cannon const& 
      */
-    const Cannon &getCannon() const noexcept;
+    Cannon &getCannon() noexcept;
 
     /**
      * @brief Get the Name object
@@ -149,6 +149,7 @@ public:
         float life;
         std::size_t score;
         char name[50];
+        int speed;
     };
 
     const tank_t &getTankStructSave() noexcept;

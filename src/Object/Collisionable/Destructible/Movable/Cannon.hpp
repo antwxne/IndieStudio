@@ -60,6 +60,9 @@ public:
      * @brief Set the Fire Cool Down object
      * 
      */
+
+    void increaseBounce(const int dmgUp) noexcept;
+
     void setFireCoolDown(int) noexcept;
 
     /**
@@ -88,16 +91,16 @@ private:
      *          --> we create before all bullets and move them when fired
      */
     std::vector<std::shared_ptr<Bullet>> _bullets;
-    
+
     /**
      * @brief timeStamp used as a reference for fire cooldown
-     * 
+     *
      */
     std::chrono::_V2::system_clock::time_point _fireTimeStamp;
 
     /**
      * @brief cool down for firing ability
-     * 
+     *
      */
     int _fireCoolDown;
     /**

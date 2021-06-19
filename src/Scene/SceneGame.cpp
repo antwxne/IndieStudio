@@ -45,7 +45,10 @@ SceneGame::SceneGame(Setting &settings) : AScene(settings), _isPaused(false), _s
 
     _objects.emplace_back(std::make_shared<Ground>(
         coords(0, 0, 0), std::make_pair(40, 22), std::pair<std::string, std::string>(core::groundTexture, core::groundModel)));
-    initTanks(tanksCoords);
+    if (_settings.load == false)
+        initTanks(tanksCoords);
+    else
+        initSaveTanks();
     initColors();
     initMap(tanksCoords);
     setInputFunction(Raylib::ESCAPE, [&]() {
@@ -84,6 +87,33 @@ void SceneGame::initTanks(const tanksCoords &tanksCoords)
         // initTankUi(tankCounter, std::dynamic_pointer_cast<Tank>(_objects.back()), playerSettings);
         tankCounter++;
     }
+}
+
+void SceneGame::initSaveTanks()
+{
+    auto tanks = Tank::readTank();
+    std::size_t setOfKeyInputs = 0;
+    int tankCounter = 0;
+
+    for (auto &tank : tanks) {
+            auto tk = _objects.emplace_back(std::make_shared<Tank>(
+                tank.getName(),
+                coords(tank.getPosition().first,0, tank.getPosition().third),
+                coords(10, 10, 10),
+                8,
+                std::make_pair(Tank::bodyTexture, Tank::bodyModel),
+                std::make_pair(Tank::darkGreen, Tank::cannonModel))
+            );
+            dynamic_cast<Tank &>(*tk).setSpeed(tank.getSpeed());
+            setInputsTank(_settings._keysPlayers[setOfKeyInputs], _objects.back());
+            setOfKeyInputs++;
+            initTankUi(tankCounter, std::dynamic_pointer_cast<Tank>(_objects.back()), _settings._playersSettings[tankCounter]);
+            tankCounter++;
+    }
+        /*} else if (playerSettings.type == IA) {
+            // _objects.emplace_back(std::make_shared<TankIA>("grosTankSaMere", coords(0,0,0), coords(10, 10, 10), 8, std::make_pair(Tank::bodyTexture, Tank::bodyModel), std::make_pair(Tank::darkGreen, Tank::cannonModel)));
+        }*/
+        // initTankUi(tankCounter, std::dynamic_pointer_cast<Tank>(_objects.back()), playerSettings);
 }
 
 void SceneGame::initTankUi(int tankCounter, std::shared_ptr<Tank> tank, PlayerSettings &settings)
@@ -163,16 +193,22 @@ void SceneGame::manageHeart(const std::string &name, const int life)
     }
 }
 
-void SceneGame::saveTanks() noexcept
+void SceneGame::saveAll() noexcept
 {
-    std::vector<Tank> ki;
+    std::vector<Tank> tk;
+    std::vector<DestructibleWall> walls;
     for (auto &it: _objects) {
         if (it->getTypeField().isTank) {
             auto tank = std::dynamic_pointer_cast<Tank>(it);
-            ki.push_back(dynamic_cast<Tank &>(*tank));
+            tk.push_back(dynamic_cast<Tank &>(*tank));
+        }
+        if (it->getTypeField().isDestructibleWall) {
+            auto wall = std::dynamic_pointer_cast<DestructibleWall>(it);
+            walls.push_back(dynamic_cast<DestructibleWall &>(*wall));
         }
     }
-    Tank::writeTankList(ki);
+    Tank::writeTankList(tk);
+    _map->writeDestructibleList(walls);
 }
 
 
@@ -187,42 +223,58 @@ Scenes SceneGame::run(Raylib &lib)
         if (_isPaused) {
             auto newScene = _scenePause.run(lib);
             if (newScene == Scenes::SAVE) {
-                saveTanks();
-                _map->writeDestructibleList();
+                saveAll();
             } else if (newScene != Scenes::GAME)
                 return (newScene);
             _isPaused = false;
         }
-        updateObjects();
+        updateObjects(lib);
         lib.printObjects(_objects);
     }
     return (Scenes::QUIT);
 }
 
-void SceneGame::updateObjects() noexcept
+void SceneGame::updateObjects(Raylib &lib) noexcept
 {
     for (auto object = _objects.begin(); object != _objects.end();) {
+        bool isSupr = false;
+
         if ((*object)->getTypeField().isTank) {
             auto tank = std::dynamic_pointer_cast<Tank>(*object);
             manageHeart(tank->getName(), tank->getLife());
             tank->moveBullets();
+            if (tank->getLife() <= 0) {
+                std::cout << " [Scene Game] Je supprime le TANK\n";
+                _objects.emplace_back(std::make_shared<Particles>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(20, 12, 9), RGB()), 100, coords(0, 0.2f, 0), 5000.0f));
+                object = _objects.erase(object);
+                isSupr = true;
+            }
         }
         if ((*object)->getTypeField().isParticule == true) {
-            std::dynamic_pointer_cast<Particles>(*object)->update();
+            if (std::dynamic_pointer_cast<Particles>(*object)->update() == true) {
+                std::cout << " [Scene Game] Je supprime la particule\n";
+                object = _objects.erase(object);
+                isSupr = true;
+            }
         }
-        else if ((*object)->getTypeField().isPowerUps == true) {
+        else if ((*object)->getTypeField().isPowerUps == true)
             std::dynamic_pointer_cast<PowerUps>(*object)->rotate(0.5f);
-        }
         if (object->get()->getTypeField().isDestructibleWall && std::dynamic_pointer_cast<DestructibleWall>(*object)->getLife() <= 0) {
+            // std::cout << " [Scene Game] Je init la particule\n";
+            // std::cout << " [Scene Game] pos x: " << object->get()->getPosition().first << "\n";
+            // std::cout << " [Scene Game] pos y: " << object->get()->getPosition().second << "\n";
+            // std::cout << " [Scene Game] pos z: " << object->get()->getPosition().third << "\n\n";
             _objects.emplace_back(std::make_shared<PowerUps>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), coords(1, 1, 1), std::pair<std::string, std::string>("", "")));
+            //_objects.emplace_back(std::make_shared<Particles>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(218, 165, 32), RGB()), 100, coords(0, 0.2f, 0), 5000.0f));
             object = _objects.erase(object);
-            continue;
+            isSupr = true;
         }
         if (object->get()->getTypeField().isPowerUps && std::dynamic_pointer_cast<PowerUps>(*object)->getLife() <= 0) {
             object = _objects.erase(object);
-            continue;
+            isSupr = true;
         }
-        ++object;
+        if (!isSupr)
+            ++object;
     }
 }
 

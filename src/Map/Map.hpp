@@ -32,7 +32,7 @@ public:
      * @brief write object in save file
      *
      */
-    void writeDestructibleList() noexcept;
+    void writeDestructibleList(std::vector<DestructibleWall> _destructibleWall) noexcept;
     /**
      * @brief read object from file
      *
