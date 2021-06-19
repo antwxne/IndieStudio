@@ -54,7 +54,8 @@ struct Setting {
 
     inputsPlayer _keysPlayerOne;
     inputsPlayer _keysPlayerTwo;
-    std::array<inputsPlayer, 2> _keysPlayers;
+    inputsPlayer _keysPlayerThree;
+    std::array<inputsPlayer, 3> _keysPlayers;
 
     float _musicVol;
     float _soundVol;
