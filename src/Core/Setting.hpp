@@ -32,7 +32,8 @@ static const std::vector<std::string> _nameRandom {
 };
 
 struct PlayerSettings {
-    PlayerSettings() : type(IA), name(_nameRandom[std::rand() % _nameRandom.size()]), score(0), isLooser(false) {}
+    PlayerSettings() : type(IA), name(_nameRandom[std::rand() % _nameRandom.size()]), score(0), isLooser(false) {};
+    PlayerSettings(int type, std::string name, int score) : type(static_cast<playerType>(type)), name(name), score(score), isLooser(false) {};
     playerType type;
     std::string name;
     int score;

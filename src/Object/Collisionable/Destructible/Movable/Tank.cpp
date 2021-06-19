@@ -62,13 +62,14 @@ std::string const &Tank::getName() const noexcept
     return _name;
 }
 
-std::size_t const &Tank::getScore() const noexcept
+std::size_t &Tank::getScore() noexcept
 {
     return _score;
 }
 
 void Tank::setScore(const std::size_t &score) noexcept
 {
+    std::cout << "plouf\n";
     _score = score;
 }
 const coords &Tank::getPreviousPos() const noexcept

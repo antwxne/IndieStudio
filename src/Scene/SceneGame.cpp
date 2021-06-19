@@ -13,6 +13,7 @@
 #include "Core.hpp"
 #include "SceneGame.hpp"
 #include "Ground.hpp"
+#include "Score.hpp"
 #include "LifeGame.hpp"
 #include "TexteUi.hpp"
 #include "ColorPlayer.hpp"
@@ -48,7 +49,6 @@ SceneGame::SceneGame(Setting &settings) : AScene(settings), _isPaused(false),
         initSaveTanks();
     }
     initColors();
-    createRect();
     initMap(tanksCoords);
     setInputFunction(Raylib::ESCAPE, [&]() {
         _isPaused = !_isPaused;
@@ -57,13 +57,6 @@ SceneGame::SceneGame(Setting &settings) : AScene(settings), _isPaused(false),
 
 SceneGame::~SceneGame()
 {
-}
-
-void SceneGame::createRect() noexcept
-{
-    auto const &carre = std::make_unique<FrameUI>();
-    for (auto const &carr : carre->getBorder())
-        _objects.emplace_back(std::make_shared<BorderPlayer>(carr));
 }
 
 void SceneGame::initTanks(const tanksCoords &tanksCoords)
@@ -117,6 +110,7 @@ void SceneGame::initSaveTanks()
         auto tk = std::dynamic_pointer_cast<Tank>(_objects.back());
         tk->setSpeed(tank.getSpeed());
         tk->setLife(tank.getLife());
+        _settings._playersSettings.emplace_back(PLAYER, tk->getName(), tk->getScore());
         setInputsTank(_settings._keysPlayers[setOfKeyInputs], _objects.back());
         setOfKeyInputs++;
         initTankUi(tankCounter, std::dynamic_pointer_cast<Tank>(_objects.back()), _settings._playersSettings[tankCounter]);
@@ -137,20 +131,16 @@ void SceneGame::initTankUi(int tankCounter, std::shared_ptr<Tank> tank, PlayerSe
         _objects.emplace_back(std::make_shared<TexteUI>(
             coords(_playerPos[tankCounter].first,
                 _playerPos[tankCounter].second), std::make_pair(50, 50),
-            tank->getName(), 20, 1, std::make_pair(RGB(150), RGB())));
-        _objects.emplace_back(std::make_shared<TexteUI>(
+            settings.name, 20, 1, std::make_pair(RGB(150), RGB())));
+      /*  _objects.emplace_back(std::make_shared<Score>(tank->getName(),
             coords(_scorePos[tankCounter].first, _scorePos[tankCounter].second),
             std::make_pair(50, 50), std::to_string(tank->getScore()), 20, 1,
-            std::make_pair(RGB(150), RGB())));
+            std::make_pair(RGB(150), RGB())));*/
     }
-    _objects.emplace_back(std::make_shared<TexteUI>(
+    _objects.emplace_back(std::make_shared<Score>(tank->getName(),
         coords(_scorePos[tankCounter].first, _scorePos[tankCounter].second),
-        std::make_pair(50, 50),
-        std::to_string(tank->getScore()),
-        20,
-        1,
-        std::make_pair(RGB(150), RGB()))
-    );
+        std::make_pair(50, 50), tank->getScore(), 20, 1,
+        std::make_pair(RGB(150), RGB())));
 }
 
 void SceneGame::initColors()
@@ -281,6 +271,26 @@ Scenes SceneGame::run(Raylib &lib)
     return (Scenes::ENDGAME);
 }
 
+void SceneGame::timeIncrementScore(std::shared_ptr<Tank> &tank)
+{
+    static auto start = std::chrono::steady_clock::now();
+    auto end = std::chrono::steady_clock::now();
+
+    if (std::chrono::duration_cast<std::chrono::milliseconds>(end - start) >= std::chrono::milliseconds(1000)) {
+        tank->setScore(tank->getScore() + 1);
+    }
+}
+
+void SceneGame::updateScore(std::string const &name, std::size_t &scoreTank) noexcept
+{
+    for (auto &k : _objects) {
+        if (k->getTypeField().isScore) {
+            auto score = std::dynamic_pointer_cast<Score>(k);
+            score->updateDisplay();
+        }
+    }
+}
+
 void SceneGame::updateObjects(Raylib &lib) noexcept
 {
     int VictoryCond = 0;
@@ -290,6 +300,8 @@ void SceneGame::updateObjects(Raylib &lib) noexcept
         isSupr = false;
         if ((*object)->getTypeField().isTank) {
             auto tank = std::dynamic_pointer_cast<Tank>(*object);
+            timeIncrementScore(tank);
+            updateScore(tank->getName(), tank->getScore());
             manageHeart(tank->getName(), tank->getLife());
             tank->moveBullets();
             if (tank->getLife() <= 0) {
@@ -303,8 +315,13 @@ void SceneGame::updateObjects(Raylib &lib) noexcept
             }
             else if (tank->getPosition() != tank->getPreviousPos() && _settings._playersSettings.size() <= 2) {
                 auto newAngle = (static_cast<int>(tank->getRotationAngle()) + 180) % 360;
-                _objects.emplace_back(std::make_shared<Particles>(coords(tank->getPosition().first + (std::sin(M_PI *  newAngle / 180)), 0, tank->getPosition().third + std::cos(M_PI * newAngle / 180)), std::make_pair(1, 1), 1.0f, 0.1f, std::make_pair(RGB(128,128,128), RGB()), 10, coords(0, 0.02f, 0), 100.0f));
+                _objects.emplace_back(std::make_shared<Particles>(coords(tank->getPosition().first + (std::sin(M_PI *  newAngle / 180)), 0, tank->getPosition().third + std::cos(M_PI * newAngle / 180)), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(128,128,128), RGB()), 10, coords(0, 0.05f, 0), 100.0f));
             }
+            // if (tank->getTypeField().isShooting) {
+            //     tank->getCannon().getD
+            //     auto newAngle = (static_cast<int>(tank->getRotationAngle()) + 180) % 360;
+            //     _objects.emplace_back(std::make_shared<Particles>(coords(tank->getPosition().first + (std::sin(M_PI *  newAngle / 180)), 0, tank->getPosition().third + std::cos(M_PI * newAngle / 180)), std::make_pair(1, 1), 1.0f, 0.1f, std::make_pair(RGB(128,128,128), RGB()), 10, coords(0, 0.02f, 0), 100.0f));
+            // }
         }
         if ((*object)->getTypeField().isParticule == true) {
             if (std::dynamic_pointer_cast<Particles>(*object)->update() == true) {
