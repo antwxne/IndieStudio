@@ -143,7 +143,7 @@ class SceneGame : public AScene {
      * 
      */
     const tanksCoords _oneTankPos = {
-        {std::make_pair(-8.0f, -5.0f)}
+        {std::make_pair(0.0f, 0.0f)}
     };
     /**
      * @brief default position for 2 tanks

@@ -38,9 +38,8 @@ const std::vector<std::pair<float, float>> SceneGame::_uiLifePosPlayer = {
 SceneGame::SceneGame(Setting &settings) : AScene(settings), _isPaused(false),
     _scenePause(settings)
 {
-    std::cout << "PROBLEME EST ICI SUREMENT OU PAS\n";
-    tanksCoords tanksCoords = _tanksPosNbPlayers.at(
-        _settings._playersSettings.size());
+    std::cout << "size: " << _settings._playersSettings.size() << std::endl;
+    tanksCoords tanksCoords = _tanksPosNbPlayers[_settings._playersSettings.size()];
     _objects.emplace_back(std::make_shared<Ground>(
         coords(0, 0, 0), std::make_pair(40, 22), std::pair<std::string, std::string>(core::groundTexture, core::groundModel)));
     if (_settings.load == false) {
@@ -73,6 +72,7 @@ void SceneGame::initTanks(const tanksCoords &tanksCoords)
     int tankCounter = 0;
     std::size_t setOfKeyInputs = 0;
 
+    std::cout << "tankCoords.first" << tanksCoords[0].first << std::endl;
     for (auto &playerSettings : _settings._playersSettings) {
         if (playerSettings.type == NONE)
             continue;
