@@ -24,7 +24,7 @@ namespace win {
                 }
         });
         _objects.emplace_back(std::make_shared<UiObject>(coords(), std::make_pair(0, 0), _bgPath, 1.0f));
-        // _objects.emplace_back(std::make_shared<TexteUI>(_textPos, std::make_pair(0, 0), "Player " + std::find_if(_settings._playersSettings.begin(), _settings._playersSettings.end(), [](auto &player){return (player->isWin);})->name, 50, 1, std::make_pair(RGB(), RGB())));
+        // _objects.emplace_back(std::make_shared<TexteUI>(_textPos, std::make_pair(0, 0), "Player " + std::find_if(_settings._playersSettings.begin(), _settings._playersSettings.end(), [](auto &player){return (player->isWinner);})->name, 50, 1, std::make_pair(RGB(), RGB())));
         for (std::size_t i = 0; i != _menuPos.size(); ++i)
             _objects.emplace_back(std::make_shared<button::Button>(_menuPos.at(i), button::_buttonSize, button::_buttonNavigPath, _menuText[i], 20, 2, std::make_pair(RGB(), RGB(0, 0, 0))));
     }

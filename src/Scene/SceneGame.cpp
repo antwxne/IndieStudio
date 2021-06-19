@@ -51,6 +51,7 @@ SceneGame::SceneGame(Setting &settings) : AScene(settings), _isPaused(false), _s
     setInputFunction(Raylib::ESCAPE, [&]() {
         _isPaused = !_isPaused;
     });
+    applyBonuses();
 }
 
 SceneGame::~SceneGame()
@@ -221,5 +222,19 @@ void SceneGame::updateObjects() noexcept
             object = _objects.erase(object);
             continue;
         }
+    }
+}
+
+void SceneGame::applyBonuses() noexcept
+{
+    // selon les bonus choisis cette fonction sera utile ou non
+    // peut etre mieux de le faire directement a l'instanciation pour les tanks par exemple
+    if (_settings.bonuses.firstBonus) {
+    }
+    if (_settings.bonuses.secondBonus) {
+    }
+    if (_settings.bonuses.thirdBonus) {
+    }
+    if (_settings.bonuses.fourthBonus) {
     }
 }
