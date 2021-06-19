@@ -95,12 +95,73 @@ const std::pair<float, float> Raylib::getMousePosition() const noexcept
     return (std::make_pair(vecPos.x, vecPos.y));
 }
 
-
 void Raylib::drawRectangleLinesEx(const float &posX, const float &posY, const float &width,
     const float &height, RGB color, int const &lineThick) noexcept
 {
     Rectangle rec = {posX, posY, width, height};
     DrawRectangleLinesEx(rec, lineThick, {color.r, color.g, color.b, color.a});
+}
+
+void Raylib::draw3DObjects(Raylib::uAObject &it, Raylib::vectorObject &objects)
+{
+    if (it->getTypeField().isTank) {
+        auto tankCollider = std::dynamic_pointer_cast<CollisionableObject>(it);
+        auto tank = std::dynamic_pointer_cast<Tank>(it);
+        if (tank->getLife() >= 0) {
+            auto &cannon = const_cast<Cannon &>(tank->getCannon());
+            auto &bullets = cannon.getBullets();
+            findCollision(tankCollider, objects);
+            for (auto &bullet : bullets) {
+                if (bullet->getPosition().first != -120.f)
+                    findCollision(bullet, objects);
+                drawModel(bullet->getModel(), bullet->getTexture(),
+                    bullet->getPosition(), bullet->getScale(),
+                    bullet->getColors().first,
+                    bullet->getRotationAxis(),
+                    bullet->getRotationAngle());
+            }
+            drawModel(tank->getModel(), tank->getTexture(),
+                tank->getPosition(), tank->getScale(),
+                tank->getColors().first, tank->getRotationAxis(),
+                tank->getRotationAngle());
+            drawModel(cannon.getModel(), cannon.getTexture(),
+                cannon.getPosition(), cannon.getScale(),
+                cannon.getColors().first, cannon.getRotationAxis(),
+                cannon.getRotationAngle());
+        }
+    } else if (it->getTypeField().isAnimator) {
+        auto const &derived = std::dynamic_pointer_cast<Animator>(it);
+        drawAnimation(derived->getModel(), derived->getTexture(), derived->getAnimPath(), derived->getPosition(), derived->getFrameActual(), derived->getScale());
+    } else if (it->getTypeField().isCollisionable) {
+        auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(it);
+        drawModel(derived->getModel(), derived->getTexture(), it->getPosition(), it->getScale(), it->getColors().first, it->getRotationAxis(), it->getRotationAngle());
+    } else if (it->getTypeField().isGround) {
+        auto const &derived = std::dynamic_pointer_cast<Ground>(it);
+        drawMesh(derived->getModel(), derived->getTexture(), it->getPosition(), it->getScale(), it->getColors().first, it->getSize());
+    } else if (it->getTypeField().isParticule) {
+        auto const derived = std::dynamic_pointer_cast<Particles>(it)->getParticles();
+        for (auto const &i: derived)
+            drawSphere(i.position, i.color, (i.radius  * i.scale));
+    }
+}
+
+void Raylib::draw2DObjects(Raylib::uAObject &it)
+{
+    if (!it->getTypeField().is3D && it->getTypeField().isTransparent == false) {
+        drawTexture(std::dynamic_pointer_cast<UiObject>(it)->getTexture(), {it->getPosition().first, it->getPosition().second}, it->getRotationAngle(), it->getScale(), it->getColors().first);
+        if (it->getTypeField().isButton) {
+            auto const &derivedButton = std::dynamic_pointer_cast<button::Button>(it);
+            drawText(derivedButton->getText(), derivedButton->getTextPos(), derivedButton->getTextSize(), it->getColors().second);
+        }
+        if (it->getTypeField().isContourRect)
+            drawRectangleLinesEx(it->getPosition().first, it->getPosition().second, it->getSize().first, it->getSize().second, it->getColors().first, it->getScale());
+        if (it->getTypeField().isFullSquare)
+            drawRectangle(it->getPosition().first, it->getPosition().second, it->getSize().first, it->getSize().second, it->getColors().first);
+        if (it->getTypeField().isText) {
+            auto const &text = std::dynamic_pointer_cast<TexteUI>(it);
+            drawText(text->getText(), text->getTextPos(), text->getTextSize(), it->getColors().first);
+        }
+    }
 }
 
 void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
@@ -110,72 +171,10 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
     for (auto &i : objects) {
         if (i->getTypeField().is3D) {
             BeginMode3D(_camera);
-            if (i->getTypeField().isTank) {
-                auto tankCollider = std::dynamic_pointer_cast<CollisionableObject>(i);
-                auto tank = std::dynamic_pointer_cast<Tank>(i);
-                if (tank->getLife() >= 0) {
-                    auto &cannon = const_cast<Cannon &>(tank->getCannon());
-                    auto &bullets = cannon.getBullets();
-                    findCollision(tankCollider, objects);
-                    for (auto &bullet : bullets) {
-                        if (bullet->getPosition().first != -120.f) {
-                            auto bulletsCollider = std::dynamic_pointer_cast<CollisionableObject>(
-                                bullet);
-                            findCollision(bulletsCollider, objects);
-                        }
-                        drawModel(bullet->getModel(), bullet->getTexture(),
-                            bullet->getPosition(), bullet->getScale(),
-                            bullet->getColors().first,
-                            bullet->getRotationAxis(),
-                            bullet->getRotationAngle());
-                    }
-                    drawModel(tank->getModel(), tank->getTexture(),
-                        tank->getPosition(), tank->getScale(),
-                        tank->getColors().first, tank->getRotationAxis(),
-                        tank->getRotationAngle());
-                    drawModel(cannon.getModel(), cannon.getTexture(),
-                        cannon.getPosition(), cannon.getScale(),
-                        cannon.getColors().first, cannon.getRotationAxis(),
-                        cannon.getRotationAngle());
-                }
-            } else if (i->getTypeField().isAnimator) {
-                auto const &derived = std::dynamic_pointer_cast<Animator>(i);
-                drawAnimation(derived->getModel(), derived->getTexture(), derived->getAnimPath(), derived->getPosition(), derived->getFrameActual(), derived->getScale());
-            }
-            else if (i->getTypeField().isCollisionable) {
-                auto const &derived = std::dynamic_pointer_cast<CollisionableObject>(i);
-                drawModel(derived->getModel(), derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first, i->getRotationAxis(), i->getRotationAngle());
-            }
-            else if (i->getTypeField().isGround) {
-                auto const &derived = std::dynamic_pointer_cast<Ground>(i);
-                drawMesh(derived->getModel(), derived->getTexture(), i->getPosition(), i->getScale(), i->getColors().first, i->getSize());
-            }
-            else if (i->getTypeField().isParticule) {
-                auto const derived = std::dynamic_pointer_cast<Particles>(i);
-                for (auto const &i: derived->getParticles()) {
-                    drawSphere(i.position, i.color, (i.radius  * i.scale));
-                }
-            }
+            draw3DObjects(i, objects);
             EndMode3D();
         }
-        if (!i->getTypeField().is3D && i->getTypeField().isTransparent == false) {
-            auto const &derived = std::dynamic_pointer_cast<UiObject>(i);
-            drawTexture(derived->getTexture(), {i->getPosition().first, i->getPosition().second}, i->getRotationAngle(), i->getScale(), i->getColors().first);
-            if (i->getTypeField().isButton) {
-                auto const &derivedButton = std::dynamic_pointer_cast<button::Button>(i);
-                drawText(derivedButton->getText(), derivedButton->getTextPos(), derivedButton->getTextSize(), i->getColors().second);
-            }
-            if (i->getTypeField().isContourRect) {
-                drawRectangleLinesEx(i->getPosition().first, i->getPosition().second, i->getSize().first, i->getSize().second, i->getColors().first, i->getScale());
-           }
-            if (i->getTypeField().isFullSquare) {
-                drawRectangle(i->getPosition().first, i->getPosition().second, i->getSize().first, i->getSize().second, i->getColors().first);
-            }
-            if (i->getTypeField().isText) {
-                auto const &text = std::dynamic_pointer_cast<TexteUI>(i);
-                drawText(text->getText(), text->getTextPos(), text->getTextSize(), i->getColors().first);
-            }
-        }
+        draw2DObjects(i);
     }
     EndDrawing();
 }
@@ -183,11 +182,6 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
 bool Raylib::isKeyReleased(int &button) const noexcept
 {
     return (IsKeyReleased(button));
-}
-
-void Raylib::printGrid(int const &slices, float const &space) const noexcept
-{
-    DrawGrid(slices, space);
 }
 
 void Raylib::printFps(std::pair<int, int> const &pos) const noexcept
@@ -214,13 +208,6 @@ bool Raylib::isControllerValid(int const &idx, std::string const &ControllerName
     if (ControllerName.compare("ps3"))
         return IsGamepadName(idx, PS3_NAME_ID);
     return false;
-}
-
-std::string Raylib::textForSubText(const std::string &text, int &pos,
-    int &frameCounter
-) const noexcept
-{
-    return TextSubtext(text.c_str(), pos, frameCounter);
 }
 
 bool Raylib::checkCollision(std::pair<float, float> pos, float width, float height, float posX, float posY)
