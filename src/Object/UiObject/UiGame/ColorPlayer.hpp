@@ -19,10 +19,10 @@ class ColorPlayer {
 };
 
 static const std::vector<std::pair<float, float>>_posColor {
-    {std::make_pair(275, 940)},
-    {std::make_pair(775, 940)},
-    {std::make_pair(1275, 940)},
-    {std::make_pair(1775, 940)},
+    {std::make_pair(215, 981)},
+    {std::make_pair(715, 981)},
+    {std::make_pair(1215, 981)},
+    {std::make_pair(1715, 981)},
 };
 
 static const std::vector<std::pair<RGB, RGB>> _colorPlayer {

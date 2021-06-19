@@ -17,6 +17,10 @@
 
 Map::Map(const std::vector<std::pair<float, float>> &posTank) : _posTank(posTank)
 {
+}
+
+void Map::initTheObstacle() noexcept
+{
     for(auto const &j : _basePositionObject) {
         _objectNoDestructibleList.emplace_back(
             coords(static_cast<float>(j.first), 0, static_cast<float>(j.second)),
