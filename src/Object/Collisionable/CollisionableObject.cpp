@@ -83,7 +83,7 @@ collisionableSound CollisionableObject::hit(std::shared_ptr<CollisionableObject>
             return TANK_EXPLOSION;
         return BULLET_HIT_TANK;
     }
-    if (this->_typeField.isBullet && (!obj->getTypeField().isTank || !this->_typeField.isShooting) && !this->_typeField.isPowerUps) {
+    if (this->_typeField.isBullet && !obj->getTypeField().isPowerUps && (!obj->getTypeField().isTank || !this->_typeField.isShooting) && !this->_typeField.isPowerUps) {
         auto bullet = dynamic_cast<Bullet *>(this);
         bullet->bounce();
         bullet->setLife(bullet->getLife() - 1);
