@@ -62,7 +62,7 @@ std::string const &Tank::getName() const noexcept
     return _name;
 }
 
-std::size_t const &Tank::getScore() const noexcept
+std::size_t &Tank::getScore() noexcept
 {
     return _score;
 }
@@ -93,8 +93,8 @@ const Tank::tank_t &Tank::getTankStructSave() noexcept
 {
     _save.x = _pos.first;
     _save.y = _pos.third;
-    _save.life = getLife();
-    _save.score = getScore();
+    _save.life = _life;
+    _save.score = _score;
     _save.z = _pos.second;
     _save.speed = _speed;
     std::strcpy(_save.name, _name.c_str());

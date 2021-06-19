@@ -53,6 +53,8 @@ Scenes SceneIntro::run(Raylib &lib)
     std::vector<Direction> direction {NEUTRAL, NEUTRAL};
 
     while (!_enter) {
+        if (!lib.gameLoop())
+            return (Scenes::QUIT);
         lib.displayMusic(core::_animMusic, _settings._musicVol);
         int dir = 0;
         triggerInputActions(lib);

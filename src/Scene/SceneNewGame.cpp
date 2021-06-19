@@ -55,8 +55,8 @@ namespace newGame {
             _objects.emplace_back(std::make_shared<button::BoolButton>(coords(_inputPos.at(i).first + 200, _inputPos.at(i).second + 400), button::_buttonSize, button::_buttonNavigPath, _bonusButton[i], 20, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
             _bonusButtons.emplace_back(std::dynamic_pointer_cast<button::BoolButton>(_objects.back()));
         }
-        _objects.emplace_back(std::make_shared<TexteUI>(coords(960 - 150, 75), std::make_pair(0, 0), "New Game", 90, 1, std::make_pair(RGB(0, 0, 0), RGB())));
-        _objects.emplace_back(std::make_shared<TexteUI>(coords(960 - 300, 550), std::make_pair(0, 0), "Bonus settings", 90, 1, std::make_pair(RGB(0, 0, 0), RGB())));
+        _objects.emplace_back(std::make_shared<TexteUI>(coords(850 - 150, 65), std::make_pair(0, 0), "New Game", 110, 1, std::make_pair(RGB(0, 0, 0), RGB())));
+        _objects.emplace_back(std::make_shared<TexteUI>(coords(910 - 110, 550), std::make_pair(0, 0), "Bonuses", 70, 1, std::make_pair(RGB(0, 0, 0), RGB())));
     }
 
     SceneNewGame::~SceneNewGame()
