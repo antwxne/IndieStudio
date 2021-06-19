@@ -43,12 +43,24 @@ public:
      * @param newSpeed
      */
     virtual void increaseSpeed(float newSpeed);
-
+    /**
+     * @brief Set the Speed object
+     * 
+     * @param speed 
+     */
     virtual void setSpeed(float speed);
-
+    /**
+     * @brief Get the Speed object
+     * 
+     * @return float current speed
+     */
     float getSpeed() const;
 
 protected:
+    /**
+     * @brief object's speed
+     * 
+     */
     float _speed;
 };
 

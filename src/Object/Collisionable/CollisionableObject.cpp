@@ -65,12 +65,24 @@ collisionableSound CollisionableObject::hit(std::shared_ptr<CollisionableObject>
     }
     if (this->_typeField.isBullet && obj->_typeField.isDestructibleWall) {
         auto bullet = dynamic_cast<Bullet *>(this);
-        std::dynamic_pointer_cast<DestructibleObject>(obj)->setLife(-bullet->getDamage());
+        auto dest = std::dynamic_pointer_cast<DestructibleObject>(obj);
+        dest->setLife(-bullet->getDamage());
         bullet->bounce();
         bullet->setLife(bullet->getLife() - 1);
         if (bullet->getLife() <= 0)
             bullet->resetBullet();
         return TRUCK_EXPLOSION;
+    }
+    if (this->_typeField.isBullet && obj->getTypeField().isTank && !this->_typeField.isShooting) {
+        auto bullet = dynamic_cast<Bullet *>(this);
+        auto destructible = std::dynamic_pointer_cast<DestructibleObject>(obj);
+        destructible->updateLife(-bullet->getDamage());
+        bullet->setLife(0);
+        if (bullet->getLife() <= 0)
+            bullet->resetBullet();
+        if (destructible->getLife() <= 0)
+            return TRUCK_EXPLOSION;
+        return BULLET_HIT_TANK;
     }
     if (this->_typeField.isBullet && (!obj->getTypeField().isTank || !this->_typeField.isShooting) && !this->_typeField.isPowerUps) {
         auto bullet = dynamic_cast<Bullet *>(this);
@@ -79,15 +91,6 @@ collisionableSound CollisionableObject::hit(std::shared_ptr<CollisionableObject>
         if (bullet->getLife() <= 0)
             bullet->resetBullet();
         return BULLET_COLLISION;
-    }
-    if (this->_typeField.isBullet && obj->getTypeField().isTank && !this->_typeField.isShooting) {
-        auto bullet = dynamic_cast<Bullet *>(this);
-        auto destructible = std::dynamic_pointer_cast<DestructibleObject>(obj);
-        destructible->updateLife(-bullet->getDamage());
-        bullet->setLife(bullet->getLife() - 1);
-        if (destructible->getLife() <= 0)
-            return TRUCK_EXPLOSION;
-        return BULLET_HIT_TANK;
     }
     if (_typeField.isTank && obj->getTypeField().isPowerUps) {
         auto &tank = dynamic_cast<Tank &>(*this);
