@@ -193,13 +193,13 @@ Scenes SceneGame::run(Raylib &lib)
                 return (newScene);
             _isPaused = false;
         }
-        updateObjects();
+        updateObjects(lib);
         lib.printObjects(_objects);
     }
     return (Scenes::QUIT);
 }
 
-void SceneGame::updateObjects() noexcept
+void SceneGame::updateObjects(Raylib &lib) noexcept
 {
     for (auto object = _objects.begin(); object != _objects.end();) {
         bool isSupr = false;
@@ -209,6 +209,8 @@ void SceneGame::updateObjects() noexcept
             manageHeart(tank->getName(), tank->getLife());
             tank->moveBullets();
             if (tank->getLife() <= 0) {
+                std::cout << " [Scene Game] Je supprime le TANK\n";
+                _objects.emplace_back(std::make_shared<Particles>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(20, 12, 9), RGB()), 100, coords(0, 0.2f, 0), 5000.0f));
                 object = _objects.erase(object);
                 isSupr = true;
             }
@@ -216,7 +218,6 @@ void SceneGame::updateObjects() noexcept
         if ((*object)->getTypeField().isParticule == true) {
             if (std::dynamic_pointer_cast<Particles>(*object)->update() == true) {
                 std::cout << " [Scene Game] Je supprime la particule\n";
-                _objects.emplace_back(std::make_shared<Particles>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(20, 12, 9), RGB()), 100, coords(0, 0.2f, 0), 5000.0f));
                 object = _objects.erase(object);
                 isSupr = true;
             }
@@ -224,9 +225,12 @@ void SceneGame::updateObjects() noexcept
         else if ((*object)->getTypeField().isPowerUps == true)
             std::dynamic_pointer_cast<PowerUps>(*object)->rotate(0.5f);
         if (object->get()->getTypeField().isDestructibleWall && std::dynamic_pointer_cast<DestructibleWall>(*object)->getLife() <= 0) {
-            std::cout << " [Scene Game] Je init la particule\n";
+            // std::cout << " [Scene Game] Je init la particule\n";
+            // std::cout << " [Scene Game] pos x: " << object->get()->getPosition().first << "\n";
+            // std::cout << " [Scene Game] pos y: " << object->get()->getPosition().second << "\n";
+            // std::cout << " [Scene Game] pos z: " << object->get()->getPosition().third << "\n\n";
             _objects.emplace_back(std::make_shared<PowerUps>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), coords(1, 1, 1), std::pair<std::string, std::string>("", "")));
-            _objects.emplace_back(std::make_shared<Particles>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(218, 165, 32), RGB()), 100, coords(0, 0.2f, 0), 5000.0f));
+            //_objects.emplace_back(std::make_shared<Particles>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(218, 165, 32), RGB()), 100, coords(0, 0.2f, 0), 5000.0f));
             object = _objects.erase(object);
             isSupr = true;
         }
