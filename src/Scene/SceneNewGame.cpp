@@ -14,6 +14,17 @@
 
 namespace newGame {
 
+    static const std::vector<std::string> _bonusButton {
+        "Speed Up!",
+        "Life Up!",
+        "Damage Up!"
+    };
+
+    static const std::vector<std::string> _controllerText {
+        "KeyBoard",
+        "Controller"
+    };
+
     SceneNewGame::SceneNewGame(Setting &settings) : UiScene(settings)
     {
         setInputFunction(Raylib::RELEASED, [&]() {
@@ -36,6 +47,14 @@ namespace newGame {
             _objects.emplace_back(std::make_shared<button::Button>(it, button::_buttonSize, button::_buttonPlayerPath, _playerIA[0], 20, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
         for (auto &it : _inputPos)
             _objects.emplace_back(std::make_shared<button::InputBox>(it, button::_buttonSize, button::_buttonNavigPath, 20, 15, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
+        for (std::size_t i = 0; i != _inputPos.size(); ++i) {
+            _objects.emplace_back(std::make_shared<button::BoolButton>(coords(_inputPos.at(i).first, _inputPos.at(i).second + 100), button::_buttonSize, button::_buttonNavigPath, _controllerText[0 + (1 * (i >= 2))], 20, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
+            _controllerButtons.emplace_back(std::dynamic_pointer_cast<button::BoolButton>(_objects.back()));
+        }
+        for (std::size_t i = 0; i != _bonusButton.size(); ++i) {
+            _objects.emplace_back(std::make_shared<button::BoolButton>(coords(_inputPos.at(i).first + 200, _inputPos.at(i).second + 400), button::_buttonSize, button::_buttonNavigPath, _bonusButton[i], 20, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
+            _bonusButtons.emplace_back(std::dynamic_pointer_cast<button::BoolButton>(_objects.back()));
+        }
         _objects.emplace_back(std::make_shared<TexteUI>(coords(670, 100), std::make_pair(0, 0), "New Game", 90, 1, std::make_pair(RGB(0, 0, 0), RGB())));
     }
 
@@ -77,7 +96,10 @@ namespace newGame {
 
         lib.displayMusic(core::_menuMusic, _settings._musicVol);
         input = lib.getPressedCharacter();
-        std::for_each(_objects.begin(), _objects.end(), [&, input](auto &it){
+        std::for_each(_bonusButtons.begin(), _bonusButtons.end(), [&](auto &it) {
+            it->setState(_mousePos, _pressed);
+        });
+        std::for_each(_objects.begin(), _objects.end(), [&, input](auto &it) {
             if (it->getTypeField().isInputBox) {
                 auto button = std::dynamic_pointer_cast<button::InputBox>(it);
                 button->changeText(input, _mousePos);
@@ -92,6 +114,9 @@ namespace newGame {
         _settings._playersSettings.clear();
         fillAi();
         fillName();
+        _settings.bonuses.SpeedUpBonus = _bonusButtons.at(0)->getPressed();
+        _settings.bonuses.LifeUpBonus = _bonusButtons.at(1)->getPressed();
+        _settings.bonuses.DamageUpBonus = _bonusButtons.at(2)->getPressed();
         return (Scenes::GAME);
     }
 

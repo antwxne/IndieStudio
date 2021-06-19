@@ -8,6 +8,8 @@
 #include <vector>
 
 #include "Object/AObject.hpp"
+#include "Object/Collisionable/Destructible/Movable/Cannon.hpp"
+#include <chrono>
 
 #ifndef INDIESTUDIO_PARTICLES_HPP
 #define INDIESTUDIO_PARTICLES_HPP
@@ -48,7 +50,7 @@ public:
      * @param colors colors of particles
      * @param nParticles number of particles
      */
-    Particles(const coords &pos, const std::pair<float, int> &size, float maxSize, float scale, const std::pair<RGB, RGB> &colors, std::size_t nParticles, const coords &accelleration);
+    Particles(const coords &pos, const std::pair<float, int> &size, float maxSize, float scale, const std::pair<RGB, RGB> &colors, std::size_t nParticles, const coords &accelleration, const float maxTime);
     /**
      * @brief default destructor for particles
      */
@@ -58,7 +60,7 @@ public:
      *
      * @param objPos object position to reset particle to it
      */
-    void update() noexcept;
+    bool update() noexcept;
     /**
      * @brief get all the particles from the object
      * @return vector with infos to display each particle
@@ -96,6 +98,10 @@ private:
      */
     coords _acceleration;
     float _sizeParticle;
+    float _maxTime;
+    std::chrono::_V2::system_clock::time_point _stop;
+    std::chrono::_V2::system_clock::time_point _start;
+    std::chrono::_V2::high_resolution_clock _time;
 };
 
 #endif //INDIESTUDIO_PARTICLES_HPP

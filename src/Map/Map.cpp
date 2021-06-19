@@ -97,15 +97,15 @@ void Map::createContourMap(std::pair<float, float> const &xAxis,
     }
 }
 
-void Map::writeDestructibleList() noexcept
+void Map::writeDestructibleList(std::vector<DestructibleWall> _destructibleWall) noexcept
 {
-    unsigned long size = _objectDestructibleList.size();
+    unsigned long size = _destructibleWall.size();
     DestructibleObject::destructible_t dest;
     std::remove("destructibleList.txt");
     std::ofstream file("destructibleList.txt",
         std::ios::out | std::ofstream::binary | std::ofstream::trunc);
     file.write(reinterpret_cast<const char *>(&size), sizeof(unsigned long));
-    for (auto &i : _objectDestructibleList) {
+    for (auto &i : _destructibleWall) {
         dest = i.getStructSave();
         file.write(reinterpret_cast<const char *>(&dest),
             sizeof(DestructibleObject::destructible_t));

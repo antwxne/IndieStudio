@@ -21,7 +21,7 @@ struct Power
     bool isDamageUp;
 };
 
-static const int damageUp = 1;
+static const int bounceUp = 1;
 
 static const int speedUp = 1;
 

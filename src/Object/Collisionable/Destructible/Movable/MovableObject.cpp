@@ -34,3 +34,13 @@ void MovableObject::changeSpeed(float newSpeed)
 {
     _speed += newSpeed;
 }
+
+void MovableObject::setSpeed(float speed)
+{
+    _speed = speed;
+}
+
+float MovableObject::getSpeed() const
+{
+    return _speed;
+}
