@@ -45,7 +45,10 @@ SceneGame::SceneGame(Setting &settings) : AScene(settings), _isPaused(false), _s
 
     _objects.emplace_back(std::make_shared<Ground>(
         coords(0, 0, 0), std::make_pair(40, 22), std::pair<std::string, std::string>(core::groundTexture, core::groundModel)));
-    initTanks(tanksCoords);
+    if (_settings.load == false)
+        initTanks(tanksCoords);
+    else
+        initSaveTanks();
     initColors();
     initMap(tanksCoords);
     setInputFunction(Raylib::ESCAPE, [&]() {
@@ -84,6 +87,33 @@ void SceneGame::initTanks(const tanksCoords &tanksCoords)
         // initTankUi(tankCounter, std::dynamic_pointer_cast<Tank>(_objects.back()), playerSettings);
         tankCounter++;
     }
+}
+
+void SceneGame::initSaveTanks()
+{
+    auto tanks = Tank::readTank();
+    std::size_t setOfKeyInputs = 0;
+    int tankCounter = 0;
+
+    for (auto &tank : tanks) {
+            auto tk = _objects.emplace_back(std::make_shared<Tank>(
+                tank.getName(),
+                coords(tank.getPosition().first,0, tank.getPosition().third),
+                coords(10, 10, 10),
+                8,
+                std::make_pair(Tank::bodyTexture, Tank::bodyModel),
+                std::make_pair(Tank::darkGreen, Tank::cannonModel))
+            );
+            dynamic_cast<Tank &>(*tk).setSpeed(tank.getSpeed());
+            setInputsTank(_settings._keysPlayers[setOfKeyInputs], _objects.back());
+            setOfKeyInputs++;
+            initTankUi(tankCounter, std::dynamic_pointer_cast<Tank>(_objects.back()), _settings._playersSettings[tankCounter]);
+            tankCounter++;
+    }
+        /*} else if (playerSettings.type == IA) {
+            // _objects.emplace_back(std::make_shared<TankIA>("grosTankSaMere", coords(0,0,0), coords(10, 10, 10), 8, std::make_pair(Tank::bodyTexture, Tank::bodyModel), std::make_pair(Tank::darkGreen, Tank::cannonModel)));
+        }*/
+        // initTankUi(tankCounter, std::dynamic_pointer_cast<Tank>(_objects.back()), playerSettings);
 }
 
 void SceneGame::initTankUi(int tankCounter, std::shared_ptr<Tank> tank, PlayerSettings &settings)
@@ -163,16 +193,22 @@ void SceneGame::manageHeart(const std::string &name, const int life)
     }
 }
 
-void SceneGame::saveTanks() noexcept
+void SceneGame::saveAll() noexcept
 {
-    std::vector<Tank> ki;
+    std::vector<Tank> tk;
+    std::vector<DestructibleWall> walls;
     for (auto &it: _objects) {
         if (it->getTypeField().isTank) {
             auto tank = std::dynamic_pointer_cast<Tank>(it);
-            ki.push_back(dynamic_cast<Tank &>(*tank));
+            tk.push_back(dynamic_cast<Tank &>(*tank));
+        }
+        if (it->getTypeField().isDestructibleWall) {
+            auto wall = std::dynamic_pointer_cast<DestructibleWall>(it);
+            walls.push_back(dynamic_cast<DestructibleWall &>(*wall));
         }
     }
-    Tank::writeTankList(ki);
+    Tank::writeTankList(tk);
+    _map->writeDestructibleList(walls);
 }
 
 
@@ -187,8 +223,7 @@ Scenes SceneGame::run(Raylib &lib)
         if (_isPaused) {
             auto newScene = _scenePause.run(lib);
             if (newScene == Scenes::SAVE) {
-                saveTanks();
-                _map->writeDestructibleList();
+                saveAll();
             } else if (newScene != Scenes::GAME)
                 return (newScene);
             _isPaused = false;

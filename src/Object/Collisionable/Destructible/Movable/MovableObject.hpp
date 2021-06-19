@@ -46,6 +46,10 @@ public:
 
 protected:
     float _speed;
+    public:
+    void setSpeed(float speed);
+
+    float getSpeed() const;
 };
 
 #endif //INDIESTUDIO_MOVABLEOBJECT_HPP
