@@ -77,6 +77,7 @@ set(INPUTBOX_SRCS
 
 set(BUTTON_SRCS
         ${BUTTON_PATH}/Button.cpp
+        ${BUTTON_PATH}/BoolButton.cpp
 )
 
 set(OBJECTS_SRCS
