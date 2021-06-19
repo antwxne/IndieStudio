@@ -195,6 +195,8 @@ Scenes SceneGame::run(Raylib &lib)
     std::default_random_engine rng(rd());
     static auto start = std::chrono::steady_clock::now();
     auto end = std::chrono::steady_clock::now();
+    static auto startFire = std::chrono::steady_clock::now();
+    auto endFire = std::chrono::steady_clock::now();
     std::vector<std::shared_ptr<Tank>> tanks;
     std::vector<std::shared_ptr<TankAI>> AIs;
 
@@ -209,6 +211,7 @@ Scenes SceneGame::run(Raylib &lib)
     while (lib.gameLoop()) {
         auto nAI = 0;
         end = std::chrono::steady_clock::now();
+        endFire = std::chrono::steady_clock::now();
         lib.displayMusic(core::_gameMusic, _settings._musicVol);
         triggerInputActions(lib);
         if (_isPaused) {
@@ -224,10 +227,12 @@ Scenes SceneGame::run(Raylib &lib)
             AI->target(tanks[nAI]->getPosition());
             ++nAI;
             AI->autoMove();
-            AI->fire();
+            if (std::chrono::duration_cast<std::chrono::seconds>(end - start) >= std::chrono::seconds(3)) {
+                AI->fire();
+                startFire = std::chrono::steady_clock::now();
+            }
         }
-        if (std::chrono::duration_cast<std::chrono::seconds>(end - start) >=
-            std::chrono::seconds(10) || started) {
+        if (std::chrono::duration_cast<std::chrono::seconds>(end - start) >= std::chrono::seconds(10) || started) {
             start = std::chrono::steady_clock::now();
             std::shuffle(tanks.begin(), tanks.end(), rng);
         }

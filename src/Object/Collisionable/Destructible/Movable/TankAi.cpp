@@ -29,7 +29,7 @@ void TankAI::autoMove() noexcept
     double distance = TankAI::distance(_targetPos);
     coords dir = _pos - _targetPos;
 
-    rotate(static_cast<double>(atan2(dir.third, dir.first)) * (PI / 180));
+    rotate(1);
     if (distance > _stopDistance) {
         move(dir);
     }
