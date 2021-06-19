@@ -38,6 +38,7 @@ public:
      *
      */
     void fire();
+
     /**
      * @brief get all the bullets
      * @return vector of bullet
@@ -64,6 +65,8 @@ public:
     void increaseBounce(const int dmgUp) noexcept;
 
     void setFireCoolDown(int) noexcept;
+
+    void setDamage(float const &damage) noexcept;
 
     /**
      * @brief Get the Fire Cool Down object

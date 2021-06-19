@@ -150,13 +150,12 @@ public:
         std::size_t score;
         char name[50];
         int speed;
+        int damage;
     };
 
     const tank_t &getTankStructSave() noexcept;
     static void writeTankList(std::vector<Tank> _tankList) noexcept;
     static std::vector<Tank> readTank();
-
-
     /**
      * @brief Set the Pos object
      * 

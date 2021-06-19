@@ -51,6 +51,9 @@ public:
         RELEASED
     };
 
+    // std::pair<GamepadButton, Inputs> _gamepadToInput {
+    // };
+
     Raylib();
     ~Raylib();
 
@@ -61,15 +64,15 @@ public:
     void printObjects(vectorObject &objects) noexcept;
     // all print funcs under will be private (ex: type Vector3 only defined in raylib.h)
     void printFps(std::pair<int, int> const &pos) const noexcept;
-    void printGrid(int const &slices, float const &space) const noexcept;
     void drawModel(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint, coords axis, float angle);
     void drawMesh(const std::string &modelPath, const std::string &texturePath, coords pos, float scale, RGB tint, const std::pair<int, int> &size);
     void drawSphere(const coords &pos, const RGB tint, const float radius);
-
     void drawAnimation(const std::string &modelPath, const std::string &texturePath, const std::string &animationPath, const coords pos, int frameCount, float scale);
     void drawTexture(const std::string &path, Vector2 pos, float rotation, float scale, RGB tint);
-
+    void drawRectangleLines(int const &posX, int const &posY, int const &width, int const &height, RGB color) const noexcept;
+    void drawRectangle(int const &posX, int const &posY, int const &width, int const &height, RGB color) const noexcept;
     void drawText(const std::string &text, coords pos, float scale, RGB tint);
+
     void displayMusic(const std::string &path, float volume);
     void displaySound(const std::string &path, float volume);
 
@@ -80,19 +83,17 @@ public:
     bool isControllerDetected(int const &idx) const noexcept;
     bool isControllerValid(int const &idx, std::string const &ControllerName) const noexcept;
     std::string getControllerName(int const &idx) const noexcept;
+
     char getPressedCharacter() noexcept;
+    int getKeyPressed() const noexcept;
+    bool isKeyPressed(int &button) const noexcept;
+    bool isKeyReleased(int &button) const noexcept;
+    std::vector<int> getKeysDown() noexcept;
 
     bool isMousePressed() const noexcept;
     bool isMouseDown() const noexcept;
     bool isMouseReleased() const noexcept;
-    bool isKeyPressed(int &button) const noexcept;
-    bool isKeyReleased(int &button) const noexcept;
-    std::string textForSubText(std::string const &text, int &pos, int &frameCounter) const noexcept;
-    int getKeyPressed() const noexcept;
-    std::vector<int> getKeysDown() noexcept;
     const std::pair<float, float> getMousePosition() const noexcept;
-    void drawRectangleLines(int const &posX, int const &posY, int const &width, int const &height, RGB color) const noexcept;
-    void drawRectangle(int const &posX, int const &posY, int const &width, int const &height, RGB color) const noexcept;
 
     int getFrameMax(const std::string &path);
     static float getDeltaTime() noexcept;
@@ -103,6 +104,8 @@ public:
     static bool collabsWall(std::pair<int, int> firstItem, coords firstItemSize,std::pair<int, int> scdItem, coords scdItemSize);
 
 private:
+    void draw3DObjects(Raylib::uAObject &it, Raylib::vectorObject &objects);
+    void draw2DObjects(Raylib::uAObject &it);
     void findCollision(std::shared_ptr<CollisionableObject> obj, const std::vector<std::shared_ptr<AObject>> &allObjs) noexcept;
 
 private:

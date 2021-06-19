@@ -22,6 +22,7 @@ public:
      *
      * @param pos
      * @param size
+     *
      */
     Bullet(const coords &pos, float angle);
 
@@ -98,5 +99,6 @@ private:
      */
     float _damage;
 };
+
 
 #endif //INDIESTUDIO_BULLET_HPP
