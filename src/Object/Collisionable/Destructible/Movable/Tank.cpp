@@ -126,7 +126,6 @@ std::vector<Tank> Tank::readTank()
         std::ios::in | std::ifstream::binary);
     if (file.is_open() == false)
         throw std::runtime_error("Can not open");
-    std::cout << size << std::endl;
     file.read(reinterpret_cast<char *>(&size), sizeof(unsigned long));
     for (int i = 0; i != size; i++) {
         file.read(reinterpret_cast<char *>(&dest),
@@ -140,6 +139,5 @@ std::vector<Tank> Tank::readTank()
         tank.setSpeed(dest.speed);
         tank._cannon.setDamage(dest.damage);
     }
-    std::cout << "finish tank" << std::endl;
     return tmp;
 }

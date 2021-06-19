@@ -45,7 +45,6 @@ void TankAI::autoMove() noexcept
     float doRotation = std::sin(_rotationAngle) * (_pos.first - _targetPos.first) + (-std::cos(_rotationAngle)) * (_pos.second - _targetPos.second);
 
     rotate(1);
-    //std::cout << "do rotation == " << doRotation << "\n";
     if (distance > _stopDistance && doRotation == 0) {// && ((_prevRotationAngle - _rotationAngle) <= 1 || (_prevRotationAngle - _rotationAngle) >= -1)) {
         move(dir);
     }
@@ -74,9 +73,6 @@ void TankAI::rotate(float angle) noexcept
 {
     float doRotation = std::sin(_rotationAngle) * (_pos.first - _targetPos.first) + (-std::cos(_rotationAngle)) * (_pos.second - _targetPos.second);
 
-    std::cout << "rotate pos ai == " << _pos << std::endl;
-    std::cout << "rotate pos target == " << _targetPos << std::endl;
-    std::cout << "do rotation == " << doRotation << "\n";
     _prevRotationAngle = _rotationAngle;
     _rotationAngle += doRotation > 0 ? angle : -angle;
     _rotationAngle = static_cast<int>(_rotationAngle) % 360;

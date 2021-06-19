@@ -170,7 +170,6 @@ void SceneGame::initMap(const tanksCoords &tanksCoords)
     } else
         _map->readDestructibleList();
     _map->createContourMap(std::make_pair(-10, 10), std::make_pair(-8, 8));
-    std::cout << _map->_objectNoDestructibleList.size() << std::endl;
     for (auto const &block : _map->_objectNoDestructibleList)
         _objects.emplace_back(std::make_shared<Wall>(block));
     for (auto const &block : _map->_objectDestructibleList)
@@ -183,7 +182,6 @@ void SceneGame::manageHeart(const std::string &name, const int life)
     std::size_t idx = 0;
     std::vector<int> tmp;
 
-    std::cout << "name === " << name << " life === " << life << std::endl;
     for (unsigned int i = 0; i != _objects.size(); i++) {
         if (_objects[i]->getTypeField().isLife) {
             auto heart = std::dynamic_pointer_cast<LifeGame>(_objects[i]);
@@ -291,13 +289,12 @@ void SceneGame::updateObjects(Raylib &lib) noexcept
                 for (auto &it :_settings._playersSettings)
                     if (it.name.compare(tank->getName()) == 0)
                         it.isLooser = true;
-                std::cout << " [Scene Game] Je supprime le TANK\n";
                 _objects.emplace_back(std::make_shared<Particles>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(20, 12, 9), RGB()), 100, coords(0, 0.002f, 0), 2000.0f));
                 object = _objects.erase(object);
                 isSupr = true;
             }
-            // else if (tank->getPosition() != tank->getPreviousPos())
-            //     _objects.emplace_back(std::make_shared<Particles>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(128,128,128), RGB()), 10, coords(0, 0.1f, 0), 1000.0f));
+            else if (tank->getPosition() != tank->getPreviousPos())
+                _objects.emplace_back(std::make_shared<Particles>(coords(tank->getPreviousPos().first, tank->getPreviousPos().second, tank->getPreviousPos().third), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(128,128,128), RGB()), 50, coords(0.002f, 0, 0), 100.0f));
         }
         if ((*object)->getTypeField().isParticule == true) {
             if (std::dynamic_pointer_cast<Particles>(*object)->update() == true) {
