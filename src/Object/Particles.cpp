@@ -17,7 +17,6 @@ Particles::Particles(const coords &pos, const std::pair<float, int> &size, float
 ) : AObject(pos, size, scale, colors),_particles(), _maxSize(maxSize), _objPos(pos), _acceleration(accelleration), _sizeParticle(size.first), _maxTime(maxTime)
 {
     _start = _time.now();
-
     _typeField.isParticule = true;
     _typeField.is3D = true;
     std::random_device rd;

@@ -250,7 +250,7 @@ void SceneGame::updateObjects(Raylib &lib) noexcept
                     if (it.name.compare(tank->getName()) == 0)
                         it.isLooser = true;
                 std::cout << " [Scene Game] Je supprime le TANK\n";
-                _objects.emplace_back(std::make_shared<Particles>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(20, 12, 9), RGB()), 100, coords(0, 0.2f, 0), 5000.0f));
+                _objects.emplace_back(std::make_shared<Particles>(coords(object->get()->getPosition().first, object->get()->getPosition().second + 1.0f, object->get()->getPosition().third), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(20, 12, 9), RGB()), 100, coords(0, 0.001f, 0), 5000.0f));
                 object = _objects.erase(object);
                 isSupr = true;
             }
@@ -274,9 +274,8 @@ void SceneGame::updateObjects(Raylib &lib) noexcept
             isSupr = true;
         }
 
-        if (object->get()->getTypeField().isTank) {
+        if (object->get()->getTypeField().isTank)
             ++VictoryCond;
-        }
         if (!isSupr)
             ++object;
     }

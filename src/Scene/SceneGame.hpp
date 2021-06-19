@@ -27,11 +27,11 @@ class SceneGame : public AScene {
         void initMap(const tanksCoords &tanksCoords);
 
         void manageHeart(const std::string &name, const int life);
-        
+
         void saveAll() noexcept;
 
         void updateObjects(Raylib &lib) noexcept;
- 
+
         void initSaveTanks();
 
         void applyBonuses() noexcept;
