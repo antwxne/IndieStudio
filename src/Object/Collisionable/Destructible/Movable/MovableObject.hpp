@@ -42,14 +42,14 @@ public:
      *
      * @param newSpeed
      */
-    void changeSpeed(float newSpeed);
+    virtual void increaseSpeed(float newSpeed);
+
+    virtual void setSpeed(float speed);
+
+    float getSpeed() const;
 
 protected:
     float _speed;
-    public:
-    void setSpeed(float speed);
-
-    float getSpeed() const;
 };
 
 #endif //INDIESTUDIO_MOVABLEOBJECT_HPP

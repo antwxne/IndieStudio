@@ -39,7 +39,7 @@ class SceneGame : public AScene {
 
         void initSaveTanks();
 
-        void applyBonuses() noexcept;
+        void applyBonuses(std::shared_ptr<Tank> tank) noexcept;
 
         static const std::vector<std::pair<float, float>> _playerPos;
         static const std::vector<std::pair<float, float>> _scorePos;
