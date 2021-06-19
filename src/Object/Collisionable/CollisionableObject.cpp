@@ -77,8 +77,7 @@ collisionableSound CollisionableObject::hit(std::shared_ptr<CollisionableObject>
         auto bullet = dynamic_cast<Bullet *>(this);
         auto destructible = std::dynamic_pointer_cast<DestructibleObject>(obj);
         destructible->updateLife(-bullet->getDamage());
-        bullet->bounce();
-        bullet->setLife(bullet->getLife() - 1);
+        bullet->setLife(0);
         if (bullet->getLife() <= 0)
             bullet->resetBullet();
         if (destructible->getLife() <= 0)
