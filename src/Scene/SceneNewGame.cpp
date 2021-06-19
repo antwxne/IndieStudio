@@ -58,13 +58,15 @@ namespace newGame {
 
     void SceneNewGame::fillName()
     {
+        std::size_t fillSetting = 0;
+
         for (auto &it : _objects) {
-            if (!it->getTypeField().isInputBox)
+            if (!it->getTypeField().isInputBox || fillSetting == _settings._playersSettings.size())
                 continue;
-            auto button = std::dynamic_pointer_cast<button::Button>(it);
+            auto button = std::dynamic_pointer_cast<button::InputBox>(it);
             if (!button->getText().empty()) {
-                _settings._playersSettings.emplace_back();
-                _settings._playersSettings.back().name = button->getText();
+                _settings._playersSettings[fillSetting].name = button->getText();
+                ++fillSetting;
             }
         }
     }
