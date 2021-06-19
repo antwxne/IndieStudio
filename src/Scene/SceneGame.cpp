@@ -208,7 +208,7 @@ void SceneGame::saveAll() noexcept
     std::vector<Tank> tk;
     std::vector<DestructibleWall> walls;
     for (auto &it: _objects) {
-        if (it->getTypeField().isTank) {
+        if (it->getTypeField().isTank && it->getTypeField().isIa == false) {
             auto tank = std::dynamic_pointer_cast<Tank>(it);
             tk.push_back(dynamic_cast<Tank &>(*tank));
         }

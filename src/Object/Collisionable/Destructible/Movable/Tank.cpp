@@ -93,8 +93,8 @@ const Tank::tank_t &Tank::getTankStructSave() noexcept
 {
     _save.x = _pos.first;
     _save.y = _pos.third;
-    _save.life = _life;
-    _save.score = _score;
+    _save.life = getLife();
+    _save.score = getScore();
     _save.z = _pos.second;
     _save.speed = _speed;
     std::strcpy(_save.name, _name.c_str());
@@ -134,12 +134,10 @@ std::vector<Tank> Tank::readTank()
         tmp.emplace_back(dest.name,
             coords(static_cast<float>(dest.x), static_cast<float>(dest.z), static_cast<float>(dest.y)),
             coords (10, 0, 10), 8,std::make_pair(Tank::bodyTexture, Tank::bodyModel), std::make_pair(Tank::darkGreen, Tank::cannonModel));
-        auto tank = tmp.back();
-        tank.setScore(dest.score);
-        tank.setLife(dest.life);
-        tank.setSpeed(dest.speed);
-        tank._cannon.setDamage(dest.damage);
+        tmp.back().setScore(dest.score);
+        tmp.back().setLife(dest.life);
+        tmp.back().setSpeed(dest.speed);
+        tmp.back()._cannon.setDamage(dest.damage);
     }
-    std::cout << "finish tank" << std::endl;
     return tmp;
 }
