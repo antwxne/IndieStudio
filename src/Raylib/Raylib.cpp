@@ -212,7 +212,7 @@ bool Raylib::isControllerValid(int const &idx, std::string const &ControllerName
 
 std::vector<int> Raylib::getControllerInput(int idx)
 {
-    std::array<int, 4> joystick = {GetGamepadAxisMovement(0, 0), GetGamepadAxisMovement(0, 2), GetGamepadAxisMovement(0, 3), GetGamepadButtonPressed()};
+    std::array<int, 4> joystick = {static_cast<int>(GetGamepadAxisMovement(0, 0)), static_cast<int>(GetGamepadAxisMovement(0, 2)), static_cast<int>(GetGamepadAxisMovement(0, 3)), GetGamepadButtonPressed()};
     std::vector<int> joystickToInput;
 
     for (std::size_t i = 0; i != 3; ++i)
@@ -466,7 +466,9 @@ void Raylib::findCollision(std::shared_ptr<CollisionableObject> obj,
                     positionOther.second + tmpBoundOther.max.y,
                     positionOther.third + (otherRotaton <= 110 && otherRotaton >= 70 || otherRotaton <= 290 && otherRotaton >= 250 ? tmpBoundOther.max.x : tmpBoundOther.max.z) * scaleOther}};
             if (CheckCollisionBoxes(boundCurrent, boundOther)) {
-                obj->hit(tmp);
+                auto sound = obj->hit(tmp);
+                if (sound != NONE_SOUND);
+                    //fonction son charlie;
             }
         }
     }
