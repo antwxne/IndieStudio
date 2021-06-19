@@ -17,6 +17,7 @@ Particles::Particles(const coords &pos, const std::pair<float, int> &size, float
 ) : AObject(pos, size, scale, colors),_particles(), _maxSize(maxSize), _objPos(pos), _acceleration(accelleration), _sizeParticle(size.first), _maxTime(maxTime)
 {
     _start = _time.now();
+    _updateTime = _time.now();
 
     _typeField.isParticule = true;
     _typeField.is3D = true;
@@ -51,11 +52,10 @@ bool Particles::update() noexcept
     std::uniform_real_distribution<float> acc(0.0f, 0.05f);
     bool r;
     float tmpRand;
-    static auto start = std::chrono::high_resolution_clock::now();
     auto now = std::chrono::high_resolution_clock::now();
 
-    if (std::chrono::duration_cast<std::chrono::milliseconds>(now - start) >= std::chrono::milliseconds(70)) {
-        start = std::chrono::high_resolution_clock::now();
+    if (std::chrono::duration_cast<std::chrono::milliseconds>(now - _updateTime) >= std::chrono::milliseconds(70)) {
+        _updateTime = std::chrono::high_resolution_clock::now();
         for (auto &i : _particles) {
             r = gen() % 2;
             i.v += i.a;

@@ -45,10 +45,12 @@ SceneGame::SceneGame(Setting &settings) : AScene(settings), _isPaused(false),
 
     _objects.emplace_back(std::make_shared<Ground>(
         coords(0, 0, 0), std::make_pair(40, 22), std::pair<std::string, std::string>(core::groundTexture, core::groundModel)));
-    if (_settings.load == false)
+    if (_settings.load == false) {
         initTanks(tanksCoords);
-    else
+    }
+    else {
         initSaveTanks();
+    }
     initColors();
     initMap(tanksCoords);
     setInputFunction(Raylib::ESCAPE, [&]() {
@@ -106,10 +108,10 @@ void SceneGame::initSaveTanks()
                 coords(10, 10, 10),
                 8,
                 std::make_pair(Tank::bodyTexture, Tank::bodyModel),
-                std::make_pair(Tank::darkGreen, Tank::cannonModel))
-            );
-            auto tk = dynamic_cast<Tank &>(*_objects.back());
-            tk.setSpeed(tank.getSpeed());
+                std::make_pair(Tank::darkGreen, Tank::cannonModel)));
+            auto tk = std::dynamic_pointer_cast<Tank>(_objects.back());
+            tk->setSpeed(tank.getSpeed());
+            tk->setLife(tank.getLife());
             setInputsTank(_settings._keysPlayers[setOfKeyInputs], _objects.back());
             setOfKeyInputs++;
             initTankUi(tankCounter, std::dynamic_pointer_cast<Tank>(_objects.back()), _settings._playersSettings[tankCounter]);
@@ -181,22 +183,21 @@ void SceneGame::manageHeart(const std::string &name, const int life)
     std::size_t idx = 0;
     std::vector<int> tmp;
 
+    std::cout << "name === " << name << " life === " << life << std::endl;
     for (unsigned int i = 0; i != _objects.size(); i++) {
         if (_objects[i]->getTypeField().isLife) {
             auto heart = std::dynamic_pointer_cast<LifeGame>(_objects[i]);
             if (heart->getName() == name) {
-                tmp.push_back(i);
-                ++idx;
-            }
-        }
-    }
-    if (idx != life) {
-        for (auto &p : tmp) {
-            idx--;
-            auto heart = std::dynamic_pointer_cast<LifeGame>(_objects[p]);
-            heart->setTransparancy(true);
-            if (idx == life) {
-                break;
+                if (idx >= life) {
+                    heart->setTransparancy(true);
+                    ++idx;
+                    continue;
+                }
+                if (idx <= life) {
+                    heart->setTransparancy(false);
+                    ++idx;
+                    continue;
+                }
             }
         }
     }
@@ -207,7 +208,7 @@ void SceneGame::saveAll() noexcept
     std::vector<Tank> tk;
     std::vector<DestructibleWall> walls;
     for (auto &it: _objects) {
-        if (it->getTypeField().isTank) {
+        if (it->getTypeField().isTank && it->getTypeField().isIa == false) {
             auto tank = std::dynamic_pointer_cast<Tank>(it);
             tk.push_back(dynamic_cast<Tank &>(*tank));
         }
