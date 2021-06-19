@@ -69,7 +69,7 @@ void SceneGame::initTanks(const tanksCoords &tanksCoords)
     for (auto &playerSettings : _settings._playersSettings) {
         if (playerSettings.type == NONE)
             continue;
-        if (playerSettings.type == PLAYER && setOfKeyInputs < 2) {
+        if (playerSettings.type == PLAYER && setOfKeyInputs < _settings._keysPlayers.size()) {
             _objects.emplace_back(std::make_shared<Tank>(playerSettings.name,
                 coords(tanksCoords[tankCounter].first, 0,
                     tanksCoords[tankCounter].second), coords(10, 10, 10), 8,

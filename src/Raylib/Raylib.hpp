@@ -47,12 +47,16 @@ public:
         RIGHT,
         LEFT,
         A, Z, E, R, T, Y, U, O, I, P, Q, S, D, F, G, H, J, K, L, M, W, X, C, V, B, N,
+        JLL,
+        JLR,
+        JRL,
+        JRR,
+        JRU,
+        JRD,
+        JA,
         PRESSED,
         RELEASED
     };
-
-    // std::pair<GamepadButton, Inputs> _gamepadToInput {
-    // };
 
     Raylib();
     ~Raylib();
@@ -83,12 +87,14 @@ public:
     bool isControllerDetected(int const &idx) const noexcept;
     bool isControllerValid(int const &idx, std::string const &ControllerName) const noexcept;
     std::string getControllerName(int const &idx) const noexcept;
+    std::vector<int> getControllerInput(int idx);
 
     char getPressedCharacter() noexcept;
     int getKeyPressed() const noexcept;
     bool isKeyPressed(int &button) const noexcept;
     bool isKeyReleased(int &button) const noexcept;
     std::vector<int> getKeysDown() noexcept;
+
 
     bool isMousePressed() const noexcept;
     bool isMouseDown() const noexcept;
