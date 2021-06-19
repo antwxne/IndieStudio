@@ -32,11 +32,10 @@ struct PlayerSettings {
 // a voir selon les combinaisons si le jeu les supporte
 // il faut que toutes les combinaisons soient viables --> peut etre que trois au final?
 struct GameBonuses {
-    GameBonuses() : firstBonus(false), secondBonus(false), thirdBonus(false), fourthBonus(false) {}
-    bool firstBonus;
-    bool secondBonus;
-    bool thirdBonus;
-    bool fourthBonus;
+    GameBonuses() : SpeedUpBonus(false), LifeUpBonus(false), DamageUpBonus(false) {}
+    bool SpeedUpBonus;
+    bool LifeUpBonus;
+    bool DamageUpBonus;
 };
 
 /**

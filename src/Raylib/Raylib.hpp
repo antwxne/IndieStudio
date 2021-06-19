@@ -93,7 +93,6 @@ public:
     const std::pair<float, float> getMousePosition() const noexcept;
     void drawRectangleLines(int const &posX, int const &posY, int const &width, int const &height, RGB color) const noexcept;
     void drawRectangle(int const &posX, int const &posY, int const &width, int const &height, RGB color) const noexcept;
-    void updateMusic(const std::string &path);
 
     int getFrameMax(const std::string &path);
     static float getDeltaTime() noexcept;

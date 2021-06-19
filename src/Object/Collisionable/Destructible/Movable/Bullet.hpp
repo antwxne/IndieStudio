@@ -100,4 +100,5 @@ private:
     float _damage;
 };
 
+
 #endif //INDIESTUDIO_BULLET_HPP

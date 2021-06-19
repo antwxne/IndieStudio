@@ -111,19 +111,33 @@ void Raylib::printObjects(Raylib::vectorObject &objects) noexcept
         if (i->getTypeField().is3D) {
             BeginMode3D(_camera);
             if (i->getTypeField().isTank) {
-                //i know it's uggly right? :c
                 auto tankCollider = std::dynamic_pointer_cast<CollisionableObject>(i);
                 auto tank = std::dynamic_pointer_cast<Tank>(i);
-                auto &cannon = const_cast<Cannon &>(tank->getCannon());
-                auto &bullets = cannon.getBullets();
-                findCollision(tankCollider, objects);
-                for (auto &bullet : bullets) {
-                    auto bulletsCollider = std::dynamic_pointer_cast<CollisionableObject>(bullet);
-                    findCollision(bulletsCollider, objects);
-                    drawModel(bullet->getModel(), bullet->getTexture(), bullet->getPosition(), bullet->getScale(), bullet->getColors().first, bullet->getRotationAxis(), bullet->getRotationAngle());
+                if (tank->getLife() >= 0) {
+                    auto &cannon = const_cast<Cannon &>(tank->getCannon());
+                    auto &bullets = cannon.getBullets();
+                    findCollision(tankCollider, objects);
+                    for (auto &bullet : bullets) {
+                        if (bullet->getPosition().first != -120.f) {
+                            auto bulletsCollider = std::dynamic_pointer_cast<CollisionableObject>(
+                                bullet);
+                            findCollision(bulletsCollider, objects);
+                        }
+                        drawModel(bullet->getModel(), bullet->getTexture(),
+                            bullet->getPosition(), bullet->getScale(),
+                            bullet->getColors().first,
+                            bullet->getRotationAxis(),
+                            bullet->getRotationAngle());
+                    }
+                    drawModel(tank->getModel(), tank->getTexture(),
+                        tank->getPosition(), tank->getScale(),
+                        tank->getColors().first, tank->getRotationAxis(),
+                        tank->getRotationAngle());
+                    drawModel(cannon.getModel(), cannon.getTexture(),
+                        cannon.getPosition(), cannon.getScale(),
+                        cannon.getColors().first, cannon.getRotationAxis(),
+                        cannon.getRotationAngle());
                 }
-                drawModel(tank->getModel(), tank->getTexture(), tank->getPosition(), tank->getScale(), tank->getColors().first, tank->getRotationAxis(), tank->getRotationAngle());
-                drawModel(cannon.getModel(), cannon.getTexture(), cannon.getPosition(), cannon.getScale(), cannon.getColors().first, cannon.getRotationAxis() ,cannon.getRotationAngle());
             } else if (i->getTypeField().isAnimator) {
                 auto const &derived = std::dynamic_pointer_cast<Animator>(i);
                 drawAnimation(derived->getModel(), derived->getTexture(), derived->getAnimPath(), derived->getPosition(), derived->getFrameActual(), derived->getScale());

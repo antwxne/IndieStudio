@@ -10,6 +10,7 @@
 
 #include "Raylib.hpp"
 #include "UiScene.hpp"
+#include "BoolButton.hpp"
 
 namespace newGame {
 
@@ -56,6 +57,8 @@ namespace newGame {
         private:
             void fillAi();
             void fillName();
+            std::vector<std::shared_ptr<button::BoolButton>> _controllerButtons;
+            std::vector<std::shared_ptr<button::BoolButton>> _bonusButtons;
     };
 
 }
