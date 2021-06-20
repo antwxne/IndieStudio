@@ -71,7 +71,11 @@ namespace newGame {
             auto button = std::dynamic_pointer_cast<button::Button>(it);
             if (std::find(_playerIA.begin(), _playerIA.end(), button->getText()) == _playerIA.end() || button->getText() == "None")
                 continue;
-            _settings._playersSettings.emplace_back();
+            std::srand(std::time(0));
+            auto newPlayer = PlayerSettings();
+            while (std::find_if(_settings._playersSettings.begin(), _settings._playersSettings.end(), [newPlayer](auto &it){return it.name == newPlayer.name;}) != _settings._playersSettings.end())
+                newPlayer = PlayerSettings();
+            _settings._playersSettings.emplace_back(newPlayer);
             _settings._playersSettings.back().type = static_cast<playerType>(std::find(_playerIA.begin(), _playerIA.end(), button->getText()) - _playerIA.begin());
         }
     }
@@ -84,6 +88,11 @@ namespace newGame {
             if (!it->getTypeField().isInputBox || fillSetting == _settings._playersSettings.size())
                 continue;
             auto button = std::dynamic_pointer_cast<button::InputBox>(it);
+            auto nbName = 0;
+            for (auto &name : _settings._playersSettings)
+                    nbName += name.name.find(button->getText()) != name.name.npos;
+            if (nbName && !button->getText().empty())
+                button->setText(button->getText() + "(" + std::to_string(nbName) + ")");
             if (!button->getText().empty()) {
                 _settings._playersSettings[fillSetting].name = button->getText();
                 ++fillSetting;
