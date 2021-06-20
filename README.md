@@ -5,7 +5,8 @@ We decided to remake the _Wii tank_ game.
 
 We used the _raylib_ graphical library.
 
-<img align="left" src="https://github.com/raysan5/raylib/blob/master/logo/raylib_logo_animation.gif" width="288px">
+
+![Raylib logo](/.github/Readme_resources/Raylib_logo.png) 
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/raysan5/raylib?label=raylib%20version&style=for-the-badge)
 [![Discord][Discord-logo]](https://discord.com/channels/426912293134270465/)
