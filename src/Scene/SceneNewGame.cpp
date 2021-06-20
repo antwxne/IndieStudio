@@ -47,7 +47,7 @@ namespace newGame {
             _objects.emplace_back(std::make_shared<button::Button>(it, button::_buttonSize, button::_buttonPlayerPath, _playerIA[0], 20, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
         for (auto &it : _inputPos)
             _objects.emplace_back(std::make_shared<button::InputBox>(it, button::_buttonSize, button::_buttonNavigPath, 20, 15, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
-        for (std::size_t i = 0; i != _inputPos.size(); ++i) {
+        for (std::size_t i = 0; i != _inputPos.size() - 1; ++i) {
             _objects.emplace_back(std::make_shared<button::BoolButton>(coords(_inputPos.at(i).first, _inputPos.at(i).second + 100), button::_buttonSize, button::_soloPath, _controllerText[0 + (1 * (i >= 2))], 20, 1.5, std::make_pair(RGB(), RGB(0, 0, 0))));
             _controllerButtons.emplace_back(std::dynamic_pointer_cast<button::BoolButton>(_objects.back()));
         }
@@ -95,7 +95,7 @@ namespace newGame {
     {
         char input;
 
-        lib.displayMusic(core::_menuMusic, _settings._musicVol);
+        lib.displayMusic(core::MAP_MUSIC.at(core::soundPath::MENU), _settings._musicVol);
         input = lib.getPressedCharacter();
         std::for_each(_bonusButtons.begin(), _bonusButtons.end(), [&](auto &it) {
             it->setState(_mousePos, _pressed);

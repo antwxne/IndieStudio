@@ -245,6 +245,7 @@ Scenes SceneGame::run(Raylib &lib)
     std::vector<std::shared_ptr<Tank>> tanks;
     std::vector<std::shared_ptr<TankAI>> AIs;
 
+    lib.displaySound(core::_startGame, _settings._soundVol);
     for (auto &it : _objects) {
         if (it->getTypeField().isTank) {
             tanks.emplace_back(std::dynamic_pointer_cast<Tank>(it));
@@ -259,9 +260,10 @@ Scenes SceneGame::run(Raylib &lib)
         auto nAI = 0;
         end = std::chrono::steady_clock::now();
         endFire = std::chrono::steady_clock::now();
-        lib.displayMusic(core::_gameMusic, _settings._musicVol);
+        lib.displayMusic(core::MAP_MUSIC.at(core::soundPath::GAME), _settings._musicVol);
         triggerInputActions(lib);
         if (_isPaused) {
+            lib.displaySound(core::_pauseClick, _settings._soundVol);
             auto newScene = _scenePause.run(lib);
             if (newScene == Scenes::SAVE) {
                 saveAll();

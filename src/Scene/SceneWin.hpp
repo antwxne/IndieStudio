@@ -85,6 +85,8 @@ namespace win {
              * @return Scenes 
              */
             Scenes endScene(Raylib &lib) noexcept final;
+        private:
+            bool _isAI;
     };
 
 }

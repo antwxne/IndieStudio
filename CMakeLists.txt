@@ -102,7 +102,6 @@ set(OBJECTS_SRCS
 set(SCENE_SRCS
         ${SCENE_PATH}/AScene.cpp
         ${SCENE_PATH}/UiScene.cpp
-        ${SCENE_PATH}/SceneBoard.cpp
         ${SCENE_PATH}/SceneMenu.cpp
         ${SCENE_PATH}/SceneNewGame.cpp
         ${SCENE_PATH}/SceneOption.cpp
@@ -111,8 +110,6 @@ set(SCENE_SRCS
         ${SCENE_PATH}/SceneSplash.cpp
         ${SCENE_PATH}/SceneWin.cpp
         ${SCENE_PATH}/SceneGame.cpp
-        # //${SCENE_PATH}/SceneMaxime.cpp
-        # ${SCENE_PATH}/SceneRobin.cpp
         )
 set(GROUND_SRCS
         ${GROUND_PATH}/Ground.cpp)

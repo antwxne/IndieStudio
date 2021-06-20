@@ -29,7 +29,7 @@ SceneSplash::~SceneSplash()
 
 void SceneSplash::eventScene(Raylib &lib)
 {
-    lib.displayMusic(core::_splashMusic, _settings._musicVol);
+    lib.displayMusic(core::MAP_MUSIC.at(core::soundPath::SPLASH), _settings._musicVol);
     if (_scene == 0) {
         _framesCounter++;
         if (_framesCounter == 120) {
