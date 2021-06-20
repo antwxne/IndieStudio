@@ -16,48 +16,52 @@
 #include "SceneMenu.hpp"
 #include "SceneNewGame.hpp"
 #include "SceneOption.hpp"
-#include "SceneBoard.hpp"
 #include "SceneIntro.hpp"
 #include "SceneSplash.hpp"
 #include "SceneWin.hpp"
 #include "SceneGame.hpp"
 
 namespace core {
+
+    enum soundPath {
+        MENU,
+        GAME,
+        SPLASH,
+        ANIMATION,
+        WIN,
+        DEFEAT,
+        PAUSE
+    };
+
     /**
-     * @brief menu music file path
+     * @brief all music filepath
      * 
      */
-    static const std::string _menuMusic = "asset/music/menu_music.mp3";
+    static const std::unordered_map<soundPath, std::string> MAP_MUSIC = {
+        {MENU,      "asset/music/menu_music.mp3"},
+        {GAME,      "asset/music/game_music.mp3"},
+        {SPLASH,    "asset/music/splash_music.mp3"},
+        {ANIMATION, "asset/music/animation_music.mp3"},
+        {WIN,       "asset/music/win_music.mp3"},
+        {DEFEAT,    "asset/music/defeat_music.mp3"},
+        {PAUSE,     "asset/music/pause_music.mp3"}
+    };
+
     /**
-     * @brief game music file path
-     * 
-     */
-    static const std::string _gameMusic = "asset/music/game_music.mp3";
-    /**
-     * @brief win music file path
-     * 
-     */
-    static const std::string _winMusic = "asset/music/win_music.mp3";
-    /**
-     * @brief splash menu music file path
-     * 
-     */
-    static const std::string _splashMusic = "asset/music/splash_music.mp3";
-    /**
-     * @brief animation music file path
-     * 
-     */
-    static const std::string _animMusic = "asset/music/animation_music.mp3";
-    /**
-     * @brief mouse clic sound file path
+     * @brief sound when mouseClick filepath
      * 
      */
     static const std::string _mouseClick = "asset/sound_effects/click.wav";
     /**
-     * @brief sound when mouseOver filepath
+     * @brief sound when you pause the game
      * 
      */
-    static const std::string _mouseOver = "asset/sound_effects/over.wav";
+    static const std::string _pauseClick = "asset/sound_effects/settings.wav";
+    /**
+     * @brief sound when you start the game
+     * 
+     */
+    static const std::string _startGame = "asset/sound_effects/start_play.mp3";
     /**
      * @brief ground asset filepath
      * 

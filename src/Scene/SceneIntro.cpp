@@ -55,7 +55,7 @@ Scenes SceneIntro::run(Raylib &lib)
     while (!_enter) {
         if (!lib.gameLoop())
             return (Scenes::QUIT);
-        lib.displayMusic(core::_animMusic, _settings._musicVol);
+        lib.displayMusic(core::MAP_MUSIC.at(core::soundPath::ANIMATION), _settings._musicVol);
         int dir = 0;
         triggerInputActions(lib);
             for (auto &i : _objects) {

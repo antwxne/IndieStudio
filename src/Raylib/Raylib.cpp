@@ -34,6 +34,10 @@ Raylib::~Raylib()
         CloseAudioDevice();
     if (IsWindowReady())
         CloseWindow();
+    for (auto &it : _sound)
+        UnloadSound(it.second);
+    for (auto &it : _music)
+        UnloadMusicStream(it.second.first);
     freeResources();
 }
 
