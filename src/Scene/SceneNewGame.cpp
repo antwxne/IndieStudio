@@ -120,5 +120,4 @@ namespace newGame {
         _settings.bonuses.DamageUpBonus = _bonusButtons.at(2)->getPressed();
         return (Scenes::GAME);
     }
-
 }
