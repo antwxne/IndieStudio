@@ -23,19 +23,30 @@ We used the _raylib_ graphical library.
   </a>
 </p>
 
-## Previews
-![Splash screen](/.github/Readme_resources/wait_screen.png)
-
-- ### Main menu
-    ![Main menu image](/.github/Readme_resources/main_menu.png)
-- ### Settings
-    ![Settings image](/.github/Readme_resources/settings_menu.png)
-- ### In game
-    ![In game image](/.github/Readme_resources/in_game.png)
-- ### Pause menu
-    ![pause menu image](/.github/Readme_resources/pause_menu.png)
-- ### End menu
-    ![end menu image](/.github/Readme_resources/end_game.png)
+<details> 
+  <summary><h2>Previews</h2></summary>
+  <img src="/.github/Readme_resources/wait_screen.png">
+  <details>
+    <summary><h3>Main menu</h3></summary>
+  <img src="/.github/Readme_resources/main_menu.png">
+  </details>
+  <details>
+    <summary><h3>Settings</h3></summary>
+  <img src="/.github/Readme_resources/settings_menu.png">
+  </details>
+  <details>
+    <summary><h3>In Game</h3></summary>
+  <img src="/.github/Readme_resources/in_game.png">
+  </details>
+  <details>
+    <summary><h3>Pause Menu</h3></summary>
+  <img src="/.github/Readme_resources/pause_menu.png">
+  </details>
+  <details>
+    <summary><h3>End Menu</h3></summary>
+  <img src="/.github/Readme_resources/end_game.png">
+  </details>
+</details>
 
 ## Requirements
 ### Cmake >= 3.17
