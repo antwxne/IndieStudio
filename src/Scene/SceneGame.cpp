@@ -332,18 +332,9 @@ void SceneGame::updateObjects(Raylib &lib) noexcept
                 object = _objects.erase(object);
                 isSupr = true;
             }
-            else if (tank->getPosition() != tank->getPreviousPos() && _settings._playersSettings.size() <= 2) {
+            else if (tank->getPosition() != tank->getPreviousPos() && _settings._playersSettings.size() <= 2 && !_settings.bonuses.LifeUpBonus) {
                 auto newAngle = (static_cast<int>(tank->getRotationAngle()) + 180) % 360;
                 _objects.emplace_back(std::make_shared<Particles>(coords(tank->getPosition().first + (std::sin(M_PI *  newAngle / 180)), 0, tank->getPosition().third + std::cos(M_PI * newAngle / 180)), std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(128,128,128), RGB()), 10, coords(0, 0.05f, 0), 100.0f));
-            }
-            std::cout << "[SCENE GAME] is shoting:" << tank->getTypeField().isShooting << "\n";
-            if (tank->getTypeField().isShooting && _settings._playersSettings.size() <= 2) {
-                std::cout << "je print" << "\n";
-                coords a = (coords(tank->getPosition().first + (std::sin(M_PI * tank->getCannon().getRotationAngle() / 180)), 0, tank->getPosition().third + std::cos(M_PI * tank->getCannon().getRotationAngle() / 180)));
-                std::cout << "a.first" << a.first << "\n";
-                std::cout << "a.second" << a.second << "\n";
-                std::cout << "a.third" << a.third << "\n";
-                _objects.emplace_back(std::make_shared<Particles>(a, std::make_pair(1, 1), 1.0f, 0.05f, std::make_pair(RGB(128,128,128), RGB()), 10, coords(0, 0.05f, 0), 100.0f));
             }
         }
         if ((*object)->getTypeField().isParticule == true) {

@@ -62,6 +62,8 @@ class Animator : public MovableObject
          */
         std::string getAnimPath() const noexcept;
 
+        void setAnimPath(const std::string &animPath) noexcept;
+
     private:
         /**
          * @brief n frames

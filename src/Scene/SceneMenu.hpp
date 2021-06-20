@@ -78,7 +78,7 @@ namespace menu {
     static const std::string _bgPath = "asset/background_asset/Background_01.png";
     /**
      * @brief associate button to scene
-     * 
+     * ke
      */
     static const std::unordered_map<menu_e, Scenes> _returnScene {
         {menu_e::START,         Scenes::NEW_GAME},
@@ -89,53 +89,54 @@ namespace menu {
     /**
      * @brief scene menu class
      * @class SceneMenu
-     * 
+     *
      */
     class SceneMenu : public UiScene
     {
         public:
             /**
              * @brief Construct a new Scene Menu object
-             * 
-             * @param settings 
+             *
+             * @param settings
              */
             SceneMenu(Setting &settings);
             /**
              * @brief Destroy the Scene Menu object
-             * 
+             *
              */
             ~SceneMenu();
             /**
              * @brief manage event in scene
-             * 
-             * @param lib 
+             *
+             * @param lib
              */
             void eventScene(Raylib &lib) final;
             /**
              * @brief end of the scene
-             * 
-             * @param lib 
-             * @return Scenes 
+             *
+             * @param lib
+             * @return Scenes
              */
             Scenes endScene(Raylib &lib) noexcept final;
             /**
              * @brief try to open files
-             * 
-             * @return true 
-             * @return false 
+             *
+             * @return true
+             * @return false
              */
             bool canOpen();
         private:
             /**
              * @brief bool to move the animation
-             * 
+             *
              */
             bool _isDancing;
             /**
              * @brief is lock
-             * 
+             *
              */
             bool _isLock;
+            bool isBack;
     };
 }
 

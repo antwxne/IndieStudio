@@ -15,7 +15,7 @@
 
 namespace menu {
 
-    SceneMenu::SceneMenu(Setting &settings) : UiScene(settings), _isDancing(false), _isLock(false)
+    SceneMenu::SceneMenu(Setting &settings) : UiScene(settings), _isDancing(false), _isLock(false), isBack(false)
     {
         setInputFunction(Raylib::PRESSED, [&]() {
             _pressed = true;
@@ -71,9 +71,19 @@ namespace menu {
                     continue;
                 }
                 auto anim = std::dynamic_pointer_cast<Animator>(*it);
-                anim->addFrameCount(1);
+                if (isBack) {
+                    anim->addFrameCount(-1);
+                    if (anim->getFrameActual() == 0) {
+                        anim->setAnimPath(assetsPath.at(1));
+                        _isDancing = false;
+                        _isLock = false;
+                        isBack = false;
+                    }
+                }
+                else
+                    anim->addFrameCount(1);
                 if (anim->getFrameActual() >= lib.getFrameMax(assetsPath.at(1)))
-                    anim->setFrameCount(0);
+                    isBack = true;
             }
             it++;
         }

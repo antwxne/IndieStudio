@@ -23,6 +23,11 @@ Animator::~Animator()
 {
 }
 
+void Animator::setAnimPath(const std::string &animPath) noexcept
+{
+    _animePath = animPath;
+}
+
 void Animator::setFrameCount(const int frame) noexcept
 {
     _frameCount = frame;
