@@ -49,9 +49,9 @@ namespace menu {
 
     bool SceneMenu::canOpen()
     {
-        std::ifstream file("tank.txt");
-        std::ifstream map("destructibleList.txt");
-        std::ifstream ia("tankAi.txt");
+        std::ifstream file(".tank.txt");
+        std::ifstream map(".destructibleList.txt");
+        std::ifstream ia(".tankAi.txt");
 
         if(file.good() && map.good() && ia.good())
             return true;

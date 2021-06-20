@@ -89,8 +89,8 @@ void TankAI::writeIATankList(std::vector<TankAI> _tankAiList) noexcept
 {
     unsigned long size = _tankAiList.size();
     Tank::tank_t dest;
-    std::remove("tankAi.txt");
-    std::ofstream file("tankAi.txt",
+    std::remove(".tankAi.txt");
+    std::ofstream file(".tankAi.txt",
         std::ios::out | std::ofstream::binary | std::ofstream::trunc);
     file.write(reinterpret_cast<const char *>(&size), sizeof(unsigned long));
     for (auto &i : _tankAiList) {
@@ -105,9 +105,7 @@ std::vector<TankAI> TankAI::readAiTankList() noexcept
     std::vector<TankAI> tmp;
     unsigned long size = 0;
     Tank::tank_t dest;
-    std::ifstream file("tankAi.txt", std::ios::in | std::ifstream::binary);
-    if (file.is_open() == false)
-        throw std::runtime_error("Can not open");
+    std::ifstream file(".tankAi.txt", std::ios::in | std::ifstream::binary);
     file.read(reinterpret_cast<char *>(&size), sizeof(unsigned long));
     for (int i = 0; i != size; i++) {
         file.read(reinterpret_cast<char *>(&dest), sizeof(Tank::tank_t));
