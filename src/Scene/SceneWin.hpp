@@ -9,7 +9,11 @@
 #define SCENEWIN_HPP_
 
 #include "UiScene.hpp"
-
+/**
+ * @brief win's class
+ * @namespace win
+ * 
+ */
 namespace win {
     /**
      * @brief text in button

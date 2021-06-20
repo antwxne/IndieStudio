@@ -21,6 +21,11 @@
 #include "SceneWin.hpp"
 #include "SceneGame.hpp"
 
+/**
+ * @brief contains core's class
+ * @namespace core
+ * 
+ */
 namespace core {
 
     enum soundPath {

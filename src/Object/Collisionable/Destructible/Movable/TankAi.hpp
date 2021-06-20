@@ -13,7 +13,7 @@
 #define INDIESTUDIO_TANKAI_HPP
 
 /**
- * @class TankAi
+ * @class TankAI
  *
  * @brief class for AI
  */

@@ -9,14 +9,24 @@
 #define RAYLIBERROR_HPP_
 
 #include "Error.hpp"
-
+/**
+ * @brief Raylib exception class
+ * @class RaylibError
+ * 
+ */
 class RaylibError : public Error {
     public:
+        /**
+         * @brief Construct a new Raylib Error object
+         * 
+         * @param desc 
+         */
         RaylibError(const std::string &desc) noexcept;
+        /**
+         * @brief Destroy the Raylib Error object
+         * 
+         */
         ~RaylibError() = default;
-
-    protected:
-    private:
 };
 
 #endif /* !RAYLIBERROR_HPP_ */

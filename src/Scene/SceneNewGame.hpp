@@ -12,6 +12,11 @@
 #include "UiScene.hpp"
 #include "BoolButton.hpp"
 
+/**
+ * @brief new game's class
+ * @namespace newGame
+ * 
+ */
 namespace newGame {
     /**
      * @brief text in button in text
