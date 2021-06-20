@@ -9,7 +9,10 @@
 #define SCENEPAUSE_HPP_
 
 #include "UiScene.hpp"
-
+/**
+ * @brief pause
+ * @namespace pause
+ */
 namespace pause {
     /**
      * @brief text in button

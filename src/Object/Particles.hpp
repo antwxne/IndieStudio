@@ -22,7 +22,7 @@
 class Particles: public AObject {
 public:
     /**
-     * @struct particle
+     * @struct particule
      *
      * @brief infos needed to draw a particle
      * @var a acceleration of the particle (x, y, z)

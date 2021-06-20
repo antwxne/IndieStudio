@@ -55,7 +55,7 @@ void CollisionableObject::setRotationAxis(const coords &axis) noexcept
     _rotationAxis = axis;
 }
 
-collisionableSound CollisionableObject::hit(std::shared_ptr<CollisionableObject> obj) noexcept
+collisionableSound_e CollisionableObject::hit(std::shared_ptr<CollisionableObject> obj) noexcept
 {
 
     if (this->_typeField.isTank && obj->_typeField.isCollisionable && !obj->_typeField.isPowerUps) {

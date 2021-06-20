@@ -11,7 +11,7 @@
 #define INDIESTUDIO_MOVABLEOBJECT_HPP
 
 /**
- * @class Movable Object
+ * @class MovableObject
  *
  * @brief base class for object who can move
  */

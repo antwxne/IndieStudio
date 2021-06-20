@@ -11,6 +11,11 @@
 #include <array>
 #include "Scene/UiScene.hpp"
 
+/**
+ * @brief menu's class
+ * @namespace menu
+ * 
+ */
 namespace menu {
     /**
      * @brief paths to animated object

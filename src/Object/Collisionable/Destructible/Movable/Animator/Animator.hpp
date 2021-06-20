@@ -9,7 +9,11 @@
 #define ANIMATOR_HPP_
 
 #include "Object/Collisionable/Destructible/Movable/MovableObject.hpp"
-
+/**
+ * @brief Class for animated Objects
+ * @class Animator
+ * 
+ */
 class Animator : public MovableObject
 {
     public:
