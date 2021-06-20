@@ -126,7 +126,7 @@ void SceneGame::initSaveTanks()
         aitk->setSpeed(iaTank.getSpeed());
         aitk->setLife(iaTank.getLife());
         aitk->setScore(iaTank.getScore());
-        _settings._playersSettings.emplace_back(PLAYER, aitk->getName(),
+        _settings._playersSettings.emplace_back(IA, aitk->getName(),
             aitk->getScore());
         initTankUi(tankCounter, std::dynamic_pointer_cast<Tank>(_objects.back()), _settings._playersSettings[tankCounter]);
         tankCounter++;

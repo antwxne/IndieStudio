@@ -16,6 +16,10 @@ int main()
         core.start();
     } catch (const Error &error) {
         std::cerr << error.what() << ", " << error.where() << std::endl;
+    } catch (const std::runtime_error &error) {
+        std::cout << "runtime_error : " << error.what() << std::endl;
+    } catch (const std::exception &error) {
+        std::cout << "exception : " << error.what() << std::endl;
     } catch (...) {
         std::cerr << "Unknown error catch." << std::endl;
         return 84;
