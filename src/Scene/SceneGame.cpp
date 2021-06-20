@@ -64,7 +64,6 @@ void SceneGame::initTanks(const tanksCoords &tanksCoords)
     int tankCounter = 0;
     std::size_t setOfKeyInputs = 0;
 
-    std::cout << "tankCoords.first" << tanksCoords[0].first << std::endl;
     for (auto &playerSettings : _settings._playersSettings) {
         if (playerSettings.type == NONE)
             continue;
