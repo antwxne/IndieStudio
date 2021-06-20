@@ -35,9 +35,9 @@ namespace win {
         }
         for (std::size_t i = 0; i != _menuPos.size(); ++i)
             _objects.emplace_back(std::make_shared<button::Button>(_menuPos.at(i), button::_buttonSize, button::_buttonNavigPath, _menuText[i], 20, 2, std::make_pair(RGB(), RGB(0, 0, 0))));
-        std::sort(_settings._playersSettings.begin(), _settings._playersSettings.begin(), [](auto &player, auto &player2){return player.score < player2.score;});
         if (_settings._playersSettings.begin()->name != winner->name)
             std::iter_swap(_settings._playersSettings.begin(), std::find_if(_settings._playersSettings.begin(), _settings._playersSettings.end(), [winner](auto &it){return winner->name == it.name;}));
+        std::sort(_settings._playersSettings.begin(), _settings._playersSettings.begin(), [](auto &player, auto &player2){return player.score < player2.score;});
         for (auto it = 0; it != _settings._playersSettings.size(); ++it)
             _objects.emplace_back(std::make_shared<TexteUI>(coords(960 - (button::_buttonSize.first / 2), 500 + (100 * it)), button::_buttonSize, _settings._playersSettings[it].name + ": " + std::to_string(_settings._playersSettings[it].score) + "pts", 30, 4, std::make_pair(RGB(0, 0, 0), RGB(0, 0, 0))));
     }
