@@ -79,7 +79,7 @@ namespace core {
      * 
      */
     static const std::unordered_map<Scenes, std::function<std::unique_ptr<IScene>(Setting &settings)>> _enumToConstructor {
-        {Scenes::SPLASHSCREEN,      [](Setting &settings){return std::make_unique<newGame::SceneNewGame>(settings);}},
+        {Scenes::SPLASHSCREEN,      [](Setting &settings){return std::make_unique<SceneSplash>(settings);}},
         {Scenes::INTRODUCTION,      [](Setting &settings){return std::make_unique<SceneIntro>(settings);}},
         {Scenes::NEW_GAME,          [](Setting &settings){return std::make_unique<newGame::SceneNewGame>(settings);}},
         {Scenes::MENU,              [](Setting &settings){return std::make_unique<menu::SceneMenu>(settings);}},
