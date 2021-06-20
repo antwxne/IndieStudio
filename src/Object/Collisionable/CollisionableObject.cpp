@@ -61,7 +61,7 @@ collisionableSound_e CollisionableObject::hit(std::shared_ptr<CollisionableObjec
     if (this->_typeField.isTank && obj->_typeField.isCollisionable && !obj->_typeField.isPowerUps) {
         auto tmp = dynamic_cast<Tank *>(this);
         tmp->setPosition(tmp->getPreviousPos());
-        return TANK_COLLISION;
+        return NONE_SOUND;
     }
     if (this->_typeField.isBullet && obj->_typeField.isDestructibleWall) {
         auto bullet = dynamic_cast<Bullet *>(this);
