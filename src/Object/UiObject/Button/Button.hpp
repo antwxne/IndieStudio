@@ -9,7 +9,11 @@
 #define BUTTON_HPP_
 
 #include "UiObject.hpp"
-
+/**
+ * @brief contains all button's class
+ * @namespace button
+ * 
+ */
 namespace button {
     /**
      * @brief different state of button

@@ -10,13 +10,12 @@
 #ifndef INDIESTUDIO_COLLISIONABLEOBJECT_HPP
 #define INDIESTUDIO_COLLISIONABLEOBJECT_HPP
 
-/**
- * @class Collisionable Object
- *
- * @brief base class for objects with collision
- */
 
-enum collisionableSound {
+/**
+ * @brief name for collision's sounds
+ * @enum collisionableSound
+ */
+enum collisionableSound_e {
     NONE_SOUND,
     TRUCK_EXPLOSION,
     TANK_COLLISION,
@@ -25,6 +24,11 @@ enum collisionableSound {
     TANK_EXPLOSION,
     TANK_HIT_UP
 };
+/**
+ * @class CollisionableObject
+ *
+ * @brief base class for objects with collision
+ */
 class CollisionableObject: public AObject {
 public:
     /**
@@ -53,7 +57,7 @@ public:
      * @return true
      * @return false
      */
-    collisionableSound hit(std::shared_ptr<CollisionableObject> obj) noexcept;
+    collisionableSound_e hit(std::shared_ptr<CollisionableObject> obj) noexcept;
     /**
      * @brief Get the Texture object
      *

@@ -7,11 +7,12 @@
 
 #include "SceneWin.hpp"
 #include "Setting.hpp"
+#include "Core.hpp"
 #include "UiObject/UiGame/TexteUi.hpp"
 
 namespace win {
 
-    SceneWin::SceneWin(Setting &settings) : UiScene(settings)
+    SceneWin::SceneWin(Setting &settings) : UiScene(settings), _isAI(false)
     {
         setInputFunction(Raylib::RELEASED, [&]() {
             _pressed = false;
@@ -28,13 +29,15 @@ namespace win {
         auto winner = std::find_if(settings._playersSettings.begin(), settings._playersSettings.end(), [](auto &player){return (!player.isLooser);});
         if (winner->type == PLAYER)
             _objects.emplace_back(std::make_shared<button::Button>(coords(960 - (button::_buttonSize.first * 5 / 2), 200), button::_buttonSize, button::_buttonWinnerPath, "Player " + winner->name + " Wins !", 15, 5, std::make_pair(RGB(), RGB(89, 102, 67))));
-        else
+        else {
             _objects.emplace_back(std::make_shared<button::Button>(coords(960 - (button::_buttonSize.first * 5 / 2), 200), button::_buttonSize, button::_buttonWinnerPath, "BOT " + winner->name + " Wins !", 15, 5, std::make_pair(RGB(), RGB(133, 6, 6))));
+            _isAI = true;
+        }
         for (std::size_t i = 0; i != _menuPos.size(); ++i)
             _objects.emplace_back(std::make_shared<button::Button>(_menuPos.at(i), button::_buttonSize, button::_buttonNavigPath, _menuText[i], 20, 2, std::make_pair(RGB(), RGB(0, 0, 0))));
-        std::sort(_settings._playersSettings.begin(), _settings._playersSettings.begin(), [](auto &player, auto &player2){return player.score < player2.score;});
         if (_settings._playersSettings.begin()->name != winner->name)
             std::iter_swap(_settings._playersSettings.begin(), std::find_if(_settings._playersSettings.begin(), _settings._playersSettings.end(), [winner](auto &it){return winner->name == it.name;}));
+        std::sort(_settings._playersSettings.begin(), _settings._playersSettings.begin(), [](auto &player, auto &player2){return player.score < player2.score;});
         for (auto it = 0; it != _settings._playersSettings.size(); ++it)
             _objects.emplace_back(std::make_shared<TexteUI>(coords(960 - (button::_buttonSize.first / 2), 500 + (100 * it)), button::_buttonSize, _settings._playersSettings[it].name + ": " + std::to_string(_settings._playersSettings[it].score) + "pts", 30, 4, std::make_pair(RGB(0, 0, 0), RGB(0, 0, 0))));
     }
@@ -45,7 +48,7 @@ namespace win {
 
     void SceneWin::eventScene(Raylib &lib)
     {
-        // lib.displayMusic();
+        lib.displayMusic(core::MAP_MUSIC.at(_isAI ? core::soundPath::DEFEAT : core::soundPath::WIN), _settings._musicVol);
     }
 
     Scenes SceneWin::endScene(Raylib &lib) noexcept

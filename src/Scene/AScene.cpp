@@ -72,7 +72,7 @@ void AScene::fadeBlack(Raylib &lib, bool out)
         color.first.a += out ? -10 : 10;
         _objects.back()->setColor(color);
         lib.printObjects(_objects);
-        lib.displayMusic(core::_menuMusic, _settings._musicVol);
+        lib.displayMusic(core::MAP_MUSIC.at(core::soundPath::MENU), _settings._musicVol);
     }
     _objects.pop_back();
 }

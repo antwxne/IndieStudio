@@ -13,7 +13,7 @@
 #define INDIESTUDIO_TANKAI_HPP
 
 /**
- * @class TankAi
+ * @class TankAI
  *
  * @brief class for AI
  */
@@ -62,7 +62,11 @@ public:
      */
     void fire() override;
 
-private:
+    static void writeIATankList(std::vector<TankAI> _tankAiList) noexcept;
+
+    static std::vector<TankAI> readAiTankList() noexcept;
+
+    private:
     /**
      * @brief cacl distance between 2 coords
      *

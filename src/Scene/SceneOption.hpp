@@ -13,6 +13,11 @@
 #include "UiObject/Button/InputBox/InputBox.hpp"
 #include "UiScene.hpp"
 
+/**
+ * @brief option's class
+ * @namespace option 
+ * 
+ */
 namespace option {
     /**
      * @brief text in return button

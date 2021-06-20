@@ -488,13 +488,16 @@ private:
         KEY_N,
     };
 };
-
-static const std::unordered_map<collisionableSound, std::string> MAP_SONG = {
+/**
+ * @brief map for collisionable sounds
+ * 
+ */
+static const std::unordered_map<collisionableSound_e, std::string> MAP_SONG = {
     {NONE_SOUND, ""},
     {TRUCK_EXPLOSION, "asset/sound_effects/truck_explosion.wav"},
-    {TANK_COLLISION, ""},
-    {BULLET_HIT_TANK, ""},
-    {BULLET_COLLISION, ""},
+    {TANK_COLLISION, "asset/sound_effects/tank_collide.wav"},
+    {BULLET_HIT_TANK, "asset/sound_effects/bullet_hit.wav"},
+    {BULLET_COLLISION, "asset/sound_effects/bullet_collide.wav"},
     {TANK_EXPLOSION, "asset/sound_effects/tank_explosion.wav"},
     {TANK_HIT_UP, "asset/sound_effects/power_up.wav"}
 };

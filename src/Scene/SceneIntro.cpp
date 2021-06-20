@@ -36,7 +36,7 @@ SceneIntro::SceneIntro(Setting &settings) : AScene(settings), _enter(false)
     _objects.emplace_back(std::make_shared<Tank>("tankLeft", coords(8,0, -7), coords(10, 10, 10), 8, std::make_pair(Tank::bodyTexture, Tank::bodyModel), std::make_pair(Tank::darkGreen, Tank::cannonModel)));
     std::dynamic_pointer_cast<Tank>(_objects.back())->rotateCannon(270);
 
-    _objects.emplace_back(std::make_shared<TexteUI>(coords(((settings._widthScreen / 2) - 50), ((settings._heightScreen / 4))), std::make_pair(100, 100), "Our Tank", 20, 1, std::make_pair(RGB(221, 131, 68), RGB())));
+    _objects.emplace_back(std::make_shared<TexteUI>(coords(((settings._widthScreen / 2) - 50), ((settings._heightScreen / 4))), std::make_pair(100, 100), "Doom Tank", 20, 1, std::make_pair(RGB(221, 131, 68), RGB())));
     _objects.emplace_back(std::make_shared<TexteUI>(coords(((settings._widthScreen / 2) - 110), ((settings._heightScreen / 1.1))), std::make_pair(50, 50), "press space to start", 20, 1, std::make_pair(RGB(177, 129, 78), RGB())));
     setInputFunction(Raylib::SPACE, [&]() {
         _enter = !_enter;
@@ -53,7 +53,9 @@ Scenes SceneIntro::run(Raylib &lib)
     std::vector<Direction> direction {NEUTRAL, NEUTRAL};
 
     while (!_enter) {
-        lib.displayMusic(core::_animMusic, _settings._musicVol);
+        if (!lib.gameLoop())
+            return (Scenes::QUIT);
+        lib.displayMusic(core::MAP_MUSIC.at(core::soundPath::ANIMATION), _settings._musicVol);
         int dir = 0;
         triggerInputActions(lib);
             for (auto &i : _objects) {

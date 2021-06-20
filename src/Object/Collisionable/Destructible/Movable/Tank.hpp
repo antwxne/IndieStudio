@@ -111,7 +111,7 @@ public:
      * 
      * @return std::size_t const& 
      */
-    std::size_t const &getScore() const noexcept;
+    std::size_t &getScore() noexcept;
 
     /**
      * @brief Set the Score object

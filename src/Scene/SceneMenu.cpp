@@ -49,19 +49,18 @@ namespace menu {
 
     bool SceneMenu::canOpen()
     {
-        std::ifstream file("tank.txt");
-        std::ifstream map("destructibleList.txt");
-        if(file.good() && map.good())
+        std::ifstream file(".tank.txt");
+        std::ifstream map(".destructibleList.txt");
+        std::ifstream ia(".tankAi.txt");
+
+        if(file.good() && map.good() && ia.good())
             return true;
         return false;
     }
 
     void SceneMenu::eventScene(Raylib &lib)
     {
-        lib.displayMusic(core::_menuMusic, _settings._musicVol);
-        if (lib.isMousePressed())
-            lib.displaySound(core::_mouseClick, _settings._soundVol);
-
+        lib.displayMusic(core::MAP_MUSIC.at(core::soundPath::MENU), _settings._musicVol);
         for (auto it = _objects.begin(); it != _objects.end();) {
             if (it->get()->getTypeField().isAnimator) {
                 if (_isDancing && !_isLock) {

@@ -55,13 +55,13 @@ void CollisionableObject::setRotationAxis(const coords &axis) noexcept
     _rotationAxis = axis;
 }
 
-collisionableSound CollisionableObject::hit(std::shared_ptr<CollisionableObject> obj) noexcept
+collisionableSound_e CollisionableObject::hit(std::shared_ptr<CollisionableObject> obj) noexcept
 {
 
     if (this->_typeField.isTank && obj->_typeField.isCollisionable && !obj->_typeField.isPowerUps) {
         auto tmp = dynamic_cast<Tank *>(this);
         tmp->setPosition(tmp->getPreviousPos());
-        return TANK_COLLISION;
+        return NONE_SOUND;
     }
     if (this->_typeField.isBullet && obj->_typeField.isDestructibleWall) {
         auto bullet = dynamic_cast<Bullet *>(this);
@@ -83,7 +83,7 @@ collisionableSound CollisionableObject::hit(std::shared_ptr<CollisionableObject>
             return TANK_EXPLOSION;
         return BULLET_HIT_TANK;
     }
-    if (this->_typeField.isBullet && (!obj->getTypeField().isTank || !this->_typeField.isShooting) && !this->_typeField.isPowerUps) {
+    if (this->_typeField.isBullet && !obj->getTypeField().isPowerUps && (!obj->getTypeField().isTank || !this->_typeField.isShooting) && !this->_typeField.isPowerUps) {
         auto bullet = dynamic_cast<Bullet *>(this);
         bullet->bounce();
         bullet->setLife(bullet->getLife() - 1);

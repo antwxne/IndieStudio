@@ -80,6 +80,9 @@ class SceneGame : public AScene {
          * 
          */
         void saveAll() noexcept;
+        
+        void timeIncrementScore(std::shared_ptr<Tank> &tank);
+
         /**
          * @brief update objects once per frame
          * 
@@ -90,6 +93,9 @@ class SceneGame : public AScene {
          * @brief Create a Rect object
          * 
          */
+
+        void updateScore(std::string const &name, std::size_t &scoreTank) noexcept;
+
         void createRect() noexcept;
         /**
          * @brief init save
@@ -144,14 +150,14 @@ class SceneGame : public AScene {
      * 
      */
     const tanksCoords _oneTankPos = {
-        {std::make_pair(-8.0f, -5.0f)}
+        {std::make_pair(0.0f, 0.0f)}
     };
     /**
      * @brief default position for 2 tanks
      * 
      */
     const tanksCoords _twoTanksPos = {
-        {std::make_pair(-8.0f, -5.0f)}, {std::make_pair(8.0f, -5.0f)}
+        {std::make_pair(-8.0f, -5.0f)}, {std::make_pair(8.0f, 5.0f)}
     };
     /**
      * @brief default position for 3 tanks

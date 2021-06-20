@@ -16,3 +16,4 @@ Makfile
 Documentation/html
 Documentation/latex
 *.pdf
+*.txt

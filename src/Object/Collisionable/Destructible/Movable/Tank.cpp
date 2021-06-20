@@ -62,7 +62,7 @@ std::string const &Tank::getName() const noexcept
     return _name;
 }
 
-std::size_t const &Tank::getScore() const noexcept
+std::size_t &Tank::getScore() noexcept
 {
     return _score;
 }
@@ -93,8 +93,8 @@ const Tank::tank_t &Tank::getTankStructSave() noexcept
 {
     _save.x = _pos.first;
     _save.y = _pos.third;
-    _save.life = getLife();
-    _save.score = getScore();
+    _save.life = _life;
+    _save.score = _score;
     _save.z = _pos.second;
     _save.speed = _speed;
     std::strcpy(_save.name, _name.c_str());
@@ -106,8 +106,8 @@ void Tank::writeTankList(std::vector<Tank> _tankList) noexcept
 {
     unsigned long size = _tankList.size();
     Tank::tank_t dest;
-    std::remove("tank.txt");
-    std::ofstream file("tank.txt",
+    std::remove(".tank.txt");
+    std::ofstream file(".tank.txt",
         std::ios::out | std::ofstream::binary | std::ofstream::trunc);
     file.write(reinterpret_cast<const char *>(&size), sizeof(unsigned long));
     for (auto &i : _tankList) {
@@ -122,10 +122,8 @@ std::vector<Tank> Tank::readTank()
     std::vector<Tank> tmp;
     unsigned long size = 0;
     Tank::tank_t dest;
-    std::ifstream file("tank.txt",
+    std::ifstream file(".tank.txt",
         std::ios::in | std::ifstream::binary);
-    if (file.is_open() == false)
-        throw std::runtime_error("Can not open");
     file.read(reinterpret_cast<char *>(&size), sizeof(unsigned long));
     for (int i = 0; i != size; i++) {
         file.read(reinterpret_cast<char *>(&dest),

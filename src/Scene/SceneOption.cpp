@@ -60,7 +60,7 @@ namespace option {
     {
         auto in = 0;
 
-        lib.displayMusic(core::_menuMusic, _settings._musicVol);
+        lib.displayMusic(core::MAP_MUSIC.at(core::soundPath::MENU), _settings._musicVol);
         in = lib.getKeyPressed();
         for (auto &it : _buttons) {
             if (it->isInside(_mousePos)) {

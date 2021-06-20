@@ -12,7 +12,7 @@
 #define INDIESTUDIO_DESTRUCTIBLEWALL_HPP
 
 /**
- * @class Destructible Wall
+ * @class DestructibleWall
  *
  * @brief Wall collisionable and destructible
  */

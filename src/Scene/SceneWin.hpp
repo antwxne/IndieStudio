@@ -9,7 +9,11 @@
 #define SCENEWIN_HPP_
 
 #include "UiScene.hpp"
-
+/**
+ * @brief win's class
+ * @namespace win
+ * 
+ */
 namespace win {
     /**
      * @brief text in button
@@ -81,6 +85,8 @@ namespace win {
              * @return Scenes 
              */
             Scenes endScene(Raylib &lib) noexcept final;
+        private:
+            bool _isAI;
     };
 
 }

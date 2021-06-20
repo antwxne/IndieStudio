@@ -7,6 +7,7 @@
 
 #include <cmath>
 #include <numeric>
+#include <fstream>
 
 #include "TankAi.hpp"
 #include "Raylib/Raylib.hpp"
@@ -82,4 +83,40 @@ void TankAI::rotate(float angle) noexcept
 void TankAI::fire()
 {
     _cannon.fire();
+}
+
+void TankAI::writeIATankList(std::vector<TankAI> _tankAiList) noexcept
+{
+    unsigned long size = _tankAiList.size();
+    Tank::tank_t dest;
+    std::remove(".tankAi.txt");
+    std::ofstream file(".tankAi.txt",
+        std::ios::out | std::ofstream::binary | std::ofstream::trunc);
+    file.write(reinterpret_cast<const char *>(&size), sizeof(unsigned long));
+    for (auto &i : _tankAiList) {
+        dest = i.getTankStructSave();
+        file.write(reinterpret_cast<const char *>(&dest),
+            sizeof(Tank::tank_t));
+    }
+}
+
+std::vector<TankAI> TankAI::readAiTankList() noexcept
+{
+    std::vector<TankAI> tmp;
+    unsigned long size = 0;
+    Tank::tank_t dest;
+    std::ifstream file(".tankAi.txt", std::ios::in | std::ifstream::binary);
+    file.read(reinterpret_cast<char *>(&size), sizeof(unsigned long));
+    for (int i = 0; i != size; i++) {
+        file.read(reinterpret_cast<char *>(&dest), sizeof(Tank::tank_t));
+        tmp.emplace_back(dest.name,
+            coords(static_cast<float>(dest.x), static_cast<float>(dest.z),
+                static_cast<float>(dest.y)), coords(10, 0, 10), 8,
+            std::make_pair(Tank::bodyTexture, Tank::bodyModel),
+            std::make_pair(Tank::darkGreen, Tank::cannonModel));
+        tmp.back().setScore(dest.score);
+        tmp.back().setLife(dest.life);
+        tmp.back().setSpeed(dest.speed);
+    }
+    return tmp;
 }

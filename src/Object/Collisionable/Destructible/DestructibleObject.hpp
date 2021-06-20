@@ -12,7 +12,7 @@
 
 
 /**
- * @class Destructible object
+ * @class DestructibleObject
  *
  * @brief Base class for destructible object
  */
@@ -57,6 +57,11 @@ public:
      * @return false
      */
     bool isDestroyed() const;
+    /**
+     * @brief to save destructible objects
+     * @struct destructible_t
+     * 
+     */
     struct destructible_t {
         int x;
         int y;
