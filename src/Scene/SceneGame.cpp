@@ -43,9 +43,7 @@ SceneGame::SceneGame(Setting &settings) : AScene(settings), _isPaused(false),
     _objects.emplace_back(std::make_shared<Ground>(
         coords(0, 0, 0), std::make_pair(40, 22), std::pair<std::string, std::string>(core::groundTexture, core::groundModel)));
     if (_settings.load == false) {
-        std::cout << "IIICICICICICI\n";
         initTanks(tanksCoords);
-        std::cout << "BZIARRRE\n";
     }
     else {
         initSaveTanks();
