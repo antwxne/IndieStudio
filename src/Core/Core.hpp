@@ -110,7 +110,7 @@ namespace core {
              * @param title 
              * @param fps 
              */
-            Core(int screenWidth = 1920, int screenHeight = 1080, std::string const &title = "default", const std::size_t &fps = 60);
+            Core(int screenWidth = 1920, int screenHeight = 1080, std::string const &title = "Doom Tank", const std::size_t &fps = 60);
             /**
              * @brief Destroy the Core object
              * 
