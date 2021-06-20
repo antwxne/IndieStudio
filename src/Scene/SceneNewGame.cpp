@@ -6,6 +6,7 @@
 */
 
 #include <memory>
+#include <algorithm>
 #include "UiObject/Button/Button.hpp"
 #include "InputBox.hpp"
 #include "TexteUi.hpp"
