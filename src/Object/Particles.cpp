@@ -25,7 +25,7 @@ Particles::Particles(const coords &pos, const std::pair<float, int> &size, float
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> alpha(50, 250);
     std::uniform_real_distribution<float> acc(0.0f, 0.005f);
-    particule tmp {.position = pos, .color = colors.first, .radius = (static_cast<float>(size.first)), .scale = scale};
+    particule tmp {{0,0,0}, {0,0,0}, pos, colors.first, static_cast<float>(size.first), scale};
     float tmpRand;
 
     for (std::size_t i = 0; i < nParticles; ++i) {
