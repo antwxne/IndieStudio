@@ -485,7 +485,7 @@ void Raylib::drawAnimation(const std::string &modelPath,
 
     UpdateModelAnimation(model->second, anim->second[0], frameCount);
     DrawModelEx(model->second, {pos.first, pos.second, pos.third},
-        (Vector3){1.0f, 0.0f, 0.0f}, -180.0f, (Vector3){scale, scale, scale},
+        {1.0f, 0.0f, 0.0f}, -180.0f, {scale, scale, scale},
         WHITE);
 }
 
@@ -549,11 +549,11 @@ void Raylib::findCollision(std::shared_ptr<CollisionableObject> obj,
     float maxCurrent =
         tmpBoundCurrent.max.z > tmpBoundCurrent.max.x ? tmpBoundCurrent.max.z :
             tmpBoundCurrent.max.x;
-    BoundingBox boundCurrent = (BoundingBox){
-        (Vector3){positionCurrent.first - (maxCurrent * currentScale),
+    BoundingBox boundCurrent = {
+        {positionCurrent.first - (maxCurrent * currentScale),
             positionCurrent.second - (tmpBoundCurrent.min.y),
             positionCurrent.third - (maxCurrent * currentScale)},
-        (Vector3){positionCurrent.first + (maxCurrent * currentScale),
+        {positionCurrent.first + (maxCurrent * currentScale),
             positionCurrent.second + (tmpBoundCurrent.max.y),
             positionCurrent.third + (maxCurrent * currentScale)}};
 
@@ -569,7 +569,7 @@ void Raylib::findCollision(std::shared_ptr<CollisionableObject> obj,
             float otherRotaton = std::abs(it->getRotationAngle());
             auto tmpBoundOther = GetMeshBoundingBox(
                 toFindOther->second.meshes[0]);
-            BoundingBox boundOther = (BoundingBox){(Vector3){
+            BoundingBox boundOther = {{
                 positionOther.first -
                     (otherRotaton <= 110 && otherRotaton >= 70 ||
                         otherRotaton <= 290 && otherRotaton >= 250 ?
@@ -579,7 +579,7 @@ void Raylib::findCollision(std::shared_ptr<CollisionableObject> obj,
                     (otherRotaton <= 110 && otherRotaton >= 70 ||
                         otherRotaton <= 290 && otherRotaton >= 250 ?
                         tmpBoundOther.max.x : tmpBoundOther.max.z) *
-                        scaleOther}, (Vector3){positionOther.first +
+                        scaleOther}, {positionOther.first +
                 (otherRotaton <= 110 && otherRotaton >= 70 ||
                     otherRotaton <= 290 && otherRotaton >= 250 ?
                     tmpBoundOther.max.z : tmpBoundOther.max.x) * scaleOther,
@@ -607,19 +607,19 @@ bool Raylib::collabsWall(std::pair<int, int> firstItem, coords firstItemSize,
     std::pair<int, int> scdItem, coords scdItemSize
 )
 {
-    if (CheckCollisionBoxes((BoundingBox){(Vector3){
+    if (CheckCollisionBoxes({{
         static_cast<float>(firstItem.first) -
             static_cast<float>(firstItemSize.first) / 2,
         0 - firstItemSize.second / 2, static_cast<float>(firstItem.second) -
-            static_cast<float>(firstItemSize.third) / 2}, (Vector3){
+            static_cast<float>(firstItemSize.third) / 2}, {
         static_cast<float>(firstItem.first) +
             static_cast<float>(firstItemSize.first) / 2,
         0 + firstItemSize.second / 2, static_cast<float>(firstItem.second) +
-            static_cast<float>(firstItemSize.third) / 2}}, (BoundingBox){
-        (Vector3){static_cast<float>(scdItem.first) -
+            static_cast<float>(firstItemSize.third) / 2}}, {
+        {static_cast<float>(scdItem.first) -
             static_cast<float>(scdItemSize.first) / 2,
             0 - scdItemSize.second / 2, static_cast<float>(scdItem.second) -
-                static_cast<float>(scdItemSize.third) / 2}, (Vector3){
+                static_cast<float>(scdItemSize.third) / 2}, {
             static_cast<float>(scdItem.first) +
                 static_cast<float>(scdItemSize.first) / 2,
             0 + scdItemSize.second / 2, static_cast<float>(scdItem.second) +

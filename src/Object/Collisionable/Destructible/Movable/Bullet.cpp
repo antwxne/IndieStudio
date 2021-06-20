@@ -24,7 +24,7 @@ Bullet::Bullet(const coords &pos, float angle) : MovableObject(pos, coords(1, 1,
     _rotationAxis = coords(0.0f, 1.0f, 0.0f);
     _damage = 1;
     _speed = 7;
-    _timeShot = std::chrono::_V2::high_resolution_clock::now();
+    _timeShot = std::chrono::high_resolution_clock::now();
 }
 
 void Bullet::move(const coords &direction) noexcept
@@ -75,11 +75,11 @@ void Bullet::setDirection(const coords &direction) noexcept
 }
 void Bullet::setShooting(bool val) noexcept
 {
-    auto end = std::chrono::_V2::high_resolution_clock::now();
+    auto end = std::chrono::high_resolution_clock::now();
 
     if (val) {
         _typeField.isShooting = true;
-        _timeShot = std::chrono::_V2::high_resolution_clock::now();
+        _timeShot = std::chrono::high_resolution_clock::now();
     }
     if (std::chrono::duration_cast<std::chrono::milliseconds>(end - _timeShot) >= std::chrono::milliseconds(500)) {
         _typeField.isShooting = false;

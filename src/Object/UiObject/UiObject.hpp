@@ -9,6 +9,7 @@
 #define UIOBJECT_HPP_
 
 #include "AObject.hpp"
+#include <array>
 
 /**
  * @brief UI object base class

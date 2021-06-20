@@ -7,6 +7,7 @@
 
 #include "UiScene.hpp"
 #include "Core.hpp"
+#include <algorithm>
 
 UiScene::UiScene(Setting &settings) : AScene(settings), _pressed(false), _state(-1)
 {

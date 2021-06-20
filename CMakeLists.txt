@@ -142,6 +142,8 @@ set(INDIE_SRCS
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules/)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/)
 
+add_compile_definitions(_USE_MATH_DEFINES)
+
 find_package(raylib REQUIRED)
 
 add_executable(${BINARY_NAME} Main.cpp ${INDIE_SRCS})
