@@ -111,22 +111,22 @@ private:
      * @brief when stop display
      * 
      */
-    std::chrono::_V2::system_clock::time_point _stop;
+    std::chrono::system_clock::time_point _stop;
     /**
      * @brief start time
      * 
      */
-    std::chrono::_V2::system_clock::time_point _start;
+    std::chrono::system_clock::time_point _start;
     /**
      * @brief time ref
      * 
      */
-    std::chrono::_V2::high_resolution_clock _time;
+    std::chrono::high_resolution_clock _time;
     /**
      * @brief time to update
      * 
      */
-    std::chrono::_V2::high_resolution_clock::time_point _updateTime;
+    std::chrono::high_resolution_clock::time_point _updateTime;
 };
 
 #endif //INDIESTUDIO_PARTICLES_HPP

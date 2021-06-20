@@ -9,6 +9,7 @@
 #include "Setting.hpp"
 #include "Core.hpp"
 #include "UiObject/UiGame/TexteUi.hpp"
+#include <algorithm>
 
 namespace win {
 

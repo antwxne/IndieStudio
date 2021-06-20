@@ -118,7 +118,7 @@ private:
      * @brief timer to not collide with tank when shooting
      * 
      */
-    std::chrono::_V2::high_resolution_clock::time_point _timeShot;
+    std::chrono::high_resolution_clock::time_point _timeShot;
 };
 
 

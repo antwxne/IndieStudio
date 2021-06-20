@@ -111,7 +111,7 @@ private:
      * @brief timeStamp used as a reference for fire cooldown
      *
      */
-    std::chrono::_V2::system_clock::time_point _fireTimeStamp;
+    std::chrono::system_clock::time_point _fireTimeStamp;
 
     /**
      * @brief cool down for firing ability
