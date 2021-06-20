@@ -1,5 +1,5 @@
 # Indie Studio
-> The aim of the Indie Studio is to implement a cross-platform 3D video game with real-world tools.
+> The goal of Indie Studio is to implement a cross-platform 3D video game with real-world tools.
 
 We decided to remake the _Wii tank_ game.
 
