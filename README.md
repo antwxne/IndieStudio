@@ -1,5 +1,4 @@
-# Indie Studio
-
+# Indie Studio ![Cpp](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white) ![raylib](https://img.shields.io/badge/Raylib-black?style=for-the-badge&logo=GNU&logoColor=white)
 > The goal of Indie Studio is to implement a cross-platform 3D video game with real-world tools.
 
 We decided to remake the _Wii tank_ game.
