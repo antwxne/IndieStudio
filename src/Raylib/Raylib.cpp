@@ -10,6 +10,7 @@
 #include <cmath>
 #include <fstream>
 
+#include "../../libs/raylib/src/raylib.h"
 #include "Raylib.hpp"
 #include "RaylibError.hpp"
 #include "Object/Collisionable/CollisionableObject.hpp"
